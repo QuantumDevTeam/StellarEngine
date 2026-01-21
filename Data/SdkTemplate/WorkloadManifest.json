@@ -1,0 +1,24 @@
+﻿{
+  "version": "{0}",
+  "description": "Stellar Game Engine SDK Workload",
+  "workloads": {
+    "stellar-sdk": {
+      "description": "Stellar Game Engine SDK for building games",
+      "packs": [
+        "Stellar.Sdk"
+      ],
+      "extends": [
+        "microsoft-net-sdk-blazorwebassembly"
+      ]
+    }
+  },
+  "packs": {
+    "Stellar.Sdk": {
+      "kind": "sdk",
+      "version": "{1}",
+      "alias-to": {
+        "win-x64": "Stellar.Sdk"
+      }
+    }
+  }
+}
