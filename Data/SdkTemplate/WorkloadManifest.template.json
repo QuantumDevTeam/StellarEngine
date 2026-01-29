@@ -1,5 +1,5 @@
 ﻿{
-  "version": "0.1.0",
+  "version": "{StellarSdkVersion}",
   "description": "Stellar Game Engine SDK Workload",
   "workloads": {
     "stellar-sdk": {
@@ -15,7 +15,7 @@
   "packs": {
     "Stellar.Sdk": {
       "kind": "sdk",
-      "version": "0.1.0",
+      "version": "{StellarSdkVersion}",
       "alias-to": {
         "win-x64": "Stellar.Sdk"
       }

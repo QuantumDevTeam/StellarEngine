@@ -1,22 +1,38 @@
 namespace Stellar.Tools;
 
-public class Program
+abstract class Program
 {
-    private static void CopySdkTemplate(string[] args)
+    static int Main(string[] args)
     {
-        throw new NotImplementedException();
+        if (args.Length == 0)
+        {
+            Console.WriteLine("Incorrect using. for help: 'stellar help'");
+            return 1;
+        }
+
+        if (args[0] == "install-sdk")
+            return InstallSdk();
+
+        Console.WriteLine("Unknown command. for help: 'stellar help'");
+        return 1;
     }
 
-    public static void Main(string[] args)
+    static int InstallSdk()
     {
-        switch (args[0])
-        {
-            case "SDKTemplateCreate":
-                CopySdkTemplate(args);
-                break;
-            default:
-                Console.WriteLine("Tool used is incorrect");
-                break;
-        }
+        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var dotnetRoot = Path.Combine(home, ".dotnet");
+        var sdkPath = Path.Combine(dotnetRoot, "sdk-advertising", "stellar.sdk");
+
+        Directory.CreateDirectory(sdkPath);
+
+        Console.WriteLine($"Installing Stellar SDK workload to {sdkPath}");
+
+        // дальше позже:
+        // - распаковка data/workload
+        // - установка STELLAR_ENGINE_PATH
+        // - проверка dotnet sdk version
+
+        Console.WriteLine("DONE (MVP)");
+        return 0;
     }
 }

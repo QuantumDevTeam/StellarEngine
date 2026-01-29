@@ -1,0 +1,48 @@
+<Project>
+    <PropertyGroup>
+        <_SdkTemplateDir>$(MSBuildThisFileDirectory)..\..\..\..\Data\SdkTemplate</_SdkTemplateDir>
+        <_GeneratedDir>$(IntermediateOutputPath)stellar-workload</_GeneratedDir>
+    </PropertyGroup>
+    
+    <Target Name="ValidateSdkTemplates" BeforeTargets="Pack">
+        <Error Condition="!Exists('$(_SdkTemplateDir)')"
+               Text="SdkTemplate directory not found: $(_SdkTemplateDir)" />
+    </Target>
+    
+    <Target Name="GenerateWorkloadManifest" BeforeTargets="Pack" DependsOnTargets="ValidateSdkTemplates">
+        <Message Text="Generating WorkloadManifest.json (SDK $(StellarSdkVersion))"/>
+
+        <MakeDir Directories="$(_GeneratedDir)" />
+
+        <PropertyGroup>
+            <_ManifestTemplate>
+                $([System.IO.File]::ReadAllText('$(_SdkTemplateDir)\WorkloadManifest.template.json'))
+            </_ManifestTemplate>
+
+            <_GeneratedManifest>
+                $(_ManifestTemplate.Replace('{StellarSdkVersion}', '$(StellarSdkVersion)'))
+            </_GeneratedManifest>
+        </PropertyGroup>
+
+        <WriteLinesToFile
+                File="$(_GeneratedDir)\WorkloadManifest.json"
+                Lines="$(_GeneratedManifest)"
+                Overwrite="true"/>
+    </Target>
+
+    <Target Name="PackWorkloadArtifacts" BeforeTargets="Pack" DependsOnTargets="GenerateWorkloadManifest">
+        <ItemGroup>
+            <None Include="$(_GeneratedDir)\WorkloadManifest.json"
+                  Pack="true"
+                  PackagePath="data/workload/" />
+
+            <None Include="$(_SdkTemplateDir)\AdvertisedManifestFeatureBand.txt"
+                  Pack="true"
+                  PackagePath="data/workload/" />
+
+            <None Include="$(_SdkTemplateDir)\WorkloadManifest.targets"
+                  Pack="true"
+                  PackagePath="data/workload/" />
+        </ItemGroup>
+    </Target>
+</Project>
