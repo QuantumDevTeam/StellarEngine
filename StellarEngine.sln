@@ -8,6 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{205B6A0C-09B2-4AD7-BE9A-A7781CD59863}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{029AC908-7378-4197-BF45-AD557B022B27}"
+	ProjectSection(SolutionItems) = preProject
+		SDK\build\package.bat = SDK\build\package.bat
+		SDK\build\package.py = SDK\build\package.py
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Native", "Native", "{0ABD5A08-6551-4C56-9171-6665F0B5D148}"
 EndProject
@@ -41,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sound", "Engine\src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Assets", "Engine\src\Modules\Stellar.Assets\Stellar.Assets.csproj", "{9B209AFB-FA81-4709-805F-915DFC06D974}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.UI", "Engine\src\Modules\Stellar.UI\Stellar.UI.csproj", "{60084B93-B4F6-47B6-8A84-2B6CB63314DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Graphic.UI", "Engine\src\Modules\Stellar.Graphic.UI\Stellar.Graphic.UI.csproj", "{60084B93-B4F6-47B6-8A84-2B6CB63314DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Graphic", "Engine\src\Modules\Stellar.Graphic\Stellar.Graphic.csproj", "{E4253960-FB35-4E3E-B33E-697322EB7065}"
 EndProject
@@ -50,6 +54,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Tools", "SDK\src\Stellar.Tools\Stellar.Tools.csproj", "{5CB6E6E8-3B99-4CB1-AE66-30B07FBABFC6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kernel", "Kernel", "{E51C0F9F-920C-419C-849D-30C0BED86743}"
+	ProjectSection(SolutionItems) = preProject
+		Kernel\build\package.bat = Kernel\build\package.bat
+		Kernel\build\package.py = Kernel\build\package.py
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Kernel", "Kernel\src\Stellar.Kernel\Stellar.Kernel.csproj", "{EBC9C820-AB04-4B05-8609-542D9412D59B}"
 EndProject

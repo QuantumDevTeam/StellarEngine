@@ -1,0 +1,81 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
+
+    <!-- Stellar Configurations -->
+    <PropertyGroup>
+        <StellarEnginePath>$([System.Environment]::GetEnvironmentVariable('STELLAR_ENGINE_PATH'))</StellarEnginePath>
+        <StellarSdkVersion>0.2.0</StellarSdkVersion>
+        <StellarEngineVersion>0.0.2</StellarEngineVersion>
+        <WinSdkVersion Condition="'$(WinSdkVersion)' == ''">10.0.26100.0</WinSdkVersion>
+        
+        <StellarOutputType Condition="'$(StellarOutputType)' == ''">Modern</StellarOutputType>
+        <StellarProjectName Condition="'$(StellarProjectName)' == ''">$(AssemblyName)</StellarProjectName>
+
+        <StellarVersionFile Condition="'$(StellarVersionFile)' == ''">$(StellarProjectName).stellar.version.txt</StellarVersionFile>
+        <StellarProjectConfigurationFile Condition="'$(StellarProjectConfigurationFile)' == ''">$(StellarProjectName).stellar.project</StellarProjectConfigurationFile>
+
+        <StellarRuntimeConfigType Condition="'$(StellarRuntimeConfigType)' == ''">External</StellarRuntimeConfigType>
+        <StellarLocalizationIndexType Condition="'$(StellarLocalizationIndexType)' == ''">External</StellarLocalizationIndexType>
+
+        <Error Condition="'$(StellarSdkUsage)' == ''">StellarSdkUsage must be configured</Error>
+        <Error Condition="!Exists('$(StellarProjectConfigurationFile)')">$(StellarProjectConfigurationFile) config is not find in project files</Error>
+        <Error Condition="'$(StellarEnginePath)' == ''">STELLAR_ENGINE_PATH environment variable is not set.</Error>
+        <Error Condition="'$(StellarEngineVersion)' == ''">Stellar Engine must be configured</Error>
+    </PropertyGroup>
+
+    <!-- Base .NET -->
+    <PropertyGroup>
+        <TargetFramework>net9.0-windows$(WinSdkVersion)</TargetFramework>
+        <PlatformTarget>x64</PlatformTarget>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+        <!-- build configuration -->
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>x64</Platforms>
+
+        <!-- Build path configuration -->
+        <OutputPath>bin\$(Configuration)</OutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <!--        All scenarios needs to include Stellar.Core in project-->
+        <ProjectReference Include="$(StellarEnginePath)/SDK/Stellar.Core/Stellar.Core.csproj"/>
+    </ItemGroup>
+
+    <!-- StellarSdkUsage - Game -->
+    <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Game'">
+        <StellarGameIcon Condition="'$(StellarGameIcon)' == ''">$(StellarProjectName).ico</StellarGameIcon>
+        <StellarGameManifest Condition="'$(StellarGameManifest)' == ''">$(StellarProjectName).manifest</StellarGameManifest>
+
+        <ApplicationIcon Condition="Exists('$(StellarGameIcon)')">$(StellarGameIcon)</ApplicationIcon>
+        <ApplicationManifest Condition="Exists('$(StellarGameManifest)')">$(StellarGameManifest)</ApplicationManifest>
+    </PropertyGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Game'">
+        <ProjectReference Include="$(StellarEnginePath)/StellarEngine/StellarEngine.csproj"/>
+    </ItemGroup>
+
+    <!-- StellarSdkUsage - Module -->
+    <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Module'">
+    </PropertyGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Module'">
+        <ProjectReference Include="$(StellarEnginePath)/StellarEngine/StellarEngine.csproj"/>
+    </ItemGroup>
+
+    <!-- StellarSdkUsage - EngineModule -->
+    <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineModule'">
+    </PropertyGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule'">
+        <ProjectReference Include="$(StellarEnginePath)/StellarEngine.Core/StellarEngine.Core.csproj"/>
+    </ItemGroup>
+
+    <!-- StellarSdkUsage - EngineCoreModule -->
+    <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule'">
+    </PropertyGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule'">
+    </ItemGroup>
+</Project>

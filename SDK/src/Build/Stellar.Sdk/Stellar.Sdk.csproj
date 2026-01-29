@@ -1,9 +1,50 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+
+        <IsPackable>true</IsPackable>
+
+        <PackageId>Stellar.Sdk</PackageId>
+        <PackageVersion>0.1.0</PackageVersion>
+
+        <DevelopmentDependency>true</DevelopmentDependency>
+
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     </PropertyGroup>
 
+    <ItemGroup>
+        <!-- standard MSBuild-->
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.0.0" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Kernel package -->
+        <PackageReference Include="Stellar.Kernel" Version="0.1.0">
+            <PrivateAssets>none</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <!-- tasks deps -->
+
+    <ItemGroup>
+        <ProjectReference Include="..\Stellar.Sdk.Tasks\Stellar.Sdk.Tasks.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="Sdk.props" Pack="true" PackagePath="Sdk/"/>
+        <None Include="Sdk.targets" Pack="true" PackagePath="Sdk/"/>
+
+        <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Stellar.Sdk.Tasks.dll"
+              Pack="true" PackagePath="lib/netstandard2.0/"/>
+
+        <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Glob.dll"
+              Pack="true" PackagePath="lib/netstandard2.0/"/>
+        <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Microsoft.NET.HostModel.dll"
+              Pack="true" PackagePath="lib/netstandard2.0/"/>
+        <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Microsoft.CodeAnalysis.dll"
+              Pack="true" PackagePath="lib/netstandard2.0/"/>
+        <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Microsoft.CodeAnalysis.CSharp.dll"
+              Pack="true" PackagePath="lib/netstandard2.0/"/>
+    </ItemGroup>
 </Project>
