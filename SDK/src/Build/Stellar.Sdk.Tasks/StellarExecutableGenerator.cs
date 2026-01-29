@@ -4,7 +4,6 @@ using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using Microsoft.NET.HostModel.AppHost;
 
-
 namespace Stellar.Sdk.Tasks
 {
     public class StellarExecutableGenerator : Task

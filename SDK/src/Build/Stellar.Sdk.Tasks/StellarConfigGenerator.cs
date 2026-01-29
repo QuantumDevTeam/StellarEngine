@@ -101,14 +101,15 @@ namespace Stellar.Sdk.Tasks
 
                 Log.LogMessage(MessageImportance.High,
                     $" Stellar runtime configuration generated in file: {configIntermediateFile}");
-                
+
                 StellarRuntimeConfigFile = new TaskItem(configIntermediateFile);
-                
+
                 StellarRuntimeConfigFile.SetMetadata("Link", StellarRuntimeConfigName);
 
                 if (config.RuntimeConfigIsEmbedded)
                 {
-                    StellarRuntimeConfigFile.SetMetadata("LogicalName", $"{StellarProjectName}:{StellarRuntimeConfigName}");
+                    StellarRuntimeConfigFile.SetMetadata("LogicalName",
+                        $"{StellarProjectName}:{StellarRuntimeConfigName}");
                     StellarRuntimeConfigFile.SetMetadata("CopyToOutputDirectory", "Never");
                     StellarRuntimeConfigFile.SetMetadata("Embedded", "true");
                 }

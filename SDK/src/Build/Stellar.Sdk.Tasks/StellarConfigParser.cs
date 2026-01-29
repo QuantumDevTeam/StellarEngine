@@ -8,7 +8,6 @@ using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using Newtonsoft.Json;
 
-
 namespace Stellar.Sdk.Tasks
 {
     public class StellarConfig
@@ -88,10 +87,11 @@ namespace Stellar.Sdk.Tasks
 
                 var configJson = File.ReadAllText(configFilePath);
                 var config = JsonConvert.DeserializeObject<StellarConfig>(configJson);
-                
+
                 if (!config.Localizations.Cultures.Contains(config.Localizations.DefaultCulture))
                 {
-                    Log.LogError($"Default culture '{config.Localizations.DefaultCulture}' is not in the list of supported cultures: {string.Join(", ", config.Localizations.Cultures)}");
+                    Log.LogError(
+                        $"Default culture '{config.Localizations.DefaultCulture}' is not in the list of supported cultures: {string.Join(", ", config.Localizations.Cultures)}");
                     return false;
                 }
 

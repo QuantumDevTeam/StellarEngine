@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Versions -->
     <Import Project="..\..\..\..\Data\version.props"/>
+
+    <!-- Workload Setup Targets -->
     <Import Project="WorkloadSetup.targets"
             Condition="'$(IsPacking)' == 'true'"/>
 
@@ -8,6 +11,8 @@
 
         <IsPackable>true</IsPackable>
         <PackageId>Stellar.Sdk</PackageId>
+        <Authors>QuantumDev</Authors>
+        <Description>StellarEngine SDK</Description>
         <PackageVersion>$(StellarSdkVersion)</PackageVersion>
 
         <DevelopmentDependency>true</DevelopmentDependency>
@@ -17,15 +22,13 @@
 
     <ItemGroup>
         <!-- sdk deps -->
-        <None Include="Sdk.props"
-              Pack="true" PackagePath="buildTransitive/"/>
-        <None Include="Sdk.targets"
-              Pack="true" PackagePath="buildTransitive/"/>
+        <None Include="Stellar.Sdk.props" Pack="true" PackagePath="buildTransitive/"/>
+        <None Include="Stellar.Sdk.targets" Pack="true" PackagePath="buildTransitive/"/>
     </ItemGroup>
 
     <ItemGroup>
-        <!-- targets deps -->
-        <ProjectReference Include="..\Stellar.Sdk.Tasks\Stellar.Sdk.Tasks.csproj"
-                          PrivateAssets="all"/>
+        <!-- copying -->
+        <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Stellar.Sdk.Tasks.dll"
+              Pack="true" PackagePath="lib/netstandard2.0/"/>
     </ItemGroup>
 </Project>

@@ -1,9 +1,16 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 
+    <Target Name="ValidatingPropertyes" BeforeTargets="BeforeResolveReferences">
+        <Error Condition="'$(StellarSdkUsage)' == ''">StellarSdkUsage must be configured</Error>
+        <Error Condition="!Exists('$(StellarProjectConfigurationFile)')">$(StellarProjectConfigurationFile) config is not find in project files</Error>
+        <Error Condition="'$(StellarEnginePath)' == ''">STELLAR_ENGINE_PATH environment variable is not set.</Error>
+        <Error Condition="'$(StellarEngineVersion)' == ''">Stellar Engine must be configured</Error>
+    </Target>
+
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigParser"
                AssemblyFile="$(MSBuildThisFileDirectory)..\lib\win-x64\Stellar.Sdk.Tasks.dll"/>
-    <Target Name="StellarParseConfigurations" BeforeTargets="BeforeResolveReferences">
+    <Target Name="StellarParseConfigurations" BeforeTargets="BeforeResolveReferences" DependsOnTargets="ValidatingPropertyes">
         <Message Importance="high" Text="=== STELLAR SDK: Configuration parsing ==="/>
 
         <StellarConfigParser
@@ -46,9 +53,9 @@
 
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigGenerator"
                AssemblyFile="$(MSBuildThisFileDirectory)..\lib\win-x64\Stellar.Sdk.Tasks.dll"/>
-    <Target Name="StellarGenerateRunrimeConfig" 
+    <Target Name="StellarGenerateRunrimeConfig"
             BeforeTargets="Build"
-            DependsOnTargets="StellarParseConfigurations;StellarFindEntryPoint">
+            DependsOnTargets="StellarParseConfigurations;StellarFindEntryPoint;ValidatingPropertyes">
         <Message Importance="high" Text="=== STELLAR SDK: Configuration files generating ==="/>
 
         <StellarConfigGenerator
@@ -87,7 +94,7 @@
     <!--    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarExecutableGenerator"-->
     <!--               AssemblyFile="$(MSBuildThisFileDirectory)..\lib\win-x64\Stellar.Sdk.Tasks.dll"/>-->
     <!--    <Target Name="StelalrGenerateExecutable" AfterTargets="Build"-->
-    <!--            Condition="'$(StellarSdkUsage)' == 'Game'">-->
+    <!--            Condition="'$(StellarSdkUsage)' == 'Game'" DependsOnTargets="ValidatingPropertyes">-->
     <!--        <StellarExecutableGenerator-->
     <!--                StellarProjectName="$(StellarProjectName)"-->
     <!--                StellarOutputType="$(StellarOutputType)"-->

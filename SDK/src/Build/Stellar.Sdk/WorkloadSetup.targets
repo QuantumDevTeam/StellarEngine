@@ -1,18 +1,19 @@
 <Project>
     <PropertyGroup>
         <_SdkTemplateDir>$(MSBuildThisFileDirectory)..\..\..\..\Data\SdkTemplate</_SdkTemplateDir>
-        <_GeneratedDir>$(IntermediateOutputPath)stellar-workload</_GeneratedDir>
+        <_GeneratedDir>$(BaseIntermediateOutputPath)\stellar-workload</_GeneratedDir>
     </PropertyGroup>
-    
-    <Target Name="ValidateSdkTemplates" BeforeTargets="Pack">
-        <Error Condition="!Exists('$(_SdkTemplateDir)')"
-               Text="SdkTemplate directory not found: $(_SdkTemplateDir)" />
-    </Target>
-    
-    <Target Name="GenerateWorkloadManifest" BeforeTargets="Pack" DependsOnTargets="ValidateSdkTemplates">
-        <Message Text="Generating WorkloadManifest.json (SDK $(StellarSdkVersion))"/>
 
-        <MakeDir Directories="$(_GeneratedDir)" />
+    <Target Name="ValidateSdkTemplates" 
+            BeforeTargets="BeforeResolveReferences">
+        <Error Condition="!Exists('$(_SdkTemplateDir)')"
+               Text="SdkTemplate directory not found: $(_SdkTemplateDir)"/>
+    </Target>
+
+    <Target Name="GenerateWorkloadManifest"
+            BeforeTargets="BeforeResolveReferences"
+            DependsOnTargets="ValidateSdkTemplates">
+        <MakeDir Directories="$(_GeneratedDir)"/>
 
         <PropertyGroup>
             <_ManifestTemplate>
@@ -30,19 +31,24 @@
                 Overwrite="true"/>
     </Target>
 
-    <Target Name="PackWorkloadArtifacts" BeforeTargets="Pack" DependsOnTargets="GenerateWorkloadManifest">
+    <Target Name="PackWorkloadArtifacts" 
+            BeforeTargets="BeforeResolveReferences" 
+            DependsOnTargets="GenerateWorkloadManifest">
         <ItemGroup>
-            <None Include="$(_GeneratedDir)\WorkloadManifest.json"
-                  Pack="true"
-                  PackagePath="data/workload/" />
+            <Content Include="$(_GeneratedDir)\WorkloadManifest.json">
+                <Pack>true</Pack>
+                <PackagePath>data/workload/</PackagePath>
+            </Content>
 
-            <None Include="$(_SdkTemplateDir)\AdvertisedManifestFeatureBand.txt"
-                  Pack="true"
-                  PackagePath="data/workload/" />
+            <Content Include="$(_SdkTemplateDir)\AdvertisedManifestFeatureBand.txt">
+                <Pack>true</Pack>
+                <PackagePath>data/workload/</PackagePath>
+            </Content>
 
-            <None Include="$(_SdkTemplateDir)\WorkloadManifest.targets"
-                  Pack="true"
-                  PackagePath="data/workload/" />
+            <Content Include="$(_SdkTemplateDir)\WorkloadManifest.targets">
+                <Pack>true</Pack>
+                <PackagePath>data/workload/</PackagePath>
+            </Content>
         </ItemGroup>
     </Target>
 </Project>

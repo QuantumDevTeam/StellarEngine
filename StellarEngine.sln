@@ -10,7 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{029AC908-7378-4197-BF45-AD557B022B27}"
 	ProjectSection(SolutionItems) = preProject
 		SDK\build\package.bat = SDK\build\package.bat
-		SDK\build\package.py = SDK\build\package.py
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Native", "Native", "{0ABD5A08-6551-4C56-9171-6665F0B5D148}"
@@ -51,12 +50,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Graphic", "Engine\s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Physics", "Engine\src\Modules\Stellar.Physics\Stellar.Physics.csproj", "{6223871B-1963-4B36-8D35-9D35005F77D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Tools", "SDK\src\Stellar.Tools\Stellar.Tools.csproj", "{5CB6E6E8-3B99-4CB1-AE66-30B07FBABFC6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kernel", "Kernel", "{E51C0F9F-920C-419C-849D-30C0BED86743}"
 	ProjectSection(SolutionItems) = preProject
 		Kernel\build\package.bat = Kernel\build\package.bat
-		Kernel\build\package.py = Kernel\build\package.py
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Kernel", "Kernel\src\Stellar.Kernel\Stellar.Kernel.csproj", "{EBC9C820-AB04-4B05-8609-542D9412D59B}"
@@ -64,6 +60,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Graphic.Kernel", "Kernel\src\Stellar.Graphic.Kernel\Stellar.Graphic.Kernel.csproj", "{2398E8D4-71F6-4FA2-A3C8-FB46BB44C7F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Graphic.UI.Kernel", "Kernel\src\Stellar.Graphic.UI.Kernel\Stellar.Graphic.UI.Kernel.csproj", "{A8E0B639-72E6-41DD-ADA4-F582A85E0726}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Tools", "SDK\src\Stellar.Tools\Stellar.Tools.csproj", "{6F3E9245-C14B-491B-93CF-7D078E7089D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CDE172FD-CD80-43F2-9846-A1757132B286}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\add_nuget_source.bat = scripts\add_nuget_source.bat
+		install.bat = install.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,10 +135,6 @@ Global
 		{6223871B-1963-4B36-8D35-9D35005F77D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6223871B-1963-4B36-8D35-9D35005F77D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6223871B-1963-4B36-8D35-9D35005F77D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5CB6E6E8-3B99-4CB1-AE66-30B07FBABFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CB6E6E8-3B99-4CB1-AE66-30B07FBABFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CB6E6E8-3B99-4CB1-AE66-30B07FBABFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CB6E6E8-3B99-4CB1-AE66-30B07FBABFC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBC9C820-AB04-4B05-8609-542D9412D59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EBC9C820-AB04-4B05-8609-542D9412D59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC9C820-AB04-4B05-8609-542D9412D59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -147,6 +147,10 @@ Global
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F3E9245-C14B-491B-93CF-7D078E7089D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F3E9245-C14B-491B-93CF-7D078E7089D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F3E9245-C14B-491B-93CF-7D078E7089D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F3E9245-C14B-491B-93CF-7D078E7089D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,9 +175,9 @@ Global
 		{60084B93-B4F6-47B6-8A84-2B6CB63314DE} = {1C440145-589E-46A4-A984-9D88FC666912}
 		{E4253960-FB35-4E3E-B33E-697322EB7065} = {1C440145-589E-46A4-A984-9D88FC666912}
 		{6223871B-1963-4B36-8D35-9D35005F77D9} = {1C440145-589E-46A4-A984-9D88FC666912}
-		{5CB6E6E8-3B99-4CB1-AE66-30B07FBABFC6} = {029AC908-7378-4197-BF45-AD557B022B27}
 		{EBC9C820-AB04-4B05-8609-542D9412D59B} = {E51C0F9F-920C-419C-849D-30C0BED86743}
 		{2398E8D4-71F6-4FA2-A3C8-FB46BB44C7F8} = {E51C0F9F-920C-419C-849D-30C0BED86743}
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726} = {E51C0F9F-920C-419C-849D-30C0BED86743}
+		{6F3E9245-C14B-491B-93CF-7D078E7089D7} = {029AC908-7378-4197-BF45-AD557B022B27}
 	EndGlobalSection
 EndGlobal

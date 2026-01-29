@@ -1,4 +1,4 @@
-namespace Stellar.Tools;
+﻿namespace Stellar.Tools;
 
 abstract class Program
 {

@@ -4,6 +4,7 @@
 *.iml
 # test files
 *_test_*.*
+dotnet-tools.json
 
 AppLib/Assets/IMG-M.png
 NEXTRELEASE.md

@@ -7,7 +7,6 @@ using Microsoft.Build.Utilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-
 using Stellar.Kernel.EntryPoint;
 
 namespace Stellar.Sdk.Tasks

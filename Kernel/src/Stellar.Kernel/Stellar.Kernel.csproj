@@ -1,9 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Versions -->
+    <Import Project="..\..\..\Data\version.props"/>
+
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
 
         <IsPackable>true</IsPackable>
         <PackageId>Stellar.Kernel</PackageId>
-        <PackageVersion>0.1.0</PackageVersion>
+        <Authors>QuantumDev</Authors>
+        <Description>StellarEngine base Kernel module</Description>
+        <PackageVersion>$(StellarKernelVersion)</PackageVersion>
     </PropertyGroup>
 </Project>

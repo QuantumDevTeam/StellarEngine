@@ -1,11 +1,13 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
+    
+    <!-- Versions -->
+    <Import Project="..\..\..\..\Data\version.props"/>
 
     <!-- Stellar Configurations -->
     <PropertyGroup>
         <StellarEnginePath>$([System.Environment]::GetEnvironmentVariable('STELLAR_ENGINE_PATH'))</StellarEnginePath>
-        <StellarSdkVersion>0.2.0</StellarSdkVersion>
-        <StellarEngineVersion>0.0.2</StellarEngineVersion>
+
         <WinSdkVersion Condition="'$(WinSdkVersion)' == ''">10.0.26100.0</WinSdkVersion>
         
         <StellarOutputType Condition="'$(StellarOutputType)' == ''">Modern</StellarOutputType>
@@ -16,11 +18,6 @@
 
         <StellarRuntimeConfigType Condition="'$(StellarRuntimeConfigType)' == ''">External</StellarRuntimeConfigType>
         <StellarLocalizationIndexType Condition="'$(StellarLocalizationIndexType)' == ''">External</StellarLocalizationIndexType>
-
-        <Error Condition="'$(StellarSdkUsage)' == ''">StellarSdkUsage must be configured</Error>
-        <Error Condition="!Exists('$(StellarProjectConfigurationFile)')">$(StellarProjectConfigurationFile) config is not find in project files</Error>
-        <Error Condition="'$(StellarEnginePath)' == ''">STELLAR_ENGINE_PATH environment variable is not set.</Error>
-        <Error Condition="'$(StellarEngineVersion)' == ''">Stellar Engine must be configured</Error>
     </PropertyGroup>
 
     <!-- Base .NET -->
