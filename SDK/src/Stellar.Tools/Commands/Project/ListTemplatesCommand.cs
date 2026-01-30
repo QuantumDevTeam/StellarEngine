@@ -7,19 +7,13 @@ public sealed class ListTemplatesCommand : Command
 {
     public override int Execute(CommandContext context)
     {
-        var env = new StellarEnvironment();
-
-        var enginePath = env.GetEnginePath();
-        if (enginePath == null)
-        {
-            AnsiConsole.MarkupLine("[red]No Engine directory found (Engine dir must be in PATH variable)[/]");
-            return -1;
-        }
+        var enginePath = StellarEnvironment.GetStellarEngineInstallationPath();
 
         var templatesDir = Path.Combine(
             enginePath,
             "Data",
-            "GameTemplates"
+            "Templates",
+            "Projects"
         );
 
         if (!Directory.Exists(templatesDir))

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <!-- Versions -->
     <Import Project="..\..\..\Data\version.props"/>
-    
+
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
@@ -10,7 +10,7 @@
         <PackageId>Stellar.Tools</PackageId>
         <Authors>QuantumDev</Authors>
         <Description>StellarEngine development tools</Description>
-        <PackageVersion>$(StellarSdkVersion)</PackageVersion>
+        <PackageVersion>$(StellarToolsVersion)</PackageVersion>
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>stellar</ToolCommandName>
 
@@ -24,7 +24,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Spectre.Console" Version="0.49.1" />
-        <PackageReference Include="Spectre.Console.Cli" Version="0.49.1" />
+        <PackageReference Include="Spectre.Console" Version="0.49.1"/>
+        <PackageReference Include="Spectre.Console.Cli" Version="0.49.1"/>
     </ItemGroup>
+
+    <Target Name="GenerateVersionFile" BeforeTargets="BeforeBuild">
+        <WriteLinesToFile
+                File="$(IntermediateOutputPath)VersionInfo.g.cs"
+                Lines="namespace Stellar.Tools%3B
+public static partial class StellarVersions
+{
+    public const string StellarSdkVersion = &quot;$(StellarSdkVersion)&quot;%3B
+    public const string StellarToolsVersion = &quot;$(StellarToolsVersion)&quot;%3B
+    public const string StellarKernelVersion = &quot;$(StellarKernelVersion)&quot;%3B
+    public const string StellarEngineVersion = &quot;$(StellarEngineVersion)&quot;%3B
+}"
+                Overwrite="true"/>
+        <ItemGroup>
+            <Compile Include="$(IntermediateOutputPath)VersionInfo.g.cs"/>
+        </ItemGroup>
+    </Target>
 </Project>

@@ -1,10 +1,10 @@
 <Project>
     <PropertyGroup>
-        <_SdkTemplateDir>$(MSBuildThisFileDirectory)..\..\..\..\Data\SdkTemplate</_SdkTemplateDir>
-        <_GeneratedDir>$(BaseIntermediateOutputPath)\stellar-workload</_GeneratedDir>
+        <_SdkTemplateDir>$(MSBuildThisFileDirectory)..\..\..\..\Data\Template\SDK</_SdkTemplateDir>
+        <_GeneratedDir>$(MSBuildThisFileDirectory)..\..\..\..\Data\.generated</_GeneratedDir>
     </PropertyGroup>
 
-    <Target Name="ValidateSdkTemplates" 
+    <Target Name="ValidateSdkTemplates"
             BeforeTargets="BeforeResolveReferences">
         <Error Condition="!Exists('$(_SdkTemplateDir)')"
                Text="SdkTemplate directory not found: $(_SdkTemplateDir)"/>
@@ -13,7 +13,7 @@
     <Target Name="GenerateWorkloadManifest"
             BeforeTargets="BeforeResolveReferences"
             DependsOnTargets="ValidateSdkTemplates">
-        <MakeDir Directories="$(_GeneratedDir)"/>
+        <MakeDir Directories="$(_GeneratedDir)\stellar-workload"/>
 
         <PropertyGroup>
             <_ManifestTemplate>
@@ -26,24 +26,27 @@
         </PropertyGroup>
 
         <WriteLinesToFile
-                File="$(_GeneratedDir)\WorkloadManifest.json"
+                File="$(_GeneratedDir)\stellar-workload\WorkloadManifest.json"
                 Lines="$(_GeneratedManifest)"
                 Overwrite="true"/>
+        
+        <Copy SourceFiles="$(_SdkTemplateDir)\WorkloadManifest.targets"
+              DestinationFiles="$(_GeneratedDir)\stellar-workload\WorkloadManifest.targets"/>
     </Target>
 
-    <Target Name="PackWorkloadArtifacts" 
-            BeforeTargets="BeforeResolveReferences" 
-            DependsOnTargets="GenerateWorkloadManifest">
-        <ItemGroup>
-            <Content Include="$(_GeneratedDir)\WorkloadManifest.json">
-                <Pack>true</Pack>
-                <PackagePath>data/workload/</PackagePath>
-            </Content>
-            
-            <Content Include="$(_SdkTemplateDir)\WorkloadManifest.targets">
-                <Pack>true</Pack>
-                <PackagePath>data/workload/</PackagePath>
-            </Content>
-        </ItemGroup>
+    <Target Name="GenerateSharedDescriptor"
+            BeforeTargets="BeforeResolveReferences"
+            DependsOnTargets="ValidateSdkTemplates">
+        <MakeDir Directories="$(_GeneratedDir)"/>
+
+        <WriteLinesToFile
+                File="$(_GeneratedDir)\.stellar.desc.json"
+                Lines="{
+    &quot;SdkVersion&quot;: &quot;$(StellarSdkVersion)&quot;,
+    &quot;ToolsVersion&quot;: &quot;$(StellarToolsVersion)&quot;,
+    &quot;KernelVersion&quot;: &quot;$(StellarKernelVersion)&quot;,
+    &quot;EngineVersion&quot;: &quot;$(StellarEngineVersion)&quot;
+}"
+                Overwrite="true"/>
     </Target>
 </Project>

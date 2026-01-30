@@ -1,6 +1,7 @@
 <Project>
     <PropertyGroup>
         <StellarSdkVersion>0.1.0</StellarSdkVersion>
+        <StellarToolsVersion>0.1.0</StellarToolsVersion>
         <StellarKernelVersion>0.1.0</StellarKernelVersion>
         <StellarEngineVersion>0.1.0</StellarEngineVersion>
     </PropertyGroup>

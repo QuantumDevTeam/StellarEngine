@@ -2,6 +2,7 @@
 using Stellar.Tools.Commands;
 using Stellar.Tools.Commands.Project;
 using Stellar.Tools.Commands.Sdk;
+using Stellar.Tools.Commands.Version;
 
 var app = new CommandApp();
 
@@ -11,6 +12,23 @@ app.Configure(config =>
 
     config.AddCommand<InfoCommand>("info")
         .WithDescription("Show StellarEngine information");
+    
+    config.AddBranch("version", sdk =>
+    {
+        sdk.SetDescription("Systems versions");
+
+        sdk.AddCommand<SdkVersionCommand>("sdk")
+            .WithDescription("SDK Version");
+        
+        sdk.AddCommand<ToolsVersionCommand>("tools")
+            .WithDescription("Tools Version");
+        
+        sdk.AddCommand<KernelVersionCommand>("kernel")
+            .WithDescription("Kernel Version");
+        
+        sdk.AddCommand<EngineVersionCommand>("engine")
+            .WithDescription("Engine Version");
+    });
 
     config.AddBranch("sdk", sdk =>
     {

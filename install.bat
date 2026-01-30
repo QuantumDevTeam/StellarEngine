@@ -1,12 +1,36 @@
 @echo off
 setlocal enabledelayedexpansion
 
+rem Tools packaging
+pushd "%~dp0"
+cd /d "SDK/build"
+call "Tools.package.bat"
+if errorlevel 1 (
+    echo ERROR: Failed to pack Tools
+    popd
+    exit /b 1
+)
+popd
+
+rem installing/updating dotnet tool
+echo.
+pushd "%~dp0"
+cd /d "scripts"
+call "tools.install.bat"
+if errorlevel 1 (
+    echo ERROR: Failed to pack Kernel
+    popd
+    exit /b 1
+)
+popd
+
 rem Kernel packaging
+echo.
 pushd "%~dp0"
 cd /d "Kernel/build"
 call "package.bat"
 if errorlevel 1 (
-    echo ERROR: Failed to install Kernel
+    echo ERROR: Failed to pack Kernel
     popd
     exit /b 1
 )
@@ -16,36 +40,9 @@ rem SDK packaging
 echo.
 pushd "%~dp0"
 cd /d "SDK/build"
-call "package.bat"
+call "Sdk.package.bat"
 if errorlevel 1 (
-    echo ERROR: Failed to install SDK
-    popd
-    exit /b 1
-)
-popd
-
-rem installing/updating dotnet tool
-echo.
-pushd "%~dp0"
-cd /d SDK
-echo Installing/updating Stellar.Tools tool...
-dotnet tool update --add-source dist Stellar.Tools 2>nul || (
-    dotnet tool install --add-source dist Stellar.Tools
-)
-if errorlevel 1 (
-    echo ERROR: Failed to install/update Stellar.Tools tool
-    echo Check if Stellar.Tools.nupkg exists in dist folder
-    dir dist\*.nupkg
-    popd
-    exit /b 1
-)
-
-rem verifying dotnet tool
-echo.
-echo Verifying Tools installation...
-dotnet tool list | findstr /i "stellar"
-if errorlevel 1 (
-    echo ERROR: Stellar.Tools not found in tools list
+    echo ERROR: Failed to pack SDK
     popd
     exit /b 1
 )

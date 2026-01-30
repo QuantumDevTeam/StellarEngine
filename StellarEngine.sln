@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{205B6A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{029AC908-7378-4197-BF45-AD557B022B27}"
 	ProjectSection(SolutionItems) = preProject
-		SDK\build\package.bat = SDK\build\package.bat
+		SDK\build\Tools.package.bat = SDK\build\Tools.package.bat
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Native", "Native", "{0ABD5A08-6551-4C56-9171-6665F0B5D148}"
@@ -17,6 +17,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1C440145-589E-46A4-A984-9D88FC666912}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{A66717E9-F1A5-42E7-B003-FAA5FB0AA397}"
+	ProjectSection(SolutionItems) = preProject
+		SDK\build\Sdk.package.bat = SDK\build\Sdk.package.bat
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sdk", "SDK\src\Build\Stellar.Sdk\Stellar.Sdk.csproj", "{C73C8485-235C-4D45-90E8-5135343295DE}"
 EndProject
@@ -67,6 +70,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CDE1
 	ProjectSection(SolutionItems) = preProject
 		scripts\add_nuget_source.bat = scripts\add_nuget_source.bat
 		install.bat = install.bat
+		scripts\tools.install.bat = scripts\tools.install.bat
 	EndProjectSection
 EndProject
 Global
