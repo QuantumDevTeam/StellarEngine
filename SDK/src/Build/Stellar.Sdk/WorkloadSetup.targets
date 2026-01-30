@@ -39,12 +39,7 @@
                 <Pack>true</Pack>
                 <PackagePath>data/workload/</PackagePath>
             </Content>
-
-            <Content Include="$(_SdkTemplateDir)\AdvertisedManifestFeatureBand.txt">
-                <Pack>true</Pack>
-                <PackagePath>data/workload/</PackagePath>
-            </Content>
-
+            
             <Content Include="$(_SdkTemplateDir)\WorkloadManifest.targets">
                 <Pack>true</Pack>
                 <PackagePath>data/workload/</PackagePath>

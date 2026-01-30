@@ -1,38 +1,43 @@
-﻿namespace Stellar.Tools;
+﻿using Spectre.Console.Cli;
+using Stellar.Tools.Commands;
+using Stellar.Tools.Commands.Project;
+using Stellar.Tools.Commands.Sdk;
 
-abstract class Program
+var app = new CommandApp();
+
+app.Configure(config =>
 {
-    static int Main(string[] args)
+    config.SetApplicationName("stellar");
+
+    config.AddCommand<InfoCommand>("info")
+        .WithDescription("Show StellarEngine information");
+
+    config.AddBranch("sdk", sdk =>
     {
-        if (args.Length == 0)
+        sdk.SetDescription("SDK related commands");
+
+        sdk.AddCommand<InstallSdkCommand>("install")
+            .WithDescription("Install Stellar SDK workload");
+    });
+
+    config.AddBranch("project", project =>
+    {
+        project.SetDescription("Project related commands");
+
+        project.AddCommand<ProjectInfoCommand>("info")
+            .WithDescription("Show project information");
+
+        project.AddCommand<NewProjectCommand>("new")
+            .WithDescription("Create new project from template");
+
+        project.AddBranch("template", template =>
         {
-            Console.WriteLine("Incorrect using. for help: 'stellar help'");
-            return 1;
-        }
+            template.SetDescription("Project templates");
 
-        if (args[0] == "install-sdk")
-            return InstallSdk();
+            template.AddCommand<ListTemplatesCommand>("list")
+                .WithDescription("List available project templates");
+        });
+    });
+});
 
-        Console.WriteLine("Unknown command. for help: 'stellar help'");
-        return 1;
-    }
-
-    static int InstallSdk()
-    {
-        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        var dotnetRoot = Path.Combine(home, ".dotnet");
-        var sdkPath = Path.Combine(dotnetRoot, "sdk-advertising", "stellar.sdk");
-
-        Directory.CreateDirectory(sdkPath);
-
-        Console.WriteLine($"Installing Stellar SDK workload to {sdkPath}");
-
-        // дальше позже:
-        // - распаковка data/workload
-        // - установка STELLAR_ENGINE_PATH
-        // - проверка dotnet sdk version
-
-        Console.WriteLine("DONE (MVP)");
-        return 0;
-    }
-}
+return app.Run(args);
