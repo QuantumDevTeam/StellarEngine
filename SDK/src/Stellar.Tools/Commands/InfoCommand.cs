@@ -11,9 +11,9 @@ public sealed class InfoCommand : Command
             .AddColumn("Key")
             .AddColumn("Value");
 
-        table.AddRow("Dotnet feature band", StellarEnvironment.GetDotnetFeatureBand());
-        table.AddRow("Engine shared path", StellarEnvironment.GetStellarEngineSharedPath());
-        table.AddRow("Engine installation path", StellarEnvironment.GetStellarEngineInstallationPath());
+        table.AddRow("Orchester version", StellarEnvironment.StellarOrchesterVersion);
+        table.AddRow("Engine shared path", StellarEnvironment.StellarOrchesterSharedDir);
+        table.AddRow("Engine installation path", StellarEnvironment.StellarOrchesterInstallationDir);
 
         AnsiConsole.Write(table);
         return 0;

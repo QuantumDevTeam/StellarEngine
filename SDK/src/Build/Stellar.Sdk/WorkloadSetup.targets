@@ -29,7 +29,7 @@
                 File="$(_GeneratedDir)\stellar-workload\WorkloadManifest.json"
                 Lines="$(_GeneratedManifest)"
                 Overwrite="true"/>
-        
+
         <Copy SourceFiles="$(_SdkTemplateDir)\WorkloadManifest.targets"
               DestinationFiles="$(_GeneratedDir)\stellar-workload\WorkloadManifest.targets"/>
     </Target>
@@ -42,8 +42,8 @@
         <WriteLinesToFile
                 File="$(_GeneratedDir)\.stellar.desc.json"
                 Lines="{
-    &quot;SdkVersion&quot;: &quot;$(StellarSdkVersion)&quot;,
     &quot;ToolsVersion&quot;: &quot;$(StellarToolsVersion)&quot;,
+    &quot;SdkVersion&quot;: &quot;$(StellarSdkVersion)&quot;,
     &quot;KernelVersion&quot;: &quot;$(StellarKernelVersion)&quot;,
     &quot;EngineVersion&quot;: &quot;$(StellarEngineVersion)&quot;
 }"

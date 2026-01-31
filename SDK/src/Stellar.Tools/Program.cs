@@ -12,22 +12,25 @@ app.Configure(config =>
 
     config.AddCommand<InfoCommand>("info")
         .WithDescription("Show StellarEngine information");
-    
+
     config.AddBranch("version", sdk =>
     {
         sdk.SetDescription("Systems versions");
-
-        sdk.AddCommand<SdkVersionCommand>("sdk")
-            .WithDescription("SDK Version");
         
+        sdk.AddCommand<OrchesterVersionCommand>("orchester")
+            .WithDescription("Tools Version");
+
         sdk.AddCommand<ToolsVersionCommand>("tools")
             .WithDescription("Tools Version");
         
-        sdk.AddCommand<KernelVersionCommand>("kernel")
-            .WithDescription("Kernel Version");
-        
-        sdk.AddCommand<EngineVersionCommand>("engine")
-            .WithDescription("Engine Version");
+        // sdk.AddCommand<SdkVersionCommand>("sdk")
+        //     .WithDescription("SDK Version");
+
+        // sdk.AddCommand<KernelVersionCommand>("kernel")
+        //     .WithDescription("Kernel Version");
+
+        // sdk.AddCommand<EngineVersionCommand>("engine")
+        //     .WithDescription("Engine Version");
     });
 
     config.AddBranch("sdk", sdk =>

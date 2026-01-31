@@ -7,7 +7,7 @@ public sealed class ListTemplatesCommand : Command
 {
     public override int Execute(CommandContext context)
     {
-        var enginePath = StellarEnvironment.GetStellarEngineInstallationPath();
+        var enginePath = StellarEnvironment.StellarOrchesterInstallationDir;
 
         var templatesDir = Path.Combine(
             enginePath,

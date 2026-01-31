@@ -8,14 +8,18 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        
+        <Authors>QuantumDev</Authors>
+        <Version>$(StellarToolsVersion)</Version>
+        <AssemblyVersion>$(Version)</AssemblyVersion>
 
         <IsPackable>true</IsPackable>
         <PackageId>Stellar.Sdk</PackageId>
-        <Authors>QuantumDev</Authors>
         <Description>StellarEngine SDK</Description>
-        <PackageVersion>$(StellarSdkVersion)</PackageVersion>
+        <PackageVersion>$(Version</PackageVersion>
 
         <DevelopmentDependency>true</DevelopmentDependency>
+        
         <IncludeBuildOutput>false</IncludeBuildOutput>
         <IncludeReferencedProjects>true</IncludeReferencedProjects>
     </PropertyGroup>

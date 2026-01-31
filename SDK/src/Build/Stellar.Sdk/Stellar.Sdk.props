@@ -6,10 +6,13 @@
 
     <!-- Stellar Configurations -->
     <PropertyGroup>
-        <StellarEnginePath>$([System.Environment]::GetEnvironmentVariable('STELLAR_ENGINE_PATH'))</StellarEnginePath>
-
         <WinSdkVersion Condition="'$(WinSdkVersion)' == ''">10.0.26100.0</WinSdkVersion>
+        <UserProfile>$([MSBuild]::GetEnvironmentVariable('USERPROFILE'))</UserProfile>
+
+        <StellarOrchesterSharedDir>$(UserProfile)\.stellar\$(StellarOrchesterVersion)</StellarOrchesterSharedDir>
+        <StellarOrchesterIntallationDir>$([System.IO.File]::ReadAllText('$(StellarOrchesterSharedDir)\installation_location.txt').Trim())</StellarOrchesterIntallationDir>
         
+        <StellarPrecompiled Condition="'$(StellarPrecompiled)' == ''">false</StellarPrecompiled>
         <StellarOutputType Condition="'$(StellarOutputType)' == ''">Modern</StellarOutputType>
         <StellarProjectName Condition="'$(StellarProjectName)' == ''">$(AssemblyName)</StellarProjectName>
 
@@ -19,10 +22,12 @@
         <StellarRuntimeConfigType Condition="'$(StellarRuntimeConfigType)' == ''">External</StellarRuntimeConfigType>
         <StellarLocalizationIndexType Condition="'$(StellarLocalizationIndexType)' == ''">External</StellarLocalizationIndexType>
     </PropertyGroup>
+    <ItemGroup>
+    </ItemGroup>
 
     <!-- Base .NET -->
     <PropertyGroup>
-        <TargetFramework>net9.0-windows$(WinSdkVersion)</TargetFramework>
+        <TargetFramework>net10.0-windows$(WinSdkVersion)</TargetFramework>
         <PlatformTarget>x64</PlatformTarget>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
 
@@ -40,8 +45,6 @@
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     </PropertyGroup>
     <ItemGroup>
-        <!--        All scenarios needs to include Stellar.Core in project-->
-        <ProjectReference Include="$(StellarEnginePath)/SDK/Stellar.Core/Stellar.Core.csproj"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - Game -->
@@ -52,27 +55,38 @@
         <ApplicationIcon Condition="Exists('$(StellarGameIcon)')">$(StellarGameIcon)</ApplicationIcon>
         <ApplicationManifest Condition="Exists('$(StellarGameManifest)')">$(StellarGameManifest)</ApplicationManifest>
     </PropertyGroup>
-    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Game'">
-        <ProjectReference Include="$(StellarEnginePath)/StellarEngine/StellarEngine.csproj"/>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Game' and '$(StellarPrecompiled)' == false">
+        <ProjectReference Include="../../../../Engine/src/Stellar.Engine/Stellar.Engine.csproj"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Game' and '$(StellarPrecompiled)' == true">
+        <PackageReference Include="Stellar.Engine" Version="$(StellarEngineVersion)"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - Module -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Module'">
     </PropertyGroup>
-    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Module'">
-        <ProjectReference Include="$(StellarEnginePath)/StellarEngine/StellarEngine.csproj"/>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Module' and '$(StellarPrecompiled)' == false">
+        <ProjectReference Include="../../../../Engine/src/Stellar.Engine/Stellar.Engine.csproj"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Module' and '$(StellarPrecompiled)' == true">
+        <PackageReference Include="Stellar.Engine" Version="$(StellarEngineVersion)"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - EngineModule -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineModule'">
     </PropertyGroup>
-    <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule'">
-        <ProjectReference Include="$(StellarEnginePath)/StellarEngine.Core/StellarEngine.Core.csproj"/>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == false">
+        <ProjectReference Include="../../../../Engine/src/Modules/Stellar.Core/Stellar.Core.csproj"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == true">
+        <PackageReference Include="Stellar.Core" Version="$(StellarEngineVersion)"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - EngineCoreModule -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule'">
     </PropertyGroup>
-    <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule'">
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule' and '$(StellarPrecompiled)' == false">
+    </ItemGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule' and '$(StellarPrecompiled)' == true">
     </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ public sealed class ToolsVersionCommand : Command
 {
     public override int Execute(CommandContext context)
     {
-        AnsiConsole.MarkupLine($"Tools versin {StellarVersions.ToolsVersion}");
+        AnsiConsole.MarkupLine($"Tools versin {StellarEnvironment.StellarToolsVersion}");
         return 0;
     }
 }

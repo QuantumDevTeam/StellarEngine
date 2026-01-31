@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Stellar.Tools;
 
@@ -21,29 +22,23 @@ public static class StellarEnvironment
 
     public static string WorkingDirectory => Environment.CurrentDirectory;
 
-    public static string GetSdkAdvertisingPath() => Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-        ".dotnet",
-        "sdk-advertising",
-        GetDotnetFeatureBand(),
-        "stellar.sdk"
-    );
+    public static string StellarToolsVersion => Assembly.GetExecutingAssembly()
+        .GetCustomAttributes<AssemblyVersionAttribute>()
+        .FirstOrDefault()?.Version ?? throw new KeyNotFoundException("AssemblyVersion not found in AssemblyInfo");
 
-    public static string GetSdkPackagePath() => Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-        ".nuget",
-        "packages",
-        "stellar.sdk"
-    );
+    public static string StellarOrchesterVersion => Assembly.GetExecutingAssembly()
+        .GetCustomAttributes<AssemblyMetadataAttribute>()
+        .FirstOrDefault(a => a.Key == "StellarOrchesterVersion"
+        )?.Value ?? throw new KeyNotFoundException("StellarOrchesterVersion not found in AssemblyInfo");
 
-    public static string GetStellarEngineSharedPath() => Path.Combine(
+    public static string StellarOrchesterSharedDir => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
         ".stellar",
-        StellarVersions.EngineVersion
+        StellarOrchesterVersion
     );
 
-    public static string GetStellarEngineInstallationPath() => File.ReadAllText(Path.Combine(
-        GetStellarEngineSharedPath(),
+    public static string StellarOrchesterInstallationDir => File.ReadAllText(Path.Combine(
+        StellarOrchesterSharedDir,
         "installation_location.txt"
     ));
 }

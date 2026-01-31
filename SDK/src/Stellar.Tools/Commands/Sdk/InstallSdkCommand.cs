@@ -7,51 +7,63 @@ public sealed class InstallSdkCommand : Command
 {
     private int CreateSharedDirectory()
     {
-        Directory.CreateDirectory(StellarEnvironment.GetStellarEngineSharedPath());
-        Directory.CreateDirectory(Path.Combine(StellarEnvironment.GetStellarEngineSharedPath(), "projects"));
+        var orchesterSharedDir = StellarEnvironment.StellarOrchesterSharedDir;
+        var orchesterInstallationDir = StellarEnvironment.WorkingDirectory;
+        var descPath = Path.Combine(orchesterSharedDir, ".stellar.desc.json");
+
+        AnsiConsole.MarkupLine($"[grey]Orchester dir:[/] {orchesterInstallationDir}");
+        AnsiConsole.MarkupLine($"[grey]Orchester shared dir:[/] {orchesterSharedDir}");
+
+        Directory.CreateDirectory(orchesterSharedDir);
 
         File.WriteAllText(
-            Path.Combine(StellarEnvironment.GetStellarEngineSharedPath(), "installation_location.txt"),
-            StellarEnvironment.WorkingDirectory
+            Path.Combine(orchesterSharedDir, "installation_location.txt"),
+            orchesterInstallationDir
         );
 
-        var descPath = Path.Combine(StellarEnvironment.GetStellarEngineSharedPath(), ".stellar.desc.json");
-        if (!File.Exists(descPath))
-            File.Copy(
-                Path.Combine(StellarEnvironment.GetStellarEngineInstallationPath(), "Data", ".generated",
-                    ".stellar.desc.json"),
-                descPath
-            );
+        File.Copy(
+            Path.Combine(StellarEnvironment.StellarOrchesterInstallationDir, "Data", ".generated",
+                ".stellar.desc.json"),
+            descPath,
+            true
+        );
+
+        Directory.CreateDirectory(Path.Combine(orchesterSharedDir, "projects"));
         return 0;
     }
 
     private int WorkloadManifestCopying()
     {
-        var engineInstallationDir = StellarEnvironment.GetStellarEngineInstallationPath();
-        var manifestDir = StellarEnvironment.GetSdkAdvertisingPath();
+        var orchesterInstallationDir = StellarEnvironment.StellarOrchesterInstallationDir;
         var featureBand = StellarEnvironment.GetDotnetFeatureBand();
-
-        var source = Path.Combine(engineInstallationDir, "Data", ".generated", "stellar-workload");
+        var sdkManifestDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+            ".dotnet",
+            "sdk-advertising",
+            featureBand,
+            "stellar.sdk"
+        );
+        var sdkManifestSourceDir = Path.Combine(orchesterInstallationDir, "Data", ".generated", "stellar-workload");
 
         AnsiConsole.MarkupLine($"[grey]Feature band:[/] {featureBand}");
-        AnsiConsole.MarkupLine($"[grey]SDK Manifest Source dir:[/] {source}");
-        AnsiConsole.MarkupLine($"[grey]Installing SDK Manifest to:[/] {manifestDir}");
+        AnsiConsole.MarkupLine($"[grey]SDK Manifest Source dir:[/] {sdkManifestSourceDir}");
+        AnsiConsole.MarkupLine($"[grey]Installing SDK Manifest to:[/] {sdkManifestDir}");
 
-        Directory.CreateDirectory(manifestDir);
+        Directory.CreateDirectory(sdkManifestDir);
 
-        if (!Directory.Exists(source))
+        if (!Directory.Exists(sdkManifestSourceDir))
         {
             AnsiConsole.MarkupLine("[red]Workload artifacts not found[/]");
             return -1;
         }
 
-        foreach (var file in Directory.GetFiles(source))
+        foreach (var file in Directory.GetFiles(sdkManifestSourceDir))
         {
-            var dest = Path.Combine(manifestDir, Path.GetFileName(file));
+            var dest = Path.Combine(sdkManifestDir, Path.GetFileName(file));
             File.Copy(file, dest, overwrite: true);
         }
 
-        File.WriteAllText(Path.Combine(manifestDir, "AdvertisedManifestFeatureBand.txt"), featureBand);
+        File.WriteAllText(Path.Combine(sdkManifestDir, "AdvertisedManifestFeatureBand.txt"), featureBand);
         return 0;
     }
 

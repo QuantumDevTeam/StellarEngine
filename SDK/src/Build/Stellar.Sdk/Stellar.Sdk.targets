@@ -4,13 +4,13 @@
     <Target Name="ValidatingPropertyes" BeforeTargets="BeforeResolveReferences">
         <Error Condition="'$(StellarSdkUsage)' == ''">StellarSdkUsage must be configured</Error>
         <Error Condition="!Exists('$(StellarProjectConfigurationFile)')">$(StellarProjectConfigurationFile) config is not find in project files</Error>
-        <Error Condition="'$(StellarEnginePath)' == ''">STELLAR_ENGINE_PATH environment variable is not set.</Error>
-        <Error Condition="'$(StellarEngineVersion)' == ''">Stellar Engine must be configured</Error>
     </Target>
 
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigParser"
                AssemblyFile="$(MSBuildThisFileDirectory)..\lib\win-x64\Stellar.Sdk.Tasks.dll"/>
-    <Target Name="StellarParseConfigurations" BeforeTargets="BeforeResolveReferences" DependsOnTargets="ValidatingPropertyes">
+    <Target Name="StellarParseConfigurations"
+            BeforeTargets="BeforeResolveReferences"
+            DependsOnTargets="ValidatingPropertyes">
         <Message Importance="high" Text="=== STELLAR SDK: Configuration parsing ==="/>
 
         <StellarConfigParser
@@ -21,9 +21,10 @@
             <Output TaskParameter="Assets" ItemName="StellarAssets"/>
             <Output TaskParameter="EmbeddedAssets" ItemName="StellarEmbeddedAssets"/>
 
-            <Output TaskParameter="StellarCultureIndexFilesList" ItemName="StellarCultureIndexFilesList"/>
-            <Output TaskParameter="SupportedCultures" ItemName="StellarSupportedCultures"/>
             <Output TaskParameter="DefaultCulture" ItemName="StellarDefaultCulture"/>
+            <Output TaskParameter="SupportedCultures" ItemName="StellarSupportedCultures"/>
+
+            <Output TaskParameter="StellarCultureIndexFilesList" ItemName="StellarCultureIndexFilesList"/>
         </StellarConfigParser>
 
         <ItemGroup>
@@ -41,12 +42,14 @@
 
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarEntryPointFind"
                AssemblyFile="$(MSBuildThisFileDirectory)..\lib\win-x64\Stellar.Sdk.Tasks.dll"/>
-    <Target Name="StellarFindEntryPoint" BeforeTargets="CoreCompile">
+    <Target Name="StellarFindEntryPoint"
+            BeforeTargets="CoreCompile">
         <Message Importance="high" Text="=== STELLAR SDK: Searching entry point ==="/>
 
         <StellarEntryPointFind
                 CompileItems="@(Compile)"
-                ProjectDirectory="$(MSBuildProjectDirectory)">
+                ProjectDirectory="$(MSBuildProjectDirectory)"
+                StellarProjectName="$StellarProjectName">
             <Output TaskParameter="StellarEntryPoint" ItemName="StellarEntryPoint"/>
         </StellarEntryPointFind>
     </Target>
@@ -55,20 +58,19 @@
                AssemblyFile="$(MSBuildThisFileDirectory)..\lib\win-x64\Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarGenerateRunrimeConfig"
             BeforeTargets="Build"
-            DependsOnTargets="StellarParseConfigurations;StellarFindEntryPoint;ValidatingPropertyes">
+            DependsOnTargets="StellarParseConfigurations;StellarFindEntryPoint;">
         <Message Importance="high" Text="=== STELLAR SDK: Configuration files generating ==="/>
 
         <StellarConfigGenerator
                 IntermediateOutputPath="$(IntermediateOutputPath)"
                 StellarSdkUsage="$(StellarSdkUsage)"
-
-                StellarProjectName="$(StellarProjectName)"
-                CompanyName="$(Company)"
+                StellarRuntimeConfigType="$(StellarRuntimeConfigType)"
 
                 Version="$(Version)"
                 StellarSdkVersion="$(StellarSdkVersion)"
                 StellarEngineVersion="$(StellarEngineVersion)"
 
+                StellarProjectName="$(StellarProjectName)"
                 StellarEntryPoint="@(StellarEntryPoint)"
 
                 StellarAssets="@(StellarAssets)"
@@ -76,10 +78,9 @@
 
                 StellarDefaultCulture="@(StellarDefaultCulture)"
                 StellarSupportedCultures="@(StellarSupportedCultures)"
-                StellarCultureIndexFilesList="@(StellarCultureIndexFilesList)"
 
                 StellarLocalizationIndexType="$(StellarLocalizationIndexType)"
-                StellarRuntimeConfigType="$(StellarRuntimeConfigType)">
+                StellarCultureIndexFilesList="@(StellarCultureIndexFilesList)">
             <Output TaskParameter="StellarRuntimeConfigFile" ItemName="StellarRuntimeConfigFile"/>
         </StellarConfigGenerator>
 
@@ -91,15 +92,38 @@
         </ItemGroup>
     </Target>
 
-    <!--    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarExecutableGenerator"-->
-    <!--               AssemblyFile="$(MSBuildThisFileDirectory)..\lib\win-x64\Stellar.Sdk.Tasks.dll"/>-->
-    <!--    <Target Name="StelalrGenerateExecutable" AfterTargets="Build"-->
-    <!--            Condition="'$(StellarSdkUsage)' == 'Game'" DependsOnTargets="ValidatingPropertyes">-->
-    <!--        <StellarExecutableGenerator-->
-    <!--                StellarProjectName="$(StellarProjectName)"-->
-    <!--                StellarOutputType="$(StellarOutputType)"-->
-    <!--                StellarEnginePath="$(StellarEnginePath)"-->
-    <!--                OutputPath="$(OutputPath)"-->
-    <!--                RunConfiguration="$(Configuration)"/>-->
-    <!--    </Target>-->
+    <Target Name="StellarGenerateAssemblyInfoAttributes"
+            BeforeTargets="CoreCompile">
+        <WriteLinesToFile
+                File="$(IntermediateOutputPath)Stellar.AssemblyInfo.g.cs"
+                Lines="//------------------------------------------------------------------------------
+// This code automatically generated by Stellar.Tools build
+//------------------------------------------------------------------------------
+
+using System.Reflection%3B
+[assembly: AssemblyMetadata(&quot;StellarOrchesterVersion&quot;, &quot;$(StellarOrchesterVersion)&quot;)]
+[assembly: AssemblyMetadata(&quot;StellarRuntimeConfigType&quot;, &quot;$(StellarRuntimeConfigType)&quot;)]
+"
+                Overwrite="true"/>
+
+        <ItemGroup>
+            <Compile Include="$(IntermediateOutputPath)Stellar.AssemblyInfo.g.cs"/>
+        </ItemGroup>
+    </Target>
+
+    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarExecutableGenerator"
+               AssemblyFile="$(MSBuildThisFileDirectory)..\lib\win-x64\Stellar.Sdk.Tasks.dll"/>
+    <Target Name="StelalrGenerateExecutable"
+            AfterTargets="Build"
+            DependsOnTargets="StellarFindEntryPoint"
+            Condition="'$(StellarSdkUsage)' == 'Game'">
+        <StellarExecutableGenerator
+                ProjectDirectory="$(MSBuildProjectDirectory)"
+                OutputPath="$(OutputPath)"
+                RunConfiguration="$(Configuration)"
+                
+                StellarProjectName="$(StellarProjectName)"
+                StellarOutputType="$(StellarOutputType)"
+                StellarOrchesterIntallationDir="$(StellarOrchesterIntallationDir)"/>
+    </Target>
 </Project>
