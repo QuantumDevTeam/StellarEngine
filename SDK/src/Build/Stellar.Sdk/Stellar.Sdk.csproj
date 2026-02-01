@@ -10,13 +10,13 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         
         <Authors>QuantumDev</Authors>
-        <Version>$(StellarToolsVersion)</Version>
-        <AssemblyVersion>$(Version)</AssemblyVersion>
+        <Version>$(StelalrSdkVersion)</Version>
+        <AssemblyVersion>$(StelalrSdkVersion)</AssemblyVersion>
 
         <IsPackable>true</IsPackable>
         <PackageId>Stellar.Sdk</PackageId>
         <Description>StellarEngine SDK</Description>
-        <PackageVersion>$(Version</PackageVersion>
+        <PackageVersion>$(Version)</PackageVersion>
 
         <DevelopmentDependency>true</DevelopmentDependency>
         

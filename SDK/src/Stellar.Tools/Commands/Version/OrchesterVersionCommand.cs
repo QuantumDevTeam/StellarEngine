@@ -7,7 +7,7 @@ public sealed class OrchesterVersionCommand : Command
 {
     public override int Execute(CommandContext context)
     {
-        AnsiConsole.MarkupLine($"Engine versin {StellarEnvironment.StellarOrchesterVersion}");
+        AnsiConsole.MarkupLine(StellarEnvironment.StellarOrchesterVersion);
         return 0;
     }
 }

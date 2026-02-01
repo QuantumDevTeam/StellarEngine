@@ -3,11 +3,11 @@ using Spectre.Console.Cli;
 
 namespace Stellar.Tools.Commands.Version;
 
-public sealed class ToolsVersionCommand : Command
+public sealed class EngineVersionCommand : Command
 {
     public override int Execute(CommandContext context)
     {
-        AnsiConsole.MarkupLine(StellarEnvironment.StellarToolsVersion);
+        AnsiConsole.MarkupLine(StellarEnvironment.GetStellarEngineVersion());
         return 0;
     }
 }

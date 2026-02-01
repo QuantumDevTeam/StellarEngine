@@ -13,7 +13,7 @@
         <IsPackable>true</IsPackable>
         <PackageId>Stellar.Tools</PackageId>
         <Description>StellarEngine development tools</Description>
-        <PackageVersion>$(Version</PackageVersion>
+        <PackageVersion>$(Version)</PackageVersion>
         
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>stellar</ToolCommandName>
@@ -41,6 +41,7 @@
 
 using System.Reflection%3B
 [assembly: AssemblyMetadata(&quot;StellarOrchesterVersion&quot;, &quot;$(StellarOrchesterVersion)&quot;)]
+[assembly: AssemblyMetadata(&quot;StellarToolsVersion&quot;, &quot;$(StellarToolsVersion)&quot;)]
 "
                 Overwrite="true"/>
 

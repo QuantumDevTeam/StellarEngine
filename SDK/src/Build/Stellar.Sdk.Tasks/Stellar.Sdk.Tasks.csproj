@@ -3,8 +3,8 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         
         <Authors>QuantumDev</Authors>
-        <Version>$(StellarToolsVersion)</Version>
-        <AssemblyVersion>$(Version)</AssemblyVersion>
+        <Version>$(StellarSdkVersion)</Version>
+        <AssemblyVersion>$(StellarSdkVersion)</AssemblyVersion>
 
         <IsPackable>false</IsPackable>
 

@@ -6,12 +6,12 @@
         <TargetFramework>netstandard2.0</TargetFramework>
 
         <Authors>QuantumDev</Authors>
-        <Version>$(StellarToolsVersion)</Version>
+        <Version>$(StellarKernelVersion)</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
 
         <IsPackable>true</IsPackable>
         <PackageId>Stellar.Kernel</PackageId>
         <Description>StellarEngine base Kernel module</Description>
-        <PackageVersion>$(StellarKernelVersion)</PackageVersion>
+        <PackageVersion>$(Version)</PackageVersion>
     </PropertyGroup>
 </Project>

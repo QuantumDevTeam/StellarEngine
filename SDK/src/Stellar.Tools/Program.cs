@@ -23,14 +23,14 @@ app.Configure(config =>
         sdk.AddCommand<ToolsVersionCommand>("tools")
             .WithDescription("Tools Version");
         
-        // sdk.AddCommand<SdkVersionCommand>("sdk")
-        //     .WithDescription("SDK Version");
+        sdk.AddCommand<SdkVersionCommand>("sdk")
+            .WithDescription("SDK Version");
 
-        // sdk.AddCommand<KernelVersionCommand>("kernel")
-        //     .WithDescription("Kernel Version");
+        sdk.AddCommand<KernelVersionCommand>("kernel")
+            .WithDescription("Kernel Version");
 
-        // sdk.AddCommand<EngineVersionCommand>("engine")
-        //     .WithDescription("Engine Version");
+        sdk.AddCommand<EngineVersionCommand>("engine")
+            .WithDescription("Engine Version");
     });
 
     config.AddBranch("sdk", sdk =>
