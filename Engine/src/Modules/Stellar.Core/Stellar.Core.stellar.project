@@ -1,0 +1,17 @@
+{
+  "Assets": {
+    "Include": [
+      "Assets/**/*.*",
+      "Localizations/Files/**/*.*"
+    ],
+    "Exclude": [
+      "Assets/**/*_test_*.*",
+      "Assets/**/*_cache_*.*",
+      "Assets/**/*_temp_*.*"
+    ],
+    "Embedded": [
+      "Assets/Embedded/**/*.*",
+      "Assets/**/*.hlsl"
+    ]
+  }
+}

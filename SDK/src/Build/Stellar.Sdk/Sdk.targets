@@ -2,27 +2,25 @@
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 
     <PropertyGroup>
-        <_TasksBynaryFile>..\lib\netstandard2.0\Stellar.Sdk.Tasks.dll</_TasksBynaryFile>
+        <_TasksBynaryFile>$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Stellar.Sdk.Tasks.dll</_TasksBynaryFile>
     </PropertyGroup>
 
     <!-- Validating -->
 
     <Target Name="StellarValidating"
             BeforeTargets="BeforeResolveReferences">
-        <Message IsCritical="true"
-                 Condition="'$(StellarSdkUsage)' == ''"
-                 Importance="high"
-                 Text="StellarSdkUsage must be configured!"/>
+        <Error Condition="'$(StellarSdkUsage)' == ''"
+               Text="StellarSdkUsage must be configured!"/>
+
+        <Error Condition="!Exists('$(StellarProjectConfigurationFile)')"
+               Text="Config is not find in project files. Path: $(StellarProjectConfigurationFile)"/>
+
+        <Error Condition="!Exists('$(_TasksBynaryFile)')"
+               Text="Stellar.Sdk has no targets DLL. Path: $(_TasksBynaryFile)"/>
 
         <Message IsCritical="true"
-                 Condition="!Exists('$(StellarProjectConfigurationFile)')"
                  Importance="high"
-                 Text="Config is not find in project files. Path: $(StellarProjectConfigurationFile)"/>
-
-        <Message IsCritical="true"
-                 Condition="!Exists('$(_TasksBynaryFile)')"
-                 Importance="high"
-                 Text="Stellar.Sdk has no targets DLL. Path: (_TasksBynaryFile)"/>
+                 Text="=== STELLAR SDK: $(StellarProjectName) is valid StellarProject ==="/>
     </Target>
 
     <!-- Config -->
@@ -33,7 +31,7 @@
     <Target Name="StellarParseConfigurations"
             BeforeTargets="BeforeResolveReferences"
             DependsOnTargets="StellarValidating">
-        <Message Importance="high" Text="=== STELLAR SDK: Configuration parsing ==="/>
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Configuration parsing ==="/>
 
         <StellarConfigParser
                 ProjectDirectory="$(MSBuildProjectDirectory)"
@@ -67,7 +65,7 @@
                Condition="Exists('$(_TasksBynaryFile)')"/>
     <Target Name="StellarFindEntryPoint"
             BeforeTargets="CoreCompile">
-        <Message Importance="high" Text="=== STELLAR SDK: Searching entry point ==="/>
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Searching entry point ==="/>
 
         <StellarEntryPointFind
                 CompileItems="@(Compile)"
@@ -83,7 +81,7 @@
     <Target Name="StellarGenerateRunrimeConfig"
             BeforeTargets="Build"
             DependsOnTargets="StellarParseConfigurations;StellarFindEntryPoint">
-        <Message Importance="high" Text="=== STELLAR SDK: Configuration files generating ==="/>
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Configuration files generating ==="/>
 
         <StellarConfigGenerator
                 IntermediateOutputPath="$(IntermediateOutputPath)"
@@ -119,7 +117,7 @@
     <!-- Building -->
     <Target Name="StellarGenerateAssemblyInfoAttributes"
             BeforeTargets="CoreCompile">
-        <Message Importance="high" Text="=== STELLAR SDK: AssemblyInfo generation ==="/>
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: AssemblyInfo generation ==="/>
 
         <WriteLinesToFile
                 File="$(IntermediateOutputPath)Stellar.AssemblyInfo.g.cs"
@@ -145,7 +143,7 @@ using System.Reflection%3B
             AfterTargets="Build"
             DependsOnTargets="StellarFindEntryPoint"
             Condition="'$(StellarSdkUsage)' == 'Game'">
-        <Message Importance="high" Text="=== STELLAR SDK: Executable generation for Game ==="/>
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Executable generation for Game ==="/>
 
         <StellarExecutableGenerator
                 ProjectDirectory="$(MSBuildProjectDirectory)"

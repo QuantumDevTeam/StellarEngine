@@ -69,6 +69,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CDE1
 		scripts\add_nuget_source.bat = scripts\add_nuget_source.bat
 		install.bat = install.bat
 		scripts\tools.install.bat = scripts\tools.install.bat
+		scripts\sdk.clean.bat = scripts\sdk.clean.bat
+		scripts\kernel.clean.bat = scripts\kernel.clean.bat
 	EndProjectSection
 EndProject
 Global
