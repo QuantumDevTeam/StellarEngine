@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
+    
+    <!-- Versions -->
+    <Import Project="version.props"/>
+
+    <!-- Stellar Directoryes -->
+    <PropertyGroup>
+        <_UserProfile Condition="'$(OS)' == 'Windows_NT'">$(USERPROFILE)</_UserProfile>
+        <_UserProfile Condition="'$(OS)' != 'Windows_NT'">$(HOME)</_UserProfile>
+
+        <StellarOrchesterSharedDir>$(_UserProfile)\.stellar\$(StellarOrchesterVersion)</StellarOrchesterSharedDir>
+        <_StellarOrchessterInstallationFile>$(StellarOrchesterSharedDir)\installation_location.txt</_StellarOrchessterInstallationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition="Exists('$(_StellarOrchessterInstallationFile)')">
+        <StellarOrchesterIntallationDir>$([System.IO.File]::ReadAllText('$(_StellarOrchessterInstallationFile)').Trim())</StellarOrchesterIntallationDir>
+    </PropertyGroup>
+
+    <!-- Stellar Configurations -->
+    <PropertyGroup>
+        <StellarPrecompiled Condition="'$(StellarPrecompiled)' == ''">false</StellarPrecompiled>
+        <StellarOutputType Condition="'$(StellarOutputType)' == ''">Modern</StellarOutputType>
+        <StellarProjectName Condition="'$(StellarProjectName)' == ''">$(AssemblyName)</StellarProjectName>
+
+        <StellarVersionFile Condition="'$(StellarVersionFile)' == ''">$(StellarProjectName).stellar.version.txt</StellarVersionFile>
+        <StellarProjectConfigurationFile Condition="'$(StellarProjectConfigurationFile)' == ''">$(StellarProjectName).stellar.project</StellarProjectConfigurationFile>
+
+        <StellarRuntimeConfigType Condition="'$(StellarRuntimeConfigType)' == ''">External</StellarRuntimeConfigType>
+        <StellarLocalizationIndexType Condition="'$(StellarLocalizationIndexType)' == ''">External</StellarLocalizationIndexType>
+    </PropertyGroup>
+    <ItemGroup>
+    </ItemGroup>
+
+    <!-- Base .NET -->
+    <PropertyGroup>
+        <WinSdkVersion Condition="'$(WinSdkVersion)' == ''">10.0.26100.0</WinSdkVersion>
+        <TargetFramework Condition="'$(TargetFramework)' == ''">net9.0-windows$(WinSdkVersion)</TargetFramework>
+
+        <PlatformTarget>x64</PlatformTarget>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+        <!-- build configuration -->
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>x64</Platforms>
+
+        <!-- Build path configuration -->
+        <OutputPath>bin\$(Configuration)</OutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+    </ItemGroup>
+
+    <!-- Stellar Configurations fot different project types -->
+    <Import Project="StellarUsageDefinations.props"/>
+</Project>

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Stellar.Sdk/0.1.0">
     <PropertyGroup>
-        <CompanyName>StellarDev</CompanyName>
+        <CompanyName>QuantumDev</CompanyName>
         <StellarSdkUsage>EngineCoreModule</StellarSdkUsage>
     </PropertyGroup>
 </Project>

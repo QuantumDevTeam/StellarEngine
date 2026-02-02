@@ -10,8 +10,8 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         
         <Authors>QuantumDev</Authors>
-        <Version>$(StelalrSdkVersion)</Version>
-        <AssemblyVersion>$(StelalrSdkVersion)</AssemblyVersion>
+        <Version>$(StellarSdkVersion)</Version>
+        <AssemblyVersion>$(StellarSdkVersion)</AssemblyVersion>
 
         <IsPackable>true</IsPackable>
         <PackageId>Stellar.Sdk</PackageId>
@@ -26,8 +26,11 @@
 
     <ItemGroup>
         <!-- sdk deps -->
-        <None Include="Stellar.Sdk.props" Pack="true" PackagePath="buildTransitive/"/>
-        <None Include="Stellar.Sdk.targets" Pack="true" PackagePath="buildTransitive/"/>
+        <None Include="Sdk.props" Pack="true" PackagePath="Sdk/"/>
+        <None Include="Sdk.targets" Pack="true" PackagePath="Sdk/"/>
+        
+        <None Include="..\..\..\..\Data\version.props" Pack="true" PackagePath="Sdk/"/>
+        <None Include="StellarUsageDefinations.props" Pack="true" PackagePath="Sdk/"/>
     </ItemGroup>
 
     <ItemGroup>
