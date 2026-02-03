@@ -5,7 +5,7 @@ rem installing/updating dotnet tool
 pushd "%~dp0"
 cd /d ../SDK
 echo Installing/updating Stellar.Tools tool...
-dotnet tool update Stellar.Tools --add-source dist --create-manifest-if-needed 2>nul || (
+dotnet tool update Stellar.Tools --add-source dist 2>nul || (
     dotnet tool install Stellar.Tools --add-source dist --create-manifest-if-needed
 )
 if errorlevel 1 (

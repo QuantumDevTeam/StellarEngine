@@ -14,8 +14,7 @@
 
     <ItemGroup>
         <!-- Kernel package -->
-        <PackageReference Include="Stellar.Kernel" Version="0.1.0"
-                          PrivateAssets="all"/>
+        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>

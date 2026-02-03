@@ -1,20 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
 
-echo ========================================
-echo WARNING: This will delete the following:
-echo ========================================
-echo [ ] ..\Tools\dist
-echo [ ] %USERPROFILE%\.nuget\packages\stellar.kernel
-echo ========================================
-
-set /p confirm="Are you sure? (Y/N): "
-if /i "!confirm!" neq "Y" (
-    echo Operation cancelled.
-    pause
-    exit /b 1
-)
-
 echo Starting cleanup...
 
 call :RemoveDir "..\Kernel\dist"
@@ -22,7 +8,6 @@ call :RemoveDir "%USERPROFILE%\.nuget\packages\stellar.kernel"
 
 echo.
 echo Cleanup completed successfully!
-pause
 exit /b 0
 
 :RemoveDir

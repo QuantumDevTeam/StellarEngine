@@ -1,23 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
 
-echo ========================================
-echo WARNING: This will delete the following:
-echo ========================================
-echo [ ] ..\SDK\dist
-echo [ ] ..\dotnet-tools.json
-echo [ ] ..\Data\.generated
-echo [ ] %USERPROFILE%\.nuget\packages\stellar.sdk
-echo [ ] %USERPROFILE%\.nuget\packages\stellar.tools
-echo ========================================
-
-set /p confirm="Are you sure? (Y/N): "
-if /i "!confirm!" neq "Y" (
-    echo Operation cancelled.
-    pause
-    exit /b 1
-)
-
 echo Starting cleanup...
 
 call :RemoveDir "..\SDK\dist"
@@ -28,7 +11,6 @@ call :RemoveDir "%USERPROFILE%\.nuget\packages\stellar.tools"
 
 echo.
 echo Cleanup completed successfully!
-pause
 exit /b 0
 
 :RemoveDir

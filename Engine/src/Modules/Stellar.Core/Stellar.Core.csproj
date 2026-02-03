@@ -1,6 +1,18 @@
-﻿<Project Sdk="Stellar.Sdk/0.1.0">
+﻿<Project Sdk="Stellar.Sdk/0.1.1">
     <PropertyGroup>
-        <CompanyName>QuantumDev</CompanyName>
         <StellarSdkUsage>EngineCoreModule</StellarSdkUsage>
+        <CompanyName>QuantumDev</CompanyName>
+
+        <Version>$(StellarEngineVersion)</Version>
+        <AssemblyVersion>$(Version)</AssemblyVersion>
+    </PropertyGroup>
+
+    <!-- Package props -->
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <Authors>$(CompanyName)</Authors>
+        <PackageId>Stellar.Core</PackageId>
+        <Description>StellarEngine Core module</Description>
+        <PackageVersion>$(Version)</PackageVersion>
     </PropertyGroup>
 </Project>

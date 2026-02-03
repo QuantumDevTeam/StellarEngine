@@ -3,7 +3,8 @@ setlocal enabledelayedexpansion
 
 rem pack Kernel
 echo Packaging Stellar.Kernel...
-dotnet pack "../src/Stellar.Kernel/Stellar.Kernel.csproj" -c Release -o "../dist"
+dotnet restore "../src/Stellar.Kernel/Stellar.Kernel.csproj"
+dotnet pack "../src/Stellar.Kernel/Stellar.Kernel.csproj" -c Release -o "../dist" --no-restore
 if errorlevel 1 (
     echo ERROR: Failed to pack Stellar.Kernel
     exit /b 1

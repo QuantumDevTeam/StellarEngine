@@ -3,15 +3,18 @@
     <Import Project="..\..\..\Data\version.props"/>
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>
 
-        <Authors>QuantumDev</Authors>
         <Version>$(StellarKernelVersion)</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
 
         <IsPackable>true</IsPackable>
+        <Authors>QuantumDev</Authors>
         <PackageId>Stellar.Kernel</PackageId>
         <Description>StellarEngine base Kernel module</Description>
         <PackageVersion>$(Version)</PackageVersion>
+        
+        <RestoreLockedMode>false</RestoreLockedMode>
+        <DisableImplicitFrameworkReferences>false</DisableImplicitFrameworkReferences>
     </PropertyGroup>
 </Project>

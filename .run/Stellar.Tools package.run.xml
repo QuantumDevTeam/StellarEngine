@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Stellar.Tools package" type="RunNativeExe" factoryName="Native Executable" folderName="SDK">
+  <configuration default="false" name="Stellar.Tools package" type="RunNativeExe" factoryName="Native Executable" folderName="SDK" focusToolWindowBeforeRun="true">
     <option name="EXE_PATH" value="$PROJECT_DIR$/SDK/build/Tools.package.bat" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/SDK/build" />

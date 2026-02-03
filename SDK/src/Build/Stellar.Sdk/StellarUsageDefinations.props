@@ -1,4 +1,7 @@
 <Project>
+    <!-- Versions -->
+    <Import Project="version.props" Condition="'$(StellarOrchesterVersion)' == ''"/>
+    
     <!-- StellarSdkUsage - Game -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Game'">
         <StellarGameIcon Condition="'$(StellarGameIcon)' == ''">$(StellarProjectName).ico</StellarGameIcon>
@@ -28,9 +31,11 @@
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineModule'">
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'false'">
+        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
         <ProjectReference Include="$(StellarOrchesterIntallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'true'">
+        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
         <PackageReference Include="Stellar.Core" Version="$(StellarEngineVersion)"/>
     </ItemGroup>
 
@@ -38,7 +43,9 @@
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule'">
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule' and '$(StellarPrecompiled)' == 'false'">
+        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule' and '$(StellarPrecompiled)' == 'true'">
+        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
     </ItemGroup>
 </Project>

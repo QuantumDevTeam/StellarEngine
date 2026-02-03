@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Kernel cleen" type="RunNativeExe" factoryName="Native Executable" folderName="Kernel">
+  <configuration default="false" name="Kernel cleen" type="RunNativeExe" factoryName="Native Executable" folderName="Kernel" focusToolWindowBeforeRun="true">
     <option name="EXE_PATH" value="$PROJECT_DIR$/scripts/kernel.clean.bat" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />

@@ -1,35 +1,5 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
-    
-    <!-- Versions -->
-    <Import Project="version.props"/>
-
-    <!-- Stellar Directoryes -->
-    <PropertyGroup>
-        <_UserProfile Condition="'$(OS)' == 'Windows_NT'">$(USERPROFILE)</_UserProfile>
-        <_UserProfile Condition="'$(OS)' != 'Windows_NT'">$(HOME)</_UserProfile>
-
-        <StellarOrchesterSharedDir>$(_UserProfile)\.stellar\$(StellarOrchesterVersion)</StellarOrchesterSharedDir>
-        <_StellarOrchessterInstallationFile>$(StellarOrchesterSharedDir)\installation_location.txt</_StellarOrchessterInstallationFile>
-    </PropertyGroup>
-    <PropertyGroup Condition="Exists('$(_StellarOrchessterInstallationFile)')">
-        <StellarOrchesterIntallationDir>$([System.IO.File]::ReadAllText('$(_StellarOrchessterInstallationFile)').Trim())</StellarOrchesterIntallationDir>
-    </PropertyGroup>
-
-    <!-- Stellar Configurations -->
-    <PropertyGroup>
-        <StellarPrecompiled Condition="'$(StellarPrecompiled)' == ''">false</StellarPrecompiled>
-        <StellarOutputType Condition="'$(StellarOutputType)' == ''">Modern</StellarOutputType>
-        <StellarProjectName Condition="'$(StellarProjectName)' == ''">$(AssemblyName)</StellarProjectName>
-
-        <StellarVersionFile Condition="'$(StellarVersionFile)' == ''">$(StellarProjectName).stellar.version.txt</StellarVersionFile>
-        <StellarProjectConfigurationFile Condition="'$(StellarProjectConfigurationFile)' == ''">$(StellarProjectName).stellar.project</StellarProjectConfigurationFile>
-
-        <StellarRuntimeConfigType Condition="'$(StellarRuntimeConfigType)' == ''">External</StellarRuntimeConfigType>
-        <StellarLocalizationIndexType Condition="'$(StellarLocalizationIndexType)' == ''">External</StellarLocalizationIndexType>
-    </PropertyGroup>
-    <ItemGroup>
-    </ItemGroup>
 
     <!-- Base .NET -->
     <PropertyGroup>
@@ -54,6 +24,36 @@
     </PropertyGroup>
     <ItemGroup>
     </ItemGroup>
+
+    <!-- Stellar Configurations -->
+    <PropertyGroup>
+        <StellarPrecompiled Condition="'$(StellarPrecompiled)' == ''">false</StellarPrecompiled>
+        <StellarOutputType Condition="'$(StellarOutputType)' == ''">Modern</StellarOutputType>
+        <StellarProjectName Condition="'$(StellarProjectName)' == ''">$(AssemblyName)</StellarProjectName>
+
+        <StellarVersionFile Condition="'$(StellarVersionFile)' == ''">$(StellarProjectName).stellar.version.txt</StellarVersionFile>
+        <StellarProjectConfigurationFile Condition="'$(StellarProjectConfigurationFile)' == ''">$(StellarProjectName).stellar.project</StellarProjectConfigurationFile>
+
+        <StellarRuntimeConfigType Condition="'$(StellarRuntimeConfigType)' == ''">External</StellarRuntimeConfigType>
+        <StellarLocalizationIndexType Condition="'$(StellarLocalizationIndexType)' == ''">External</StellarLocalizationIndexType>
+    </PropertyGroup>
+    <ItemGroup>
+    </ItemGroup>
+
+    <!-- Versions -->
+    <Import Project="version.props" Condition="'$(StellarOrchesterVersion)' == ''"/>
+
+    <!-- Stellar Directoryes -->
+    <PropertyGroup>
+        <_UserProfile Condition="'$(OS)' == 'Windows_NT'">$(USERPROFILE)</_UserProfile>
+        <_UserProfile Condition="'$(OS)' != 'Windows_NT'">$(HOME)</_UserProfile>
+
+        <StellarOrchesterSharedDir>$(_UserProfile)\.stellar\$(StellarOrchesterVersion)</StellarOrchesterSharedDir>
+        <_StellarOrchessterInstallationFile>$(StellarOrchesterSharedDir)\installation_location.txt</_StellarOrchessterInstallationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition="Exists('$(_StellarOrchessterInstallationFile)')">
+        <StellarOrchesterIntallationDir>$([System.IO.File]::ReadAllText('$(_StellarOrchessterInstallationFile)').Trim())</StellarOrchesterIntallationDir>
+    </PropertyGroup>
 
     <!-- Stellar Configurations fot different project types -->
     <Import Project="StellarUsageDefinations.props"/>

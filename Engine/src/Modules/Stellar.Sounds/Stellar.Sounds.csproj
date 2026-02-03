@@ -12,8 +12,8 @@
     <PropertyGroup>
         <IsPackable>true</IsPackable>
         <Authors>$(CompanyName)</Authors>
-        <PackageId>Stellar.Graphic</PackageId>
-        <Description>StellarEngine Graphic module</Description>
+        <PackageId>Stellar.Sounds</PackageId>
+        <Description>StellarEngine Sound module</Description>
         <PackageVersion>$(Version)</PackageVersion>
     </PropertyGroup>
 </Project>

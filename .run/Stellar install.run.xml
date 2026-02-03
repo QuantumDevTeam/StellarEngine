@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Stellar install" type="RunNativeExe" factoryName="Native Executable">
+  <configuration default="false" name="Stellar install" type="RunNativeExe" factoryName="Native Executable" focusToolWindowBeforeRun="true">
     <option name="EXE_PATH" value="$PROJECT_DIR$/install.bat" />
     <option name="PROGRAM_PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
