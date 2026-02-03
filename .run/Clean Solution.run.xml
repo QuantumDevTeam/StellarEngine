@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Clean Solution" type="CompoundRunConfigurationType">
+    <toRun name="Kernel cleen" type="RunNativeExe" />
+    <toRun name="SDK clean" type="RunNativeExe" />
+    <method v="2" />
+  </configuration>
+</component>

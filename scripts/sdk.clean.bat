@@ -21,7 +21,7 @@ if /i "!confirm!" neq "Y" (
 echo Starting cleanup...
 
 call :RemoveDir "..\SDK\dist"
-call :RemoveFile "..\dotnet-tools.json"
+call :RemoveFile "..\.config\dotnet-tools.json"
 call :RemoveDir "..\Data\.generated"
 call :RemoveDir "%USERPROFILE%\.nuget\packages\stellar.sdk"
 call :RemoveDir "%USERPROFILE%\.nuget\packages\stellar.tools"
