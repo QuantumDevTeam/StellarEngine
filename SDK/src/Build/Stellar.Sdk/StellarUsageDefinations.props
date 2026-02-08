@@ -1,7 +1,7 @@
 <Project>
     <!-- Versions -->
     <Import Project="version.props" Condition="'$(StellarOrchesterVersion)' == ''"/>
-    
+
     <!-- StellarSdkUsage - Game -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Game'">
         <StellarGameIcon Condition="'$(StellarGameIcon)' == ''">$(StellarProjectName).ico</StellarGameIcon>
@@ -11,7 +11,7 @@
         <ApplicationManifest Condition="Exists('$(StellarGameManifest)')">$(StellarGameManifest)</ApplicationManifest>
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'Game' and '$(StellarPrecompiled)' == 'false'">
-        <ProjectReference Include="$(StellarOrchesterIntallationDir)/Engine/src/Stellar.Engine/Stellar.Engine.csproj"/>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Stellar.Engine/Stellar.Engine.csproj"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'Game' and '$(StellarPrecompiled)' == 'true'">
         <PackageReference Include="Stellar.Engine" Version="$(StellarEngineVersion)"/>
@@ -21,7 +21,7 @@
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'GameModule'">
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'GameModule' and '$(StellarPrecompiled)' == 'false'">
-        <ProjectReference Include="$(StellarOrchesterIntallationDir)/Engine/src/Stellar.Engine/Stellar.Engine.csproj"/>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Stellar.Engine/Stellar.Engine.csproj"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'GameModule' and '$(StellarPrecompiled)' == 'true'">
         <PackageReference Include="Stellar.Engine" Version="$(StellarEngineVersion)"/>
@@ -32,7 +32,7 @@
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'false'">
         <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
-        <ProjectReference Include="$(StellarOrchesterIntallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj"/>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'true'">
         <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>

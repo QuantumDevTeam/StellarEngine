@@ -1,11 +1,14 @@
 ﻿<Project Sdk="Stellar.Sdk/0.1.1">
     <PropertyGroup>
-        <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
-        <CompanyName>QuantumDev</CompanyName>
         <StellarSdkUsage>EngineModule</StellarSdkUsage>
+        <CompanyName>QuantumDev</CompanyName>
 
         <Version>$(StellarEngineVersion)</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <!-- Package props -->

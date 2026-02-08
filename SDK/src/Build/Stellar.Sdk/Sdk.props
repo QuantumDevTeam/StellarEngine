@@ -5,25 +5,21 @@
     <PropertyGroup>
         <WinSdkVersion Condition="'$(WinSdkVersion)' == ''">10.0.26100.0</WinSdkVersion>
         <TargetFramework Condition="'$(TargetFramework)' == ''">net9.0-windows$(WinSdkVersion)</TargetFramework>
+        <OutputType Condition="'$(OutputType)' == ''">Library</OutputType>
 
+        <!-- Plantform and runtime -->
         <PlatformTarget>x64</PlatformTarget>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
         <!-- build configuration -->
         <Configurations>Debug;Release</Configurations>
         <Platforms>x64</Platforms>
 
         <!-- Build path configuration -->
-        <OutputPath>bin\$(Configuration)</OutputPath>
+        <OutputPath>bin/$(Configuration)</OutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     </PropertyGroup>
-    <ItemGroup>
-    </ItemGroup>
 
     <!-- Stellar Configurations -->
     <PropertyGroup>
@@ -37,22 +33,32 @@
         <StellarRuntimeConfigType Condition="'$(StellarRuntimeConfigType)' == ''">External</StellarRuntimeConfigType>
         <StellarLocalizationIndexType Condition="'$(StellarLocalizationIndexType)' == ''">External</StellarLocalizationIndexType>
     </PropertyGroup>
-    <ItemGroup>
-    </ItemGroup>
 
     <!-- Versions -->
     <Import Project="version.props" Condition="'$(StellarOrchesterVersion)' == ''"/>
 
-    <!-- Stellar Directoryes -->
+    <!-- Stellar Directories -->
     <PropertyGroup>
-        <_UserProfile Condition="'$(OS)' == 'Windows_NT'">$(USERPROFILE)</_UserProfile>
-        <_UserProfile Condition="'$(OS)' != 'Windows_NT'">$(HOME)</_UserProfile>
-
-        <StellarOrchesterSharedDir>$(_UserProfile)\.stellar\$(StellarOrchesterVersion)</StellarOrchesterSharedDir>
-        <_StellarOrchessterInstallationFile>$(StellarOrchesterSharedDir)\installation_location.txt</_StellarOrchessterInstallationFile>
+        <_StellarSharedDirPathVar>$([System.Environment]::GetEnvironmentVariable('STELLAR_SHARED_DIR'))</_StellarSharedDirPathVar>
     </PropertyGroup>
-    <PropertyGroup Condition="Exists('$(_StellarOrchessterInstallationFile)')">
-        <StellarOrchesterIntallationDir>$([System.IO.File]::ReadAllText('$(_StellarOrchessterInstallationFile)').Trim())</StellarOrchesterIntallationDir>
+    <!-- From Path var -->
+    <PropertyGroup Condition="'$(_StellarSharedDirPathVar)' != ''">
+        <StellarOrchesterSharedDir>$(_StellarSharedDirPathVar)/$(StellarOrchesterVersion)</StellarOrchesterSharedDir>
+    </PropertyGroup>
+    <!-- From Home directory -->
+    <PropertyGroup Condition="'$(_StellarSharedDirPathVar)' == ''">
+        <_HomeDirectory Condition="'$(OS)' == 'Windows_NT'">$(USERPROFILE)</_HomeDirectory>
+        <_HomeDirectory Condition="'$(OS)' != 'Windows_NT'">$(HOME)</_HomeDirectory>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(_HomeDirectory)' != ''">
+        <StellarOrchesterSharedDir>$(_HomeDirectory)/.stellar/$(StellarOrchesterVersion)</StellarOrchesterSharedDir>
+    </PropertyGroup>
+    <!-- Installation -->
+    <PropertyGroup Condition="'$(StellarOrchesterSharedDir)' != ''">
+        <_StellarOrchesterInstallationFile>$(StellarOrchesterSharedDir)/installation_location.txt</_StellarOrchesterInstallationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(_StellarOrchesterInstallationFile)' != '' and Exists('$(_StellarOrchesterInstallationFile)')">
+        <StellarOrchesterInstallationDir>$([System.IO.File]::ReadAllText('$(_StellarOrchesterInstallationFile)').Trim())</StellarOrchesterInstallationDir>
     </PropertyGroup>
 
     <!-- Stellar Configurations fot different project types -->

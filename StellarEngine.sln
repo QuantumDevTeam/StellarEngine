@@ -72,9 +72,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CDE1
 		scripts\tools.install.bat = scripts\tools.install.bat
 		scripts\sdk.clean.bat = scripts\sdk.clean.bat
 		scripts\kernel.clean.bat = scripts\kernel.clean.bat
+		scripts\tools.clean.bat = scripts\tools.clean.bat
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Core", "Engine\src\Modules\Stellar.Core\Stellar.Core.csproj", "{C9110685-0F15-4D3D-B22B-A816954021C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Core", "Engine\src\Modules\Stellar.Core\Stellar.Core.csproj", "{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,8 +105,10 @@ Global
 		{6223871B-1963-4B36-8D35-9D35005F77D9}.Release|x64.ActiveCfg = Release|x64
 		{CD8C5378-4D7B-48BC-A162-51557E4F1BA4}.Debug|x64.ActiveCfg = Debug|x64
 		{CD8C5378-4D7B-48BC-A162-51557E4F1BA4}.Release|x64.ActiveCfg = Release|x64
-		{C9110685-0F15-4D3D-B22B-A816954021C8}.Debug|x64.ActiveCfg = Debug|x64
-		{C9110685-0F15-4D3D-B22B-A816954021C8}.Debug|x64.Build.0 = Debug|x64
+		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Debug|x64.Build.0 = Debug|Any CPU
+		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Release|x64.ActiveCfg = Release|Any CPU
+		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +135,6 @@ Global
 		{2398E8D4-71F6-4FA2-A3C8-FB46BB44C7F8} = {E51C0F9F-920C-419C-849D-30C0BED86743}
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726} = {E51C0F9F-920C-419C-849D-30C0BED86743}
 		{6F3E9245-C14B-491B-93CF-7D078E7089D7} = {029AC908-7378-4197-BF45-AD557B022B27}
-		{C9110685-0F15-4D3D-B22B-A816954021C8} = {1C440145-589E-46A4-A984-9D88FC666912}
+		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B} = {1C440145-589E-46A4-A984-9D88FC666912}
 	EndGlobalSection
 EndGlobal

@@ -4,8 +4,8 @@ setlocal enabledelayedexpansion
 echo Starting cleanup...
 
 call :RemoveDir "..\SDK\dist"
-call :RemoveDir "..\Data\.generated"
-call :RemoveDir "%USERPROFILE%\.nuget\packages\stellar.sdk"
+call :RemoveFile "..\.config\dotnet-tools.json"
+call :RemoveDir "%USERPROFILE%\.nuget\packages\stellar.tools"
 
 echo.
 echo Cleanup completed successfully!
