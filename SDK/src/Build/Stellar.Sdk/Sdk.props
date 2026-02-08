@@ -26,6 +26,7 @@
         <StellarPrecompiled Condition="'$(StellarPrecompiled)' == ''">false</StellarPrecompiled>
         <StellarOutputType Condition="'$(StellarOutputType)' == ''">Modern</StellarOutputType>
         <StellarProjectName Condition="'$(StellarProjectName)' == ''">$(AssemblyName)</StellarProjectName>
+        <CompanyName Condition="'$(CompanyName)' == ''">Unknown</CompanyName>
 
         <StellarVersionFile Condition="'$(StellarVersionFile)' == ''">$(StellarProjectName).stellar.version.txt</StellarVersionFile>
         <StellarProjectConfigurationFile Condition="'$(StellarProjectConfigurationFile)' == ''">$(StellarProjectName).stellar.project</StellarProjectConfigurationFile>

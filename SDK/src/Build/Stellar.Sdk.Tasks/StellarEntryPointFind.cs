@@ -47,7 +47,7 @@ namespace Stellar.Sdk.Tasks
                         .ToList();
 
                     var entryPointClasses = classesWithAttribute
-                        .Where(c => IsImplementsStellarEntryPointInterface(c, typeof(IStellarEntryPoint)))
+                        .Where(c => IsImplementsStellarEntryPointInterface(c, typeof(StellarEntryPoint)))
                         .ToList();
 
                     possibleEntryPoints.AddRange(entryPointClasses);

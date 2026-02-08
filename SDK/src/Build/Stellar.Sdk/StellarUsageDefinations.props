@@ -2,6 +2,27 @@
     <!-- Versions -->
     <Import Project="version.props" Condition="'$(StellarOrchesterVersion)' == ''"/>
 
+    <!-- StellarSdkUsage - Tests -->
+    <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Tests'">
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Tests'">
+        <PackageReference Include="coverlet.collector" Version="6.0.2"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
+
+        <PackageReference Include="xunit" Version="2.9.2"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2"/>
+
+        <PackageReference Include="FluentAssertions" Version="6.12.0"/>
+        <PackageReference Include="Moq" Version="4.20.69"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(StellarSdkUsage)' == 'Tests'">
+        <Using Include="Xunit"/>
+        <Using Include="FluentAssertions"/>
+        <Using Include="Moq"/>
+    </ItemGroup>
+
     <!-- StellarSdkUsage - Game -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Game'">
         <StellarGameIcon Condition="'$(StellarGameIcon)' == ''">$(StellarProjectName).ico</StellarGameIcon>
@@ -22,16 +43,18 @@
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'GameModule' and '$(StellarPrecompiled)' == 'false'">
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Stellar.Engine/Stellar.Engine.csproj"/>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Kernel/src/Stellar.Kernel/Stellar.Kernel.csproj" PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'GameModule' and '$(StellarPrecompiled)' == 'true'">
         <PackageReference Include="Stellar.Engine" Version="$(StellarEngineVersion)"/>
+        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - EngineModule -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineModule'">
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'false'">
-        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Kernel/src/Stellar.Kernel/Stellar.Kernel.csproj" PrivateAssets="all"/>
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'true'">
@@ -43,9 +66,28 @@
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule'">
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule' and '$(StellarPrecompiled)' == 'false'">
-        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Kernel/src/Stellar.Kernel/Stellar.Kernel.csproj" PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule' and '$(StellarPrecompiled)' == 'true'">
         <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
     </ItemGroup>
+
+    <!-- StellarSdkUsage - EngineModule Base propertyes -->
+    <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' or '$(StellarSdkUsage)' == 'EngineCoreModule'">
+        <CompanyName>QuantumDev</CompanyName>
+
+        <Version>$(StellarEngineVersion)</Version>
+        <AssemblyVersion>$(Version)</AssemblyVersion>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <!-- Package information -->
+    <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+        <Authors Condition="'$(Authors)' == ''">$(CompanyName)</Authors>
+        <PackageId Condition="'$(PackageId)' == ''">$(StellarProjectName)</PackageId>
+        <Description Condition="'$(Description)' == ''">$(ModuleDescription)</Description>
+        <PackageVersion Condition="'$(PackageVersion)' == ''">$(Version)</PackageVersion>
+    </PropertyGroup>
 </Project>

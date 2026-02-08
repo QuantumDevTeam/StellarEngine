@@ -1,22 +1,9 @@
-﻿<Project Sdk="Stellar.Sdk/0.1.1">
+﻿<Project Sdk="Stellar.Sdk/0.1.2">
     <PropertyGroup>
         <StellarSdkUsage>EngineModule</StellarSdkUsage>
-        <CompanyName>QuantumDev</CompanyName>
-
-        <Version>$(StellarEngineVersion)</Version>
-        <AssemblyVersion>$(Version)</AssemblyVersion>
-
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
-
-    <!-- Package props -->
-    <PropertyGroup>
         <IsPackable>true</IsPackable>
-        <Authors>$(CompanyName)</Authors>
-        <PackageId>Stellar.Graphic.UI</PackageId>
-        <Description>StellarEngine UI module</Description>
-        <PackageVersion>$(Version)</PackageVersion>
+        <ModuleDescription>StellarEngine UI module</ModuleDescription>
+
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 </Project>

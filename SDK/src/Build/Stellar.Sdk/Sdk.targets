@@ -5,7 +5,7 @@
 
     <Target Name="StellarValidating"
             BeforeTargets="Build"
-            Condition="'$(BuildingProject)' == 'true'">
+            Condition="'$(BuildingProject)' == 'true' and '$(StellarSdkUsage)' != 'Tests'">
         <Error Condition="'$(StellarSdkUsage)' == ''"
                Text="StellarSdkUsage must be configured!"/>
 
@@ -23,7 +23,8 @@
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarParseConfigurations"
             BeforeTargets="Build"
-            DependsOnTargets="StellarValidating">
+            DependsOnTargets="StellarValidating"
+            Condition="'$(StellarSdkUsage)' != 'Tests'">
         <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Configuration parsing ==="/>
 
         <StellarConfigParser
@@ -56,7 +57,8 @@
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarEntryPointFind"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarFindEntryPoint"
-            BeforeTargets="CoreCompile">
+            BeforeTargets="CoreCompile"
+            Condition="'$(StellarSdkUsage)' != 'Tests'">
         <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Searching entry point ==="/>
 
         <StellarEntryPointFind
@@ -108,7 +110,8 @@
     <!-- Building -->
 
     <Target Name="StellarGenerateAssemblyInfoAttributes"
-            BeforeTargets="CoreCompile">
+            BeforeTargets="CoreCompile"
+            Condition="'$(StellarSdkUsage)' != 'Tests'">
         <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: AssemblyInfo generation ==="/>
 
         <WriteLinesToFile

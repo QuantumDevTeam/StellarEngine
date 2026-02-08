@@ -1,0 +1,12 @@
+﻿<Project Sdk="Stellar.Sdk/0.1.2">
+    <PropertyGroup>
+        <StellarSdkUsage>Tests</StellarSdkUsage>
+        
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj"/>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Kernel/src/Stellar.Kernel/Stellar.Kernel.csproj"/>
+    </ItemGroup>
+</Project>
