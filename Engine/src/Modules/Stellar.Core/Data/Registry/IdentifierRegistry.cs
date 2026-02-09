@@ -1,7 +1,6 @@
 using System.Collections.Concurrent;
 using Stellar.Kernel.Identification;
 using Stellar.Kernel.Registry;
-using Stellar.Core.Quantization;
 
 namespace Stellar.Core.Data.Registry;
 

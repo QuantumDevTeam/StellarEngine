@@ -1,8 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+<!-- Versions -->
+<Import Project="..\..\..\Data\version.props"/>
 
-        <PackageId>Stellar.Graphic.UI.Kernel</PackageId>
-        <PackageVersion>0.1.0</PackageVersion>
-    </PropertyGroup>
+<PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>
+
+    <Version>$(StellarKernelVersion)</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+
+    <IsPackable>true</IsPackable>
+    <Authors>QuantumDev</Authors>
+    <PackageId>Stellar.Graphic.UI.Kernel</PackageId>
+    <Description>StellarEngine base Kernel module</Description>
+    <PackageVersion>$(Version)</PackageVersion>
+
+    <RestoreLockedMode>false</RestoreLockedMode>
+    <DisableImplicitFrameworkReferences>false</DisableImplicitFrameworkReferences>
+</PropertyGroup>
 </Project>
