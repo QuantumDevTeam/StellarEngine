@@ -22,15 +22,25 @@ public class IdentifierRegistry : IRegistry<Identifier>
         return Identifiers.ContainsKey(identifier.UID);
     }
 
-    public Identifier? Get(IIdentifier id)
+    public Identifier? Get(Guid uid)
     {
-        return Identifiers.GetValueOrDefault(id.UID);
+        return Identifiers.GetValueOrDefault(uid);
     }
 
+    public Identifier? Get(IIdentifier id)
+    {
+        return Get(id.UID);
+    }
+
+    public Identifier? Pop(Guid uid)
+    {
+        Identifiers.TryRemove(uid, out var obj);
+        return obj;
+    }
+    
     public Identifier? Pop(IIdentifier id)
     {
-        Identifiers.TryRemove(id.UID, out var obj);
-        return obj;
+        return Pop(id.UID);
     }
 
     public int Size => Identifiers.Count;

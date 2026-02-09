@@ -10,6 +10,7 @@ namespace Stellar.Kernel.Registry
         T Get(IIdentifier id);
         T Pop(IIdentifier id);
 #else
+#nullable enable
         T? Get(IIdentifier id);
         T? Pop(IIdentifier id);
 #endif
