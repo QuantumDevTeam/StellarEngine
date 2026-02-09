@@ -1,32 +1,38 @@
-using Stellar.Core.Quantization;
+using System.Collections.Concurrent;
 using Stellar.Kernel.Identification;
 using Stellar.Kernel.Registry;
+using Stellar.Core.Quantization;
 
 namespace Stellar.Core.Data.Registry;
 
 public class IdentifierRegistry : IRegistry<Identifier>
 {
+    private static readonly ConcurrentDictionary<Guid, Identifier> Identifiers = new();
+    private static readonly Lazy<IdentifierRegistry> Registry = new(() => new IdentifierRegistry());
+
+    public static IRegistry<Identifier> Instance => Registry.Value;
+
     public void Register(Identifier obj)
     {
-        throw new NotImplementedException();
+        Identifiers.TryAdd(obj.UID, obj);
     }
 
     public bool Exists(IIdentifier identifier)
     {
-        throw new NotImplementedException();
+        return Identifiers.ContainsKey(identifier.UID);
     }
 
     public Identifier? Get(IIdentifier id)
     {
-        throw new NotImplementedException();
+        return Identifiers.GetValueOrDefault(id.UID);
     }
 
     public Identifier? Pop(IIdentifier id)
     {
-        throw new NotImplementedException();
+        Identifiers.TryRemove(id.UID, out var obj);
+        return obj;
     }
 
-    public int Size => throw new NotImplementedException();
-    
-    ICollection<Identifier> Values => throw new NotImplementedException();
+    public int Size => Identifiers.Count;
+    public ICollection<Identifier> Values => Identifiers.Values;
 }

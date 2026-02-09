@@ -1,8 +1,8 @@
-using System;
+using Stellar.Kernel.Identification;
 
 namespace Stellar.Core.Quantization;
 
-public class Identifier : Kernel.Identification.IIdentifier, IDisposable
+public class Identifier : IIdentifier, IDisposable
 {
     public Guid UID { get; }
 

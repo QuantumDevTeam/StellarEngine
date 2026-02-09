@@ -13,5 +13,7 @@ namespace Stellar.Kernel.Registry
         T? Get(IIdentifier id);
         T? Pop(IIdentifier id);
 #endif
+        int Size { get; }
+        System.Collections.Generic.ICollection<T> Values { get; }
     }
 }
