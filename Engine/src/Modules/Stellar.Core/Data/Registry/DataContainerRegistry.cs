@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using Stellar.Core.Data.Collections;
-using Stellar.Kernel.Identification;
+using Stellar.Kernel;
 using Stellar.Kernel.Registry;
+using Stellar.Core.Data.Collections;
 
 namespace Stellar.Core.Data.Registry;
 
@@ -34,7 +34,7 @@ public class DataContainerRegistry : IRegistry<IDataContainer>
     }
 
     public int Size => Containers.Count;
-    
+
     public ICollection<IIdentifier> Keys => Containers.Keys;
     public ICollection<IDataContainer> Values => Containers.Values;
 }

@@ -1,8 +1,6 @@
-using Stellar.Kernel.Identification;
-
 namespace Stellar.Kernel.Quantization
 {
-    public interface IQuantMeta
+    public interface IMetaQuant
     {
         IIdentifier Identifier { get; }
     }

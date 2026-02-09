@@ -1,25 +1,25 @@
-using Stellar.Core.Data.Registry;
-using Stellar.Kernel.Identification;
+using Stellar.Kernel;
 using Stellar.Kernel.Quantization;
 using Stellar.Core.Quantization;
+using Stellar.Core.Data.Registry;
 
 namespace Stellar.Core.Data.Collections;
 
-public class DataContainer<T> : Quant<QuantMeta>, IDataContainer, IDisposable
+public abstract class DataContainer<T> : Quant<MetaQuant>, IDataContainer, IDisposable
 {
     public ConcurrentIdentifierMap<IQuant> Data { get; init; }
 
     #region Constructors
 
-    protected DataContainer(QuantMeta metaData, Dictionary<IIdentifier, T> data)
-        : base(metaData)
+    protected DataContainer(MetaQuant meta, Dictionary<IIdentifier, T> data)
+        : base(meta)
     {
         Data = new ConcurrentIdentifierMap<IQuant>(data as Dictionary<IIdentifier, IQuant>);
         DataContainerRegistry.Instance.Register(this);
     }
 
-    protected DataContainer(QuantMeta metaData)
-        : this(metaData, new Dictionary<IIdentifier, T>())
+    protected DataContainer(MetaQuant data)
+        : this(data, new Dictionary<IIdentifier, T>())
     {
     }
 
@@ -32,7 +32,7 @@ public class DataContainer<T> : Quant<QuantMeta>, IDataContainer, IDisposable
     {
         return Data.GetValueOrDefault(key);
     }
-    
+
     public T this[IIdentifier key] => (T)Get(key)! ?? throw new KeyNotFoundException();
 
     public bool Contains(IIdentifier key) => Data.ContainsKey(key);
@@ -41,7 +41,7 @@ public class DataContainer<T> : Quant<QuantMeta>, IDataContainer, IDisposable
 
     public ICollection<IIdentifier> Keys => Data.Keys;
     public ICollection<IQuant> Values => Data.Values;
-    
+
     public void Clear() => Data.Clear();
 
     public void Dispose()

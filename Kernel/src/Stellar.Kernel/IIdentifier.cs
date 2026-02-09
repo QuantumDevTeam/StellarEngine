@@ -1,6 +1,6 @@
 using System;
 
-namespace Stellar.Kernel.Identification
+namespace Stellar.Kernel
 {
     public interface IIdentifier
     {

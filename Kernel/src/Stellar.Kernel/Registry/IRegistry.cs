@@ -1,5 +1,3 @@
-using Stellar.Kernel.Identification;
-
 namespace Stellar.Kernel.Registry
 {
     public interface IRegistry<T> where T : class

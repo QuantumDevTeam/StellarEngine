@@ -1,6 +1,6 @@
-using System.Collections.Concurrent;
-using Stellar.Kernel.Identification;
+using Stellar.Kernel;
 using Stellar.Kernel.Registry;
+using System.Collections.Concurrent;
 
 namespace Stellar.Core.Data.Registry;
 

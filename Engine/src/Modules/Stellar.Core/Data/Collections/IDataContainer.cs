@@ -1,4 +1,4 @@
-using Stellar.Kernel.Identification;
+using Stellar.Kernel;
 using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Data.Collections;
