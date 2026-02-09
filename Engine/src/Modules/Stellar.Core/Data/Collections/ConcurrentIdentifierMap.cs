@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
+using Stellar.Kernel.Identification;
 
 namespace Stellar.Core.Data.Collections;
 
-public sealed class ConcurrentIdentifierMap<T>(Dictionary<Identifier, T>? data)
-    : ConcurrentDictionary<Identifier, T>(data ?? new Dictionary<Identifier, T>());
+public sealed class ConcurrentIdentifierMap<T>(Dictionary<IIdentifier, T>? data)
+    : ConcurrentDictionary<IIdentifier, T>(data ?? new Dictionary<IIdentifier, T>());

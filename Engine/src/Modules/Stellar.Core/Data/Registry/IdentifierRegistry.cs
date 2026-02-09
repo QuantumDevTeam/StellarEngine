@@ -36,12 +36,14 @@ public class IdentifierRegistry : IRegistry<Identifier>
         Identifiers.TryRemove(uid, out var obj);
         return obj;
     }
-    
+
     public Identifier? Pop(IIdentifier id)
     {
         return Pop(id.UID);
     }
 
     public int Size => Identifiers.Count;
+
+    public ICollection<IIdentifier> Keys => (ICollection<IIdentifier>)Identifiers.Values;
     public ICollection<Identifier> Values => Identifiers.Values;
 }

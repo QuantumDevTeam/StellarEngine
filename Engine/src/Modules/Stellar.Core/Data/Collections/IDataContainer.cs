@@ -1,8 +1,15 @@
+using Stellar.Kernel.Identification;
 using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Data.Collections;
 
-[Obsolete("The class is mainly used in the engine, you should not use it in the game.")]
 public interface IDataContainer : IQuant
 {
+    ConcurrentIdentifierMap<IQuant> Data { get; init; }
+
+    IQuant? Get(IIdentifier key);
+    bool Contains(IIdentifier key);
+
+    int Count { get; }
+    bool IsEmpty { get; }
 }
