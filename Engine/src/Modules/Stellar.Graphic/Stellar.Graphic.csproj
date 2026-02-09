@@ -3,7 +3,5 @@
         <StellarSdkUsage>EngineModule</StellarSdkUsage>
         <IsPackable>true</IsPackable>
         <ModuleDescription>StellarEngine Graphic module</ModuleDescription>
-
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 </Project>

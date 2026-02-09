@@ -4,6 +4,6 @@ namespace Stellar.Kernel.Identification
 {
     public interface IIdentifier
     {
-        Guid Uuid { get; }
+        Guid UID { get; }
     }
 }

@@ -4,6 +4,8 @@
         <IsPackable>true</IsPackable>
         <ModuleDescription>StellarEngine Core module</ModuleDescription>
 
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 </Project>
