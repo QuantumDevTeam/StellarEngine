@@ -3,5 +3,8 @@
         <StellarSdkUsage>EngineModule</StellarSdkUsage>
         <IsPackable>true</IsPackable>
         <ModuleDescription>StellarEngine Logging module</ModuleDescription>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 </Project>
