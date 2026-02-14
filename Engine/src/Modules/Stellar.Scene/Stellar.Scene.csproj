@@ -1,0 +1,7 @@
+﻿<Project Sdk="Stellar.Sdk/0.1.2">
+    <PropertyGroup>
+        <StellarSdkUsage>EngineModule</StellarSdkUsage>
+        <IsPackable>true</IsPackable>
+        <ModuleDescription>StellarEngine scene operations</ModuleDescription>
+    </PropertyGroup>
+</Project>

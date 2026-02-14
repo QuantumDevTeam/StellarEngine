@@ -12,7 +12,7 @@ public sealed class ListTemplatesCommand : Command
         var templatesDir = Path.Combine(
             enginePath,
             "Data",
-            "Templates",
+            "Template",
             "Projects"
         );
 
