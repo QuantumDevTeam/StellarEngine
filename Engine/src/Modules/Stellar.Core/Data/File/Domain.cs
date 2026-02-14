@@ -1,23 +1,14 @@
 using Stellar.Core.Quantization;
+using Stellar.Kernel;
 
 namespace Stellar.Core.Data.File;
 
-public sealed class Domain : MetaQuant, IDisposable
+public sealed class Domain(DomainType type, string name, string value, IIdentifier? identifier = null)
+    : RegistrableMetaQuant<Domain>(identifier)
 {
-    public readonly DomainType Type;
-    public readonly string Value;
-
-    public Domain(DomainType type, string value)
-    {
-        Type = type;
-        Value = value;
-        throw new NotImplementedException();
-    }
+    public readonly DomainType Type = type;
+    public readonly string Name = name;
+    public readonly string Value = value;
 
     public override string ToString() => Value;
-
-    public void Dispose()
-    {
-        throw new NotImplementedException();
-    }
 }

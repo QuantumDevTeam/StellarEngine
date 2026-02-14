@@ -2,8 +2,8 @@ namespace Stellar.Kernel.Registry
 {
     public interface IRegistry<T> where T : class
     {
-        void Register(T obj);
-        bool Exists(IIdentifier identifier);
+        bool Exists(IIdentifier id);
+        bool Register(T obj);
 #if NETSTANDARD2_0
         T Get(IIdentifier id);
         T Pop(IIdentifier id);

@@ -2,7 +2,8 @@ using System.Collections.Concurrent;
 
 namespace Stellar.Core.Data.Collections;
 
-public sealed class ConcurrentSet<T> where T : notnull
+public sealed class ConcurrentSet<T> 
+    where T : notnull
 {
     private readonly ConcurrentDictionary<T, byte> _dictionary = new();
     

@@ -5,7 +5,8 @@ using Stellar.Core.Data.Registry;
 
 namespace Stellar.Core.Data.Collections;
 
-public abstract class DataContainer<T> : Quant<MetaQuant>, IDataContainer, IDisposable
+public abstract class DataContainer<T> 
+    : Quant<MetaQuant>, IDataContainer, IDisposable
 {
     public ConcurrentIdentifierMap<IQuant> Data { get; init; }
 

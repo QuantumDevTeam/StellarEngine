@@ -5,6 +5,6 @@
         <StellarToolsVersion>0.1.0</StellarToolsVersion>
         <StellarSdkVersion>0.1.2</StellarSdkVersion>
         <StellarKernelVersion>0.2.0</StellarKernelVersion>
-        <StellarEngineVersion>0.1.0</StellarEngineVersion>
+        <StellarEngineVersion>0.2.0</StellarEngineVersion>
     </PropertyGroup>
 </Project>

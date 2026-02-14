@@ -3,7 +3,8 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Data.Collections;
 
-public interface IDataContainer : IQuant
+public interface IDataContainer 
+    : IQuant
 {
     ConcurrentIdentifierMap<IQuant> Data { get; init; }
 

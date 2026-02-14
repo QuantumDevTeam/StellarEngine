@@ -5,31 +5,32 @@ using Stellar.Core.Data.Collections;
 
 namespace Stellar.Core.Data.Registry;
 
-public class DataContainerRegistry : IRegistry<IDataContainer>
+public class DataContainerRegistry 
+    : IRegistry<IDataContainer>
 {
     private static readonly ConcurrentDictionary<IIdentifier, IDataContainer> Containers = new();
     private static readonly Lazy<DataContainerRegistry> Registry = new(() => new DataContainerRegistry());
 
     public static IRegistry<IDataContainer> Instance => Registry.Value;
 
-    public void Register(IDataContainer obj)
+    public bool Exists(IIdentifier id)
     {
-        Containers.TryAdd(obj.Id, obj);
+        return Containers.ContainsKey(id);
     }
 
-    public bool Exists(IIdentifier identifier)
+    public bool Register(IDataContainer obj)
     {
-        return Containers.ContainsKey(identifier);
+        return Containers.TryAdd(obj.Id, obj);
     }
 
-    public IDataContainer? Get(IIdentifier identifier)
+    public IDataContainer? Get(IIdentifier id)
     {
-        return Containers.GetValueOrDefault(identifier);
+        return Containers.GetValueOrDefault(id);
     }
 
-    public IDataContainer? Pop(IIdentifier identifier)
+    public IDataContainer? Pop(IIdentifier id)
     {
-        Containers.TryRemove(identifier, out var obj);
+        Containers.TryRemove(id, out var obj);
         return obj;
     }
 

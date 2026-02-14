@@ -4,21 +4,22 @@ using System.Collections.Concurrent;
 
 namespace Stellar.Core.Data.Registry;
 
-public class IdentifierRegistry : IRegistry<Identifier>
+public class IdentifierRegistry 
+    : IRegistry<Identifier>
 {
     private static readonly ConcurrentDictionary<Guid, Identifier> Identifiers = new();
     private static readonly Lazy<IdentifierRegistry> Registry = new(() => new IdentifierRegistry());
 
     public static IRegistry<Identifier> Instance => Registry.Value;
 
-    public void Register(Identifier obj)
+    public bool Exists(IIdentifier id)
     {
-        Identifiers.TryAdd(obj.UID, obj);
+        return Identifiers.ContainsKey(id.UID);
     }
 
-    public bool Exists(IIdentifier identifier)
+    public bool Register(Identifier obj)
     {
-        return Identifiers.ContainsKey(identifier.UID);
+        return Identifiers.TryAdd(obj.UID, obj);
     }
 
     public Identifier? Get(Guid uid)
