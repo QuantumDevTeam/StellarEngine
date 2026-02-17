@@ -10,12 +10,12 @@ public class LoggerMeta(
     Path? loggingPath = null,
     LoggingFormats? loggingFormats = null,
     float? timeDuration = null, // TODO: TimedMetaQuant
-    int? sizeDiration = null, // TODO: Size duration for LoggerFile
+    int? sizeDuration = null, // TODO: Size duration for LoggerFile
     IIdentifier? identifier = null
 ) : TimedMetaQuant(identifier, timeDuration)
 {
     public bool IsActive = isActive;
     public LoggerMode Mode = mode;
-    public LoggerFile? File = LoggerFile.GetOrCreate(loggingPath, sizeDiration);
+    public LoggerFile? File = LoggerFile.GetOrCreate(loggingPath, sizeDuration);
     public readonly LoggingFormats LoggingFormats = loggingFormats ?? new LoggingFormats();
 }

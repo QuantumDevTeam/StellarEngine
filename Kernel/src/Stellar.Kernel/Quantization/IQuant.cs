@@ -1,8 +1,7 @@
 namespace Stellar.Kernel.Quantization
 {
-    public interface IQuant
+    public interface IQuant : IMetaQuant
     {
         IMetaQuant Meta { get; }
-        IIdentifier Id { get; }
     }
 }

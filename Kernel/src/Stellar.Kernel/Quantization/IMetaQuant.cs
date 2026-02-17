@@ -2,6 +2,7 @@ namespace Stellar.Kernel.Quantization
 {
     public interface IMetaQuant
     {
-        IIdentifier Identifier { get; }
+        // ReSharper disable once InconsistentNaming
+        IIdentifier UID { get; }
     }
 }

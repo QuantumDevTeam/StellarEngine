@@ -9,6 +9,6 @@ public abstract class Quant<TMeta>(TMeta meta)
 {
     public IMetaQuant Meta { get; init; } = meta;
     public TMeta MetaQuant => (TMeta)Meta;
-    public IIdentifier Id => Meta.Identifier;
-    public Identifier Identifier => Identifier.Get(Meta.Identifier);
+    public IIdentifier UID => Meta.UID;
+    public Identifier Identifier => Identifier.Get(Meta.UID);
 }

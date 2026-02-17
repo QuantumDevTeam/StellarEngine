@@ -20,7 +20,7 @@ public class DataContainerRegistry
 
     public bool Register(IDataContainer obj)
     {
-        return Containers.TryAdd(obj.Id, obj);
+        return Containers.TryAdd(obj.UID, obj);
     }
 
     public IDataContainer? Get(IIdentifier id)
