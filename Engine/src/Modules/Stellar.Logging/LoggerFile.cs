@@ -6,7 +6,7 @@ namespace Stellar.Logging;
 
 public class LoggerFile(Path path, IIdentifier? identifier = null) : File("LoggerFile", path, identifier), IDisposable
 {
-    public static LoggerFile? GetOrCreate(Path? loggingPath)
+    public static LoggerFile? GetOrCreate(Path? loggingPath, int? sizeDiration = null)
     {
         throw new NotImplementedException("GetOrCreate LOGGER FILE");
     }

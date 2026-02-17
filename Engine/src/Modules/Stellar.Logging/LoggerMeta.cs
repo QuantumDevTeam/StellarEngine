@@ -1,4 +1,5 @@
 using Stellar.Core.Quantization;
+using Stellar.Kernel;
 using Path = Stellar.Core.Data.File.Path;
 
 namespace Stellar.Logging;
@@ -9,11 +10,12 @@ public class LoggerMeta(
     Path? loggingPath = null,
     LoggingFormats? loggingFormats = null,
     float? timeDuration = null, // TODO: TimedMetaQuant
-    int? sizeDiration = null // TODO: Size duration for LoggerFile
-    ) : MetaQuant
+    int? sizeDiration = null, // TODO: Size duration for LoggerFile
+    IIdentifier? identifier = null
+) : TimedMetaQuant(identifier, timeDuration)
 {
     public bool IsActive = isActive;
     public LoggerMode Mode = mode;
-    public LoggerFile? File = LoggerFile.GetOrCreate(loggingPath);
+    public LoggerFile? File = LoggerFile.GetOrCreate(loggingPath, sizeDiration);
     public readonly LoggingFormats LoggingFormats = loggingFormats ?? new LoggingFormats();
 }
