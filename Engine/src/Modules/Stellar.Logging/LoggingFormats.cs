@@ -1,4 +1,16 @@
+#pragma warning disable CS8618
+
 namespace Stellar.Logging;
+
+public class LoggingFormatsJson
+{
+    public LogFormatJson Info { get; set; }
+    public LogFormatJson Debug { get; set; }
+    public LogFormatJson Success { get; set; }
+    public LogFormatJson Warning { get; set; }
+    public LogFormatJson Error { get; set; }
+    public LogFormatJson Exception { get; set; }
+}
 
 public struct LoggingFormats
 {
@@ -112,5 +124,15 @@ public struct LoggingFormats
 
     public LoggingFormats()
     {
+    }
+
+    public LoggingFormats(LoggingFormatsJson json)
+    {
+        Info = new LogFormat(json.Info);
+        Debug = new LogFormat(json.Debug);
+        Success = new LogFormat(json.Success);
+        Warning = new LogFormat(json.Warning);
+        Error = new LogFormat(json.Error);
+        Exception = new LogFormat(json.Exception);
     }
 }
