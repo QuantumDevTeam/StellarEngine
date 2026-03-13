@@ -1,13 +1,13 @@
+using Stellar.Core.Data.File;
 using Stellar.Core.Quantization;
 using Stellar.Kernel;
-using Path = Stellar.Core.Data.File.Path;
 
 namespace Stellar.Logging;
 
 public class LoggerMeta(
     bool isActive = true,
     LoggerMode mode = LoggerMode.FileAndConsole,
-    Path? loggingPath = null,
+    Location? loggingPath = null,
     LoggingFormats? loggingFormats = null,
     float? timeDuration = null, // TODO: TimedMetaQuant
     int? sizeDuration = null, // TODO: Size duration for LoggerFile

@@ -9,5 +9,5 @@ public sealed class Domain(DomainType type, string value, IIdentifier? identifie
     public readonly DomainType Type = type;
     public readonly string Value = value;
 
-    public override string ToString() => Value;
+    public override string ToString() => $"{Type}:{Value}";
 }

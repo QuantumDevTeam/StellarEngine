@@ -2,14 +2,10 @@ using Stellar.Core.Quantization;
 
 namespace Stellar.Core.Data.File;
 
-public sealed class FileStream : MetaQuant
+public sealed class FileStream(File file, Stream stream) : MetaQuant, IDisposable
 {
-    public Stream? Stream;
-    
-    
+    public readonly Stream Stream = stream;
+    public readonly File File = file;
 
-    public FileStream(File file, FileMode mode, FileAccess fileAccess)
-    {
-        
-    }
+    public void Dispose() => Stream.Dispose();
 }
