@@ -1,9 +1,27 @@
 namespace Stellar.Core.Data.File;
 
+/// <summary>
+/// Domain Types
+/// </summary>
 public enum DomainType
 {
+    /// <summary>
+    ///  A Directory in OS FileSystem
+    /// </summary>
     Directory,
+
+    /// <summary>
+    /// An Assembly file (.dll)
+    /// </summary>
     Assembly,
+
+    /// <summary>
+    /// An HTTP link in Ethernet
+    /// </summary>
     Http,
-    Memory
+
+    /// <summary>
+    /// An HTTP link in Ethernet
+    /// </summary>
+    Https,
 }

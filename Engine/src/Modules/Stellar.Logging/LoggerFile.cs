@@ -1,14 +1,15 @@
 using Stellar.Core.Data.File;
 using Stellar.Kernel;
-using File = Stellar.Core.Data.File.File;
 
 namespace Stellar.Logging;
 
-public class LoggerFile(Location location, IIdentifier? identifier = null) : File("LoggerFile", location, identifier), IDisposable
+public class LoggerFile(Location location, IIdentifier? identifier = null)
+    : Core.Data.File.File(location, new FileType("LoggerFile"), identifier), IDisposable
 {
-    public static LoggerFile? GetOrCreate(Location? loggingPath, int? sizeDiration = null)
+    public static LoggerFile? GetOrCreate(Location loggingPath,
+        int? sizeDiration = null, DateTimeOffset? timeduration = null)
     {
-        throw new NotImplementedException("GetOrCreate LOGGER FILE");
+        // TODO: Create File (read file info `needed`)
     }
 
     public void Dispose()
