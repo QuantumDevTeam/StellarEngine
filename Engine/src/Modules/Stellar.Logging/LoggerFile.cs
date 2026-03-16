@@ -4,16 +4,66 @@ using Stellar.Kernel;
 namespace Stellar.Logging;
 
 public class LoggerFile(Location location, IIdentifier? identifier = null)
-    : Core.Data.File.File(location, new FileType("LoggerFile"), identifier), IDisposable
+    : Core.Data.File.File(location, LoggerFileType, identifier), IDisposable
 {
-    public static LoggerFile? GetOrCreate(Location? loggingPath,
-        int? sizeDiration = null, DateTimeOffset? timeduration = null)
+    private StreamWriter? _writer;
+    private readonly Lock _lock = new();
+
+    public static readonly FileType LoggerFileType = new("LoggerFile");
+
+    private void OpenWriter()
     {
-        // TODO: Create File (read file info `needed`)
+        lock (_lock)
+        {
+            if (_writer != null) return;
+
+            var stream = Location.Domain.FileSystem.OpenWrite(Location);
+            _writer = new StreamWriter(stream) { AutoFlush = true };
+        }
+    }
+
+    /// <summary>
+    /// Writes a line to the log file.
+    /// </summary>
+    public void WriteLine(string line)
+    {
+        lock (_lock)
+        {
+            if (_writer != null)
+                _writer.WriteLine(line);
+            else
+                throw new ObjectDisposedException(nameof(LoggerFile));
+        }
+    }
+
+    /// <summary>
+    /// Gets an existing logger file or creates a new one at the specified location.
+    /// </summary>
+    /// <param name="location">Location of the log file.</param>
+    public static LoggerFile GetOrCreate(Location location)
+    {
+        // Ensure the domain exists and the file system supports writing.
+        if (!location.Domain.FileSystem.Exists(location))
+        {
+            // Create an empty file by opening and closing a write stream.
+            using (location.Domain.FileSystem.OpenWrite(location))
+            {
+                // Just create the file; stream is disposed immediately.
+            }
+        }
+
+        var loggerFile = new LoggerFile(location);
+        loggerFile.OpenWriter();
+        return loggerFile;
     }
 
     public void Dispose()
     {
-        // TODO: Dispose of LoggerFile
+        lock (_lock)
+        {
+            _writer?.Flush();
+            _writer?.Dispose();
+            _writer = null;
+        }
     }
 }

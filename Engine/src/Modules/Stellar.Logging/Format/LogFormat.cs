@@ -1,6 +1,6 @@
 ﻿#pragma warning disable CS8618
 
-namespace Stellar.Logging;
+namespace Stellar.Logging.Format;
 
 public class LogFormatJson
 {
