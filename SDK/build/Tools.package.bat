@@ -11,7 +11,7 @@ if errorlevel 1 (
 
 rem add SDK NuGet source
 echo.
-call ../../scripts/add_nuget_source.bat StellarSDK
+call ../../scripts/add_nuget_source.bat LocalStellarSDK
 if errorlevel 1 exit /b 1
 
 echo.

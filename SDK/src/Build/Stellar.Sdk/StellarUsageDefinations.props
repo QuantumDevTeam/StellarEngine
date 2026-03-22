@@ -50,16 +50,24 @@
         <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
     </ItemGroup>
 
+    <!-- StellarSdkUsage - Engine Modules Base propertyes -->
+    <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' or '$(StellarSdkUsage)' == 'EngineCoreModule'">
+        <CompanyName>QuantumDev</CompanyName>
+
+        <Version>$(StellarEngineVersion)</Version>
+        <AssemblyVersion>$(Version)</AssemblyVersion>
+    </PropertyGroup>
+
     <!-- StellarSdkUsage - EngineModule -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineModule'">
     </PropertyGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'false'">
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Kernel/src/Stellar.Kernel/Stellar.Kernel.csproj" PrivateAssets="all"/>
-        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj"/>
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj" PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'true'">
         <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
-        <PackageReference Include="Stellar.Core" Version="$(StellarEngineVersion)"/>
+        <PackageReference Include="Stellar.Core" Version="$(StellarEngineVersion)" PrivateAssets="all"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - EngineCoreModule -->
@@ -71,14 +79,6 @@
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule' and '$(StellarPrecompiled)' == 'true'">
         <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
     </ItemGroup>
-
-    <!-- StellarSdkUsage - EngineModule Base propertyes -->
-    <PropertyGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' or '$(StellarSdkUsage)' == 'EngineCoreModule'">
-        <CompanyName>QuantumDev</CompanyName>
-
-        <Version>$(StellarEngineVersion)</Version>
-        <AssemblyVersion>$(Version)</AssemblyVersion>
-    </PropertyGroup>
 
     <!-- Package information -->
     <PropertyGroup Condition="'$(IsPackable)' == 'true'">

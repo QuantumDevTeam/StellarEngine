@@ -1,4 +1,4 @@
-﻿<Project Sdk="Stellar.Sdk/0.1.2">
+﻿<Project Sdk="Stellar.Sdk/0.1.3">
     <PropertyGroup>
         <StellarSdkUsage>EngineModule</StellarSdkUsage>
         <IsPackable>true</IsPackable>
@@ -9,6 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <StellarDependency Type="EngineModule" AllowPrecompiled="true" Include="Stellar.FileSystem"/>
+        <!-- TODO: Implement StellarDependency tag -->
+        <!--<StellarDependency Type="EngineModule" AllowPrecompiled="true" Include="Stellar.FileSystem"/>-->
+    </ItemGroup>
+
+    <ItemGroup Condition="$(StellarPrecompiled) == 'false'">
+        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.FileSystem/Stellar.FileSystem.csproj"/>
+    </ItemGroup>
+    <ItemGroup Condition="$(StellarPrecompiled) == 'true'">
+        <PackageReference Include="Stellar.FileSystem" Version="$(StellarEngineVersion)"/>
     </ItemGroup>
 </Project>

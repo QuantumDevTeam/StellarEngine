@@ -12,7 +12,7 @@ if errorlevel 1 (
 
 rem add Kernel NuGet source
 echo.
-call ../../scripts/add_nuget_source.bat StellarKernel
+call ../../scripts/add_nuget_source.bat LocalStellarKernel
 if errorlevel 1 exit /b 1
 
 echo.

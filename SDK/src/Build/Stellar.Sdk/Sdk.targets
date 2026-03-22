@@ -18,7 +18,7 @@
     </Target>
 
     <!-- Stellar Tags -->
-    
+
     <!-- TODO: Implement this task -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarParseCSProjectFile"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
@@ -35,10 +35,14 @@
         </StellarParseCSProjectFile>
     </Target>
 
-    <Target Name="StellarDependencoesApply"
+    <Target Name="StellarDependenciesApply"
             BeforeTargets="Build"
-            DependsOnTargets="">
+            DependsOnTargets="StellarParseCsSroject">
         <!-- TODO: Implement this target -->
+        <ItemGroup>
+            <ProjectReference Include="@(StellarDependenciesAsProject)"/>
+            <PackageReference Include="@(StellarDependenciesAsPackages)"/>
+        </ItemGroup>
     </Target>
 
     <!-- Config -->
