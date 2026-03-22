@@ -4,7 +4,7 @@
     <!-- Validating -->
 
     <Target Name="StellarValidating"
-            BeforeTargets="Build"
+            BeforeTargets="BeforeResolveReference"
             Condition="'$(BuildingProject)' == 'true' and '$(StellarSdkUsage)' != 'Tests'">
         <Error Condition="'$(StellarSdkUsage)' == ''"
                Text="StellarSdkUsage must be configured!"/>
@@ -15,6 +15,30 @@
         <Message IsCritical="true"
                  Importance="high"
                  Text="=== STELLAR SDK: $(StellarProjectName) is valid StellarProject ==="/>
+    </Target>
+
+    <!-- Stellar Tags -->
+    
+    <!-- TODO: Implement this task -->
+    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarParseCSProjectFile"
+               AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
+    <Target Name="StellarParseCsSroject"
+            BeforeTargets="StellarParseConfigurations"
+            DependsOnTargets="StellarValidating">
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: CSProj parsing ==="/>
+
+        <StellarParseCSProjectFile
+                ProjectDirectory="$(MSBuildProjectDirectory)"
+                AssemblyName="$(AssemblyName)">
+            <Output TaskParameter="StellarDependenciesAsProject" ItemName="StellarDependenciesAsProject"/>
+            <Output TaskParameter="StellarDependenciesAsPackages" ItemName="StellarDependenciesAsPackages"/>
+        </StellarParseCSProjectFile>
+    </Target>
+
+    <Target Name="StellarDependencoesApply"
+            BeforeTargets="Build"
+            DependsOnTargets="">
+        <!-- TODO: Implement this target -->
     </Target>
 
     <!-- Config -->
