@@ -28,11 +28,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sdk", "SDK\src\Buil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sdk.Tasks", "SDK\src\Build\Stellar.Sdk.Tasks\Stellar.Sdk.Tasks.csproj", "{C4269D49-9AD0-4498-A1CF-FF69947A69CE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.DX12", "Engine\src\Native\Stellar.Graphic.Native.DX12\Stellar.Graphic.Native.DX12.vcxproj", "{28D8B381-C95B-45CF-ADBB-9026C590105F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Graphic.API.DX12", "Engine\src\Native\Stellar.Native.Graphic.API.DX12\Stellar.Native.Graphic.API.DX12.vcxproj", "{28D8B381-C95B-45CF-ADBB-9026C590105F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.Window.Graphic", "Engine\src\Native\Stellar.Graphic.Native.Window.Graphic\Stellar.Graphic.Native.Window.Graphic.vcxproj", "{8ADF5D47-5488-4049-909C-16DC32DAD702}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Physics.Native", "Engine\src\Native\Stellar.Physics.Native\Stellar.Physics.Native.vcxproj", "{97C823E1-833A-40D0-AAE8-8FE75A74E82C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Physics", "Engine\src\Native\Stellar.Native.Physics\Stellar.Native.Physics.vcxproj", "{97C823E1-833A-40D0-AAE8-8FE75A74E82C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NativeInterop", "NativeInterop", "{D50458ED-E6A7-4482-8CA2-C0D3EB147C58}"
 EndProject
@@ -91,19 +89,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Logging", "Engine\s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Scene", "Engine\src\Modules\Stellar.Scene\Stellar.Scene.csproj", "{92A6E0C9-0892-4B35-8A64-82E57BF37040}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.OGL", "Engine\src\Native\Stellar.Graphic.Native.OGL\Stellar.Graphic.Native.OGL.vcxproj", "{30AC8C45-81DA-4AF9-8792-A55CA5345D12}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Graphic.API.OGL", "Engine\src\Native\Stellar.Native.Graphic.API.OGL\Stellar.Native.Graphic.API.OGL.vcxproj", "{30AC8C45-81DA-4AF9-8792-A55CA5345D12}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.API.Kernel", "Engine\src\Native\Stellar.Graphic.Native.API.Kernel\Stellar.Graphic.Native.API.Kernel.vcxproj", "{8CB99FF6-9EEF-4984-B99B-6A6F165A049E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Graphic.Kernel", "Engine\src\Native\Stellar.Native.Graphic.Kernel\Stellar.Native.Graphic.Kernel.vcxproj", "{8CB99FF6-9EEF-4984-B99B-6A6F165A049E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.API.Wrapper", "Engine\src\Native\Stellar.Graphic.Native.API.Wrapper\Stellar.Graphic.Native.API.Wrapper.vcxproj", "{3FC8FD8D-8488-46F1-9864-C1665C695DB8}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.Window.Events", "Engine\src\Native\Stellar.Graphic.Native.Window.Events\Stellar.Graphic.Native.Window.Events.vcxproj", "{333CED75-BD3A-46CA-8E62-F92A6CD36F92}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.Window.Manager", "Engine\src\Native\Stellar.Graphic.Native.Window.Manager\Stellar.Graphic.Native.Window.Manager.vcxproj", "{6BAC33CB-2E80-4553-9BF0-CF6205ADEC45}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.Window.Kernel", "Engine\src\Native\Stellar.Graphic.Native.Window.Kernel\Stellar.Graphic.Native.Window.Kernel.vcxproj", "{7F303ED4-F12E-444A-AF3A-9D784A7FE302}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Graphic.Native.Window.Wrapper", "Engine\src\Native\Stellar.Graphic.Native.Window.Wrapper\Stellar.Graphic.Native.Window.Wrapper.vcxproj", "{7F9B0D76-411F-490A-911E-3F587A475EFD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Graphic.Window", "Engine\src\Native\Stellar.Native.Graphic.Window\Stellar.Native.Graphic.Window.vcxproj", "{333CED75-BD3A-46CA-8E62-F92A6CD36F92}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Window.Wrapper.CLI", "Engine\src\NativeInterop\Stellar.Window.Wrapper.CLI\Stellar.Window.Wrapper.CLI.vcxproj", "{83818C65-7765-43BB-9049-5642E787DD2E}"
 EndProject
@@ -123,8 +113,6 @@ Global
 		{C4269D49-9AD0-4498-A1CF-FF69947A69CE}.Release|x64.Build.0 = Release|Any CPU
 		{28D8B381-C95B-45CF-ADBB-9026C590105F}.Debug|x64.ActiveCfg = Debug|x64
 		{28D8B381-C95B-45CF-ADBB-9026C590105F}.Release|x64.ActiveCfg = Release|x64
-		{8ADF5D47-5488-4049-909C-16DC32DAD702}.Debug|x64.ActiveCfg = Debug|x64
-		{8ADF5D47-5488-4049-909C-16DC32DAD702}.Release|x64.ActiveCfg = Release|x64
 		{97C823E1-833A-40D0-AAE8-8FE75A74E82C}.Debug|x64.ActiveCfg = Debug|x64
 		{97C823E1-833A-40D0-AAE8-8FE75A74E82C}.Release|x64.ActiveCfg = Release|x64
 		{AE738A31-2A88-0AFA-37EB-B94F0F9B811B}.Debug|x64.ActiveCfg = Debug|x64
@@ -179,26 +167,10 @@ Global
 		{8CB99FF6-9EEF-4984-B99B-6A6F165A049E}.Debug|x64.Build.0 = Debug|x64
 		{8CB99FF6-9EEF-4984-B99B-6A6F165A049E}.Release|x64.ActiveCfg = Release|x64
 		{8CB99FF6-9EEF-4984-B99B-6A6F165A049E}.Release|x64.Build.0 = Release|x64
-		{3FC8FD8D-8488-46F1-9864-C1665C695DB8}.Debug|x64.ActiveCfg = Debug|x64
-		{3FC8FD8D-8488-46F1-9864-C1665C695DB8}.Debug|x64.Build.0 = Debug|x64
-		{3FC8FD8D-8488-46F1-9864-C1665C695DB8}.Release|x64.ActiveCfg = Release|x64
-		{3FC8FD8D-8488-46F1-9864-C1665C695DB8}.Release|x64.Build.0 = Release|x64
 		{333CED75-BD3A-46CA-8E62-F92A6CD36F92}.Debug|x64.ActiveCfg = Debug|x64
 		{333CED75-BD3A-46CA-8E62-F92A6CD36F92}.Debug|x64.Build.0 = Debug|x64
 		{333CED75-BD3A-46CA-8E62-F92A6CD36F92}.Release|x64.ActiveCfg = Release|x64
 		{333CED75-BD3A-46CA-8E62-F92A6CD36F92}.Release|x64.Build.0 = Release|x64
-		{6BAC33CB-2E80-4553-9BF0-CF6205ADEC45}.Debug|x64.ActiveCfg = Debug|x64
-		{6BAC33CB-2E80-4553-9BF0-CF6205ADEC45}.Debug|x64.Build.0 = Debug|x64
-		{6BAC33CB-2E80-4553-9BF0-CF6205ADEC45}.Release|x64.ActiveCfg = Release|x64
-		{6BAC33CB-2E80-4553-9BF0-CF6205ADEC45}.Release|x64.Build.0 = Release|x64
-		{7F303ED4-F12E-444A-AF3A-9D784A7FE302}.Debug|x64.ActiveCfg = Debug|x64
-		{7F303ED4-F12E-444A-AF3A-9D784A7FE302}.Debug|x64.Build.0 = Debug|x64
-		{7F303ED4-F12E-444A-AF3A-9D784A7FE302}.Release|x64.ActiveCfg = Release|x64
-		{7F303ED4-F12E-444A-AF3A-9D784A7FE302}.Release|x64.Build.0 = Release|x64
-		{7F9B0D76-411F-490A-911E-3F587A475EFD}.Debug|x64.ActiveCfg = Debug|x64
-		{7F9B0D76-411F-490A-911E-3F587A475EFD}.Debug|x64.Build.0 = Debug|x64
-		{7F9B0D76-411F-490A-911E-3F587A475EFD}.Release|x64.ActiveCfg = Release|x64
-		{7F9B0D76-411F-490A-911E-3F587A475EFD}.Release|x64.Build.0 = Release|x64
 		{83818C65-7765-43BB-9049-5642E787DD2E}.Debug|x64.ActiveCfg = Debug|x64
 		{83818C65-7765-43BB-9049-5642E787DD2E}.Debug|x64.Build.0 = Debug|x64
 		{83818C65-7765-43BB-9049-5642E787DD2E}.Release|x64.ActiveCfg = Release|x64
@@ -214,7 +186,6 @@ Global
 		{C73C8485-235C-4D45-90E8-5135343295DE} = {A66717E9-F1A5-42E7-B003-FAA5FB0AA397}
 		{C4269D49-9AD0-4498-A1CF-FF69947A69CE} = {A66717E9-F1A5-42E7-B003-FAA5FB0AA397}
 		{28D8B381-C95B-45CF-ADBB-9026C590105F} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
-		{8ADF5D47-5488-4049-909C-16DC32DAD702} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{97C823E1-833A-40D0-AAE8-8FE75A74E82C} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{D50458ED-E6A7-4482-8CA2-C0D3EB147C58} = {205B6A0C-09B2-4AD7-BE9A-A7781CD59863}
 		{AE738A31-2A88-0AFA-37EB-B94F0F9B811B} = {D50458ED-E6A7-4482-8CA2-C0D3EB147C58}
@@ -239,11 +210,7 @@ Global
 		{92A6E0C9-0892-4B35-8A64-82E57BF37040} = {1C440145-589E-46A4-A984-9D88FC666912}
 		{30AC8C45-81DA-4AF9-8792-A55CA5345D12} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{8CB99FF6-9EEF-4984-B99B-6A6F165A049E} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
-		{3FC8FD8D-8488-46F1-9864-C1665C695DB8} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{333CED75-BD3A-46CA-8E62-F92A6CD36F92} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
-		{6BAC33CB-2E80-4553-9BF0-CF6205ADEC45} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
-		{7F303ED4-F12E-444A-AF3A-9D784A7FE302} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
-		{7F9B0D76-411F-490A-911E-3F587A475EFD} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{83818C65-7765-43BB-9049-5642E787DD2E} = {D50458ED-E6A7-4482-8CA2-C0D3EB147C58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

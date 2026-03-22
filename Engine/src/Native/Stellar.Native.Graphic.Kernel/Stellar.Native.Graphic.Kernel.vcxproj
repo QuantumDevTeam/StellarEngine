@@ -28,6 +28,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+    <RootNamespace>Stellar.Native.Graphic.Kernel</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>

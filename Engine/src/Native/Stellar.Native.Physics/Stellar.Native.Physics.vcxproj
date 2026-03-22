@@ -12,14 +12,15 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{28D8B381-C95B-45CF-ADBB-9026C590105F}</ProjectGuid>
+    <ProjectGuid>{97C823E1-833A-40D0-AAE8-8FE75A74E82C}</ProjectGuid>
     <Keyword>Win64Proj</Keyword>
-    <RootNamespace>Stellar.Graphic.Native.DX12</RootNamespace>
+    <RootNamespace>Stellar.Physic.Native.Wrapper</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+    <RootNamespace>Stellar.Native.Physics</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -45,6 +46,7 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>

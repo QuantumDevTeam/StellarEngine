@@ -63,8 +63,7 @@
 
         <StellarEntryPointFind
                 CompileItems="@(Compile)"
-                ProjectDirectory="$(MSBuildProjectDirectory)"
-                StellarProjectName="$(StellarProjectName)">
+                ProjectDirectory="$(MSBuildProjectDirectory)">
             <Output TaskParameter="StellarEntryPoint" ItemName="StellarEntryPoint"/>
         </StellarEntryPointFind>
     </Target>
