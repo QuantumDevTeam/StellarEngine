@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Stellar.Sdk/0.1.2">
     <PropertyGroup>
-        <StellarSdkUsage>EngineCoreModule</StellarSdkUsage>
+        <StellarSdkUsage>EngineModule</StellarSdkUsage>
         <IsPackable>true</IsPackable>
-        <ModuleDescription>StellarEngine Core</ModuleDescription>
+        <ModuleDescription>StellarEngine abstract FileSystem</ModuleDescription>
 
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>

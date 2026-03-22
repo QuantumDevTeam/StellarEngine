@@ -1,7 +1,8 @@
+using Stellar.Core.Data.File;
 using Stellar.Core.Data.File.Systems;
 using Stellar.Kernel;
 
-namespace Stellar.Core.Data.File;
+namespace Stellar.FileSystem.File;
 
 /// <summary>
 /// Domain factory for automatically creating domain with specific File System  

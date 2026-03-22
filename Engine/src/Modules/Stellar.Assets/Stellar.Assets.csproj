@@ -2,6 +2,6 @@
     <PropertyGroup>
         <StellarSdkUsage>EngineModule</StellarSdkUsage>
         <IsPackable>true</IsPackable>
-        <ModuleDescription>StellarEngine Assets pipeline runtime module</ModuleDescription>
+        <ModuleDescription>StellarEngine Assets pipeline runtime part</ModuleDescription>
     </PropertyGroup>
 </Project>

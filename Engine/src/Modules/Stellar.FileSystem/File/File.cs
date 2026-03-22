@@ -1,7 +1,9 @@
-using Stellar.Kernel;
+using Stellar.Core.Data.File;
 using Stellar.Core.Quantization;
+using Stellar.Kernel;
+using FileStream = Stellar.FileSystem.File.FileStream;
 
-namespace Stellar.Core.Data.File;
+namespace Stellar.FileSystem.File;
 
 /// <summary>
 /// Abstract Quantum File with a content

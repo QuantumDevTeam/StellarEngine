@@ -1,4 +1,4 @@
-namespace Stellar.Core.Data.File;
+namespace Stellar.FileSystem.File;
 
 /// <summary>
 /// Provides metadata information about a file.

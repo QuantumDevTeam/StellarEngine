@@ -1,4 +1,6 @@
-namespace Stellar.Core.Data.File;
+using Stellar.Core.Data.File;
+
+namespace Stellar.FileSystem.File;
 
 /// <summary>
 /// An abstract FileSystem used for operating with FileTypes associated with this FileSystem
