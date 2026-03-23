@@ -5,38 +5,65 @@ namespace Stellar.Core.Quantization;
 public class TimedMetaQuant : MetaQuant
 {
     public DateTime CreatedAt { get; }
-    public TimeSpan Age => DateTime.UtcNow - CreatedAt;
-
     public DateTime StartAt { get; private set; }
-    public DateTime? ExpiresAt { get; private set; }
-    public TimeSpan Lifetime => ExpiresAt?.Subtract(StartAt) ?? TimeSpan.MaxValue;
-    public TimeSpan Duration => Age - Lifetime;
-    public TimeSpan? ExpiresIn => ExpiresAt - DateTime.Now;
-    public bool IsExpired => ExpiresAt.HasValue && DateTime.UtcNow > ExpiresAt.Value;
+    public TimeSpan? Lifetime { get; private set; }
 
-    public void SetLifetime(TimeSpan lifetime)
-    {
-        StartAt = DateTime.UtcNow;
-        ExpiresAt = DateTime.UtcNow.Add(lifetime);
-    }
-
-    public void SetLifetime(float seconds) => SetLifetime(TimeSpan.FromSeconds(seconds));
-
-    public TimedMetaQuant(IIdentifier? identifier = null, float? lifetimeSeconds = null)
+    public TimedMetaQuant(DateTime? startAt = null, float? lifetimeSeconds = null, IIdentifier? identifier = null)
         : base(identifier)
     {
         CreatedAt = DateTime.UtcNow;
-        if (lifetimeSeconds.HasValue)
+        if (startAt.HasValue && lifetimeSeconds.HasValue)
         {
-            SetLifetime(lifetimeSeconds.Value);
+            SetLifetime(startAt.Value, lifetimeSeconds.Value);
         }
     }
 
-    public void RessetLifetime()
+    public TimedMetaQuant(float? lifetimeSeconds = null, IIdentifier? identifier = null)
+        : this(DateTime.UtcNow, lifetimeSeconds, identifier)
     {
-        if (Lifetime != TimeSpan.MaxValue)
-        {
-            SetLifetime(Lifetime);
-        }
+    }
+
+    public TimeSpan Age => DateTime.UtcNow - CreatedAt;
+    public DateTime? ExpiresAt => StartAt + Lifetime;
+    public TimeSpan? ExpiresIn => ExpiresAt - DateTime.Now;
+    public bool IsExpired => ExpiresAt.HasValue && DateTime.UtcNow > ExpiresAt.Value;
+
+    public void SetLifetime(DateTime startAt, TimeSpan lifetime)
+    {
+        StartAt = startAt;
+        Lifetime = lifetime;
+    }
+
+    public void SetLifetime(TimeSpan lifetime) => SetLifetime(DateTime.UtcNow, lifetime);
+
+    public void SetLifetime(DateTime startAt, float lifetime) => SetLifetime(startAt, TimeSpan.FromSeconds(lifetime));
+
+    public void SetLifetime(float lifetime) => SetLifetime(DateTime.UtcNow, lifetime);
+
+    public void RessetLifetime() => StartAt = DateTime.UtcNow;
+
+    public async Task SetLifetimeAsync(DateTime startAt, TimeSpan lifetime)
+    {
+        SetLifetime(startAt, lifetime);
+    }
+
+    public async Task SetLifetimeAsync(TimeSpan lifetime)
+    {
+        SetLifetime(lifetime);
+    }
+
+    public async Task SetLifetimeAsync(DateTime startAt, float lifetime)
+    {
+        SetLifetime(startAt, lifetime);
+    }
+
+    public async Task SetLifetimeAsync(float lifetime)
+    {
+        SetLifetime(lifetime);
+    }
+    
+    public async Task RessetLifetimeAsync()
+    {
+        RessetLifetime();
     }
 }

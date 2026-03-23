@@ -1,6 +1,6 @@
 namespace Stellar.Kernel.Registry
 {
-    public interface IRegistry<T> where T : class
+    public interface IRegistry<T>
     {
         bool Exists(IIdentifier id);
         bool Register(T obj);

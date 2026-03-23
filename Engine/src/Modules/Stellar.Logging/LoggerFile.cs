@@ -1,24 +1,68 @@
-using Stellar.Core.Data.File;
+using Stellar.Core.Quantization;
+using Stellar.FileSystem;
 using Stellar.Kernel;
+using File = Stellar.FileSystem.File;
+using FileStream = Stellar.FileSystem.FileStream;
 
 namespace Stellar.Logging;
 
-public class LoggerFile(Location location, IIdentifier? identifier = null)
-    : Core.Data.File.File(location, LoggerFileType, identifier), IDisposable
+public class LoggerFile(
+    Location location,
+    float timeDuration = 0,
+    uint sizeDuration = 0,
+    DateTime? startAt = null,
+    IIdentifier? identifier = null
+) : TimedMetaQuant(startAt ?? DateTime.UtcNow, timeDuration, identifier), IDisposable
 {
+    public static readonly FileType LoggerFileType = new("LoggerFile");
+
+    public Location FileLocation => location;
+    public uint SizeDuration => sizeDuration;
+
+    public FileStream? FileStream { get; private set; }
+
     private StreamWriter? _writer;
     private readonly Lock _lock = new();
 
-    public static readonly FileType LoggerFileType = new("LoggerFile");
-
-    private void OpenWriter()
+    internal void Prepare()
     {
         lock (_lock)
         {
             if (_writer != null) return;
+            FileStream ??= new File(location, LoggerFileType).OpenWrite();
 
-            var stream = Location.Domain.FileSystem.OpenWrite(Location);
-            _writer = new StreamWriter(stream) { AutoFlush = true };
+            RessetLifetime();
+            _writer = new StreamWriter(FileStream.Stream) { AutoFlush = true };
+        }
+    }
+
+    internal void Free()
+    {
+        lock (_lock)
+        {
+            _writer?.Flush();
+            _writer?.Dispose();
+            _writer = null;
+
+            FileStream?.Dispose();
+            FileStream = null;
+        }
+    }
+
+    private bool IsSizeDurationValid(string line)
+    {
+        return FileStream?.File.GetInfo().Length + line.Length < SizeDuration;
+    }
+
+    /// <summary>
+    /// Flush all changes and recreate file sources
+    /// </summary>
+    public void FlushAndRecreate()
+    {
+        lock (_lock)
+        {
+            Free();
+            Prepare();
         }
     }
 
@@ -29,6 +73,11 @@ public class LoggerFile(Location location, IIdentifier? identifier = null)
     {
         lock (_lock)
         {
+            if (IsExpired || !IsSizeDurationValid(line))
+            {
+                FlushAndRecreate();
+            }
+
             if (_writer != null)
                 _writer.WriteLine(line);
             else
@@ -36,34 +85,7 @@ public class LoggerFile(Location location, IIdentifier? identifier = null)
         }
     }
 
-    /// <summary>
-    /// Gets an existing logger file or creates a new one at the specified location.
-    /// </summary>
-    /// <param name="location">Location of the log file.</param>
-    public static LoggerFile GetOrCreate(Location location)
-    {
-        // Ensure the domain exists and the file system supports writing.
-        if (!location.Domain.FileSystem.Exists(location))
-        {
-            // Create an empty file by opening and closing a write stream.
-            using (location.Domain.FileSystem.OpenWrite(location))
-            {
-                // Just create the file; stream is disposed immediately.
-            }
-        }
-
-        var loggerFile = new LoggerFile(location);
-        loggerFile.OpenWriter();
-        return loggerFile;
-    }
-
     public void Dispose()
     {
-        lock (_lock)
-        {
-            _writer?.Flush();
-            _writer?.Dispose();
-            _writer = null;
-        }
     }
 }

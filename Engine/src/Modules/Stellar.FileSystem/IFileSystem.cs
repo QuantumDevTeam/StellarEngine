@@ -1,6 +1,4 @@
-using Stellar.Core.Data.File;
-
-namespace Stellar.FileSystem.File;
+namespace Stellar.FileSystem;
 
 /// <summary>
 /// An abstract FileSystem used for operating with FileTypes associated with this FileSystem
@@ -11,6 +9,13 @@ public interface IFileSystem
     /// FileSystem name
     /// </summary>
     string Name { get; }
+
+    /// <summary>
+    /// Check Quantum File to existing
+    /// </summary>
+    /// <param name="locationPattern">pattern to search</param>
+    /// <returns>Existed Quantum Files</returns>
+    List<Location> ExistsAny(Location locationPattern);
 
     /// <summary>
     /// Check Quantum File to existing

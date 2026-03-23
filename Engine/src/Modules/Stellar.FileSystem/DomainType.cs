@@ -1,4 +1,4 @@
-namespace Stellar.FileSystem.File;
+namespace Stellar.FileSystem;
 
 /// <summary>
 /// Domain Types

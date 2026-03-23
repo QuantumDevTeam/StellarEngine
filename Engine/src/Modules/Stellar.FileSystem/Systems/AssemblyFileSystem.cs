@@ -1,7 +1,6 @@
 using System.Reflection;
-using Stellar.FileSystem.File;
 
-namespace Stellar.Core.Data.File.Systems;
+namespace Stellar.FileSystem.Systems;
 
 /// <summary>
 /// File system that reads embedded resources from a .NET assembly.
@@ -32,6 +31,17 @@ public class AssemblyFileSystem : IFileSystem
         {
             throw new InvalidOperationException($"Failed to load assembly from '{assemblyPath}'.", ex);
         }
+    }
+
+    public List<Location> ExistsAny(Location locationPattern)
+    {
+        List<Location> locations = (
+            from resource in LoadAssembly(locationPattern.Domain.Value).GetManifestResourceNames()
+            where resource.StartsWith(locationPattern.Path, StringComparison.Ordinal)
+            select new Location(locationPattern.Domain, resource)
+        ).ToList();
+
+        return locations.ToList();
     }
 
     public bool Exists(Location location)

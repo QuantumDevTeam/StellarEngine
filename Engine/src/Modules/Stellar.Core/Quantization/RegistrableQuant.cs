@@ -4,7 +4,7 @@ namespace Stellar.Core.Quantization;
 
 public abstract class RegistrableQuant<T, TMeta>
     : Quant<TMeta>, IDisposable
-    where T : RegistrableQuant<T, TMeta>
+    where T : IRegistrableQuantInterface<T, TMeta>
     where TMeta : MetaQuant
 {
     public void RegisterThisQuant()

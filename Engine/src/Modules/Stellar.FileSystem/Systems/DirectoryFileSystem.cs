@@ -1,6 +1,4 @@
-using Stellar.FileSystem.File;
-
-namespace Stellar.Core.Data.File.Systems;
+namespace Stellar.FileSystem.Systems;
 
 public class DirectoryFileSystem : IFileSystem
 {
@@ -18,6 +16,17 @@ public class DirectoryFileSystem : IFileSystem
     public string Name => "Directory";
 
     public string GetFullPath(Location location) => Path.Combine(location.Domain.Value, location.Path);
+
+    public List<Location> ExistsAny(Location locationPattern)
+    {
+        List<Location> locations = (
+            from resource in Directory.EnumerateFiles(GetFullPath(locationPattern))
+            where resource.StartsWith(locationPattern.Path, StringComparison.Ordinal)
+            select new Location(locationPattern.Domain, resource)
+        ).ToList();
+
+        return locations.ToList();
+    }
 
     public bool Exists(Location location) => System.IO.File.Exists(GetFullPath(location));
 

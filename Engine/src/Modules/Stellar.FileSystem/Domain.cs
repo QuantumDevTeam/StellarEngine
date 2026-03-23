@@ -1,8 +1,7 @@
-using Stellar.Core.Data.File;
 using Stellar.Core.Quantization;
 using Stellar.Kernel;
 
-namespace Stellar.FileSystem.File;
+namespace Stellar.FileSystem;
 
 /// <summary>
 /// Domain, identifies Location base

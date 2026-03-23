@@ -1,6 +1,4 @@
-using Stellar.FileSystem.File;
-
-namespace Stellar.Core.Data.File.Systems;
+namespace Stellar.FileSystem.Systems;
 
 /// <summary>
 /// File system for HTTP/HTTPS resources.
@@ -24,6 +22,11 @@ public class HttpFileSystem(DomainType type) : IFileSystem
     private readonly HttpClient _client = new();
 
     public string Name => _scheme.ToUpperInvariant();
+
+    public List<Location> ExistsAny(Location locationPattern)
+    {
+        return new();
+    }
 
     public bool Exists(Location location)
     {

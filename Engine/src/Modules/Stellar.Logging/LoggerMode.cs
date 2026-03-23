@@ -1,9 +1,10 @@
 namespace Stellar.Logging;
 
 [Flags]
-public enum LoggerMode
+public enum LoggerMode : byte
 {
-    Console,
-    File,
-    FileAndConsole = Console | File,
+    File = 1,
+    Console = 2,
+
+    FileAndConsole = File | Console
 }

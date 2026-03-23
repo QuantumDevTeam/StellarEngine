@@ -7,11 +7,11 @@ namespace Stellar.Core.Data.Registry;
 
 public class QuantsRegistry<T, TMeta> 
     : IRegistry<T>
-    where T : RegistrableQuant<T, TMeta>
+    where T : IRegistrableQuantInterface<T, TMeta>
     where TMeta : MetaQuant
 {
     private static readonly ConcurrentDictionary<IIdentifier, T> Data = new();
-    private static readonly Lazy<QuantsRegistry<T>> Registry = new(() => new QuantsRegistry<T>());
+    private static readonly Lazy<QuantsRegistry<T, TMeta>> Registry = new(() => new QuantsRegistry<T, TMeta>());
 
     public static IRegistry<T> Instance => Registry.Value;
 
@@ -22,7 +22,7 @@ public class QuantsRegistry<T, TMeta>
 
     public bool Register(T obj)
     {
-        return Data.TryAdd(obj.Identifier, obj);
+        return Data.TryAdd(obj.UID, obj);
     }
 
     public T? Get(IIdentifier id)

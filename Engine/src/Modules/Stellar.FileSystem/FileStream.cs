@@ -1,13 +1,13 @@
 using Stellar.Core.Quantization;
 
-namespace Stellar.FileSystem.File;
+namespace Stellar.FileSystem;
 
 /// <summary>
 /// Abstract Quantum File stream for operating with file content
 /// </summary>
 /// <param name="file">A File</param>
 /// <param name="stream">A Stream</param>
-public sealed class FileStream(FileSystem.File.File file, Stream stream) : MetaQuant, IDisposable
+public sealed class FileStream(File file, Stream stream) : MetaQuant, IDisposable
 {
     /// <summary>
     /// File stream
@@ -17,7 +17,7 @@ public sealed class FileStream(FileSystem.File.File file, Stream stream) : MetaQ
     /// <summary>
     /// Quantum File
     /// </summary>
-    public readonly FileSystem.File.File File = file;
+    public readonly File File = file;
 
     public void Dispose() => Stream.Dispose();
 }

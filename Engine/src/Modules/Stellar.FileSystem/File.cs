@@ -1,17 +1,15 @@
-using Stellar.Core.Data.File;
 using Stellar.Core.Quantization;
 using Stellar.Kernel;
-using FileStream = Stellar.FileSystem.File.FileStream;
 
-namespace Stellar.FileSystem.File;
+namespace Stellar.FileSystem;
 
 /// <summary>
-/// Abstract Quantum File with a content
+/// Quantum File with a content
 /// </summary>
 /// <param name="location">File location</param>
 /// <param name="type">File type</param>
 /// <param name="identifier">An unique identifier</param>
-public abstract class File(Location location, FileType type, IIdentifier? identifier = null)
+public class File(Location location, FileType type, IIdentifier? identifier = null)
     : MetaQuant(identifier),
         IEquatable<File>
 {
@@ -54,4 +52,10 @@ public abstract class File(Location location, FileType type, IIdentifier? identi
         var stream = Location.Domain.FileSystem.OpenWrite(Location);
         return new FileStream(this, stream);
     }
+
+    /// <summary>
+    /// Get information file information
+    /// </summary>
+    /// <returns>File information</returns>
+    public IFileInfo GetInfo() => Location.Domain.FileSystem.GetInfo(Location);
 }

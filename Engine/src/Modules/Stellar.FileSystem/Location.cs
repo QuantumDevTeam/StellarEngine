@@ -1,7 +1,7 @@
 using Stellar.Core.Quantization;
 using Stellar.Kernel;
 
-namespace Stellar.FileSystem.File;
+namespace Stellar.FileSystem;
 
 /// <summary>
 /// Quantum File Location
