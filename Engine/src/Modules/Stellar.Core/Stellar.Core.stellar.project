@@ -1,11 +1,2 @@
 {
-  "Assets": {
-    "Include": [
-    ],
-    "Exclude": [
-    ],
-    "Embedded": [
-    ]
-  },
-  "Runtime": {}
 }

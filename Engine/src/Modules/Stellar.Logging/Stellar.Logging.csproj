@@ -8,11 +8,6 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-        <!-- TODO: Implement StellarDependency tag -->
-        <!--<StellarDependency Type="EngineModule" AllowPrecompiled="true" Include="Stellar.FileSystem"/>-->
-    </ItemGroup>
-
     <ItemGroup Condition="$(StellarPrecompiled) == 'false'">
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.FileSystem/Stellar.FileSystem.csproj"/>
     </ItemGroup>

@@ -1,7 +1,7 @@
 namespace Stellar.Kernel.Configuration
 {
-    public abstract class ConfigurationComponent : ILabeled
+    public abstract class ConfigurationComponent
     {
-        public abstract string Name { get; }
+        public abstract ConfigurationComponentBuildType ComponentBuildType { get; }
     }
 }

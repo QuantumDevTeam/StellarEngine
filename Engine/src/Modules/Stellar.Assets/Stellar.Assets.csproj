@@ -4,4 +4,7 @@
         <IsPackable>true</IsPackable>
         <ModuleDescription>StellarEngine Assets pipeline runtime part</ModuleDescription>
     </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="Build\Components\" />
+    </ItemGroup>
 </Project>
