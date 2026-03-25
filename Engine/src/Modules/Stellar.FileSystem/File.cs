@@ -1,5 +1,6 @@
-using Stellar.Core.Quantization;
 using Stellar.Kernel;
+using Stellar.Kernel.FileSystem;
+using Stellar.Core.Quantization;
 
 namespace Stellar.FileSystem;
 
@@ -10,52 +11,30 @@ namespace Stellar.FileSystem;
 /// <param name="type">File type</param>
 /// <param name="identifier">An unique identifier</param>
 public class File(Location location, FileType type, IIdentifier? identifier = null)
-    : MetaQuant(identifier),
-        IEquatable<File>
+    : MetaQuant(identifier), IFile
 {
     /// <summary>
     /// File location
     /// </summary>
-    public readonly Location Location = location;
+    public ILocation Location { get; } = location;
 
     /// <summary>
     /// File type
     /// </summary>
-    public readonly FileType Type = type;
+    public IFileType Type { get; } = type;
 
-    /// <summary>
-    /// Checking 2 files for identity
-    /// </summary>
-    /// <param name="other">Another file</param>
-    /// <returns>file is identity?</returns>
-    public bool Equals(File? other)
+    public override int GetHashCode()
     {
-        return Type.UID == other?.Type.UID && Location.UID == other.Location.UID;
+        return UID.GetHashCode();
     }
 
-    /// <summary>
-    /// Oper File Stream for reading from file
-    /// </summary>
-    /// <returns>File stream allowed for reading</returns>
-    public FileStream OpenRead()
+    private bool Equals(File other)
     {
-        var stream = Location.Domain.FileSystem.OpenRead(Location);
-        return new FileStream(this, stream);
+        return other.Location == Location;
     }
 
-    /// <summary>
-    /// Oper File Stream for writing in file
-    /// </summary>
-    /// <returns>File stream allowed for writing</returns>
-    public FileStream OpenWrite()
+    public bool Equals(IFile? obj)
     {
-        var stream = Location.Domain.FileSystem.OpenWrite(Location);
-        return new FileStream(this, stream);
+        return ReferenceEquals(this, obj) || obj is File other && Equals(other);
     }
-
-    /// <summary>
-    /// Get information file information
-    /// </summary>
-    /// <returns>File information</returns>
-    public IFileInfo GetInfo() => Location.Domain.FileSystem.GetInfo(Location);
 }

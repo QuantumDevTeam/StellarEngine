@@ -1,5 +1,6 @@
-using Stellar.Core.Quantization;
 using Stellar.Kernel;
+using Stellar.Core.Quantization;
+using Stellar.Kernel.FileSystem;
 
 namespace Stellar.FileSystem;
 
@@ -9,23 +10,38 @@ namespace Stellar.FileSystem;
 /// <param name="type">Type of Domain</param>
 /// <param name="value">Name of Domain (his identifier in a DataContainer)</param>
 /// <param name="identifier">An unique identifier</param>
-public sealed class Domain(DomainType type, string value, IFileSystem fileSystem, IIdentifier? identifier = null)
-    : RegistrableMetaQuant<Domain>(identifier)
+public sealed class Domain(string name, DomainType type, string value, IIdentifier? identifier = null)
+    : RegistrableMetaQuant<Domain>(identifier), IDomain
 {
-    /// <summary>
-    /// Type of Domain
-    /// </summary>
-    public readonly DomainType Type = type;
-
     /// <summary>
     /// Name of Domain
     /// </summary>
-    public readonly string Value = value;
+    public string Name { get; } = name;
 
     /// <summary>
-    /// File System for operating with this Domain
+    /// Type of Domain
     /// </summary>
-    public readonly IFileSystem FileSystem = fileSystem;
+    public DomainType Type { get; } = type;
 
-    public override string ToString() => $"{Type}:{Value}";
+    /// <summary>
+    /// Value of Domain
+    /// </summary>
+    public string Value { get; } = value;
+
+    public override string ToString() => $"{Type}@{Name}:{Value}";
+
+    public override int GetHashCode()
+    {
+        return UID.GetHashCode();
+    }
+
+    private bool Equals(Domain other)
+    {
+        return other.Name == Name;
+    }
+
+    public bool Equals(IDomain? obj)
+    {
+        return ReferenceEquals(this, obj) || obj is Domain other && Equals(other);
+    }
 }

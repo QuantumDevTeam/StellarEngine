@@ -13,5 +13,7 @@ namespace Stellar.Kernel.Configuration
 
         public string EntryPoint { get; set; }
         public string BuildDate { get; set; }
+
+        public ConfigurationComponent[] Components { get; set; }
     }
 }

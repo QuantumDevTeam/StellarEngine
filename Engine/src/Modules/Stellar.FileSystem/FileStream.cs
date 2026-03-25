@@ -1,23 +1,43 @@
 using Stellar.Core.Quantization;
+using Stellar.Kernel.FileSystem;
+using Stellar.Kernel.FileSystem.Provider;
 
 namespace Stellar.FileSystem;
 
-/// <summary>
-/// Abstract Quantum File stream for operating with file content
-/// </summary>
-/// <param name="file">A File</param>
-/// <param name="stream">A Stream</param>
-public sealed class FileStream(File file, Stream stream) : MetaQuant, IDisposable
+public class FileStream(IFile file, Stream stream) : MetaQuant, IFileStream
 {
     /// <summary>
-    /// File stream
+    /// File himself
     /// </summary>
-    public readonly Stream Stream = stream;
-    
-    /// <summary>
-    /// Quantum File
-    /// </summary>
-    public readonly File File = file;
+    public IFile File { get; } = file;
 
-    public void Dispose() => Stream.Dispose();
+    /// <summary>
+    /// Stream for File
+    /// </summary>
+    public Stream Stream { get; } = stream;
+
+    public FileStream(IFile file, IFileProviderFactory fileProviderFactory, FileAccess access)
+        : this(file, fileProviderFactory.GetFileProvider(file.Location.Domain).Open(file.Location, access))
+    {
+    }
+
+    public void Dispose()
+    {
+        Stream.Dispose();
+    }
+
+    public override int GetHashCode()
+    {
+        return UID.GetHashCode();
+    }
+
+    private bool Equals(FileStream other)
+    {
+        return other.File == File;
+    }
+
+    public bool Equals(IFileStream? obj)
+    {
+        return ReferenceEquals(this, obj) || obj is FileStream other && Equals(other);
+    }
 }

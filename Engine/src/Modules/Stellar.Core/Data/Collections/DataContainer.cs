@@ -1,3 +1,4 @@
+using System.Collections;
 using Stellar.Kernel;
 using Stellar.Kernel.Quantization;
 using Stellar.Kernel.Data.Collections;
@@ -7,7 +8,7 @@ using Stellar.Core.Data.Registry;
 namespace Stellar.Core.Data.Collections;
 
 public abstract class DataContainer<T>
-    : Quant<MetaQuant>, IDataContainer, IRegistrableMetaQuant
+    : Quant<MetaQuant>, IDataContainer, IEnumerable<T>
 {
     public ConcurrentIdentifierMap<IQuant> Data { get; init; }
 
@@ -47,9 +48,12 @@ public abstract class DataContainer<T>
     public bool IsEmpty => Data.IsEmpty;
 
     public ICollection<IIdentifier> Keys => Data.Keys;
-    public ICollection<IQuant> Values => Data.Values;
+    public ICollection<T> Values => (ICollection<T>)Data.Values;
 
     public void Clear() => Data.Clear();
+
+    public IEnumerator<T> GetEnumerator() => (IEnumerator<T>)Data.Values.GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     public void Unregister()
     {
