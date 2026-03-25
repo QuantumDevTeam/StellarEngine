@@ -29,14 +29,4 @@ public interface IFileInfo
     /// Last write time (UTC). May be null if not supported.
     /// </summary>
     DateTime? LastWriteTimeUtc { get; }
-
-    /// <summary>
-    /// True if the entry is a directory (for file systems that support directories).
-    /// </summary>
-    bool IsDirectory { get; }
-
-    /// <summary>
-    /// True if the file exists.
-    /// </summary>
-    bool Exists { get; }
 }

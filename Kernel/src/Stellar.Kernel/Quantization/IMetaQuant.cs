@@ -1,8 +1,7 @@
 namespace Stellar.Kernel.Quantization
 {
-    public interface IMetaQuant
+    public interface IMetaQuant : IQuantumObject
     {
-        // ReSharper disable once InconsistentNaming
         IIdentifier UID { get; }
     }
 }

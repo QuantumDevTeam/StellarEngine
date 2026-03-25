@@ -1,28 +1,42 @@
 using Stellar.Kernel;
+using Stellar.Kernel.Quantization;
 using Stellar.Core.Data.Registry;
 
 namespace Stellar.Core;
 
-public class Identifier : IIdentifier, IDisposable
+public class Identifier : IIdentifier, IRegistrableQuantumObject
 {
-    public Guid UID { get; }
+    public Guid UID { get; init; }
+    protected string _techName { get; init; }
 
-    private Identifier(Guid uid)
+    public void Register()
+    {
+        IdentifierRegistry.Instance.Register(this);
+    }
+
+    #region Constuctors
+
+    protected Identifier(Guid uid)
     {
         UID = uid;
-        IdentifierRegistry.Instance.Register(this);
+        _techName = $"UID#{UID}";
+        Register();
     }
 
     public Identifier() : this(Guid.NewGuid())
     {
     }
 
+    #endregion
+    
+    #region Get
+
     public static Identifier Get(Guid data) => ((IdentifierRegistry)IdentifierRegistry.Instance).Get(data)
                                                ?? new Identifier(Guid.NewGuid());
 
-    public static Identifier Get(string data) => Get(new Guid(data));
-
     public static Identifier Get(byte[] data) => Get(new Guid(data));
+
+    public static Identifier Get(string data) => Get(new Guid(data));
 
     public static Identifier Get(IIdentifier data)
     {
@@ -30,15 +44,28 @@ public class Identifier : IIdentifier, IDisposable
         return Get(data.UID);
     }
 
+    #endregion
+
+    #region implict operator
+
     public static implicit operator Identifier(Guid uid) => Get(uid);
     public static implicit operator Identifier(string uid) => Get(uid);
     public static implicit operator Identifier(byte[] uid) => Get(uid);
 
-    public override string ToString() => $"UID#{UID}";
+    #endregion
+    
+    public static bool Exist(Guid uid) => ((IdentifierRegistry)IdentifierRegistry.Instance).Get(uid) != null;
+
+    public override string ToString() => _techName;
     public override int GetHashCode() => UID.GetHashCode();
+
+    public void Unregister()
+    {
+        IdentifierRegistry.Instance.Pop(this);
+    }
 
     public void Dispose()
     {
-        IdentifierRegistry.Instance.Pop(this);
+        Unregister();
     }
 }

@@ -1,10 +1,10 @@
-using Stellar.Kernel;
-using Stellar.Kernel.Registry;
 using System.Collections.Concurrent;
+using Stellar.Kernel;
+using Stellar.Kernel.Data.Registry;
 
 namespace Stellar.Core.Data.Registry;
 
-public class IdentifierRegistry 
+public class IdentifierRegistry
     : IRegistry<Identifier>
 {
     private static readonly ConcurrentDictionary<Guid, Identifier> Identifiers = new();
@@ -44,7 +44,6 @@ public class IdentifierRegistry
     }
 
     public int Size => Identifiers.Count;
-
     public ICollection<IIdentifier> Keys => (ICollection<IIdentifier>)Identifiers.Values;
     public ICollection<Identifier> Values => Identifiers.Values;
 }

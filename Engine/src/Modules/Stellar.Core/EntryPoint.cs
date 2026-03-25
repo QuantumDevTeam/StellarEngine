@@ -6,6 +6,8 @@ namespace Stellar.Core;
 public class EntryPoint(RuntimeConfiguration runtimeConfiguration)
     : StellarEntryPoint(runtimeConfiguration)
 {
+    public override string Name => "Main";
+
     public override int Run()
     {
         return 0;

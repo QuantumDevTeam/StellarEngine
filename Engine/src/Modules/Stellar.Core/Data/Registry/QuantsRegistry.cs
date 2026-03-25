@@ -1,17 +1,16 @@
 using System.Collections.Concurrent;
-using Stellar.Core.Quantization;
 using Stellar.Kernel;
-using Stellar.Kernel.Registry;
+using Stellar.Kernel.Data.Registry;
+using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Data.Registry;
 
-public class QuantsRegistry<T, TMeta> 
+public class QuantsRegistry<T> 
     : IRegistry<T>
-    where T : IRegistrableQuantInterface<T, TMeta>
-    where TMeta : MetaQuant
+    where T : IRegistrableQuant
 {
     private static readonly ConcurrentDictionary<IIdentifier, T> Data = new();
-    private static readonly Lazy<QuantsRegistry<T, TMeta>> Registry = new(() => new QuantsRegistry<T, TMeta>());
+    private static readonly Lazy<QuantsRegistry<T>> Registry = new(() => new QuantsRegistry<T>());
 
     public static IRegistry<T> Instance => Registry.Value;
 

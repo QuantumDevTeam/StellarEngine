@@ -1,35 +1,35 @@
-using Stellar.Core.Quantization;
-using Stellar.Kernel;
-using Stellar.Kernel.Registry;
 using System.Collections.Concurrent;
+using Stellar.Kernel;
+using Stellar.Kernel.Data.Registry;
+using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Data.Registry;
 
-public class MetaQuantsRegistry<T> 
-    : IRegistry<T> 
-    where T : RegistrableMetaQuant<T>
+public class MetaQuantsRegistry<TMeta>
+    : IRegistry<TMeta>
+    where TMeta : IRegistrableMetaQuant
 {
-    private static readonly ConcurrentDictionary<IIdentifier, T> Data = new();
-    private static readonly Lazy<MetaQuantsRegistry<T>> Registry = new(() => new MetaQuantsRegistry<T>());
+    private static readonly ConcurrentDictionary<IIdentifier, TMeta> Data = new();
+    private static readonly Lazy<MetaQuantsRegistry<TMeta>> Registry = new(() => new MetaQuantsRegistry<TMeta>());
 
-    public static IRegistry<T> Instance => Registry.Value;
+    public static IRegistry<TMeta> Instance => Registry.Value;
 
     public bool Exists(IIdentifier id)
     {
         return Data.ContainsKey(id);
     }
 
-    public bool Register(T obj)
+    public bool Register(TMeta obj)
     {
-        return Data.TryAdd(obj.Identifier, obj);
+        return Data.TryAdd(obj.UID, obj);
     }
 
-    public T? Get(IIdentifier id)
+    public TMeta? Get(IIdentifier id)
     {
         return Data.GetValueOrDefault(id);
     }
 
-    public T? Pop(IIdentifier id)
+    public TMeta? Pop(IIdentifier id)
     {
         Data.TryRemove(id, out var obj);
         return obj;
@@ -37,5 +37,5 @@ public class MetaQuantsRegistry<T>
 
     public int Size => Data.Count;
     public ICollection<IIdentifier> Keys => Data.Keys;
-    public ICollection<T> Values => Data.Values;
+    public ICollection<TMeta> Values => Data.Values;
 }

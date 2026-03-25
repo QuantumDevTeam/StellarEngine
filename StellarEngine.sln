@@ -40,7 +40,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Physics.Wrapper.CLI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Network", "Engine\src\Modules\Stellar.Network\Stellar.Network.csproj", "{397A43BC-1CB2-428D-8432-53DA20C77287}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sounds", "Engine\src\Modules\Stellar.Sounds\Stellar.Sounds.csproj", "{CD8C5378-4D7B-48BC-A162-51557E4F1BA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Audio", "Engine\src\Modules\Stellar.Audio\Stellar.Audio.csproj", "{CD8C5378-4D7B-48BC-A162-51557E4F1BA4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Assets", "Engine\src\Modules\Stellar.Assets\Stellar.Assets.csproj", "{9B209AFB-FA81-4709-805F-915DFC06D974}"
 EndProject

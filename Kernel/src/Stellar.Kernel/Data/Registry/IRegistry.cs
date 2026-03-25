@@ -1,6 +1,10 @@
-namespace Stellar.Kernel.Registry
+using Stellar.Kernel.Quantization;
+
+namespace Stellar.Kernel.Data.Registry
 {
     public interface IRegistry<T>
+        : IQuantumObject
+        where T : IRegistrableQuantumObject
     {
         bool Exists(IIdentifier id);
         bool Register(T obj);
@@ -13,7 +17,7 @@ namespace Stellar.Kernel.Registry
         T? Pop(IIdentifier id);
 #endif
         int Size { get; }
-        
+
         System.Collections.Generic.ICollection<IIdentifier> Keys { get; }
         System.Collections.Generic.ICollection<T> Values { get; }
     }
