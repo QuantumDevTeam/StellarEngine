@@ -87,7 +87,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Time", "Engine\src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Logging", "Engine\src\Modules\Stellar.Logging\Stellar.Logging.csproj", "{5CB5994D-DB9B-43AC-953F-E02B78A3A17A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Scene", "Engine\src\Modules\Stellar.Scene\Stellar.Scene.csproj", "{92A6E0C9-0892-4B35-8A64-82E57BF37040}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Stage", "Engine\src\Modules\Stellar.Stage\Stellar.Stage.csproj", "{92A6E0C9-0892-4B35-8A64-82E57BF37040}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Graphic.API.OGL", "Engine\src\Native\Stellar.Native.Graphic.API.OGL\Stellar.Native.Graphic.API.OGL.vcxproj", "{30AC8C45-81DA-4AF9-8792-A55CA5345D12}"
 EndProject

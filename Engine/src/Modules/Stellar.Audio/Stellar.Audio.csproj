@@ -2,6 +2,6 @@
     <PropertyGroup>
         <StellarSdkUsage>EngineModule</StellarSdkUsage>
         <IsPackable>true</IsPackable>
-        <ModuleDescription>StellarEngine Sound module</ModuleDescription>
+        <ModuleDescription>StellarEngine Audio module</ModuleDescription>
     </PropertyGroup>
 </Project>
