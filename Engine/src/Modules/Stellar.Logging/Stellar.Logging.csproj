@@ -8,10 +8,7 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup Condition="$(StellarPrecompiled) == 'false'">
-        <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.FileSystem/Stellar.FileSystem.csproj"/>
-    </ItemGroup>
-    <ItemGroup Condition="$(StellarPrecompiled) == 'true'">
-        <PackageReference Include="Stellar.FileSystem" Version="$(StellarEngineVersion)"/>
-    </ItemGroup>
+    <ProjectExtensions>
+        <StellarDependency Include="Stellar.FileSystem" Type="EngineModule"/>
+    </ProjectExtensions>
 </Project>

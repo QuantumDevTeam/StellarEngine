@@ -28,8 +28,10 @@
         <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: CSProj parsing ==="/>
 
         <StellarParseCSProjectFile
-                ProjectDirectory="$(MSBuildProjectDirectory)"
-                AssemblyName="$(AssemblyName)">
+                ProjectFile="$(MSBuildProjectFullPath)"
+                StellarPrecompiled="$(StellarPrecompiled)"
+                StellarEngineVersion="$(StellarEngineVersion)"
+                StellarOrchesterInstallationDir="$(StellarOrchesterInstallationDir)">
             <Output TaskParameter="StellarDependenciesAsProject" ItemName="StellarDependenciesAsProject"/>
             <Output TaskParameter="StellarDependenciesAsPackages" ItemName="StellarDependenciesAsPackages"/>
         </StellarParseCSProjectFile>
@@ -38,7 +40,6 @@
     <Target Name="StellarDependenciesApply"
             BeforeTargets="Build"
             DependsOnTargets="StellarParseCsSroject">
-        <!-- TODO: Implement this target -->
         <ItemGroup>
             <ProjectReference Include="@(StellarDependenciesAsProject)"/>
             <PackageReference Include="@(StellarDependenciesAsPackages)"/>

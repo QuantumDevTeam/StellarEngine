@@ -22,6 +22,10 @@
         <Using Include="FluentAssertions"/>
         <Using Include="Moq"/>
     </ItemGroup>
+    
+    <ItemGroup Condition="'$(StellarSdkUsage)' != 'Tests'">
+        <Analyzer Include="$(StellarOrchesterInstallationDir)/SDK/src/Stellar.ProjectAnalyzer/bin/Debug/netstandard2.0/Stellar.ProjectAnalyzer.dll" />
+    </ItemGroup>
 
     <!-- StellarSdkUsage - Game -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Game'">

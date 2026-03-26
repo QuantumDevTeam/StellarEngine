@@ -3,6 +3,7 @@ using Stellar.Kernel.EntryPoint;
 
 namespace Stellar.Core;
 
+[StellarEntryPoint]
 public class EntryPoint(RuntimeConfiguration runtimeConfiguration)
     : StellarEntryPoint(runtimeConfiguration)
 {
