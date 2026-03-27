@@ -107,9 +107,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{CA91C7F2
 		.config\dotnet-tools.json = .config\dotnet-tools.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E1145558-8774-4E6A-92B3-7B46316E6483}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.ProjectAnalyzer", "SDK\src\Stellar.ProjectAnalyzer\Stellar.ProjectAnalyzer.csproj", "{ED40A721-8BFB-4CBF-B93C-C31ADEAA5400}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.ProjectAnalyzer", "SDK\src\Stellar.ProjectAnalyzer\Stellar.ProjectAnalyzer.csproj", "{374DD906-9211-40E2-A0B9-6CF494C94DF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,10 +191,10 @@ Global
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23}.Debug|x64.Build.0 = Debug|Any CPU
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23}.Release|x64.ActiveCfg = Release|Any CPU
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23}.Release|x64.Build.0 = Release|Any CPU
-		{ED40A721-8BFB-4CBF-B93C-C31ADEAA5400}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{ED40A721-8BFB-4CBF-B93C-C31ADEAA5400}.Debug|x64.Build.0 = Debug|Any CPU
-		{ED40A721-8BFB-4CBF-B93C-C31ADEAA5400}.Release|x64.ActiveCfg = Release|Any CPU
-		{ED40A721-8BFB-4CBF-B93C-C31ADEAA5400}.Release|x64.Build.0 = Release|Any CPU
+		{374DD906-9211-40E2-A0B9-6CF494C94DF8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{374DD906-9211-40E2-A0B9-6CF494C94DF8}.Debug|x64.Build.0 = Debug|Any CPU
+		{374DD906-9211-40E2-A0B9-6CF494C94DF8}.Release|x64.ActiveCfg = Release|Any CPU
+		{374DD906-9211-40E2-A0B9-6CF494C94DF8}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -235,8 +233,7 @@ Global
 		{333CED75-BD3A-46CA-8E62-F92A6CD36F92} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{83818C65-7765-43BB-9049-5642E787DD2E} = {D50458ED-E6A7-4482-8CA2-C0D3EB147C58}
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23} = {1C440145-589E-46A4-A984-9D88FC666912}
-		{E1145558-8774-4E6A-92B3-7B46316E6483} = {029AC908-7378-4197-BF45-AD557B022B27}
-		{ED40A721-8BFB-4CBF-B93C-C31ADEAA5400} = {029AC908-7378-4197-BF45-AD557B022B27}
+		{374DD906-9211-40E2-A0B9-6CF494C94DF8} = {029AC908-7378-4197-BF45-AD557B022B27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5E099CB-02E8-4D4A-9FA9-0EC5FE407C48}
