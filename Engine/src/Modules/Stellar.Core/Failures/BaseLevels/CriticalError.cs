@@ -1,12 +1,11 @@
-using Stellar.Kernel.Failures;
-
 namespace Stellar.Core.Failures.BaseLevels;
 
-public class CriticalError : IFailureLevel
+public class CriticalError : FailureLevel
 {
-    public bool IsEnabled { get; set; } = true;
-    public bool IsLoggable { get; } = true;
-    public bool IsStopExecute { get; } = true;
-    public bool IsCritical { get; } = true;
-    public bool ShouldTerminate { get; } = true;
+    public override string Name => "S.C/CriticalError";
+    public override bool IsEnabled { get; set; } = true;
+    public override bool IsLoggable { get; } = true;
+    public override bool IsStopExecute { get; } = true;
+    public override bool IsCritical { get; } = true;
+    public override bool ShouldTerminate { get; } = true;
 }

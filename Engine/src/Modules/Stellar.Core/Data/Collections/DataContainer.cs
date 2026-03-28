@@ -4,17 +4,19 @@ using Stellar.Kernel.Quantization;
 using Stellar.Kernel.Data.Collections;
 using Stellar.Core.Quantization;
 using Stellar.Core.Data.Registry;
+using Stellar.Kernel.Data.Registry;
 
 namespace Stellar.Core.Data.Collections;
 
 public abstract class DataContainer<T>
     : Quant<MetaQuant>, IDataContainer, IEnumerable<T>
 {
-    public ConcurrentIdentifierMap<IQuant> Data { get; init; }
+    public ConcurrentIdentifierMap<IQuant> Data { get; }
 
-    public void Register()
+    public void Register(IQuantumObject registry)
     {
-        DataContainerRegistry.Instance.Register(this);
+        if (registry is IRegistry<IDataContainer> containerRegistry)
+            containerRegistry.Register(this);
     }
 
     #region Constructors
@@ -23,7 +25,7 @@ public abstract class DataContainer<T>
         : base(meta)
     {
         Data = new ConcurrentIdentifierMap<IQuant>(data as Dictionary<IIdentifier, IQuant>);
-        Register();
+        Register(DataContainerRegistry.Instance);
     }
 
     protected DataContainer(MetaQuant meta)
@@ -48,20 +50,21 @@ public abstract class DataContainer<T>
     public bool IsEmpty => Data.IsEmpty;
 
     public ICollection<IIdentifier> Keys => Data.Keys;
-    public ICollection<T> Values => (ICollection<T>)Data.Values;
+    public ICollection<T> Values => (ICollection<T>)Data.Values.OfType<T>();
 
     public void Clear() => Data.Clear();
 
-    public IEnumerator<T> GetEnumerator() => (IEnumerator<T>)Data.Values.GetEnumerator();
+    public IEnumerator<T> GetEnumerator() => Values.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public void Unregister()
+    public void Unregister(IQuantumObject registry)
     {
-        DataContainerRegistry.Instance.Pop(UID);
+        if (registry is IRegistry<IDataContainer> containerRegistry)
+            containerRegistry.Pop(UID);
     }
 
     public void Dispose()
     {
-        Unregister();
+        Unregister(DataContainerRegistry.Instance);
     }
 }

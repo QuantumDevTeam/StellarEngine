@@ -42,28 +42,33 @@ public class TimedMetaQuant : MetaQuant
 
     public void RessetLifetime() => StartAt = DateTime.UtcNow;
 
-    public async Task SetLifetimeAsync(DateTime startAt, TimeSpan lifetime)
+    public Task SetLifetimeAsync(DateTime startAt, TimeSpan lifetime)
     {
         SetLifetime(startAt, lifetime);
+        return Task.CompletedTask;
     }
 
-    public async Task SetLifetimeAsync(TimeSpan lifetime)
+    public Task SetLifetimeAsync(TimeSpan lifetime)
     {
         SetLifetime(lifetime);
+        return Task.CompletedTask;
     }
 
-    public async Task SetLifetimeAsync(DateTime startAt, float lifetime)
+    public Task SetLifetimeAsync(DateTime startAt, float lifetime)
     {
         SetLifetime(startAt, lifetime);
+        return Task.CompletedTask;
     }
 
-    public async Task SetLifetimeAsync(float lifetime)
+    public Task SetLifetimeAsync(float lifetime)
     {
         SetLifetime(lifetime);
+        return Task.CompletedTask;
     }
     
-    public async Task RessetLifetimeAsync()
+    public Task RessetLifetimeAsync()
     {
         RessetLifetime();
+        return Task.CompletedTask;
     }
 }

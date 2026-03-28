@@ -18,9 +18,10 @@ public abstract class RegistrableQuant<T, TMeta>
     /// Registration in Registry
     /// </summary>
     /// <remarks>Used in constructor, be careful!</remarks>
-    public void Register()
+    public void Register(IQuantumObject registry)
     {
-        QuantsRegistry<T>.Instance.Register((T)this);
+        if (registry is QuantsRegistry<T> quantRegistry)
+            quantRegistry.Register((T)this);
     }
 
     /// <summary>
@@ -30,23 +31,24 @@ public abstract class RegistrableQuant<T, TMeta>
     /// <param name="meta">MetaQuant for this Quant</param>
     protected RegistrableQuant(TMeta meta) : base(meta)
     {
-        Register();
+        Register(QuantsRegistry<T>.Instance);
     }
 
     /// <summary>
     /// Unregistration ir Registry
     /// </summary>
-    public void Unregister()
+    public void Unregister(IQuantumObject registry)
     {
-        QuantsRegistry<T>.Instance.Pop(Identifier);
+        if (registry is QuantsRegistry<T> quantRegistry)
+            quantRegistry.Pop(Identifier);
     }
-    
+
     /// <summary>
     /// Disposing and unregistration
     /// </summary>
     /// <remarks>Use unregistration method, be careful!</remarks>
     public void Dispose()
     {
-        Unregister();
+        Unregister(QuantsRegistry<T>.Instance);
     }
 }

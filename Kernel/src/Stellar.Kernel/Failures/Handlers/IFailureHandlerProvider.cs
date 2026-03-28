@@ -4,8 +4,8 @@ using Stellar.Kernel.Data.Context;
 
 namespace Stellar.Kernel.Failures.Handlers
 {
-    public interface IFailureHandlerProvider : IQuantumObject
+    public interface IFailureHandlerProvider : IRegistrableQuant
     {
-        IEnumerable<IFailureHandler> GetHandlers(IContext<IFailureContextData> failure);
+        IEnumerable<IFailureHandler> GetHandlers(IContext<IFailureContextData> failureContext);
     }
 }
