@@ -7,7 +7,6 @@ public class CoreFailureHandler : IFailureHandler
 {
     public bool Handle(IFailure failure)
     {
-        // TODO: implement method
         throw new NotImplementedException();
     }
 }

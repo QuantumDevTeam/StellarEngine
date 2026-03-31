@@ -26,7 +26,7 @@ public class FailureDispatcher(
 
     public void Dispatch(IContext<IFailureContextData> failureContext)
     {
-        // TODO: filter context for providers
+        throw new NotImplementedException();
 
         // if (failureContext.Data?.Failure is not { } failure)
         // return;

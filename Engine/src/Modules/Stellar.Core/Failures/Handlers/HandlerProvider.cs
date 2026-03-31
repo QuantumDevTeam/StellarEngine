@@ -35,7 +35,6 @@ public class HandlerProvider(HandlerProviderMeta meta)
 
         var bindings = (failure.Type, failure.Level);
 
-        // TODO: implement method
         throw new NotImplementedException();
     }
 }

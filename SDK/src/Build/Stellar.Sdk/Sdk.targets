@@ -19,7 +19,6 @@
 
     <!-- Stellar Tags -->
 
-    <!-- TODO: Implement this task -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarParseCSProjectFile"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarParseCsSroject"

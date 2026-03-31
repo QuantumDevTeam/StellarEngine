@@ -15,13 +15,11 @@ public abstract class FailureLevel : IFailureLevel, ILabeled
 
     public void Register(IQuantumObject registry)
     {
-        // TODO: implement registration of failure level
         throw new NotImplementedException();
     }
 
     public void Unregister(IQuantumObject registry)
     {
-        // TODO: implement unregistration of failure level
         throw new NotImplementedException();
     }
 }
