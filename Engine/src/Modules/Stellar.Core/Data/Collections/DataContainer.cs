@@ -2,14 +2,15 @@ using System.Collections;
 using Stellar.Kernel;
 using Stellar.Kernel.Quantization;
 using Stellar.Kernel.Data.Collections;
+using Stellar.Kernel.Data.Registry;
 using Stellar.Core.Quantization;
 using Stellar.Core.Data.Registry;
-using Stellar.Kernel.Data.Registry;
 
 namespace Stellar.Core.Data.Collections;
 
 public abstract class DataContainer<T>
     : Quant<MetaQuant>, IDataContainer, IEnumerable<T>
+    where T : IQuant
 {
     public ConcurrentIdentifierMap<IQuant> Data { get; }
 
@@ -37,13 +38,22 @@ public abstract class DataContainer<T>
 
     public static IDataContainer? GetContainer(IIdentifier identifier) =>
         DataContainerRegistry.Instance.Get(identifier);
+        
+    #region Item support
 
-    public IQuant? Get(IIdentifier key)
+    public abstract IQuant? Get(IIdentifier identifier);
+    public virtual bool Set(IQuant obj) => false;
+    public virtual T? Pop(IIdentifier identifier) => null;
+
+    public T this[IIdentifier key]
     {
-        return Data.GetValueOrDefault(key);
+        get => (T)Get(key)! ?? throw new KeyNotFoundException();
+        set => Set(key, value);
     }
-
-    public T this[IIdentifier key] => (T)Get(key)! ?? throw new KeyNotFoundException();
+    
+    #endregion
+    
+    #region Encapsulation
 
     public bool Contains(IIdentifier key) => Data.ContainsKey(key);
     public int Count => Data.Count;
