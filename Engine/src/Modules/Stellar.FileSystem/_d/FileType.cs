@@ -20,7 +20,7 @@ public class FileType
     public FileType(string name, IIdentifier? identifier = null)
         : base(identifier)
     {
-        Label = new Label(name, UID);
+        Label = new Label(UID, name);
     }
 
     public override string ToString() => Label.Name;

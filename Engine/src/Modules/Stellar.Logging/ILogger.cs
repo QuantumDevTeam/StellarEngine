@@ -1,8 +1,9 @@
-using Stellar.Core.Quantization;
+using Stellar.Kernel.Quantization;
 
 namespace Stellar.Logging;
 
-public interface ILogger : IRegistrableQuantInterface<ILogger, LoggerMeta>
+public interface ILogger
+    : IRegistrableQuant
 {
     void Log(LogLevel level, string message);
     void LogWithoutFormat(string message);

@@ -30,7 +30,7 @@ public sealed class Domain
     public Domain(string name, DomainType type, string value, IIdentifier? identifier = null)
         : base(identifier)
     {
-        Label = new Label(name, UID);
+        Label = new Label(UID, name);
         Type = type;
         Value = value;
     }
