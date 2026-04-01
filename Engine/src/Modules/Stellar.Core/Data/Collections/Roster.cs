@@ -1,6 +1,7 @@
 using Stellar.Kernel;
 using Stellar.Kernel.Quantization;
 using Stellar.Core.Quantization;
+using Stellar.Kernel.Data.Collections;
 
 namespace Stellar.Core.Data.Collections;
 
@@ -9,29 +10,38 @@ public class Roster<T>
     : WritableTable<T>
     where T : IQuant
 {
-    public ConcurrentDictionary<IIdentifier, Roster<T>> Branches { get; } = [];
+    public ConcurrentIdentifierMap<Roster<T>> Branches { get; }
     
     #region Constructors
-    
-    public Roster(MetaData metaData)
-        : base(metaData)
-    {
-    }
 
-    public Roster(MetaData metaData, Dictionary<Identifier, T> data)
+    // ReSharper disable once ConvertToPrimaryConstructor
+    public Roster(MetaQuant metaData, Dictionary<IIdentifier, T> data, Dictionary<IIdentifier, Roster<T>> branches)
         : base(metaData, data)
     {
+        Branches = new ConcurrentIdentifierMap<Roster<T>>(branches);
     }
-        
-    public Roster(MetaQuant meta, DataContainer<T> container)
-        : base(meta, container.Data)
+
+    public Roster(MetaQuant metaData, Dictionary<IIdentifier, T> data)
+        : this(metaData, data, [])
     {
     }
     
-    public Roster(DataContainer<T> container)
-        : base(container.MetaQuant, container.Data)
+    public Roster(MetaQuant metaData)
+        : this(metaData, [])
     {
     }
+    
+    // TODO: implement DataContainer<T> parametrized constructors
+        
+    // public Roster(MetaQuant meta, DataContainer<T> container)
+    //     : base(meta, container.Data)
+    // {
+    // }
+    //
+    // public Roster(DataContainer<T> container)
+    //     : base(container.MetaQuant, container.Data)
+    // {
+    // }
     
     #endregion
 
@@ -49,7 +59,8 @@ public class Roster<T>
     
     public Roster<T>? PopBranch(IIdentifier identifier)
     {
-        if (Branches.TryRemove(identifier, out var branch)) return branch;
+        Branches.TryRemove(identifier, out var branch);
+        return branch;
     }
     
     public Roster<T> NewBranch(MetaQuant meta, Dictionary<IIdentifier, T> data)
@@ -59,9 +70,9 @@ public class Roster<T>
         return branch;
     }
         
-    public Roster<T> NewBranch(MetaData metaData) => NewBranch(metaData, new Dictionary<IIdentifier, T>());
+    public Roster<T> NewBranch(MetaQuant metaData) => NewBranch(metaData, new Dictionary<IIdentifier, T>());
     
-    public Roster<T> ContainsBranch(IIdentifier identifier) => Branches.ContainsKey(identifier);
+    public bool ContainsBranch(IIdentifier identifier) => Branches.ContainsKey(identifier);
 
     #endregion
 }

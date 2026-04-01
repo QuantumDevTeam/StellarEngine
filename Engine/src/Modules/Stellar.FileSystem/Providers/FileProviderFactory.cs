@@ -1,10 +1,12 @@
-using Stellar.Core.Data.Collections;
 using Stellar.Kernel.FileSystem;
 using Stellar.Kernel.FileSystem.Provider;
+using Stellar.Core.Quantization;
+using Stellar.Core.Data.Collections;
 
 namespace Stellar.FileSystem.Providers;
 
-public class FileProviderFactory(DataContainer<IFileProvider> providers) : IFileProviderFactory
+public class FileProviderFactory(DataContainer<IFileProvider> providers)
+    : Quant<MetaQuant>(new MetaQuant()), IFileProviderFactory
 {
     public IFileProvider GetFileProvider(IDomain domain)
     {

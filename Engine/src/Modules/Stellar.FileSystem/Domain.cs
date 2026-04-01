@@ -1,34 +1,41 @@
 using Stellar.Kernel;
-using Stellar.Core.Quantization;
 using Stellar.Kernel.FileSystem;
+using Stellar.Kernel.Label;
+using Stellar.Core.Quantization;
+using Stellar.Core.Label;
 
 namespace Stellar.FileSystem;
 
 /// <summary>
 /// Domain, identifies Location base
 /// </summary>
-/// <param name="type">Type of Domain</param>
-/// <param name="value">Name of Domain (his identifier in a DataContainer)</param>
-/// <param name="identifier">An unique identifier</param>
-public sealed class Domain(string name, DomainType type, string value, IIdentifier? identifier = null)
-    : RegistrableMetaQuant<Domain>(identifier), IDomain
+public sealed class Domain
+    : RegistrableMetaQuant<Domain>, IDomain
 {
     /// <summary>
     /// Name of Domain
     /// </summary>
-    public string Name { get; } = name;
+    public ILabel Label { get; }
 
     /// <summary>
     /// Type of Domain
     /// </summary>
-    public DomainType Type { get; } = type;
+    public DomainType Type { get; }
 
     /// <summary>
     /// Value of Domain
     /// </summary>
-    public string Value { get; } = value;
+    public string Value { get; }
 
-    public override string ToString() => $"{Type}@{Name}:{Value}";
+    public Domain(string name, DomainType type, string value, IIdentifier? identifier = null)
+        : base(identifier)
+    {
+        Label = new Label(name, UID);
+        Type = type;
+        Value = value;
+    }
+
+    public override string ToString() => $"{Type}@{Label.Name}:{Value}";
 
     public override int GetHashCode()
     {
@@ -37,7 +44,7 @@ public sealed class Domain(string name, DomainType type, string value, IIdentifi
 
     private bool Equals(Domain other)
     {
-        return other.Name == Name;
+        return other.Label.Name == Label.Name;
     }
 
     public bool Equals(IDomain? obj)

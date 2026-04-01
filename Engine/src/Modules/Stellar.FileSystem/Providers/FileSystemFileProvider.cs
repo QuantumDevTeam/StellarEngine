@@ -2,10 +2,12 @@
 
 using Stellar.Kernel.FileSystem;
 using Stellar.Kernel.FileSystem.Provider;
+using Stellar.Core.Quantization;
 
 namespace Stellar.FileSystem.Providers;
 
-public class FileSystemFileProvider : IFileProvider
+public class FileSystemFileProvider()
+    : Quant<MetaQuant>(new MetaQuant()), IFileProvider
 {
     #region Deps
 

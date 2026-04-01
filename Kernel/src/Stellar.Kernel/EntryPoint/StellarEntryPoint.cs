@@ -1,5 +1,6 @@
 using System;
 using Stellar.Kernel.Configuration;
+using Stellar.Kernel.Label;
 
 namespace Stellar.Kernel.EntryPoint
 {
@@ -7,7 +8,7 @@ namespace Stellar.Kernel.EntryPoint
     {
         public readonly RuntimeConfiguration RuntimeConfiguration;
         
-        public abstract string Name { get; }
+        public abstract ILabel Label { get; }
 
         protected StellarEntryPoint(RuntimeConfiguration runtimeConfiguration)
         {

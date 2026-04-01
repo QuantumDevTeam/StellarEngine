@@ -11,38 +11,41 @@ public class WritableTable<T>
     #region Constructors
 
     public WritableTable(MetaQuant meta, Dictionary<IIdentifier, T> data)
-        : base(meta)
+        : base(meta, data)
     {
     }
 
     public WritableTable(MetaQuant meta)
-        : base(meta, new Dictionary<IIdentifier, T>())
+        : base(meta)
     {
     }
     
-    public WritableTable(MetaQuant meta, DataContainer<T> container)
-        : base(meta, container.Data)
-    {
-    }
+    // TODO: implement DataContainer<T> parametrized constructors
     
-    public WritableTable(DataContainer<T> container)
-        : base(container.MetaQuant, container.Data)
-    {
-    }
+    // public WritableTable(MetaQuant meta, DataContainer<T> container)
+    //     : base(meta, container.Data)
+    // {
+    // }
+    //
+    // public WritableTable(DataContainer<T> container)
+    //     : base(container.MetaQuant, container.Data)
+    // {
+    // }
 
 
     #endregion
     
     #region item support
     
-    public override bool Set(IQuant obj)
+    public override bool Set(IQuant quant)
     {
-        return Data.TryAdd(quant.UID, obj);
+        return Data.TryAdd(quant.UID, quant);
     }
     
     public override T? Pop(IIdentifier identifier)
     {
-        if (Data.TryRemove(identifier, our var obj)) return (T)obj;
+        Data.TryRemove(identifier, out var quant);
+        return (T?)quant;
     }
     
     #endregion

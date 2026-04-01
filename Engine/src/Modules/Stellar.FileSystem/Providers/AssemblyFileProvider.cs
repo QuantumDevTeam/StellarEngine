@@ -1,10 +1,12 @@
 using System.Reflection;
 using Stellar.Kernel.FileSystem;
 using Stellar.Kernel.FileSystem.Provider;
+using Stellar.Core.Quantization;
 
 namespace Stellar.FileSystem.Providers;
 
-public class AssemblyFileProvider(Assembly assembly) : IFileProvider
+public class AssemblyFileProvider(Assembly assembly)
+    : Quant<MetaQuant>(new MetaQuant()), IFileProvider
 {
     #region Deps
 
@@ -53,7 +55,7 @@ public class AssemblyFileProvider(Assembly assembly) : IFileProvider
             : throw new FileNotFoundException(
                 $"Resource `{location}` not found or can not be opened for reading and writing.");
     }
-    
+
     public Stream Open(ILocation location, FileAccess access)
     {
         return access switch

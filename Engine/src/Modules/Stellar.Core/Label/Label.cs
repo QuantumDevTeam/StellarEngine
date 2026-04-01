@@ -1,10 +1,10 @@
 using Stellar.Kernel;
-using Stellar.Kernel.Quantization;
 using Stellar.Kernel.Label;
+using Stellar.Core.Quantization;
 
 namespace Stellar.Core.Label;
 
-class Label(string name; IIdentifier? identifier = null)
+public class Label(string name, IIdentifier? identifier = null)
     : RegistrableMetaQuant<Label>(identifier), ILabel
 {
     public string Name { get; } = name;

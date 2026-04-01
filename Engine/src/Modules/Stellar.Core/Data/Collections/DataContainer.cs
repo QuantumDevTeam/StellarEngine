@@ -42,13 +42,13 @@ public abstract class DataContainer<T>
     #region Item support
 
     public abstract IQuant? Get(IIdentifier identifier);
-    public virtual bool Set(IQuant obj) => false;
-    public virtual T? Pop(IIdentifier identifier) => null;
+    public virtual bool Set(IQuant quant) => false;
+    public virtual T? Pop(IIdentifier identifier) => default;
 
     public T this[IIdentifier key]
     {
         get => (T)Get(key)! ?? throw new KeyNotFoundException();
-        set => Set(key, value);
+        set => Set(value);
     }
     
     #endregion
@@ -66,6 +66,8 @@ public abstract class DataContainer<T>
 
     public IEnumerator<T> GetEnumerator() => Values.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
+    #endregion
 
     public void Unregister(IQuantumObject registry)
     {

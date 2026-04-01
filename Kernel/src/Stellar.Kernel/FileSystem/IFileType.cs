@@ -1,4 +1,5 @@
 using System;
+using Stellar.Kernel.Label;
 using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.FileSystem

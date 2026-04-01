@@ -1,23 +1,29 @@
+using Stellar.Core.Label;
 using Stellar.Core.Quantization;
 using Stellar.Kernel;
 using Stellar.Kernel.FileSystem;
+using Stellar.Kernel.Label;
 
 namespace Stellar.FileSystem;
 
 /// <summary>
 /// Quantum File Type
 /// </summary>
-/// <param name="name">Type Name (his identifier in Data Container)</param>
-/// <param name="identifier">An unique identifier</param>
-public class FileType(string name, IIdentifier? identifier = null)
-    : RegistrableMetaQuant<FileType>(identifier), IFileType
+public class FileType
+    : RegistrableMetaQuant<FileType>, IFileType
 {
     /// <summary>
     /// Quantum File Type name
     /// </summary>
-    public string Name { get; } = name;
+    public ILabel Label { get; }
 
-    public override string ToString() => Name;
+    public FileType(string name, IIdentifier? identifier = null)
+        : base(identifier)
+    {
+        Label = new Label(name, UID);
+    }
+
+    public override string ToString() => Label.Name;
 
     public override int GetHashCode()
     {
@@ -26,7 +32,7 @@ public class FileType(string name, IIdentifier? identifier = null)
 
     private bool Equals(FileType other)
     {
-        return other.Name == Name;
+        return other.Label.Name == Label.Name;
     }
 
     public bool Equals(IFileType? obj)
