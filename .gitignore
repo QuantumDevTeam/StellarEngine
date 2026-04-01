@@ -2,11 +2,6 @@
 .idea
 .vs
 *.iml
-# test files
-*_test_*.*
-dotnet-tools.json
-
-NEXTRELEASE.md
 
 ### Archives
 # It's better to unpack these files and commit the raw source because
@@ -26,6 +21,11 @@ NEXTRELEASE.md
 ### CSQC Project
 # roject installers path
 installers
+# test files
+*_test_*.*
+dotnet-tools.json
+# other
+NEXTRELEASE.md
 
 # other
 ### Csharp template
