@@ -13,14 +13,14 @@ public class HandlerProviderMeta(
 ) : MetaQuant(identifier)
 {
     public readonly DataContainer<IFailureHandler> Handlers =
-        handlers.HasValue ? handlers.Value.Item1 : new WritableDataContainer();
+        handlers.HasValue ? handlers.Value.Item1 : new WritableTable<IFailureHandler>();
 
     public readonly Dictionary<IIdentifier, (FailureType, IFailureLevel)> Bindings =
         handlers.HasValue ? handlers.Value.Item2 : new();
 }
 
-public class HandlerProvider(HandlerProviderMeta meta)
-    : RegistrableQuant<HandlerProvider, HandlerProviderMeta>(meta), IFailureHandlerProvider
+public class FailureHandlerProvider(HandlerProviderMeta meta)
+    : RegistrableQuant<FailureHandlerProvider, HandlerProviderMeta>(meta), IFailureHandlerProvider
 {
     public void RegisterHandler((FailureType, IFailureLevel) binding, IFailureHandler handler)
     {

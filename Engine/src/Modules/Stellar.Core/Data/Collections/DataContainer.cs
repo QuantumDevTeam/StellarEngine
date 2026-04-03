@@ -22,15 +22,20 @@ public abstract class DataContainer<T>
 
     #region Constructors
 
-    protected DataContainer(MetaQuant meta, Dictionary<IIdentifier, T> data)
+    protected DataContainer(MetaQuant meta, ConcurrentIdentifierMap<IQuant> data)
         : base(meta)
     {
-        Data = new ConcurrentIdentifierMap<IQuant>(data as Dictionary<IIdentifier, IQuant>);
+        Data = data;
         Register(DataContainerRegistry.Instance);
     }
 
+    protected DataContainer(MetaQuant meta, Dictionary<IIdentifier, T> data)
+        : this(meta, new ConcurrentIdentifierMap<IQuant>(data as Dictionary<IIdentifier, IQuant>))
+    {
+    }
+
     protected DataContainer(MetaQuant meta)
-        : this(meta, new Dictionary<IIdentifier, T>())
+        : this(meta, [])
     {
     }
 
@@ -38,7 +43,7 @@ public abstract class DataContainer<T>
 
     public static IDataContainer? GetContainer(IIdentifier identifier) =>
         DataContainerRegistry.Instance.Get(identifier);
-        
+
     #region Item support
 
     public abstract IQuant? Get(IIdentifier identifier);
@@ -50,9 +55,9 @@ public abstract class DataContainer<T>
         get => (T)Get(key)! ?? throw new KeyNotFoundException();
         set => Set(value);
     }
-    
+
     #endregion
-    
+
     #region Encapsulation
 
     public bool Contains(IIdentifier key) => Data.ContainsKey(key);
@@ -66,7 +71,7 @@ public abstract class DataContainer<T>
 
     public IEnumerator<T> GetEnumerator() => Values.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    
+
     #endregion
 
     public void Unregister(IQuantumObject registry)

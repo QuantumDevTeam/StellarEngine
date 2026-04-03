@@ -6,11 +6,12 @@ namespace Stellar.Kernel.Data.Context
         : IQuantumObject
         where TData : IContextData
     {
-        IQuantumObject sender { get; }
 #if NETSTANDARD2_0
+        IQuantumObject Sender { get; }
         TData Data { get; }
 #else
 #nullable enable
+        IQuantumObject? Sender { get; }
         TData? Data { get; }
 #endif
     }

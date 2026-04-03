@@ -1,5 +1,6 @@
 using Stellar.Kernel;
 using Stellar.Kernel.Quantization;
+using Stellar.Kernel.Data.Collections;
 using Stellar.Core.Quantization;
 
 namespace Stellar.Core.Data.Collections;
@@ -9,6 +10,11 @@ public class ConstantTable<T>
     where T : IQuant
 {
     #region Constructors
+
+    public ConstantTable(MetaQuant meta, ConcurrentIdentifierMap<IQuant> data)
+        : base(meta, data)
+    {
+    }
 
     public ConstantTable(MetaQuant meta, Dictionary<IIdentifier, T> data)
         : base(meta, data)
@@ -20,17 +26,10 @@ public class ConstantTable<T>
     {
     }
 
-    // TODO: implement DataContainer<T> parametrized constructors
-
-    // public ConstantTable(MetaQuant meta, DataContainer<T> container)
-    //     : base(meta, container.Data)
-    // {
-    // }
-    //
-    // public ConstantTable(DataContainer<T> container)
-    //     : base(container.MetaQuant, container.Data)
-    // {
-    // }
+    public ConstantTable()
+        : base(new MetaQuant())
+    {
+    }
 
     #endregion
 
