@@ -3,33 +3,46 @@ using Stellar.Kernel.Data.Context;
 using Stellar.Kernel.Failures;
 using Stellar.Core.Quantization;
 using Stellar.Core.Data.Collections;
+using Stellar.Core.Failures.Handlers;
+using Stellar.Kernel.Failures.Handlers;
+using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Failures;
 
+public interface IFailureDispatcherMeta
+    : IMetaQuant
+{
+    public DataContainer<IFailureLevel> FailureLevels { get; }
+    public IFailureHandlerProvider FailureHandlerProvider { get; }
+}
+
 public class FailureDispatcherMeta(
     DataContainer<IFailureLevel>? failureLevels = null,
+    IFailureHandlerProvider? failureHandlerProvider = null,
     IIdentifier? identifier = null
-) : MetaQuant(identifier)
+) : MetaQuant(identifier), IFailureDispatcherMeta
 {
-    public DataContainer<IFailureLevel> FailureLevels { get; private set; } =
-        failureLevels ?? new WritableDataContainer();
+    public DataContainer<IFailureLevel> FailureLevels { get; } =
+        failureLevels ?? new WritableTable<IFailureLevel>();
+
+    public IFailureHandlerProvider FailureHandlerProvider { get; } =
+        failureHandlerProvider ?? new FailureHandlerProvider(new HandlerProviderMeta());
 }
 
 public class FailureDispatcher(
-    FailureDispatcherMeta meta
-) : Quant<FailureDispatcherMeta>(meta), IFailureDispatcher
+    IFailureDispatcherMeta meta
+) : Quant<IFailureDispatcherMeta>(meta), IFailureDispatcher
 {
-    private static readonly Lazy<FailureDispatcher> Dispatcher =
-        new(() => new FailureDispatcher(new FailureDispatcherMeta())); // TODO: initialize Dispatcher
+    public static FailureDispatcher Default => new(new FailureDispatcherMeta());
 
-    public static FailureDispatcher Instance => Dispatcher.Value;
+    public static readonly Lazy<Dictionary<string, IFailureDispatcher>> Dispatchers =
+        new(() => new Dictionary<string, IFailureDispatcher>(
+            [new KeyValuePair<string, IFailureDispatcher>("Default", Default)]
+        ));
 
-    public void Dispatch(IContext<IFailureContextData> failureContext)
+    public bool Dispatch(IContext<IFailureContextData> failureContext)
     {
-        throw new NotImplementedException();
-
-        // if (failureContext.Data?.Failure is not { } failure)
-        // return;
-        // QuantsRegistry<HandlerProvider>.Instance.Values
+        var handlers = MetaQuant.FailureHandlerProvider.GetHandlers(failureContext);
+        return handlers.Aggregate(true, (current, handler) => current & handler.Handle(failureContext));
     }
 }

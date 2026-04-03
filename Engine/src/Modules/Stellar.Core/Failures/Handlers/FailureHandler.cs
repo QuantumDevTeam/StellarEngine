@@ -16,10 +16,9 @@ public class FailureHandler()
 
     public bool Handle(IContext<IFailureContextData> context)
     {
-        if (context.Data?.Failure is not { } failure) return false;
+        if (context.Data?.Failure is not { } failure) return true;
+        if (!failure.Level.IsEnabled) return true;
 
-        if (!failure.Level.IsEnabled)
-            return true;
         if (failure.Level.IsLoggable)
             Logger?.Log(LogLevel.Exception, failure.Message);
         if (failure.Level.IsStopExecute)
@@ -28,8 +27,7 @@ public class FailureHandler()
                     context.Sender, new StopContextData(StopReason.CriticalError, failure)
                 )
             );
-        if (failure.Level is { IsCritical: false } or { IsStopExecute: true })
-            return false;
+        if (failure.Level is { IsCritical: true } or { IsStopExecute: true }) return false;
 
         return true;
     }

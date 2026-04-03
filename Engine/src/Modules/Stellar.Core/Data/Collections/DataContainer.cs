@@ -10,9 +10,9 @@ namespace Stellar.Core.Data.Collections;
 
 public abstract class DataContainer<T>
     : Quant<MetaQuant>, IDataContainer, IEnumerable<T>
-    where T : IQuant
+    where T : IIdentifiableQuantumObject
 {
-    public ConcurrentIdentifierMap<IQuant> Data { get; }
+    public ConcurrentIdentifierMap<IIdentifiableQuantumObject> Data { get; }
 
     public void Register(IQuantumObject registry)
     {
@@ -22,7 +22,7 @@ public abstract class DataContainer<T>
 
     #region Constructors
 
-    protected DataContainer(MetaQuant meta, ConcurrentIdentifierMap<IQuant> data)
+    protected DataContainer(MetaQuant meta, ConcurrentIdentifierMap<IIdentifiableQuantumObject> data)
         : base(meta)
     {
         Data = data;
@@ -30,7 +30,9 @@ public abstract class DataContainer<T>
     }
 
     protected DataContainer(MetaQuant meta, Dictionary<IIdentifier, T> data)
-        : this(meta, new ConcurrentIdentifierMap<IQuant>(data as Dictionary<IIdentifier, IQuant>))
+        : this(meta,
+            new ConcurrentIdentifierMap<IIdentifiableQuantumObject>(
+                data as Dictionary<IIdentifier, IIdentifiableQuantumObject>))
     {
     }
 
@@ -46,8 +48,8 @@ public abstract class DataContainer<T>
 
     #region Item support
 
-    public abstract IQuant? Get(IIdentifier identifier);
-    public virtual bool Set(IQuant quant) => false;
+    public abstract IIdentifiableQuantumObject? Get(IIdentifier identifier);
+    public virtual bool Set(IIdentifiableQuantumObject obj) => false;
     public virtual T? Pop(IIdentifier identifier) => default;
 
     public T this[IIdentifier key]
@@ -60,7 +62,8 @@ public abstract class DataContainer<T>
 
     #region Encapsulation
 
-    public bool Contains(IIdentifier key) => Data.ContainsKey(key);
+    public bool ContainsKey(IIdentifier key) => Data.ContainsKey(key);
+    public bool Contains(IIdentifiableQuantumObject obj) => Data.ContainsKey(obj.UID);
     public int Count => Data.Count;
     public bool IsEmpty => Data.IsEmpty;
 

@@ -10,7 +10,7 @@ public class IdentifierRegistry
     private static readonly ConcurrentDictionary<Guid, Identifier> Identifiers = new();
     private static readonly Lazy<IdentifierRegistry> Registry = new(() => new IdentifierRegistry());
 
-    public static IRegistry<Identifier> Instance => Registry.Value;
+    public static IdentifierRegistry Instance => Registry.Value;
 
     public bool Exists(IIdentifier id)
     {

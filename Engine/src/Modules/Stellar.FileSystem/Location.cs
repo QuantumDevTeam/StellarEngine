@@ -29,11 +29,6 @@ public sealed class Location(Domain domain, string path, IIdentifier? identifier
     /// <returns>String format `{Domain}://{Path}`</returns>
     public override string ToString() => $"{Domain}://{Path}";
 
-    public override int GetHashCode()
-    {
-        return UID.GetHashCode();
-    }
-
     private bool Equals(Location other)
     {
         return other.Domain == Domain && other.Path == Path;

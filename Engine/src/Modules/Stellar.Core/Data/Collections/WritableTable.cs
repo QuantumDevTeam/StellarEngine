@@ -7,11 +7,11 @@ namespace Stellar.Core.Data.Collections;
 
 public class WritableTable<T>
     : ConstantTable<T>
-    where T : IQuant
+    where T : IIdentifiableQuantumObject
 {
     #region Constructors
 
-    public WritableTable(MetaQuant meta, ConcurrentIdentifierMap<IQuant> data)
+    public WritableTable(MetaQuant meta, ConcurrentIdentifierMap<IIdentifiableQuantumObject> data)
         : base(meta, data)
     {
     }
@@ -34,9 +34,9 @@ public class WritableTable<T>
 
     #region item support
 
-    public override bool Set(IQuant quant)
+    public override bool Set(IIdentifiableQuantumObject obj)
     {
-        return Data.TryAdd(quant.UID, quant);
+        return Data.TryAdd(obj.UID, obj);
     }
 
     public override T? Pop(IIdentifier identifier)

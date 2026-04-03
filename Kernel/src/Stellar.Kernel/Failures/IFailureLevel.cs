@@ -2,7 +2,7 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Failures
 {
-    public interface IFailureLevel : IRegistrableQuantumObject
+    public interface IFailureLevel : IRegistrableQuantumObject, IIdentifiableQuantumObject
     {
         bool IsEnabled { get; set; }
         bool IsLoggable { get; }

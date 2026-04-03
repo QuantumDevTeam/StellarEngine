@@ -7,11 +7,11 @@ namespace Stellar.Core.Data.Collections;
 
 public class ConstantTable<T>
     : DataContainer<T>
-    where T : IQuant
+    where T : IIdentifiableQuantumObject
 {
     #region Constructors
 
-    public ConstantTable(MetaQuant meta, ConcurrentIdentifierMap<IQuant> data)
+    public ConstantTable(MetaQuant meta, ConcurrentIdentifierMap<IIdentifiableQuantumObject> data)
         : base(meta, data)
     {
     }
@@ -35,7 +35,7 @@ public class ConstantTable<T>
 
     #region item support
 
-    public override IQuant? Get(IIdentifier identifier)
+    public override IIdentifiableQuantumObject? Get(IIdentifier identifier)
     {
         return Data.GetValueOrDefault(identifier);
     }

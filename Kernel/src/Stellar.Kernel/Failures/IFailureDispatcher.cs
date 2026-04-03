@@ -5,6 +5,6 @@ namespace Stellar.Kernel.Failures
 {
     public interface IFailureDispatcher : IQuant
     {
-        void Dispatch(IContext<IFailureContextData> failureContext);
+        bool Dispatch(IContext<IFailureContextData> failureContext);
     }
 }

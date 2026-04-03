@@ -37,11 +37,6 @@ public sealed class Domain
 
     public override string ToString() => $"{Type}@{Label.Name}:{Value}";
 
-    public override int GetHashCode()
-    {
-        return UID.GetHashCode();
-    }
-
     private bool Equals(Domain other)
     {
         return other.Label.Name == Label.Name;

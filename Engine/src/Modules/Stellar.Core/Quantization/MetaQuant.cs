@@ -14,4 +14,6 @@ public class MetaQuant(IIdentifier? identifier = null)
     /// Unique ID
     /// </summary>
     public IIdentifier UID { get; } = identifier ?? new Identifier();
+    
+    public override int GetHashCode() => UID.GetHashCode();
 }

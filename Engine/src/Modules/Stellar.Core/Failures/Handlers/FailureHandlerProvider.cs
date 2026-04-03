@@ -24,17 +24,23 @@ public class FailureHandlerProvider(HandlerProviderMeta meta)
 {
     public void RegisterHandler((FailureType, IFailureLevel) binding, IFailureHandler handler)
     {
-        MetaQuant.Handlers.Add(handler);
+        MetaQuant.Handlers.Set(handler);
         MetaQuant.Bindings.Add(handler.UID, binding);
     }
 
     public IEnumerable<IFailureHandler> GetHandlers(IContext<IFailureContextData> failureContext)
     {
-        if (failureContext.Data?.Failure is not { } failure)
-            return new List<IFailureHandler>();
+        if (failureContext.Data?.Failure is not { } failure) yield break;
 
-        var bindings = (failure.Type, failure.Level);
+        var handlersIdentifiers = MetaQuant.Bindings
+            .Where(source =>
+                failure.Type.HasFlag(source.Value.Item1) && failure.Level == source.Value.Item2)
+            .Select((binding, _) => binding.Key)
+            .ToArray();
 
-        throw new NotImplementedException();
+        foreach (var handlersIdentifier in handlersIdentifiers)
+        {
+            yield return MetaQuant.Handlers[handlersIdentifier];
+        }
     }
 }

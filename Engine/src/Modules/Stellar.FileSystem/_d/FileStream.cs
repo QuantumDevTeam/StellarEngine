@@ -4,7 +4,8 @@ using Stellar.Kernel.FileSystem.Provider;
 
 namespace Stellar.FileSystem;
 
-public class FileStream(IFile file, Stream stream) : MetaQuant, IFileStream
+public class FileStream(IFile file, Stream stream)
+    : MetaQuant, IFileStream
 {
     /// <summary>
     /// File himself
@@ -24,11 +25,6 @@ public class FileStream(IFile file, Stream stream) : MetaQuant, IFileStream
     public void Dispose()
     {
         Stream.Dispose();
-    }
-
-    public override int GetHashCode()
-    {
-        return UID.GetHashCode();
     }
 
     private bool Equals(FileStream other)

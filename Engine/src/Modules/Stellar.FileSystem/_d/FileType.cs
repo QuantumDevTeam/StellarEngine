@@ -25,11 +25,6 @@ public class FileType
 
     public override string ToString() => Label.Name;
 
-    public override int GetHashCode()
-    {
-        return UID.GetHashCode();
-    }
-
     private bool Equals(FileType other)
     {
         return other.Label.Name == Label.Name;

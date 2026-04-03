@@ -23,11 +23,6 @@ public class File(Location location, FileType type, IIdentifier? identifier = nu
     /// </summary>
     public IFileType Type { get; } = type;
 
-    public override int GetHashCode()
-    {
-        return UID.GetHashCode();
-    }
-
     private bool Equals(File other)
     {
         return other.Location == Location;

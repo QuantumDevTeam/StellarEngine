@@ -5,15 +5,16 @@ namespace Stellar.Kernel.Data.Collections
     public interface IDataContainer
         : IRegistrableQuant
     {
-        ConcurrentIdentifierMap<IQuant> Data { get; }
+        ConcurrentIdentifierMap<IIdentifiableQuantumObject> Data { get; }
 
 #if NETSTANDARD2_0
-        IQuant Get(IIdentifier id);
+        IIdentifiableQuantumObject Get(IIdentifier id);
 #else
 #nullable enable
-        IQuant? Get(IIdentifier id);
+        IIdentifiableQuantumObject? Get(IIdentifier id);
 #endif
-        bool Contains(IIdentifier key);
+        bool ContainsKey(IIdentifier key);
+        bool Contains(IIdentifiableQuantumObject obj);
 
         int Count { get; }
         bool IsEmpty { get; }

@@ -7,20 +7,24 @@ namespace Stellar.Core.Data.Collections;
 
 public class Roster<T>
     : WritableTable<T>
-    where T : IQuant
+    where T : IIdentifiableQuantumObject
 {
     public ConcurrentIdentifierMap<Roster<T>> Branches { get; }
 
     #region Constructors
 
-    public Roster(MetaQuant meta, ConcurrentIdentifierMap<IQuant> data, Dictionary<IIdentifier, Roster<T>> branches)
+    public Roster(MetaQuant meta, ConcurrentIdentifierMap<IIdentifiableQuantumObject> data,
+        Dictionary<IIdentifier, Roster<T>> branches)
         : base(meta, data)
     {
         Branches = new ConcurrentIdentifierMap<Roster<T>>(branches);
     }
 
-    public Roster(MetaQuant metaData, Dictionary<IIdentifier, T> data, Dictionary<IIdentifier, Roster<T>> branches)
-        : this(metaData, new ConcurrentIdentifierMap<IQuant>(data as Dictionary<IIdentifier, IQuant>), branches)
+    public Roster(MetaQuant metaData, Dictionary<IIdentifier, T> data, 
+        Dictionary<IIdentifier, Roster<T>> branches)
+        : this(metaData,
+            new ConcurrentIdentifierMap<IIdentifiableQuantumObject>(
+                data as Dictionary<IIdentifier, IIdentifiableQuantumObject>), branches)
     {
     }
 
