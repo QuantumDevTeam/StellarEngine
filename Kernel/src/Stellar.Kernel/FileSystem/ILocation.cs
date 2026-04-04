@@ -3,7 +3,8 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.FileSystem
 {
-    public interface ILocation : IMetaQuant, IEquatable<ILocation>
+    public interface ILocation
+        : IMetaQuant, IEquatable<ILocation>
     {
         /// <summary>
         /// File domain

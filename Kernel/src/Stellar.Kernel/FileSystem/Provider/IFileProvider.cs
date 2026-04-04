@@ -3,7 +3,8 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.FileSystem.Provider
 {
-    public interface IFileProvider : IQuant
+    public interface IFileProvider
+        : IQuant
     {
         /// <summary>
         /// Checks whether FileProvider can operate with Domain

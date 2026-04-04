@@ -4,7 +4,8 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.FileSystem
 {
-    public interface IDomain : IMetaQuant, ILabeled, IEquatable<IDomain>
+    public interface IDomain
+        : IMetaQuant, ILabeled, IEquatable<IDomain>
     {
         /// <summary>
         /// Domain type

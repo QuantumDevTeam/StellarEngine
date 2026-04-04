@@ -3,7 +3,8 @@ using Stellar.Kernel.Data.Context;
 
 namespace Stellar.Kernel.Failures
 {
-    public interface IFailureDispatcher : IQuant
+    public interface IFailureDispatcher
+        : IQuant
     {
         bool Dispatch(IContext<IFailureContextData> failureContext);
     }

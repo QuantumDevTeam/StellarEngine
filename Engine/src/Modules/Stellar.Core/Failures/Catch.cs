@@ -2,7 +2,8 @@ using Stellar.Kernel.Failures;
 
 namespace Stellar.Core.Failures;
 
-public class Catch : ICatch
+public class Catch
+    : ICatch
 {
     public void TryAction(Action action)
     {

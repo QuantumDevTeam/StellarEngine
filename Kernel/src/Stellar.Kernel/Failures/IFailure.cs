@@ -3,7 +3,8 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Failures
 {
-    public interface IFailure : IQuantumObject
+    public interface IFailure
+        : IQuantumObject
     {
         string Message { get; }
 #if NETSTANDARD2_0

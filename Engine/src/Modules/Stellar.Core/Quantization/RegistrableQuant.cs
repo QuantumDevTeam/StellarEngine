@@ -29,7 +29,8 @@ public abstract class RegistrableQuant<T, TMeta>
     /// </summary>
     /// <remarks>Use registration method, be careful!</remarks>
     /// <param name="meta">MetaQuant for this Quant</param>
-    protected RegistrableQuant(TMeta meta) : base(meta)
+    protected RegistrableQuant(TMeta meta) 
+        : base(meta)
     {
         Register(QuantsRegistry<T>.Instance);
     }

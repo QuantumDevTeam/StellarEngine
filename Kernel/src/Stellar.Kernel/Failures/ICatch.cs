@@ -3,7 +3,8 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Failures
 {
-    public interface ICatch : IQuantumObject
+    public interface ICatch
+        : IQuantumObject
     {
         void TryAction(Action action);
         void TryAction(Action<ICatch> action);

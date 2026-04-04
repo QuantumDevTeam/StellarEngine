@@ -6,7 +6,8 @@ namespace Stellar.Kernel.FileSystem
     /// <summary>
     /// Provides metadata information about a file.
     /// </summary>
-    public interface IFileInfo : IQuantumObject
+    public interface IFileInfo
+        : IQuantumObject
     {
         /// <summary>
         /// File name (last segment of the path).

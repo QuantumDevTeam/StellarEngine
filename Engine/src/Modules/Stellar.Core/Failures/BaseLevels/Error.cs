@@ -1,6 +1,7 @@
 namespace Stellar.Core.Failures.BaseLevels;
 
-public class Error() : FailureLevel("S.C/Error")
+public class Error() 
+    : FailureLevel("S.C/Error")
 {
     public static Error Instance = new();
     

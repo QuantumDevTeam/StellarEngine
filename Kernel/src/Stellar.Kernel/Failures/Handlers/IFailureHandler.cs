@@ -4,7 +4,8 @@ using Stellar.Kernel.Logging;
 
 namespace Stellar.Kernel.Failures.Handlers
 {
-    public interface IFailureHandler : IRegistrableQuant
+    public interface IFailureHandler
+        : IRegistrableQuant
     {
 #if NETSTANDARD2_0
         ILogger Logger { get; }

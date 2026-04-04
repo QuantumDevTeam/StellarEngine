@@ -5,7 +5,8 @@ using Stellar.Core.Data.Registry;
 
 namespace Stellar.Core;
 
-public class Identifier : IIdentifier
+public class Identifier
+    : IIdentifier
 {
     public Guid UID { get; }
     protected string _techName { get; }
@@ -30,7 +31,8 @@ public class Identifier : IIdentifier
         Register();
     }
 
-    public Identifier() : this(Guid.NewGuid())
+    public Identifier()
+        : this(Guid.NewGuid())
     {
     }
 

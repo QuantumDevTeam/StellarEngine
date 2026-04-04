@@ -20,7 +20,7 @@ public class Roster<T>
         Branches = new ConcurrentIdentifierMap<Roster<T>>(branches);
     }
 
-    public Roster(MetaQuant metaData, Dictionary<IIdentifier, T> data, 
+    public Roster(MetaQuant metaData, Dictionary<IIdentifier, T> data,
         Dictionary<IIdentifier, Roster<T>> branches)
         : this(metaData,
             new ConcurrentIdentifierMap<IIdentifiableQuantumObject>(

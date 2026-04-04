@@ -1,6 +1,7 @@
 namespace Stellar.Core.Failures.BaseLevels;
 
-public class CriticalError() : FailureLevel("S.C/CriticalError")
+public class CriticalError() 
+    : FailureLevel("S.C/CriticalError")
 {
     public static CriticalError Instance = new();
 

@@ -2,7 +2,8 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Configuration
 {
-    public abstract class RuntimeConfiguration : IQuantumObject
+    public abstract class RuntimeConfiguration
+        : IQuantumObject
     {
         public string ProjectName { get; set; }
         public string CompanyName { get; set; }

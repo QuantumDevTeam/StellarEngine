@@ -2,7 +2,8 @@ using Stellar.Kernel;
 
 namespace Stellar.Core.Quantization;
 
-public class TimedMetaQuant : MetaQuant
+public class TimedMetaQuant 
+    : MetaQuant
 {
     public DateTime CreatedAt { get; }
     public DateTime StartAt { get; private set; }

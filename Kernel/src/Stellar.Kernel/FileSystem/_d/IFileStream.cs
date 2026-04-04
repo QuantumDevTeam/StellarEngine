@@ -7,13 +7,14 @@ namespace Stellar.Kernel.FileSystem
     /// <summary>
     /// Abstract Quantum File stream for operating with file content
     /// </summary>
-    public interface IFileStream : IMetaQuant, IDisposable, IEquatable<IFileStream>
+    public interface IFileStream
+        : IMetaQuant, IDisposable, IEquatable<IFileStream>
     {
         /// <summary>
         /// Quantum File
         /// </summary>
         IFile File { get; }
-        
+
         /// <summary>
         /// File stream
         /// </summary>

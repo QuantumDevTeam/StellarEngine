@@ -5,10 +5,11 @@ using Stellar.Kernel.Label;
 
 namespace Stellar.Kernel.EntryPoint
 {
-    public abstract class StellarEntryPoint : ILabeled, IDisposable
+    public abstract class StellarEntryPoint
+        : ILabeled, IDisposable
     {
         public abstract ILabel Label { get; }
-        
+
         public readonly RuntimeConfiguration RuntimeConfiguration;
 
         protected StellarEntryPoint(RuntimeConfiguration runtimeConfiguration)

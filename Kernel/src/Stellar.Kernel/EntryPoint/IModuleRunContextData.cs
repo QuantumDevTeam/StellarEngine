@@ -6,7 +6,8 @@ using Stellar.Kernel.Logging;
 
 namespace Stellar.Kernel.EntryPoint
 {
-    public interface IModuleRunContextData : IContextData
+    public interface IModuleRunContextData
+        : IContextData
     {
 #if NETSTANDARD2_0
         ILogger Logger { get; }

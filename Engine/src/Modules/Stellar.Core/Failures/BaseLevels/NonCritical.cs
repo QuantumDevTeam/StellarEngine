@@ -1,6 +1,7 @@
 namespace Stellar.Core.Failures.BaseLevels;
 
-public class NonCritical() : FailureLevel("S.C/NonCritical")
+public class NonCritical() 
+    : FailureLevel("S.C/NonCritical")
 {
     public static NonCritical Instance = new();
     
