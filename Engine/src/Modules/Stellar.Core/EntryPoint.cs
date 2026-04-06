@@ -1,15 +1,18 @@
 using Stellar.Kernel.Configuration;
 using Stellar.Kernel.Data.Context;
 using Stellar.Kernel.EntryPoint;
-using Stellar.Kernel.Label;
 
 namespace Stellar.Core;
 
 [StellarEntryPoint]
-public class EntryPoint(RuntimeConfiguration runtimeConfiguration)
-    : StellarEntryPoint(runtimeConfiguration)
+public sealed class EntryPoint
+    : StellarEntryPoint
 {
-    public override ILabel Label { get; } = new Label.Label(new Identifier(), "Main");
+    [Obsolete("Used only in initialization operations encapsulated in Engine")]
+    public EntryPoint(RuntimeConfiguration runtimeConfiguration)
+        : base("Main", runtimeConfiguration)
+    {
+    }
 
     public override int Run(IContext<IModuleRunContextData> context)
     {

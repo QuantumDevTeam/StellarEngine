@@ -4,6 +4,9 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.FileSystem
 {
+    /// <summary>
+    /// An abstract Domain for file location
+    /// </summary>
     public interface IDomain
         : IMetaQuant, ILabeled, IEquatable<IDomain>
     {
@@ -13,14 +16,10 @@ namespace Stellar.Kernel.FileSystem
         DomainType Type { get; }
 
         /// <summary>
-        /// Domain himself
+        /// Value of Domain himself
         /// </summary>
         string Value { get; }
 
-        /// <summary>
-        /// Domain string
-        /// </summary>
-        /// <returns>string equals with domain</returns>
         string ToString();
     }
 }

@@ -3,6 +3,9 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.FileSystem
 {
+    /// <summary>
+    /// An abstract Quantum File stored in abstract Quantum Location
+    /// </summary>
     public interface IFile
         : IMetaQuant, IEquatable<IFile>
     {

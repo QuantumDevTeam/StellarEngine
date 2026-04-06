@@ -2,6 +2,12 @@ using System;
 
 namespace Stellar.Kernel.Failures
 {
+    /// <summary>
+    /// Type of Failures  
+    /// </summary>
+    /// <remarks>
+    /// Mark Failure base/module/context/etc.
+    /// </remarks>
     [Flags]
     public enum FailureType
     {
