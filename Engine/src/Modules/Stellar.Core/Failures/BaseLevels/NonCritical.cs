@@ -1,9 +1,9 @@
 namespace Stellar.Core.Failures.BaseLevels;
 
-public class NonCritical() 
-    : FailureLevel("S.C/NonCritical")
+public class NonCritical(IFailureDispatcherMeta dispatcherMeta) 
+    : FailureLevel("S.C/NonCritical", dispatcherMeta)
 {
-    public static NonCritical Instance = new();
+    public static NonCritical Instance = new(FailureDispatcher.DefaultMeta);
     
     public override bool IsEnabled { get; set; } = true;
     public override bool IsLoggable { get; } = false;

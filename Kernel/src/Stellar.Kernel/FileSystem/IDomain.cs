@@ -20,6 +20,10 @@ namespace Stellar.Kernel.FileSystem
         /// </summary>
         string Value { get; }
 
+        /// <summary>
+        /// Domain string
+        /// </summary>
+        /// <returns>string equals with domain</returns>
         string ToString();
     }
 }

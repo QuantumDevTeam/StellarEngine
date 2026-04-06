@@ -16,13 +16,13 @@ app.Configure(config =>
     config.AddBranch("version", sdk =>
     {
         sdk.SetDescription("Systems versions");
-        
+
         sdk.AddCommand<OrchesterVersionCommand>("orchester")
             .WithDescription("Tools Version");
 
         sdk.AddCommand<ToolsVersionCommand>("tools")
             .WithDescription("Tools Version");
-        
+
         sdk.AddCommand<SdkVersionCommand>("sdk")
             .WithDescription("SDK Version");
 
@@ -49,16 +49,23 @@ app.Configure(config =>
             .WithDescription("Show project information");
 
         project.AddCommand<NewProjectCommand>("new")
+            .WithAlias("n")
             .WithDescription("Create new project from template");
+
+        project.AddCommand<GenerateProjectDocsCommand>("generate-docs")
+            .WithAlias("gendoc")
+            .WithData(typeof(GenerateProjectCommandData))
+            .WithDescription("Show project information");
 
         project.AddBranch("template", template =>
         {
             template.SetDescription("Project templates");
 
             template.AddCommand<ListTemplatesCommand>("list")
+                .WithAlias("l")
                 .WithDescription("List available project templates");
         });
-    });
+    }).WithAlias("proj");
 });
 
 return app.Run(args);

@@ -2,50 +2,50 @@ using Stellar.Kernel.Failures;
 
 namespace Stellar.Core.Failures;
 
-public class Catch
-    : ICatch
+public class FailureCatch
+    : IFailureCatch
 {
     public void TryAction(Action action)
     {
         throw new NotImplementedException();
     }
 
-    public void TryAction(Action<ICatch> action)
+    public void TryAction(Action<IFailureCatch> action)
     {
         throw new NotImplementedException();
     }
 
-    public ICatch Try(Action<ICatch> action)
+    public IFailureCatch Try(Action<IFailureCatch> action)
     {
         throw new NotImplementedException();
     }
 
-    public ICatch Try(Func<ICatch> func)
+    public IFailureCatch Try(Func<IFailureCatch> func)
     {
         throw new NotImplementedException();
     }
 
-    public ICatch Except<T>(Action<ICatch, T> action) where T : Exception
+    public IFailureCatch Except<T>(Action<IFailureCatch, T> action) where T : Exception
     {
         throw new NotImplementedException();
     }
 
-    public ICatch Except<T>(Func<ICatch, T> func) where T : Exception
+    public IFailureCatch Except<T>(Func<IFailureCatch, T> func) where T : Exception
     {
         throw new NotImplementedException();
     }
 
-    public ICatch Finally(Action<ICatch> action)
+    public IFailureCatch Finally(Action<IFailureCatch> action)
     {
         throw new NotImplementedException();
     }
 
-    public ICatch Finally(Func<ICatch> func)
+    public IFailureCatch Finally(Func<IFailureCatch> func)
     {
         throw new NotImplementedException();
     }
 
-    public ICatch Handle()
+    public IFailureCatch Handle()
     {
         throw new NotImplementedException();
     }

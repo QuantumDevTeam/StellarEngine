@@ -37,6 +37,9 @@ namespace Stellar.Kernel.EntryPoint
             throw new NotSupportedException("Unregistration for EntryPoint Label not supported");
     }
 
+    /// <summary>
+    /// Base class for all EntryPoint's
+    /// </summary>
     public abstract class StellarEntryPoint
         : ILabeled, IDisposable
     {
@@ -56,6 +59,11 @@ namespace Stellar.Kernel.EntryPoint
         /// </summary>
         public readonly RuntimeConfiguration RuntimeConfiguration;
 
+        /// <summary>
+        /// EntryPoint constructor
+        /// </summary>
+        /// <param name="name">Name of EntryPoint</param>
+        /// <param name="runtimeConfiguration">runtime configuration gotten in initialization</param>
         [Obsolete("Used only in initialization operations encapsulated in Engine")]
         protected StellarEntryPoint(string name, RuntimeConfiguration runtimeConfiguration)
         {
@@ -76,6 +84,10 @@ namespace Stellar.Kernel.EntryPoint
         /// <param name="context">Stopping context</param>
         public abstract void RequestStop(IContext<IStopContextData> context);
 
+        /// <summary>
+        /// Dispose EntryPoint
+        /// </summary>
+        /// <remarks>Used for module uninitialization</remarks>
         public abstract void Dispose();
     }
 }

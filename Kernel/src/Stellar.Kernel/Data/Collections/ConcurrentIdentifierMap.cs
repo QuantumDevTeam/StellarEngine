@@ -10,6 +10,10 @@ namespace Stellar.Kernel.Data.Collections
     public sealed class ConcurrentIdentifierMap<T>
         : ConcurrentDictionary<IIdentifier, T>
     {
+        /// <summary>
+        /// Initialize  ConcurrentIdentifierMap from base Dictionary
+        /// </summary>
+        /// <param name="data">Data</param>
         public ConcurrentIdentifierMap(Dictionary<IIdentifier, T> data) : base(data ?? new Dictionary<IIdentifier, T>())
         {
         }

@@ -1,9 +1,9 @@
 namespace Stellar.Core.Failures.BaseLevels;
 
-public class CriticalError() 
-    : FailureLevel("S.C/CriticalError")
+public class CriticalError(IFailureDispatcherMeta dispatcherMeta)
+    : FailureLevel("S.C/CriticalError", dispatcherMeta)
 {
-    public static CriticalError Instance = new();
+    public static CriticalError Instance = new(FailureDispatcher.DefaultMeta);
 
     public override bool IsEnabled { get; set; } = true;
     public override bool IsLoggable { get; } = true;

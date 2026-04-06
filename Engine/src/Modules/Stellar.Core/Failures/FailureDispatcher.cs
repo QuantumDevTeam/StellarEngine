@@ -33,7 +33,8 @@ public class FailureDispatcher(
     IFailureDispatcherMeta meta
 ) : Quant<IFailureDispatcherMeta>(meta), IFailureDispatcher
 {
-    public static FailureDispatcher Default => new(new FailureDispatcherMeta());
+    public static readonly FailureDispatcherMeta DefaultMeta = new();
+    public static readonly FailureDispatcher Default = new(DefaultMeta);
 
     public static readonly Lazy<Dictionary<string, IFailureDispatcher>> Dispatchers =
         new(() => new Dictionary<string, IFailureDispatcher>(

@@ -22,11 +22,14 @@ public class FailureHandler()
         if (failure.Level.IsLoggable)
             Logger?.Log(LogLevel.Exception, failure.Message);
         if (failure.Level.IsStopExecute)
-            Stellar.Runtime.Entry.App.RequestStop( // TODO: Implement Stellar.Runtime
-                new Context<StopContextData>(
-                    context.Sender, new StopContextData(StopReason.CriticalError, failure)
-                )
-            );
+            throw new NotImplementedException("implement S.R.I");
+
+        // Stellar.Runtime.Entry.App.RequestStop(
+        //     new Context<StopContextData>(
+        //         context.Sender, new StopContextData(StopReason.CriticalError, failure)
+        //     )
+        // );
+
         if (failure.Level is { IsCritical: true } or { IsStopExecute: true }) return false;
 
         return true;

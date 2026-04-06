@@ -1,9 +1,9 @@
 namespace Stellar.Core.Failures.BaseLevels;
 
-public class Error() 
-    : FailureLevel("S.C/Error")
+public class Error(IFailureDispatcherMeta dispatcherMeta) 
+    : FailureLevel("S.C/Error", dispatcherMeta)
 {
-    public static Error Instance = new();
+    public static Error Instance = new(FailureDispatcher.DefaultMeta);
     
     public override bool IsEnabled { get; set; } = true;
     public override bool IsLoggable { get; } = true;

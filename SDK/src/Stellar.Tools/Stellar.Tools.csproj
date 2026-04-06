@@ -27,6 +27,7 @@
     <ItemGroup>
         <PackageReference Include="Spectre.Console" Version="0.49.1"/>
         <PackageReference Include="Spectre.Console.Cli" Version="0.49.1"/>
+        <PackageReference Include="XmlDocMarkdown.Core" Version="2.9.0" />
     </ItemGroup>
 
     <Target Name="GenerateStellarOrchesterAttribute" BeforeTargets="CoreCompile">
