@@ -7,7 +7,7 @@ using Stellar.Kernel.Quantization;
 namespace Stellar.Core.Failures.BaseLevels;
 
 public abstract class FailureLevel
-    : IFailureLevel, ILabeled, IDisposable
+    : IFailureLevel
 {
     public IIdentifier UID { get; } = new Identifier();
     public ILabel Label { get; }

@@ -5,14 +5,14 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Data.Registry;
 
-public class QuantsRegistry<T> 
+public class QuantsRegistry<T>
     : IRegistry<T>
     where T : IRegistrableQuant
 {
     private static readonly ConcurrentDictionary<IIdentifier, T> Data = new();
+    
     private static readonly Lazy<QuantsRegistry<T>> Registry = new(() => new QuantsRegistry<T>());
-
-    public static IRegistry<T> Instance => Registry.Value;
+    public static QuantsRegistry<T> Instance => Registry.Value;
 
     public bool Exists(IIdentifier id)
     {

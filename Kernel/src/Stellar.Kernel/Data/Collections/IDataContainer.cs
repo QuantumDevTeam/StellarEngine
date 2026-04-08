@@ -8,11 +8,6 @@ namespace Stellar.Kernel.Data.Collections
     public interface IDataContainer
         : IRegistrableQuant
     {
-        /// <summary>
-        /// Container data
-        /// </summary>
-        ConcurrentIdentifierMap<IIdentifiableQuantumObject> Data { get; }
-
 #if NETSTANDARD2_0
         /// <summary>
         /// Get stored Quant by his Identifier 

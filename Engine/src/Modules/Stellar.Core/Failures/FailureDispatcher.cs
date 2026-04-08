@@ -33,13 +33,14 @@ public class FailureDispatcher(
     IFailureDispatcherMeta meta
 ) : Quant<IFailureDispatcherMeta>(meta), IFailureDispatcher
 {
-    public static readonly FailureDispatcherMeta DefaultMeta = new();
-    public static readonly FailureDispatcher Default = new(DefaultMeta);
-
-    public static readonly Lazy<Dictionary<string, IFailureDispatcher>> Dispatchers =
-        new(() => new Dictionary<string, IFailureDispatcher>(
-            [new KeyValuePair<string, IFailureDispatcher>("Default", Default)]
-        ));
+    // TODO: Init from EntryPoint
+    // public static readonly FailureDispatcherMeta DefaultMeta = new();
+    // public static readonly FailureDispatcher Default = new(DefaultMeta);
+    //
+    // public static readonly Lazy<Dictionary<string, IFailureDispatcher>> Dispatchers =
+    //     new(() => new Dictionary<string, IFailureDispatcher>(
+    //         [new KeyValuePair<string, IFailureDispatcher>("Default", Default)]
+    //     ));
 
     public bool Dispatch(IContext<IFailureContextData> failureContext)
     {

@@ -114,6 +114,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{FBE4180F-6
 		Kernel\Docs\Stellar.Kernel\Stellar.Kernel.md = Kernel\Docs\Stellar.Kernel\Stellar.Kernel.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.EventSystem", "Engine\src\Modules\Stellar.EventSystem\Stellar.EventSystem.csproj", "{0315B569-A93B-40FD-9E51-42ACB0EBA805}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -182,6 +184,10 @@ Global
 		{374DD906-9211-40E2-A0B9-6CF494C94DF8}.Release|x64.ActiveCfg = Release|Any CPU
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23}.Debug|x64.ActiveCfg = Debug|x64
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23}.Release|x64.ActiveCfg = Release|x64
+		{0315B569-A93B-40FD-9E51-42ACB0EBA805}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0315B569-A93B-40FD-9E51-42ACB0EBA805}.Debug|x64.Build.0 = Debug|Any CPU
+		{0315B569-A93B-40FD-9E51-42ACB0EBA805}.Release|x64.ActiveCfg = Release|Any CPU
+		{0315B569-A93B-40FD-9E51-42ACB0EBA805}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -222,6 +228,7 @@ Global
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23} = {1C440145-589E-46A4-A984-9D88FC666912}
 		{374DD906-9211-40E2-A0B9-6CF494C94DF8} = {029AC908-7378-4197-BF45-AD557B022B27}
 		{FBE4180F-6A7E-437E-BD97-CD604AD02D6E} = {E51C0F9F-920C-419C-849D-30C0BED86743}
+		{0315B569-A93B-40FD-9E51-42ACB0EBA805} = {1C440145-589E-46A4-A984-9D88FC666912}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5E099CB-02E8-4D4A-9FA9-0EC5FE407C48}

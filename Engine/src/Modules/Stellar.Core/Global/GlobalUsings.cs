@@ -1,0 +1,1 @@
+global using Stellar.Core.Global;

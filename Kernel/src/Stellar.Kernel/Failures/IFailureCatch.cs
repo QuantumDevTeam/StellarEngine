@@ -7,7 +7,7 @@ namespace Stellar.Kernel.Failures
     /// Failure Catcher
     /// </summary>
     public interface IFailureCatch
-        : IQuantumObject
+        : IIdentifiableQuantumObject, IRegistrableQuantumObject
     {
         /// <summary>
         /// Try action in Failure Catch context

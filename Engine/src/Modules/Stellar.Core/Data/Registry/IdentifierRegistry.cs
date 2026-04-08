@@ -8,8 +8,8 @@ public class IdentifierRegistry
     : IRegistry<Identifier>
 {
     private static readonly ConcurrentDictionary<Guid, Identifier> Identifiers = new();
+    
     private static readonly Lazy<IdentifierRegistry> Registry = new(() => new IdentifierRegistry());
-
     public static IdentifierRegistry Instance => Registry.Value;
 
     public bool Exists(IIdentifier id)

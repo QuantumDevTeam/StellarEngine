@@ -1,10 +1,19 @@
+using Stellar.Kernel;
 using Stellar.Kernel.Failures;
+using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Failures;
 
 public class FailureCatch
     : IFailureCatch
 {
+    public IIdentifier UID { get; } = new Identifier();
+
+    public void Register(IQuantumObject registry)
+    {
+        throw new NotImplementedException();
+    }
+
     public void TryAction(Action action)
     {
         throw new NotImplementedException();
@@ -46,6 +55,11 @@ public class FailureCatch
     }
 
     public IFailureCatch Handle()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Unregister(IQuantumObject registry)
     {
         throw new NotImplementedException();
     }

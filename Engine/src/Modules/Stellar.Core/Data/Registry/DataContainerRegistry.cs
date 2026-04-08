@@ -5,13 +5,13 @@ using Stellar.Kernel.Data.Registry;
 
 namespace Stellar.Core.Data.Registry;
 
-public class DataContainerRegistry 
+public class DataContainerRegistry
     : IRegistry<IDataContainer>
 {
     private static readonly ConcurrentDictionary<IIdentifier, IDataContainer> Containers = new();
-    private static readonly Lazy<DataContainerRegistry> Registry = new(() => new DataContainerRegistry());
 
-    public static IRegistry<IDataContainer> Instance => Registry.Value;
+    private static readonly Lazy<DataContainerRegistry> Registry = new(() => new DataContainerRegistry());
+    public static DataContainerRegistry Instance => Registry.Value;
 
     public bool Exists(IIdentifier id)
     {

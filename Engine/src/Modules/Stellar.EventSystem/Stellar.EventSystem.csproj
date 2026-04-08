@@ -1,0 +1,10 @@
+﻿<Project Sdk="Stellar.Sdk/0.1.3">
+    <PropertyGroup>
+        <StellarSdkUsage>EngineModule</StellarSdkUsage>
+        <IsPackable>true</IsPackable>
+        <ModuleDescription>StellarEngine Events sub-system</ModuleDescription>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+</Project>

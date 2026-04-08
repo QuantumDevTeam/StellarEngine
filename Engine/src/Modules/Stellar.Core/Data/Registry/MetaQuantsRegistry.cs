@@ -10,9 +10,9 @@ public class MetaQuantsRegistry<TMeta>
     where TMeta : IRegistrableMetaQuant
 {
     private static readonly ConcurrentDictionary<IIdentifier, TMeta> Data = new();
+    
     private static readonly Lazy<MetaQuantsRegistry<TMeta>> Registry = new(() => new MetaQuantsRegistry<TMeta>());
-
-    public static IRegistry<TMeta> Instance => Registry.Value;
+    public static MetaQuantsRegistry<TMeta> Instance => Registry.Value;
 
     public bool Exists(IIdentifier id)
     {
