@@ -41,6 +41,6 @@ namespace Stellar.Kernel.Failures.Handlers
         /// The handler can log, recover, or rethrow the failure. The return value is used by the dispatcher
         /// to decide whether to continue normal flow or terminate the current operation.
         /// </remarks>
-        bool Handle(IContext<IFailureContextData> context);
+        bool Handle(IFailureContext<IContextData> context);
     }
 }

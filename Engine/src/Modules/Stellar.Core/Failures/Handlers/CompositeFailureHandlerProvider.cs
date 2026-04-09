@@ -20,7 +20,7 @@ public class CompositeFailureHandlerProvider()
         _providers.Remove(provider);
     }
 
-    public IEnumerable<IFailureHandler> GetHandlers(IContext<IFailureContextData> failureContext)
+    public IEnumerable<IFailureHandler> GetHandlers(IFailureContext<IContextData> failureContext)
     {
         return _providers.SelectMany(provider => provider.GetHandlers(failureContext));
     }

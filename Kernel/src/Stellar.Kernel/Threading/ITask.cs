@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Stellar.Kernel.Data.Context;
 using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Threading
@@ -47,6 +48,6 @@ namespace Stellar.Kernel.Threading
         /// <para>The <paramref name="context"/> allows the task to read/write shared data, check for cancellation,
         /// and interact with the engine’s data context.</para>
         /// </remarks>
-        void Execute(ITaskContext<ITaskData> context);
+        void Execute(ITaskContext<IContextData> context);
     }
 }

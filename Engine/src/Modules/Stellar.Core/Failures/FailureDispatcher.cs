@@ -1,4 +1,3 @@
-using Stellar.Kernel;
 using Stellar.Kernel.Data.Context;
 using Stellar.Kernel.Failures;
 using Stellar.Core.Quantization;
@@ -18,9 +17,8 @@ public interface IFailureDispatcherMeta
 
 public class FailureDispatcherMeta(
     DataContainer<IFailureLevel>? failureLevels = null,
-    IFailureHandlerProvider? failureHandlerProvider = null,
-    IIdentifier? identifier = null
-) : MetaQuant(identifier ?? Identifier.Create()), IFailureDispatcherMeta
+    IFailureHandlerProvider? failureHandlerProvider = null
+) : MetaQuant(Identifier.Create()), IFailureDispatcherMeta
 {
     public DataContainer<IFailureLevel> FailureLevels { get; } =
         failureLevels ?? new WritableTable<IFailureLevel>();
@@ -42,7 +40,7 @@ public class FailureDispatcher(
     //         [new KeyValuePair<string, IFailureDispatcher>("Default", Default)]
     //     ));
 
-    public bool Dispatch(IContext<IFailureContextData> failureContext)
+    public bool Dispatch(IFailureContext<IContextData> failureContext)
     {
         var handlers = MetaQuant.FailureHandlerProvider.GetHandlers(failureContext);
         return handlers.Aggregate(true, (current, handler) => current & handler.Handle(failureContext));

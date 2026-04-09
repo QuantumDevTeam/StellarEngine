@@ -8,8 +8,9 @@ namespace Stellar.Kernel.Failures
     /// <remarks>
     /// This data is used with <see cref="IContext{TData}"/> when dispatching failures to handlers.
     /// </remarks>
-    public interface IFailureContextData
-        : IContextData
+    public interface IFailureContext<out T>
+        : IContext<T>
+        where T : IContextData
     {
         /// <summary>
         /// Gets the failure being processed.
