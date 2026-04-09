@@ -5,15 +5,20 @@ using Stellar.Kernel.Quantization;
 namespace Stellar.Kernel.FileSystem
 {
     /// <summary>
-    /// Quantum File type
+    /// Describes the format or kind of quantum file.
     /// </summary>
+    /// <remarks>
+    /// <para>File types are registrable meta‑quants (<see cref="IRegistrableMetaQuant"/>), labeled,
+    /// and equatable. They can be used to associate MIME types, extensions, or custom handlers.</para>
+    /// <para>Examples: "text/plain", "image/png", "application/json".</para>
+    /// </remarks>
     public interface IFileType
         : IRegistrableMetaQuant, ILabeled, IEquatable<IFileType>
     {
         /// <summary>
-        /// FileType string
+        /// Returns the file type as a string (e.g., its name or MIME type).
         /// </summary>
-        /// <returns>string equals with FileType</returns>
+        /// <returns>The string representation of the file type.</returns>
         string ToString();
     }
 }

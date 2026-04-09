@@ -1,27 +1,27 @@
 namespace Stellar.Kernel.Configuration
 {
     /// <summary>
-    /// Type of Runtime config components for S.R.I builder
+    /// Specifies the method used to build a <see cref="ConfigurationComponent"/>.
     /// </summary>
     public enum ConfigurationComponentBuildType
     {
         /// <summary>
-        /// Component of Engine data
+        /// The component is built by the engine itself (e.g., assets, threading).
         /// </summary>
         EngineComponent,
 
         /// <summary>
-        /// Default JSON copy
+        /// The component is built by copying a default JSON file.
         /// </summary>
         Default,
 
         /// <summary>
-        /// Use custom task for building this Component data
+        /// A custom build task (MSBuild or similar) is responsible for constructing this component.
         /// </summary>
         Task,
 
         /// <summary>
-        /// Use custom script for building this Component data
+        /// A custom script (e.g., PowerShell, Python) is responsible for constructing this component.
         /// </summary>
         Script
     }

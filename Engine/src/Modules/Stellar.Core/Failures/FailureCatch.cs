@@ -63,4 +63,9 @@ public class FailureCatch
     {
         throw new NotImplementedException();
     }
+
+    public void Dispose()
+    {
+        throw new NotImplementedException();
+    }
 }

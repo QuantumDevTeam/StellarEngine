@@ -3,13 +3,16 @@ using Stellar.Kernel.Data.Context;
 namespace Stellar.Kernel.Failures
 {
     /// <summary>
-    /// Failure Context data
+    /// Context data that carries a specific failure instance.
     /// </summary>
+    /// <remarks>
+    /// This data is used with <see cref="IContext{TData}"/> when dispatching failures to handlers.
+    /// </remarks>
     public interface IFailureContextData
         : IContextData
     {
         /// <summary>
-        /// Failure himself
+        /// Gets the failure being processed.
         /// </summary>
         IFailure Failure { get; }
     }

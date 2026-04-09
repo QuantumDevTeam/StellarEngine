@@ -1,4 +1,5 @@
 using System;
+using Stellar.Kernel.FileSystem.Provider;
 using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.FileSystem
@@ -6,31 +7,35 @@ namespace Stellar.Kernel.FileSystem
     /// <summary>
     /// Provides metadata information about a file.
     /// </summary>
+    /// <remarks>
+    /// This interface is returned by <see cref="IFileProvider.GetFileInfo"/> and contains
+    /// basic file attributes such as name, size, and timestamps.
+    /// </remarks>
     public interface IFileInfo
         : IQuantumObject
     {
         /// <summary>
-        /// File name (last segment of the path).
+        /// Gets the file name (the last segment of the path).
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        /// Full path within the domain (as stored in Location.Path).
+        /// Gets the full path of the file within its domain (as stored in <see cref="ILocation.Path"/>).
         /// </summary>
         string FullPath { get; }
 
         /// <summary>
-        /// Size in bytes. May be -1 if unknown.
+        /// Gets the file size in bytes. Returns <c>-1</c> if the size is unknown (e.g., for virtual files).
         /// </summary>
         long Length { get; }
 
         /// <summary>
-        /// Creation time (UTC). May be null if not supported.
+        /// Gets the file creation time in UTC, or <c>null</c> if not supported by the underlying provider.
         /// </summary>
         DateTime? CreationTimeUtc { get; }
 
         /// <summary>
-        /// Last write time (UTC). May be null if not supported.
+        /// Gets the last write time in UTC, or <c>null</c> if not supported.
         /// </summary>
         DateTime? LastWriteTimeUtc { get; }
     }

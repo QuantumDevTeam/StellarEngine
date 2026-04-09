@@ -1,33 +1,46 @@
 using Stellar.Kernel.Data.Context;
-using Stellar.Kernel.Quantization;
 using Stellar.Kernel.Logging;
+using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Failures.Handlers
 {
     /// <summary>
-    /// Handler of a Failure
+    /// Handles a specific failure by implementing custom logic.
     /// </summary>
+    /// <remarks>
+    /// <para>A failure handler is a registrable quant (<see cref="IRegistrableQuant"/>) that processes
+    /// failures of certain types or levels. Handlers are obtained from <see cref="IFailureHandlerProvider"/>
+    /// and invoked by <see cref="IFailureDispatcher"/>.</para>
+    /// <para>The <see cref="Handle"/> method returns a boolean indicating whether execution should stop
+    /// after handling (e.g., for critical failures).</para>
+    /// </remarks>
     public interface IFailureHandler
         : IRegistrableQuant
     {
 #if NETSTANDARD2_0
         /// <summary>
-        /// Handler logger
+        /// Gets the logger instance associated with this handler.
         /// </summary>
         ILogger Logger { get; }
 #else
 #nullable enable
         /// <summary>
-        /// Handler logger
+        /// Gets the logger instance associated with this handler, or <c>null</c> if logging is unavailable.
         /// </summary>
         ILogger? Logger { get; }
 #endif
 
         /// <summary>
-        /// Handler method
+        /// Handles the failure described in the context.
         /// </summary>
-        /// <param name="context">Context of Failure</param>
-        /// <returns>Is stop execution</returns>
+        /// <param name="context">The failure context containing the failure data.</param>
+        /// <returns>
+        /// <c>true</c> if the execution should stop after handling; otherwise, <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// The handler can log, recover, or rethrow the failure. The return value is used by the dispatcher
+        /// to decide whether to continue normal flow or terminate the current operation.
+        /// </remarks>
         bool Handle(IContext<IFailureContextData> context);
     }
 }

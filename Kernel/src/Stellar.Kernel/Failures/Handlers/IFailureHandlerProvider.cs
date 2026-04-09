@@ -1,20 +1,27 @@
 using System.Collections.Generic;
-using Stellar.Kernel.Quantization;
 using Stellar.Kernel.Data.Context;
+using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Failures.Handlers
 {
     /// <summary>
-    /// Handler provider for Handler registered in this Provider
+    /// Provides a collection of appropriate failure handlers for a given failure context.
     /// </summary>
+    /// <remarks>
+    /// <para>Implementations can filter handlers based on failure type, level, source, or any custom criteria.
+    /// The provider itself is a registrable quant, allowing it to be registered in the engine's service container.</para>
+    /// </remarks>
     public interface IFailureHandlerProvider
         : IRegistrableQuant
     {
         /// <summary>
-        /// Gets all appropriate handlers
+        /// Returns all handlers that are suitable for handling the specified failure.
         /// </summary>
-        /// <param name="failureContext">Context of Failure</param>
-        /// <returns>All appropriate handlers</returns>
+        /// <param name="failureContext">The failure context that describes the failure.</param>
+        /// <returns>An enumerable collection of <see cref="IFailureHandler"/> instances.</returns>
+        /// <remarks>
+        /// The order of handlers may be significant – the dispatcher may invoke them in the returned order.
+        /// </remarks>
         IEnumerable<IFailureHandler> GetHandlers(IContext<IFailureContextData> failureContext);
     }
 }

@@ -1,17 +1,17 @@
 namespace Stellar.Kernel.FileSystem
 {
     /// <summary>
-    /// Domain Types
+    /// Specifies the kind of file system domain.
     /// </summary>
     public enum DomainType
     {
         /// <summary>
-        ///  A Directory in OS FileSystem
+        /// A regular directory on the operating system's file system.
         /// </summary>
         Directory,
 
         /// <summary>
-        /// An Assembly file (.dll)
+        /// An assembly file (e.g., .dll or .exe) that may contain embedded resources.
         /// </summary>
         Assembly,
     }

@@ -1,27 +1,27 @@
 namespace Stellar.Kernel.EntryPoint
 {
     /// <summary>
-    /// Reason for stoping execution
+    /// Defines the possible reasons why an entry point or module stopped execution.
     /// </summary>
     public enum StopReason
     {
         /// <summary>
-        /// Unknown reason
+        /// The stop reason cannot be determined.
         /// </summary>
         Unknown,
-        
+
         /// <summary>
-        /// regular stoping
+        /// Normal, expected shutdown (e.g., application exit).
         /// </summary>
         Regular,
-        
+
         /// <summary>
-        /// if any module just in unload operation
+        /// Shutdown caused by unloading of a module.
         /// </summary>
         ModuleUnloading,
-        
+
         /// <summary>
-        /// if execution is stopping with critical error
+        /// Shutdown due to an unrecoverable critical error.
         /// </summary>
         CriticalError,
     }
