@@ -16,7 +16,7 @@ public class ConstantTable<T>
     #region Constructors
 
     /// <inheritdoc/>
-    public ConstantTable(MetaQuant meta, ConcurrentIdentifierMap<T> data)
+    public ConstantTable(MetaQuant meta, FastConcurrentIdentifierMap<T> data)
         : base(meta, data)
     {
     }

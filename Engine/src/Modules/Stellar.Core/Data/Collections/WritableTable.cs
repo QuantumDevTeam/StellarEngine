@@ -16,7 +16,7 @@ public class WritableTable<T>
     #region Constructors
 
     /// <inheritdoc/>
-    public WritableTable(MetaQuant meta, ConcurrentIdentifierMap<T> data)
+    public WritableTable(MetaQuant meta, FastConcurrentIdentifierMap<T> data)
         : base(meta, data)
     {
     }

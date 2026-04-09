@@ -14,7 +14,7 @@ public abstract class DataContainer<T>
     : Quant<MetaQuant>, IDataContainer, IEnumerable<T>
     where T : IIdentifiableQuantumObject
 {
-    protected ConcurrentIdentifierMap<T> Data { get; }
+    protected FastConcurrentIdentifierMap<T> Data { get; }
 
     /// <inheritdoc/>
     public void Register(IQuantumObject? registry = null)
@@ -31,7 +31,7 @@ public abstract class DataContainer<T>
     /// </summary>
     /// <param name="meta">A Meta Quant of this container</param>
     /// <param name="data">An initial data for this container</param>
-    protected DataContainer(MetaQuant meta, ConcurrentIdentifierMap<T> data)
+    protected DataContainer(MetaQuant meta, FastConcurrentIdentifierMap<T> data)
         : base(meta)
     {
         Data = data;
@@ -44,7 +44,7 @@ public abstract class DataContainer<T>
     /// <param name="meta">A Meta Quant of this container</param>
     /// <param name="data">An initial data stored in a Dictionary</param>
     protected DataContainer(MetaQuant meta, Dictionary<IIdentifier, T> data)
-        : this(meta, new ConcurrentIdentifierMap<T>(data))
+        : this(meta, new FastConcurrentIdentifierMap<T>(data))
     {
     }
 
@@ -53,7 +53,7 @@ public abstract class DataContainer<T>
     /// </summary>
     /// <param name="meta">A Meta Quant of this container</param>
     protected DataContainer(MetaQuant meta)
-        : this(meta, [])
+        : this(meta, new Dictionary<IIdentifier, T>())
     {
     }
 
@@ -78,7 +78,7 @@ public abstract class DataContainer<T>
     /// <param name="obj">The object to store.</param>
     /// <returns><c>true</c> if object was successfully stored; otherwise, <c>false</c>.</returns>
     public virtual bool Set(IIdentifiableQuantumObject obj) => false;
-    
+
     /// <summary>
     /// Attempts to remove and return the object stored in container.
     /// </summary>
@@ -100,30 +100,53 @@ public abstract class DataContainer<T>
     #endregion
 
     #region Encapsulation
+    
+    /// <summary>
+    /// Updates the main snapshot with current dictionary values and clears the hot items list.
+    /// </summary>
+    /// <remarks>
+    /// Call this method once per frame before iteration. The method is thread-safe but acquires a write lock,
+    /// so do not call it too frequently.
+    /// </remarks>
+    public void RefreshSnapshot() => Data.RefreshSnapshot();
 
     /// <inheritdoc/>
     public bool ContainsKey(IIdentifier key) => Data.ContainsKey(key);
-    
+
     /// <inheritdoc/>
     public bool Contains(IIdentifiableQuantumObject obj) => Data.ContainsKey(obj.UID);
-    
+
     /// <inheritdoc/>
     public int Count => Data.Count;
-    
+
     /// <inheritdoc/>
     public bool IsEmpty => Data.IsEmpty;
 
-    public ICollection<IIdentifier> Keys => Data.Keys;
-    public ICollection<T> Values => Data.Values;
+    public T[] Values => Data.GetSnapshot();
 
     /// <summary>
     /// Clear container.
     /// </summary>
     public void Clear() => Data.Clear();
+    
+    /// <summary>
+    /// Executes an action for every element in the container, including hot items.
+    /// </summary>
+    /// <param name="action">The action to perform on each element.</param>
+    /// <remarks>
+    /// Iterates first over the snapshot, then over hot items. The iteration is lock‑free and thread‑safe.
+    /// </remarks>
+    public void ForEachReadOnly(Action<T> action) => Data.ForEachReadOnly(action);
+    
+    /// <summary>
+    /// Iterates over elements until a predicate returns <c>false</c>.
+    /// </summary>
+    /// <param name="predicate">A function that receives an element and returns <c>true</c> to continue iteration.</param>
+    public void ForEachUntil(Func<T, bool> predicate) => Data.ForEachUntil(predicate);
 
     /// <inheritdoc/>
-    public IEnumerator<T> GetEnumerator() => Values.GetEnumerator();
-    
+    public IEnumerator<T> GetEnumerator() => Data.GetEnumerator();
+
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

@@ -18,7 +18,7 @@ public class Roster<T>
 
     #region Constructors
 
-    public Roster(MetaQuant meta, ConcurrentIdentifierMap<T> data,
+    public Roster(MetaQuant meta, FastConcurrentIdentifierMap<T> data,
         Dictionary<IIdentifier, Roster<T>> branches)
         : base(meta, data)
     {
@@ -27,7 +27,7 @@ public class Roster<T>
 
     public Roster(MetaQuant metaData, Dictionary<IIdentifier, T> data,
         Dictionary<IIdentifier, Roster<T>> branches)
-        : this(metaData, new ConcurrentIdentifierMap<T>(data), branches)
+        : this(metaData, new FastConcurrentIdentifierMap<T>(data), branches)
     {
     }
 
