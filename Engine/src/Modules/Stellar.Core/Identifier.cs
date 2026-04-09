@@ -5,73 +5,66 @@ using Stellar.Core.Data.Registry;
 
 namespace Stellar.Core;
 
-public class Identifier
+/// <inheritdoc/>
+public sealed class Identifier
     : IIdentifier
 {
+    /// <inheritdoc/>
     public Guid UID { get; }
-    protected string _techName { get; }
 
-    public void Register(IQuantumObject registry)
+    // ReSharper disable once ConvertToPrimaryConstructor
+    public Identifier(Guid uid)
     {
+        UID = uid;
+    }
+
+    /// <inheritdoc/>
+    public void Register(IQuantumObject? registry = null)
+    {
+        registry ??= IdentifierRegistry.Instance;
         if (registry is IRegistry<IIdentifier> identifierRegistry)
             identifierRegistry.Register(this);
     }
 
-    public void Register()
-    {
-        Register(IdentifierRegistry.Instance);
-    }
+    /// <inheritdoc/>
+    public override string ToString() => $"Identifier#{UID.ToString()}";
 
-    #region Constuctors
-
-    protected Identifier(Guid uid)
-    {
-        UID = uid;
-        _techName = $"Identifier#{UID}";
-        Register();
-    }
-
-    public Identifier()
-        : this(Guid.NewGuid())
-    {
-    }
-
-    #endregion
-
-    #region Get
-
-    public static Identifier Get(Guid data) =>
-        IdentifierRegistry.Instance.Get(data) ?? new Identifier(Guid.NewGuid());
-
-    public static Identifier Get(byte[] data) => Get(new Guid(data));
-
-    public static Identifier Get(string data) => Get(new Guid(data));
-
-    public static Identifier Get(IIdentifier data) => Get(data.UID);
-
-    #endregion
-
-    #region implict operator
-
-    public static implicit operator Identifier(Guid uid) => Get(uid);
-    public static implicit operator Identifier(string uid) => Get(uid);
-    public static implicit operator Identifier(byte[] uid) => Get(uid);
-
-    #endregion
-
-    public static bool Exist(Guid uid) => IdentifierRegistry.Instance.Get(uid) != null;
-
-    public override string ToString() => _techName;
+    /// <inheritdoc/>
     public override int GetHashCode() => UID.GetHashCode();
 
-    public void Unregister(IQuantumObject registry)
+    /// <inheritdoc/>
+    public void Unregister(IQuantumObject? registry = null)
     {
+        registry ??= IdentifierRegistry.Instance;
         if (registry is IRegistry<IIdentifier> identifierRegistry)
             identifierRegistry.Pop(this);
     }
 
-    public void Dispose()
+    /// <inheritdoc/>
+    public void Dispose() => Unregister();
+
+    #region Static methods
+
+    public static Identifier Create()
     {
-        Unregister(IdentifierRegistry.Instance);
+        var id = new Identifier(Guid.NewGuid());
+        return id;
     }
+
+    public static Identifier CreateAndRegister()
+    {
+        var id = Create();
+        id.Register();
+        return id;
+    }
+
+    public static Identifier? Get(Guid data) => IdentifierRegistry.Instance.Get(data);
+
+    public static Identifier? Get(byte[] data) => Get(new Guid(data));
+
+    public static Identifier? Get(string data) => Get(new Guid(data));
+
+    public static Identifier? Get(IIdentifier data) => Get(data.UID);
+
+    #endregion
 }

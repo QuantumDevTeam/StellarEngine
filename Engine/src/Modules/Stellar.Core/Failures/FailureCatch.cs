@@ -7,7 +7,7 @@ namespace Stellar.Core.Failures;
 public class FailureCatch
     : IFailureCatch
 {
-    public IIdentifier UID { get; } = new Identifier();
+    public IIdentifier UID { get; } = Identifier.CreateAndRegister();
 
     public void Register(IQuantumObject registry)
     {

@@ -3,32 +3,29 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Quantization;
 
-/// <summary>
-/// Core engine object == EngineObject = Quant
-/// </summary>
-/// <param name="meta">MetaQuant with data for Quant</param>
-/// <typeparam name="TMeta">Type of MetaQuant</typeparam>
-public abstract class Quant<TMeta>(TMeta meta) 
+/// <inheritdoc/>
+/// <typeparam name="TMeta">Type of meta. Must inherit on <see cref="Stellar.Core.Quantization.MetaQuant"/></typeparam>
+public abstract class Quant<TMeta>
     : IQuant
     where TMeta : IMetaQuant
 {
+    /// <inheritdoc/>
+    public IMetaQuant Meta { get; init; }
+
     /// <summary>
-    /// clear MetaQuant
-    /// </summary>
-    public IMetaQuant Meta { get; init; } = meta;
-    
-    /// <summary>
-    /// MetaQuant for this object
+    /// Meta Quant typed as <typeparamref name="TMeta"/>>
     /// </summary>
     public TMeta MetaQuant => (TMeta)Meta;
-    
-    /// <summary>
-    /// Unique ID
-    /// </summary>
+
+    /// <inheritdoc/>
     public IIdentifier UID => Meta.UID;
-    
+
     /// <summary>
-    /// Object Identifier
+    /// Create Quant
     /// </summary>
-    public Identifier Identifier => Identifier.Get(Meta.UID);
+    /// <param name="meta">His Meta</param>
+    protected Quant(TMeta meta)
+    {
+        Meta = meta;
+    }
 }

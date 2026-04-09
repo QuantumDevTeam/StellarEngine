@@ -9,7 +9,7 @@ namespace Stellar.Core.Failures.BaseLevels;
 public abstract class FailureLevel
     : IFailureLevel
 {
-    public IIdentifier UID { get; } = new Identifier();
+    public IIdentifier UID { get; } = Identifier.CreateAndRegister();
     public ILabel Label { get; }
     public abstract bool IsEnabled { get; set; }
     public abstract bool IsLoggable { get; }
@@ -27,7 +27,8 @@ public abstract class FailureLevel
 
     protected FailureLevel(string name, IFailureDispatcherMeta dispatcherMeta)
     {
-        Label = new Label.Label(UID, name);
+        Label = Core.Label.Label.Create(name, UID)
+                ?? throw new Exception($"Failed to create a failure level for \'{name}\'");
         Register((_dispatcherMeta = dispatcherMeta).FailureLevels);
     }
 

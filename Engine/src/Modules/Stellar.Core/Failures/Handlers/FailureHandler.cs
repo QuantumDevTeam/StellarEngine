@@ -10,7 +10,7 @@ using Stellar.Core.Data.Context.Defaults;
 namespace Stellar.Core.Failures.Handlers;
 
 public class FailureHandler()
-    : RegistrableQuant<FailureHandler, MetaQuant>(new MetaQuant()), IFailureHandler
+    : RegistrableQuant<FailureHandler, MetaQuant>(new MetaQuant(Identifier.CreateAndRegister())), IFailureHandler
 {
     public ILogger? Logger { get; set; }
 

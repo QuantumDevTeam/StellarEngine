@@ -20,7 +20,7 @@ public class FailureDispatcherMeta(
     DataContainer<IFailureLevel>? failureLevels = null,
     IFailureHandlerProvider? failureHandlerProvider = null,
     IIdentifier? identifier = null
-) : MetaQuant(identifier), IFailureDispatcherMeta
+) : MetaQuant(identifier ?? Identifier.Create()), IFailureDispatcherMeta
 {
     public DataContainer<IFailureLevel> FailureLevels { get; } =
         failureLevels ?? new WritableTable<IFailureLevel>();

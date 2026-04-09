@@ -5,29 +5,37 @@ using Stellar.Core.Quantization;
 
 namespace Stellar.Core.Data.Collections;
 
+/// <summary>
+/// Represents a quantum object that can only contain other identifiable quantum objects.
+/// </summary>
+/// <inheritdoc/>
 public class ConstantTable<T>
     : DataContainer<T>
     where T : IIdentifiableQuantumObject
 {
     #region Constructors
 
-    public ConstantTable(MetaQuant meta, ConcurrentIdentifierMap<IIdentifiableQuantumObject> data)
+    /// <inheritdoc/>
+    public ConstantTable(MetaQuant meta, ConcurrentIdentifierMap<T> data)
         : base(meta, data)
     {
     }
 
+    /// <inheritdoc/>
     public ConstantTable(MetaQuant meta, Dictionary<IIdentifier, T> data)
         : base(meta, data)
     {
     }
 
+    /// <inheritdoc/>
     public ConstantTable(MetaQuant meta)
         : base(meta)
     {
     }
 
+    /// <inheritdoc/>
     public ConstantTable()
-        : base(new MetaQuant())
+        : base(new MetaQuant(Identifier.CreateAndRegister()))
     {
     }
 
@@ -35,6 +43,7 @@ public class ConstantTable<T>
 
     #region item support
 
+    /// <inheritdoc/>
     public override IIdentifiableQuantumObject? Get(IIdentifier identifier)
     {
         return Data.GetValueOrDefault(identifier);

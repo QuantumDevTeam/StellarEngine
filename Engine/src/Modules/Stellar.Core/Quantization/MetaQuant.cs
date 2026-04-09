@@ -3,17 +3,22 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Core.Quantization;
 
-/// <summary>
-/// MetaQuant with data for Quant
-/// </summary>
-/// <param name="identifier">Quant identifier</param>
-public class MetaQuant(IIdentifier? identifier = null)
+/// <inheritdoc/>
+public class MetaQuant
     : IMetaQuant
 {
-    /// <summary>
-    /// Unique ID
-    /// </summary>
-    public IIdentifier UID { get; } = identifier ?? new Identifier();
+    /// <inheritdoc/>
+    public IIdentifier UID { get; }
     
+    /// <summary>
+    /// Create Meta Quant
+    /// </summary>
+    /// <param name="identifier">Unique ID</param>
+    public MetaQuant(IIdentifier identifier)
+    {
+        UID = identifier;
+    }
+    
+    /// <inheritdoc/>
     public override int GetHashCode() => UID.GetHashCode();
 }

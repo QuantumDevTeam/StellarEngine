@@ -2,7 +2,9 @@ using Stellar.Kernel;
 
 namespace Stellar.Core.Quantization;
 
-public class TimedMetaQuant 
+// TODO: CHANGE IT!
+[Obsolete("Work on the class has not been completed")]
+public class TimedMetaQuant
     : MetaQuant
 {
     public DateTime CreatedAt { get; }
@@ -66,7 +68,7 @@ public class TimedMetaQuant
         SetLifetime(lifetime);
         return Task.CompletedTask;
     }
-    
+
     public Task RessetLifetimeAsync()
     {
         RessetLifetime();

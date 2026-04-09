@@ -5,6 +5,11 @@ using Stellar.Kernel.Data.Collections;
 
 namespace Stellar.Core.Data.Collections;
 
+/// <summary>
+/// Represents a quantum object that can contain and manage other identifiable quantum objects.
+/// Roster can store other Rosters in the Graph structure
+/// </summary>
+/// <inheritdoc/>
 public class Roster<T>
     : WritableTable<T>
     where T : IIdentifiableQuantumObject
@@ -13,7 +18,7 @@ public class Roster<T>
 
     #region Constructors
 
-    public Roster(MetaQuant meta, ConcurrentIdentifierMap<IIdentifiableQuantumObject> data,
+    public Roster(MetaQuant meta, ConcurrentIdentifierMap<T> data,
         Dictionary<IIdentifier, Roster<T>> branches)
         : base(meta, data)
     {
@@ -22,9 +27,7 @@ public class Roster<T>
 
     public Roster(MetaQuant metaData, Dictionary<IIdentifier, T> data,
         Dictionary<IIdentifier, Roster<T>> branches)
-        : this(metaData,
-            new ConcurrentIdentifierMap<IIdentifiableQuantumObject>(
-                data as Dictionary<IIdentifier, IIdentifiableQuantumObject>), branches)
+        : this(metaData, new ConcurrentIdentifierMap<T>(data), branches)
     {
     }
 
@@ -39,7 +42,7 @@ public class Roster<T>
     }
 
     public Roster()
-        : this(new MetaQuant())
+        : this(new MetaQuant(Identifier.CreateAndRegister()))
     {
     }
 

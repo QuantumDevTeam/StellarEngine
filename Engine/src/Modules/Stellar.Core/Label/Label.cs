@@ -1,33 +1,64 @@
-using Stellar.Core.Data.Registry;
 using Stellar.Kernel;
+using Stellar.Kernel.Quantization;
 using Stellar.Kernel.Label;
+using Stellar.Kernel.Data.Registry;
 using Stellar.Core.Quantization;
+using Stellar.Core.Data.Registry;
 
 namespace Stellar.Core.Label;
 
-public class Label(IIdentifier identifier, string name)
-    : RegistrableMetaQuant<Label>(identifier), ILabel
+/// <inheritdoc cref="ILabel" />
+public sealed class Label
+    : MetaQuant, ILabel
 {
-    public string Name { get; } = name;
+    /// <inheritdoc/>
+    public string Name { get; }
 
-    #region Get
+    private Label(IIdentifier identifier, string name)
+        : base(identifier)
+    {
+        Name = name;
+    }
 
-    public static Label? Get(IIdentifier data) =>
-        MetaQuantsRegistry<Label>.Instance.Get(data);
+    /// <inheritdoc/>
+    public void Register(IQuantumObject? registry = null)
+    {
+        registry ??= LabelRegistry.Instance;
+        if (registry is IRegistry<ILabel> identifierRegistry)
+            identifierRegistry.Register(this);
+    }
 
-    public static Label? Get(string data) =>
-        MetaQuantsRegistry<Label>.Instance.Values.FirstOrDefault(label => label.Name == data);
-
-    #endregion
-
-    #region implict operator
-
-    public static implicit operator Label?(Identifier identifier) => Get(identifier);
-    public static implicit operator Label?(string name) => Get(name);
-
-    #endregion
-
-    public static bool Exist(Guid uid) => IdentifierRegistry.Instance.Get(uid) != null;
-
+    /// <inheritdoc/>
     public override string ToString() => $"Label#{Name}";
+
+    /// <inheritdoc/>
+    public void Unregister(IQuantumObject? registry = null)
+    {
+        registry ??= LabelRegistry.Instance;
+        if (registry is IRegistry<ILabel> identifierRegistry)
+            identifierRegistry.Pop(UID);
+    }
+
+    /// <inheritdoc/>
+    public void Dispose() => Unregister();
+
+    #region Static Methoods
+
+    public static Label? Create(string name, IIdentifier? identifier = null, bool register = true)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return null;
+
+        identifier ??= new Identifier(Guid.NewGuid());
+        var label = new Label(identifier, name);
+        if (register) LabelRegistry.Instance.Register(label);
+        return label;
+    }
+
+    public static Label? Get(IIdentifier identifier) => LabelRegistry.Instance.Get(identifier);
+    public static Label? Get(string name) => LabelRegistry.Instance.GetByName(name);
+
+    #endregion
+
+    public static implicit operator Label?(string name) => Get(name) ?? Create(name);
 }

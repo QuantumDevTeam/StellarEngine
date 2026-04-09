@@ -5,16 +5,17 @@ using Stellar.Kernel.Data.Registry;
 
 namespace Stellar.Core.Data.Registry;
 
-public sealed class IdentifierRegistry
-    : IRegistry<Identifier>
+public sealed class LabelRegistry
+    : IRegistry<Label.Label>
 {
-    private readonly Dictionary<Guid, Identifier> _identifiers = new();
+    private readonly Dictionary<IIdentifier, Label.Label> _byId = new();
+    private readonly Dictionary<string, Label.Label> _byName = new();
     private readonly ReaderWriterLockSlim _lock = new();
 
-    private static readonly Lazy<IdentifierRegistry> _instance = new(() => new IdentifierRegistry());
-    public static IdentifierRegistry Instance => _instance.Value;
+    private static readonly Lazy<LabelRegistry> _instance = new(() => new LabelRegistry());
+    public static LabelRegistry Instance => _instance.Value;
 
-    private IdentifierRegistry()
+    private LabelRegistry()
     {
     }
 
@@ -24,7 +25,7 @@ public sealed class IdentifierRegistry
         _lock.EnterReadLock();
         try
         {
-            return _identifiers.ContainsKey(id.UID);
+            return _byId.ContainsKey(id);
         }
         finally
         {
@@ -32,13 +33,17 @@ public sealed class IdentifierRegistry
         }
     }
 
-    public bool Register(Identifier obj)
+    public bool Register(Label.Label obj)
     {
         if (obj == null) return false;
         _lock.EnterWriteLock();
         try
         {
-            return _identifiers.TryAdd(obj.UID, obj);
+            if (_byName.ContainsKey(obj.Name))
+                return false;
+            _byId[obj.UID] = obj;
+            _byName[obj.Name] = obj;
+            return true;
         }
         finally
         {
@@ -46,12 +51,13 @@ public sealed class IdentifierRegistry
         }
     }
 
-    public Identifier? Get(Guid uid)
+    public Label.Label? Get(IIdentifier id)
     {
+        if (id == null) return null;
         _lock.EnterReadLock();
         try
         {
-            return _identifiers.GetValueOrDefault(uid);
+            return _byId.GetValueOrDefault(id);
         }
         finally
         {
@@ -59,27 +65,34 @@ public sealed class IdentifierRegistry
         }
     }
 
-    public Identifier? Get(IIdentifier id)
+    public Label.Label? GetByName(string name)
     {
-        return id == null ? null : Get(id.UID);
+        if (string.IsNullOrEmpty(name)) return null;
+        _lock.EnterReadLock();
+        try
+        {
+            return _byName.GetValueOrDefault(name);
+        }
+        finally
+        {
+            _lock.ExitReadLock();
+        }
     }
 
-    public Identifier? Pop(Guid uid)
+    public Label.Label? Pop(IIdentifier id)
     {
+        if (id == null) return null;
         _lock.EnterWriteLock();
         try
         {
-            return _identifiers.Remove(uid, out var obj) ? obj : null;
+            if (!_byId.Remove(id, out var label)) return null;
+            _byName.Remove(label.Name);
+            return label;
         }
         finally
         {
             _lock.ExitWriteLock();
         }
-    }
-
-    public Identifier? Pop(IIdentifier id)
-    {
-        return id == null ? null : Pop(id.UID);
     }
 
     public int Size
@@ -89,7 +102,7 @@ public sealed class IdentifierRegistry
             _lock.EnterReadLock();
             try
             {
-                return _identifiers.Count;
+                return _byId.Count;
             }
             finally
             {
@@ -105,7 +118,7 @@ public sealed class IdentifierRegistry
             _lock.EnterReadLock();
             try
             {
-                return _identifiers.Values.Cast<IIdentifier>().ToArray();
+                return _byId.Keys.ToArray();
             }
             finally
             {
@@ -114,14 +127,14 @@ public sealed class IdentifierRegistry
         }
     }
 
-    public ICollection<Identifier> Values
+    public ICollection<Label.Label> Values
     {
         get
         {
             _lock.EnterReadLock();
             try
             {
-                return _identifiers.Values.ToArray();
+                return _byId.Values.ToArray();
             }
             finally
             {
