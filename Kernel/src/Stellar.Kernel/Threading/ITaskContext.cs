@@ -7,16 +7,14 @@ namespace Stellar.Kernel.Threading
     /// Provides execution context for an <see cref="ITask"/>, including task‑specific data,
     /// cancellation support, and access to the task instance itself.
     /// </summary>
-    /// <typeparam name="T">The type of task data that this context carries, must implement <see cref="IContextData"/>.</typeparam>
     /// <remarks>
-    /// <para>This interface extends <see cref="IContext{T}"/> to reuse the general data context mechanism of the Stellar kernel.
+    /// <para>This interface extends <see cref="IContext"/> to reuse the general data context mechanism of the Stellar kernel.
     /// Each scheduled task receives its own context instance when <see cref="ITask.Execute"/> is called.</para>
     /// <para>The cancellation token can be triggered by the scheduler (e.g., when the engine shuts down)
     /// to allow long‑running tasks to abort gracefully.</para>
     /// </remarks>
-    public interface ITaskContext<out T>
-        : IContext<T>
-        where T : IContextData
+    public interface ITaskContext
+        : IContext
     {
         /// <summary>
         /// Gets the task instance that is being executed.

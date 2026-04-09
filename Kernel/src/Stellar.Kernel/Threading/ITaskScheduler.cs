@@ -60,43 +60,20 @@ namespace Stellar.Kernel.Threading
         void Run();
 
         /// <summary>
+        /// НУЖЕН КОММЕНТАРИЙ
+        /// </summary>
+        void Stop();
+
+        /// <summary>
         /// Starts the scheduler and begins processing tasks asynchronously.
         /// </summary>
         /// <returns>A <see cref="Task"/> that represents the asynchronous operation.</returns>
         /// <remarks>
-        /// The returned task completes when the scheduler stops (e.g., after <see cref="Pause"/> or disposal).
+        /// The returned task completes when the scheduler stops.
+        /// This method does not stop execution, use <see cref="Stop"/> or <see cref="IDisposable.Dispose"/> for stoping>.
         /// This method does not block the calling thread.
         /// </remarks>
-        Task RunAsync();
-
-        /// <summary>
-        /// Pauses the scheduler for a specified duration or indefinitely.
-        /// </summary>
-        /// <param name="time">
-        /// The duration to pause, in seconds. Use <see cref="double.PositiveInfinity"/> to pause indefinitely.
-        /// Default is <c>double.PositiveInfinity</c>.
-        /// </param>
-        /// <remarks>
-        /// While paused, the scheduler does not dequeue or execute any tasks.
-        /// If a finite time is provided, the scheduler automatically resumes after that period.
-        /// To resume early, call <see cref="Reset"/> or schedule a new task (implementation‑dependent).
-        /// </remarks>
-        void Pause(double time = double.PositiveInfinity);
-
-        /// <summary>
-        /// Marks a task as important or normal, influencing its execution order.
-        /// </summary>
-        /// <param name="taskIdentifier">The unique identifier of the task to modify.</param>
-        /// <param name="important">
-        /// <c>true</c> to mark the task as important (higher priority effect),
-        /// <c>false</c> to treat it as normal.
-        /// </param>
-        /// <returns>The updated <see cref="ITask"/> instance, or <c>null</c> if the task was not found.</returns>
-        /// <remarks>
-        /// Important tasks are always executed before normal tasks, regardless of their base priority.
-        /// This method can be called even after the task has been scheduled.
-        /// </remarks>
-        ITask SetImportant(IIdentifier taskIdentifier, bool important);
+        Task StartAsync();
 
         /// <summary>
         /// Blocks the calling thread until all scheduled tasks have completed execution.
@@ -116,8 +93,39 @@ namespace Stellar.Kernel.Threading
         /// </summary>
         /// <remarks>
         /// After a reset, the scheduler stops processing, discards any queued tasks, and becomes ready
-        /// to start again with <see cref="Run"/> or <see cref="RunAsync"/>.
+        /// to start again with <see cref="Run"/> or <see cref="StartAsync"/>.
         /// </remarks>
         void Reset();
+
+        /// <summary>
+        /// Pauses the scheduler for a specified duration or indefinitely.
+        /// </summary>
+        /// <param name="time">
+        /// The duration to pause, in seconds. Use <see cref="double.PositiveInfinity"/> to pause indefinitely.
+        /// Default is <c>double.PositiveInfinity</c>.
+        /// </param>
+        /// <remarks>
+        /// While paused, the scheduler does not dequeue or execute any tasks.
+        /// If a finite time is provided, the scheduler automatically resumes after that period.
+        /// To resume early, call <see cref="Reset"/> or schedule a new task (implementation‑dependent).
+        /// </remarks>
+        [Obsolete("Controversial decision, can be deleted")]
+        void Pause(double time = double.PositiveInfinity);
+
+        /// <summary>
+        /// Marks a task as important or normal, influencing its execution order.
+        /// </summary>
+        /// <param name="taskIdentifier">The unique identifier of the task to modify.</param>
+        /// <param name="important">
+        /// <c>true</c> to mark the task as important (higher priority effect),
+        /// <c>false</c> to treat it as normal.
+        /// </param>
+        /// <returns>The updated <see cref="ITask"/> instance, or <c>null</c> if the task was not found.</returns>
+        /// <remarks>
+        /// Important tasks are always executed before normal tasks, regardless of their base priority.
+        /// This method can be called even after the task has been scheduled.
+        /// </remarks>
+        [Obsolete("Bad practice, just use high priority for tasks")]
+        ITask SetImportant(IIdentifier taskIdentifier, bool important);
     }
 }

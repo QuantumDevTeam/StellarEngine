@@ -10,16 +10,16 @@ public sealed class EntryPoint
 {
     [Obsolete("Used only in initialization operations encapsulated in Engine")]
     public EntryPoint(RuntimeConfiguration runtimeConfiguration)
-        : base("Main", runtimeConfiguration)
+        : base("S.C/MainEntry", runtimeConfiguration)
     {
     }
 
-    public override int Run(IContext<IModuleRunContextData> context)
+    public override int Run(IContext context)
     {
         throw new NotImplementedException();
     }
 
-    public override void RequestStop(IContext<IStopContextData> context)
+    public override void RequestStop(IContext context)
     {
         throw new NotImplementedException();
     }

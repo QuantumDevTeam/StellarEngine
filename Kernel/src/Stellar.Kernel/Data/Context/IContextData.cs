@@ -3,13 +3,13 @@ using Stellar.Kernel.Quantization;
 namespace Stellar.Kernel.Data.Context
 {
     /// <summary>
-    /// Маркерный интерфейс для данных, передаваемых внутри <see cref="IContext{TData}"/>.
+    /// Marker interface for data passed inside an <see cref="IContext"/>.
     /// </summary>
     /// <remarks>
-    /// <para>Сам интерфейс не добавляет методов, но позволяет ограничивать обобщённый параметр <typeparamref name="TData"/>
-    /// в <see cref="IContext{TData}"/> только типами, предназначенными для контекстных данных.</para>
-    /// <para>Реализации должны содержать конкретные поля и свойства, необходимые для определённой операции
-    /// (например, <see cref="EntryPoint.IModuleRunContextData"/> или <see cref="EntryPoint.IStopContextData"/>).</para>
+    /// <para>The interface itself adds no methods, but it allows constraining the type parameter
+    /// in generic contexts (like <see cref="IContext.GetData{T}"/>) to types intended for context data.</para>
+    /// <para>Implementations must contain concrete fields and properties required for a specific operation
+    /// (e.g., <see cref="EntryPoint.IModuleRunContextData"/> or <see cref="EntryPoint.IStopContextData"/>).</para>
     /// </remarks>
     public interface IContextData
         : IQuantumObject

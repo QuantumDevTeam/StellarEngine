@@ -1,4 +1,3 @@
-using Stellar.Kernel.Data.Context;
 using Stellar.Kernel.Failures;
 using Stellar.Kernel.Failures.Handlers;
 using Stellar.Core.Quantization;
@@ -20,7 +19,7 @@ public class CompositeFailureHandlerProvider()
         _providers.Remove(provider);
     }
 
-    public IEnumerable<IFailureHandler> GetHandlers(IFailureContext<IContextData> failureContext)
+    public IEnumerable<IFailureHandler> GetHandlers(IFailureContext failureContext)
     {
         return _providers.SelectMany(provider => provider.GetHandlers(failureContext));
     }

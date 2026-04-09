@@ -22,6 +22,12 @@ namespace Stellar.Kernel.Threading
         int TaskCount { get; }
 
         /// <summary>
+        /// Tells if the queue is empty at the moment
+        /// </summary>
+        /// <returns><c>true</c> if queue is empty; otherwise, <c>false</c>.</returns>
+        bool IsEmpty { get; }
+
+        /// <summary>
         /// Adds a task to the end of the queue.
         /// </summary>
         /// <param name="task">The task to enqueue. Cannot be <c>null</c>.</param>

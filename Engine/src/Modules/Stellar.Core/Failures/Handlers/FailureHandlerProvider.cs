@@ -27,7 +27,7 @@ public class FailureHandlerProvider(HandlerProviderMeta meta)
         MetaQuant.Bindings.Add(handler.UID, binding);
     }
 
-    public IEnumerable<IFailureHandler> GetHandlers(IFailureContext<IContextData> failureContext)
+    public IEnumerable<IFailureHandler> GetHandlers(IFailureContext failureContext)
     {
         if (failureContext.Failure is not { } failure) yield break;
 

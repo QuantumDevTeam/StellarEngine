@@ -6,11 +6,10 @@ namespace Stellar.Kernel.Failures
     /// Context data that carries a specific failure instance.
     /// </summary>
     /// <remarks>
-    /// This data is used with <see cref="IContext{TData}"/> when dispatching failures to handlers.
+    /// This data is used with <see cref="IContext"/> when dispatching failures to handlers.
     /// </remarks>
-    public interface IFailureContext<out T>
-        : IContext<T>
-        where T : IContextData
+    public interface IFailureContext
+        : IContext
     {
         /// <summary>
         /// Gets the failure being processed.

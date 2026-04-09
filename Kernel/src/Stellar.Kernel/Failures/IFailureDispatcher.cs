@@ -24,6 +24,6 @@ namespace Stellar.Kernel.Failures
         /// The return value is typically used by the engine to decide whether to continue normal operation,
         /// shut down a module, or terminate the entire process.
         /// </remarks>
-        bool Dispatch(IFailureContext<IContextData> failureContext);
+        bool Dispatch(IFailureContext failureContext);
     }
 }

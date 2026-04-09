@@ -8,9 +8,11 @@ namespace Stellar.Core.Failures;
 /// <param name="sender">A Sender which create this context</param>
 /// <param name="data">A data for context</param>
 public readonly struct FailureContext(IQuantumObject? sender, IFailure failure, IContextData? data)
-    : IFailureContext<IContextData>
+    : IFailureContext
 {
     public IQuantumObject? Sender { get; } = sender;
+    public IContextData? RawData { get; } = data;
     public IFailure Failure { get; } = failure;
-    public IContextData? Data { get; } = data;
+
+    public T? GetData<T>() where T : struct, IContextData => (T?)RawData;
 }

@@ -97,7 +97,7 @@ namespace Stellar.Kernel.EntryPoint
         /// <param name="context">The execution context containing logging, working directory, and other runtime data.</param>
         /// <returns>A simple return code (0 typically indicates success).</returns>
         /// <remarks>This method is called by the engine when the module starts.</remarks>
-        public abstract int Run(IContext<IModuleRunContextData> context);
+        public abstract int Run(IContext context);
 
         /// <summary>
         /// Requests the entry point to stop execution gracefully.
@@ -107,7 +107,7 @@ namespace Stellar.Kernel.EntryPoint
         /// The engine calls this method when a shutdown is requested. The entry point should release resources
         /// and prepare for disposal.
         /// </remarks>
-        public abstract void RequestStop(IContext<IStopContextData> context);
+        public abstract void RequestStop(IContext context);
 
         /// <summary>
         /// Disposes the entry point, releasing all managed and unmanaged resources.

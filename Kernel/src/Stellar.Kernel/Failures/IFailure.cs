@@ -10,7 +10,7 @@ namespace Stellar.Kernel.Failures
     /// <para>This interface abstracts the underlying <see cref="Exception"/> and provides additional
     /// metadata such as failure type, level, and source location.</para>
     /// <para><see cref="IFailure"/> objects are created by the failure subsystem and passed to handlers
-    /// via <see cref="IFailureContextData"/>.</para>
+    /// via <see cref="IFailureContext{T}"/>.</para>
     /// </remarks>
     public interface IFailure
         : IQuantumObject

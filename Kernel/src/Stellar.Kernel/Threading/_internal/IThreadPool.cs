@@ -38,7 +38,7 @@ namespace Stellar.Kernel.Threading
         /// <param name="threadCount">Number of threads to create and start. Must be greater than zero.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="threadCount"/> is less than or equal to zero.</exception>
         /// <remarks>
-        /// If the pool is already running, this method stops it first (waiting for pending tasks by default)
+        /// If the pool is already running, this method stops workers it first (waiting for pending tasks by default)
         /// and then restarts with the new thread count. Each thread begins executing <see cref="ITask"/> instances
         /// from <see cref="TaskQueue"/>.
         /// </remarks>

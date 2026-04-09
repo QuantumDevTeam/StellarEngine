@@ -22,6 +22,6 @@ namespace Stellar.Kernel.Failures.Handlers
         /// <remarks>
         /// The order of handlers may be significant – the dispatcher may invoke them in the returned order.
         /// </remarks>
-        IEnumerable<IFailureHandler> GetHandlers(IFailureContext<IContextData> failureContext);
+        IEnumerable<IFailureHandler> GetHandlers(IFailureContext failureContext);
     }
 }

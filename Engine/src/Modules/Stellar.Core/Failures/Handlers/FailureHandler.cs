@@ -14,7 +14,7 @@ public class FailureHandler()
 {
     public ILogger? Logger { get; set; }
 
-    public bool Handle(IFailureContext<IContextData> context)
+    public bool Handle(IFailureContext context)
     {
         if (context.Failure is not { } failure) return true;
         if (!failure.Level.IsEnabled) return true;

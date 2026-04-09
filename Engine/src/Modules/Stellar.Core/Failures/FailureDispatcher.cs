@@ -40,7 +40,7 @@ public class FailureDispatcher(
     //         [new KeyValuePair<string, IFailureDispatcher>("Default", Default)]
     //     ));
 
-    public bool Dispatch(IFailureContext<IContextData> failureContext)
+    public bool Dispatch(IFailureContext failureContext)
     {
         var handlers = MetaQuant.FailureHandlerProvider.GetHandlers(failureContext);
         return handlers.Aggregate(true, (current, handler) => current & handler.Handle(failureContext));

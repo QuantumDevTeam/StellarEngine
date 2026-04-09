@@ -2,7 +2,7 @@ using Stellar.Kernel.Failures;
 
 namespace Stellar.Core.Failures;
 
-public struct Failure 
+public readonly struct Failure 
     : IFailure
 {
     public required string Message { get; init; }

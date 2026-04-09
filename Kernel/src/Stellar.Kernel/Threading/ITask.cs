@@ -48,6 +48,6 @@ namespace Stellar.Kernel.Threading
         /// <para>The <paramref name="context"/> allows the task to read/write shared data, check for cancellation,
         /// and interact with the engine’s data context.</para>
         /// </remarks>
-        void Execute(ITaskContext<IContextData> context);
+        void Execute(ITaskContext context);
     }
 }

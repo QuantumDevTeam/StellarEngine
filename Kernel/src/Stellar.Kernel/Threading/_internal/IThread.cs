@@ -15,11 +15,17 @@ namespace Stellar.Kernel.Threading
         : IQuantumObject
     {
         /// <summary>
+        /// Gets a value indicating native thread which used in IThread
+        /// </summary>
+        /// <value>Managed thread Integer identifier</value>
+        int ManagedThreadId { get; }
+
+        /// <summary>
         /// Gets a value indicating whether the underlying system thread is still executing.
         /// </summary>
         /// <value><c>true</c> if the thread is alive (started and not terminated); otherwise, <c>false</c>.</value>
         bool IsAlive { get; }
-        
+
         /// <summary>
         /// Starts the thread's execution.
         /// </summary>
@@ -28,7 +34,7 @@ namespace Stellar.Kernel.Threading
         /// If the thread is already running, this method does nothing.
         /// </remarks>
         void Start();
-        
+
         /// <summary>
         /// Blocks the calling thread until this thread terminates.
         /// </summary>

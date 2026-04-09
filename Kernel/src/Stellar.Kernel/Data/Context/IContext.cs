@@ -3,56 +3,68 @@ using Stellar.Kernel.Quantization;
 namespace Stellar.Kernel.Data.Context
 {
     /// <summary>
-    /// Представляет контекст выполнения операции в движке.
+    /// Represents an execution context for an operation inside the engine.
     /// </summary>
-    /// <typeparam name="TData">Тип данных контекста, должен реализовывать <see cref="IContextData"/>.</typeparam>
     /// <remarks>
-    /// <para>Контекст передаётся во все исполняемые методы движка: запуск/остановка точек входа (<see cref="EntryPoint.StellarEntryPoint"/>),
-    /// обновление сцен, рендеринг, обработка событий и т.д.</para>
-    /// <para>Содержит отправителя (инициатора вызова) и пользовательские данные, специфичные для операции.</para>
-    /// <para>В зависимости от целевой платформы (<c>NETSTANDARD2_0</c> или новее) свойства могут быть nullable.</para>
+    /// <para>The context is passed to all executable engine methods: starting/stopping entry points (<see cref="EntryPoint.StellarEntryPoint"/>),
+    /// scene updates, rendering, event handling, etc.</para>
+    /// <para>It contains the sender (initiator of the call) and user data specific to the operation.</para>
+    /// <para>Depending on the target platform (<c>NETSTANDARD2_0</c> or newer), properties may be nullable.</para>
     /// </remarks>
     /// <example>
-    /// Использование контекста в методе <c>Run</c> точки входа:
+    /// Using context in an entry point's <c>Run</c> method:
     /// <code>
-    /// public override int Run(IContext&lt;IModuleRunContextData&gt; context)
+    /// public override int Run(IContext context)
     /// {
-    ///     var logger = context.Data?.Logger;
-    ///     logger?.Info("Движок запущен");
+    ///     var logger = context.GetData&lt;IModuleRunContextData&gt;()?.Logger;
+    ///     logger?.Info("Engine started");
     ///     return 0;
     /// }
     /// </code>
     /// </example>
-    public interface IContext<out TData>
+    public interface IContext
         : IQuantumObject
-        where TData : IContextData
     {
 #if NETSTANDARD2_0
         /// <summary>
-        /// Квантовый объект, инициировавший выполнение данного контекста.
+        /// Quantum object that initiated this context's execution.
         /// </summary>
-        /// <value>Отправитель (например, точка входа, системный поток или пользовательский код).</value>
-        /// <remarks>Может быть <c>null</c>, если контекст создан системой без явного отправителя.</remarks>
+        /// <value>The sender (e.g., entry point, system thread, or user code).</value>
+        /// <remarks>May be <c>null</c> if the context was created by the system without an explicit sender.</remarks>
         IQuantumObject Sender { get; }
         
         /// <summary>
-        /// Данные контекста, специфичные для операции.
+        /// Operation‑specific context data.
         /// </summary>
-        /// <value>Экземпляр <typeparamref name="TData"/> или <c>null</c>, если данные не предоставлены.</value>
-        TData Data { get; }
+        /// <value>An <see cref="IContextData"/> instance or <c>null</c>.</value>
+        IContextData RawData { get; }
+        
+        /// <summary>
+        /// Gets the context data cast to the specified type.
+        /// </summary>
+        /// <typeparam name="T">The expected data type (must be a structure implementing <see cref="IContextData"/>).</typeparam>
+        /// <returns>The typed data, or <c>null</c> if the data is not of type <typeparamref name="T"/>.</returns>
+        T GetData<T>() where T : struct, IContextData;
 #else
 #nullable enable
         /// <summary>
-        /// Квантовый объект, инициировавший выполнение данного контекста.
+        /// Quantum object that initiated this context's execution.
         /// </summary>
-        /// <value>Отправитель или <c>null</c> при отсутствии явного отправителя.</value>
+        /// <value>The sender, or <c>null</c> if no explicit sender exists.</value>
         IQuantumObject? Sender { get; }
         
         /// <summary>
-        /// Данные контекста, специфичные для операции.
+        /// Operation‑specific context data.
         /// </summary>
-        /// <value>Экземпляр <typeparamref name="TData"/> или <c>null</c>.</value>
-        TData? Data { get; }
+        /// <value>An <see cref="IContextData"/> instance or <c>null</c>.</value>
+        IContextData? RawData { get; }
+        
+        /// <summary>
+        /// Gets the context data cast to the specified type.
+        /// </summary>
+        /// <typeparam name="T">The expected data type (must be a structure implementing <see cref="IContextData"/>).</typeparam>
+        /// <returns>The typed data, or <c>null</c> if the data is not of type <typeparamref name="T"/>.</returns>
+        T? GetData<T>() where T : struct, IContextData;
 #endif
     }
 }
