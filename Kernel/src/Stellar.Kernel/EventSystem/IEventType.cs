@@ -2,7 +2,8 @@ using Stellar.Kernel.Label;
 
 namespace Stellar.Kernel.EventSystem
 {
-    public interface IEventType : ILabel
+    public interface IEventType
+        : ILabel
     {
         /// <summary>
         /// Знаковый тип события меньше 0 - движковые и системные, больше 0 - кастомные. Identifier в ILabel нужен

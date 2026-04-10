@@ -3,7 +3,8 @@ using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.EventSystem
 {
-    public interface IEvent : IQuantumObject
+    public interface IEvent
+        : IQuantumObject 
     {
         /// <summary>
         /// тип события

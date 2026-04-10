@@ -27,16 +27,19 @@ namespace Stellar.Kernel.EventSystem
 #endif
 
         // всё то-же самое но только для енумератов
-        
+
         void Subscribe(IEventHandler handler, IEnumerable<IEventType> eventTypes, int handlerPriority = 0);
         void Unsubscribe(IEventHandler handler, IEnumerable<IEventType> eventTypes);
-        
+
         /// <summary>
         /// немедленно испускает событие, важно в некоторых случаях
         /// </summary>
         /// <param name="event">событие которое бросается в обработчики</param>
-        void Emit(IEvent @event);
-        Task EmitAsync(IEvent @event, CancellationToken cancellationToken = default);
+        void Emit<TEvent>(TEvent @event)
+            where TEvent : IEvent, allows ref struct;
+
+        Task EmitAsync<TEvent>(TEvent @event, CancellationToken cancellationToken = default)
+            where TEvent : IEvent, allows ref struct;
 
         // то же самое но для енумератов
         void Emit(IEnumerable<IEvent> events);
@@ -47,12 +50,14 @@ namespace Stellar.Kernel.EventSystem
         /// </summary>
         /// <param name="event"></param>
         void Enqueue(IEvent @event);
+
         void Enqueue(IEnumerable<IEvent> events);
-        
+
         /// <summary>
         /// Обработка всего пула в момент когда геймлупа подойдёт к этому этапу
         /// </summary>
         void ProcessAll();
+
         Task ProcessAllAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
