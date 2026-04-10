@@ -1,3 +1,5 @@
+using System;
+
 namespace Stellar.Kernel.Configuration
 {
     /// <summary>
@@ -18,11 +20,13 @@ namespace Stellar.Kernel.Configuration
         /// <summary>
         /// A custom build task (MSBuild or similar) is responsible for constructing this component.
         /// </summary>
+        [Obsolete("Task based generation not implemented")]
         Task,
 
         /// <summary>
         /// A custom script (e.g., PowerShell, Python) is responsible for constructing this component.
         /// </summary>
+        [Obsolete("Script based generation not implemented")]
         Script
     }
 }

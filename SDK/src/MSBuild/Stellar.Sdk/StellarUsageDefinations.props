@@ -4,6 +4,8 @@
 
     <!-- StellarSdkUsage - Tests -->
     <PropertyGroup Condition="'$(StellarSdkUsage)' == 'Tests'">
+        <CompanyName>QuantumDev</CompanyName>
+
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
@@ -22,9 +24,9 @@
         <Using Include="FluentAssertions"/>
         <Using Include="Moq"/>
     </ItemGroup>
-    
+
     <ItemGroup Condition="'$(StellarSdkUsage)' != 'Tests'">
-        <Analyzer Include="$(StellarOrchesterInstallationDir)/SDK/src/Stellar.ProjectAnalyzer/bin/Debug/netstandard2.0/Stellar.ProjectAnalyzer.dll" />
+        <Analyzer Include="$(StellarOrchesterInstallationDir)/SDK/src/Stellar.ProjectAnalyzer/bin/Debug/netstandard2.0/Stellar.ProjectAnalyzer.dll"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - ExecutableModule -->

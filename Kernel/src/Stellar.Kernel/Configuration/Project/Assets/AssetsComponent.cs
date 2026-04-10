@@ -1,4 +1,4 @@
-namespace Stellar.Kernel.Configuration.Assets
+namespace Stellar.Kernel.Configuration.Project.Assets
 {
     /// <summary>
     /// A configuration component that describes asset bundles used by the engine.

@@ -1,11 +1,12 @@
 {
-  "Assets": {
-    "Include": [
-    ],
-    "Exclude": [
-    ],
-    "Embedded": [
-    ]
-  },
-  "Runtime": {}
+  "Project": {
+    "Assets": {
+      "Include": [
+      ],
+      "Exclude": [
+      ],
+      "Embedded": [
+      ]
+    }
+  }
 }

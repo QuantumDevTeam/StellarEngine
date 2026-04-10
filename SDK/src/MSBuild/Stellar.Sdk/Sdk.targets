@@ -17,7 +17,7 @@
                  Importance="high"
                  Text="=== STELLAR SDK: $(StellarProjectName) is valid StellarProject ==="/>
     </Target>
-
+    
     <!-- Parsing configurations -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigParser"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
@@ -37,19 +37,18 @@
 
             <Output TaskParameter="DefaultCulture" ItemName="StellarDefaultCulture"/>
             <Output TaskParameter="SupportedCultures" ItemName="StellarSupportedCultures"/>
-
-            <Output TaskParameter="StellarCultureIndexFilesList" ItemName="StellarCultureIndexFilesList"/>
+            <Output TaskParameter="LocalizationIndexFiles" ItemName="StellarLocalizationIndexFiles"/>
         </StellarConfigParser>
 
         <ItemGroup>
-            <!-- Assets – будут видны в обозревателе решений -->
+            <!-- Assets -->
             <Content Include="@(StellarAssets)"/>
             <EmbeddedResource Include="@(StellarEmbeddedAssets)"/>
 
             <!-- Localization -->
-            <Content Include="@(StellarCultureIndexFilesList)"
+            <Content Include="@(StellarLocalizationIndexFiles)"
                      Condition="'$(StellarLocalizationIndexType)' == 'External'"/>
-            <EmbeddedResource Include="@(StellarCultureIndexFilesList)"
+            <EmbeddedResource Include="@(StellarLocalizationIndexFiles)"
                               Condition="'$(StellarLocalizationIndexType)' == 'Embedded'"/>
         </ItemGroup>
     </Target>
@@ -58,7 +57,7 @@
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarParseCSProjectFile"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarParseCsProject"
-            BeforeTargets="StellarParseConfigurations;CollectPackageReferences;ResolveProjectReferencesDesignTime2"
+            BeforeTargets="Build;CollectPackageReferences;ResolveProjectReferencesDesignTime2"
             DependsOnTargets="StellarValidating">
         <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: CSProj parsing ==="/>
 
