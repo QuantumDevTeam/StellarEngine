@@ -81,11 +81,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{C6E0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Core.Tests", "Engine\tests\Modules\Stellar.Core.Tests\Stellar.Core.Tests.csproj", "{2D86286A-F993-4ECD-A520-0C02270B8EF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Threading", "Engine\src\Modules\Stellar.Threading\Stellar.Threading.csproj", "{0E2243E2-30A5-4996-A841-5C0F12A09FC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.TaskSystem", "Engine\src\Modules\Stellar.TaskSystem\Stellar.TaskSystem.csproj", "{0E2243E2-30A5-4996-A841-5C0F12A09FC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Time", "Engine\src\Modules\Stellar.Time\Stellar.Time.csproj", "{4D33BADF-71FE-4371-A861-790973AFCDFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.TimeSystem", "Engine\src\Modules\Stellar.TimeSystem\Stellar.TimeSystem.csproj", "{4D33BADF-71FE-4371-A861-790973AFCDFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Logging", "Engine\src\Modules\Stellar.Logging\Stellar.Logging.csproj", "{5CB5994D-DB9B-43AC-953F-E02B78A3A17A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.LoggingSystem", "Engine\src\Modules\Stellar.LoggingSystem\Stellar.LoggingSystem.csproj", "{5CB5994D-DB9B-43AC-953F-E02B78A3A17A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Stage", "Engine\src\Modules\Stellar.Stage\Stellar.Stage.csproj", "{92A6E0C9-0892-4B35-8A64-82E57BF37040}"
 EndProject

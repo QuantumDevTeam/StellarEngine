@@ -1,6 +1,6 @@
 using Stellar.Kernel.Quantization;
 
-namespace Stellar.Kernel.Logging
+namespace Stellar.Kernel.LoggingSystem
 {
     /// <summary>
     /// Engine logger

@@ -5,9 +5,9 @@ using Stellar.Kernel.Data.Registry;
 using Stellar.Kernel.EntryPoint;
 using Stellar.Kernel.Failures;
 using Stellar.Kernel.FileSystem.Provider;
-using Stellar.Kernel.Logging;
+using Stellar.Kernel.LoggingSystem;
 using Stellar.Kernel.Quantization;
-using Stellar.Kernel.Threading;
+using Stellar.Kernel.TaskSystem;
 
 namespace Stellar.Core.Global;
 

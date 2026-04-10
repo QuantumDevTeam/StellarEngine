@@ -2,10 +2,10 @@ using Stellar.Kernel.Data.Context;
 using Stellar.Kernel.EntryPoint;
 using Stellar.Kernel.Failures;
 using Stellar.Kernel.Failures.Handlers;
-using Stellar.Kernel.Logging;
 using Stellar.Core.Quantization;
 using Stellar.Core.Data.Context;
 using Stellar.Core.Data.Context.Defaults;
+using Stellar.Kernel.LoggingSystem;
 
 namespace Stellar.Core.Failures.Handlers;
 

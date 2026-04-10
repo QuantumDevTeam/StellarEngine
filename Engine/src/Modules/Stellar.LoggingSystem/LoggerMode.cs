@@ -1,4 +1,4 @@
-namespace Stellar.Logging;
+namespace Stellar.LoggingSystem;
 
 [Flags]
 public enum LoggerMode : byte

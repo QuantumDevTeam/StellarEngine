@@ -1,7 +1,7 @@
 using Stellar.Kernel.Configuration;
-using Stellar.Logging.Format;
+using Stellar.LoggingSystem.Format;
 
-namespace Stellar.Logging.Build.Components;
+namespace Stellar.LoggingSystem.Build.Components;
 
 // TODO: Implement config generations
 public class DefaultFormatsComponent : ConfigurationComponent

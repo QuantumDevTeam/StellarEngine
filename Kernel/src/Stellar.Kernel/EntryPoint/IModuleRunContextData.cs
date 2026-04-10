@@ -1,8 +1,7 @@
 using Stellar.Kernel.Quantization;
 using Stellar.Kernel.Data.Context;
 using Stellar.Kernel.Failures;
-using Stellar.Kernel.FileSystem;
-using Stellar.Kernel.Logging;
+using Stellar.Kernel.LoggingSystem;
 
 namespace Stellar.Kernel.EntryPoint
 {
@@ -26,7 +25,7 @@ namespace Stellar.Kernel.EntryPoint
         /// <summary>
         /// Gets the working directory location for the module.
         /// </summary>
-        ILocation WorkDirectory { get; }
+        string WorkDirectory { get; }
 
         /// <summary>
         /// Gets the failure dispatcher used to report errors and exceptions.
@@ -47,7 +46,7 @@ namespace Stellar.Kernel.EntryPoint
         /// <summary>
         /// Gets the working directory location for the module, or <c>null</c> if not set.
         /// </summary>
-        ILocation? WorkDirectory { get; }
+        string? WorkDirectory { get; }
 
         /// <summary>
         /// Gets the failure dispatcher, or <c>null</c> if failure handling is disabled.

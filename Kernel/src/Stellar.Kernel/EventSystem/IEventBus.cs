@@ -42,16 +42,21 @@ namespace Stellar.Kernel.EventSystem
             where TEvent : IEvent, allows ref struct;
 
         // то же самое но для енумератов
-        void Emit(IEnumerable<IEvent> events);
-        Task EmitAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken = default);
+        void Emit<TEvent>(IEnumerable<TEvent> events)
+            where TEvent : IEvent, allows ref struct;
+
+        Task EmitAsync<TEvent>(IEnumerable<TEvent> events, CancellationToken cancellationToken = default)
+            where TEvent : IEvent, allows ref struct;
 
         /// <summary>
         /// добавляет событие в пулл
         /// </summary>
         /// <param name="event"></param>
-        void Enqueue(IEvent @event);
+        void Enqueue<TEvent>(TEvent @event)
+            where TEvent : IEvent, allows ref struct;
 
-        void Enqueue(IEnumerable<IEvent> events);
+        void Enqueue<TEvent>(IEnumerable<TEvent> events)
+            where TEvent : IEvent, allows ref struct;
 
         /// <summary>
         /// Обработка всего пула в момент когда геймлупа подойдёт к этому этапу

@@ -16,7 +16,13 @@
 
         <RestoreLockedMode>false</RestoreLockedMode>
         <DisableImplicitFrameworkReferences>false</DisableImplicitFrameworkReferences>
-        
+
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
+
+    <!-- Systems used only in runtime in net9.0-->
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <Compile Remove="EventSystem\**\*.cs"/>
+        <Compile Remove="TaskSystem\**\*.cs"/>
+    </ItemGroup>
 </Project>

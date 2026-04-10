@@ -1,5 +1,4 @@
-using Stellar.Kernel.Data.Context;
-using Stellar.Kernel.Logging;
+using Stellar.Kernel.LoggingSystem;
 using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Failures.Handlers

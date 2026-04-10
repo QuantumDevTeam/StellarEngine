@@ -3,9 +3,9 @@ using System.Globalization;
 using Stellar.Core.Data.Registry;
 using Stellar.Core.Quantization;
 using Stellar.Kernel;
-using Stellar.Logging.Format;
+using Stellar.LoggingSystem.Format;
 
-namespace Stellar.Logging;
+namespace Stellar.LoggingSystem;
 
 /// <summary>
 /// Default StellarEngine Logger
@@ -44,7 +44,7 @@ public sealed class Logger(
     /// <param name="logger">Сам логер</param>
     public static void AddLogger(ILogger logger)
     {
-        QuantsRegistry<ILogger, LoggerMeta>.Instance.Register(logger);
+        QuantsRegistry<>.Instance.Register(logger);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public sealed class Logger(
     /// <returns>Логер, если такой нашёлся</returns>
     public static ILogger? GetLogger(IIdentifier identifier)
     {
-        return QuantsRegistry<ILogger, LoggerMeta>.Instance.Get(identifier);
+        return QuantsRegistry<>.Instance.Get(identifier);
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public sealed class Logger(
     /// <returns>Логер, если такой нашёлся</returns>
     public static ILogger? PopLogger(IIdentifier identifier)
     {
-        return QuantsRegistry<ILogger, LoggerMeta>.Instance.Pop(identifier);
+        return QuantsRegistry<>.Instance.Pop(identifier);
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public sealed class Logger(
     /// <param name="message">Текст с информацией</param>
     public static void Info(string message)
     {
-        foreach (ILogger logger in QuantsRegistry<ILogger, LoggerMeta>.Instance.Values)
+        foreach (ILogger logger in QuantsRegistry<>.Instance.Values)
         {
             logger.Log(LogLevel.Info, message);
         }
@@ -111,7 +111,7 @@ public sealed class Logger(
     /// <param name="message">Сообщение</param>
     public static void Debug(string message)
     {
-        foreach (ILogger logger in QuantsRegistry<ILogger, LoggerMeta>.Instance.Values)
+        foreach (ILogger logger in QuantsRegistry<>.Instance.Values)
         {
             logger.Log(LogLevel.Debug, message);
         }
@@ -123,7 +123,7 @@ public sealed class Logger(
     /// <param name="message">Сообщение</param>
     public static void Success(string message)
     {
-        foreach (ILogger logger in QuantsRegistry<ILogger, LoggerMeta>.Instance.Values)
+        foreach (ILogger logger in QuantsRegistry<>.Instance.Values)
         {
             logger.Log(LogLevel.Success, message);
         }
@@ -135,7 +135,7 @@ public sealed class Logger(
     /// <param name="message">Текст предупреждения</param>
     public static void Warning(string message)
     {
-        foreach (ILogger logger in QuantsRegistry<ILogger, LoggerMeta>.Instance.Values)
+        foreach (ILogger logger in QuantsRegistry<>.Instance.Values)
         {
             logger.Log(LogLevel.Warning, message);
         }
@@ -147,7 +147,7 @@ public sealed class Logger(
     /// <param name="message">Сообщение о ошибке</param>
     public static void Error(string message)
     {
-        foreach (ILogger logger in QuantsRegistry<ILogger, LoggerMeta>.Instance.Values)
+        foreach (ILogger logger in QuantsRegistry<>.Instance.Values)
         {
             logger.Log(LogLevel.Error, message);
         }
@@ -160,7 +160,7 @@ public sealed class Logger(
     /// <param name="e">Обрабатываемая ошибка</param>
     public static void Exception(string message, Exception e)
     {
-        foreach (ILogger logger in QuantsRegistry<ILogger, LoggerMeta>.Instance.Values)
+        foreach (ILogger logger in QuantsRegistry<>.Instance.Values)
         {
             logger.Log(
                 LogLevel.Exception,
@@ -175,7 +175,7 @@ public sealed class Logger(
     /// <param name="message">Сообщение</param>
     public static void SimpleLog(string message)
     {
-        foreach (ILogger logger in QuantsRegistry<ILogger, LoggerMeta>.Instance.Values)
+        foreach (ILogger logger in QuantsRegistry<>.Instance.Values)
         {
             logger.LogWithoutFormat(message);
         }
@@ -186,7 +186,7 @@ public sealed class Logger(
     /// </summary>
     public static void Separator()
     {
-        foreach (ILogger logger in QuantsRegistry<ILogger, LoggerMeta>.Instance.Values)
+        foreach (ILogger logger in QuantsRegistry<>.Instance.Values)
         {
             logger.LogWithoutFormat("");
         }

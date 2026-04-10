@@ -1,8 +1,8 @@
 using Stellar.Kernel;
 using Stellar.Core.Quantization;
-using Stellar.Logging.Format;
+using Stellar.LoggingSystem.Format;
 
-namespace Stellar.Logging;
+namespace Stellar.LoggingSystem;
 
 public class LoggerMeta(
     bool isActive = true,
