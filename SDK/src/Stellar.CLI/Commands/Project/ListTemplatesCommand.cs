@@ -1,7 +1,8 @@
 using Spectre.Console;
 using Spectre.Console.Cli;
+using Stellar.Tools;
 
-namespace Stellar.Tools.Commands.Project;
+namespace Stellar.CLI.Commands.Project;
 
 public sealed class ListTemplatesCommand : Command
 {

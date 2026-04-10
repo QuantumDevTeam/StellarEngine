@@ -1,11 +1,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 
-    <!-- Validating -->
+    <!-- ========== DESIGN-TIME & BUILD-TIME ========== -->
 
+    <!-- Validating -->
     <Target Name="StellarValidating"
             BeforeTargets="BeforeResolveReference"
-            Condition="'$(BuildingProject)' == 'true' and '$(StellarSdkUsage)' != 'Tests'">
+            Condition="'$(StellarSdkUsage)' != 'Tests'">
         <Error Condition="'$(StellarSdkUsage)' == ''"
                Text="StellarSdkUsage must be configured!"/>
 
@@ -17,40 +18,11 @@
                  Text="=== STELLAR SDK: $(StellarProjectName) is valid StellarProject ==="/>
     </Target>
 
-    <!-- Stellar Tags -->
-
-    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarParseCSProjectFile"
-               AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
-    <Target Name="StellarParseCsSroject"
-            BeforeTargets="StellarParseConfigurations"
-            DependsOnTargets="StellarValidating">
-        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: CSProj parsing ==="/>
-
-        <StellarParseCSProjectFile
-                ProjectFile="$(MSBuildProjectFullPath)"
-                StellarPrecompiled="$(StellarPrecompiled)"
-                StellarEngineVersion="$(StellarEngineVersion)"
-                StellarOrchesterInstallationDir="$(StellarOrchesterInstallationDir)">
-            <Output TaskParameter="StellarDependenciesAsProject" ItemName="StellarDependenciesAsProject"/>
-            <Output TaskParameter="StellarDependenciesAsPackages" ItemName="StellarDependenciesAsPackages"/>
-        </StellarParseCSProjectFile>
-    </Target>
-
-    <Target Name="StellarDependenciesApply"
-            BeforeTargets="Build"
-            DependsOnTargets="StellarParseCsSroject">
-        <ItemGroup>
-            <ProjectReference Include="@(StellarDependenciesAsProject)"/>
-            <PackageReference Include="@(StellarDependenciesAsPackages)"/>
-        </ItemGroup>
-    </Target>
-
-    <!-- Config -->
-
+    <!-- Parsing configurations -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigParser"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarParseConfigurations"
-            BeforeTargets="Build"
+            BeforeTargets="Build;AssignTargetPaths;PrepareForBuild"
             DependsOnTargets="StellarValidating"
             Condition="'$(StellarSdkUsage)' != 'Tests'">
         <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Configuration parsing ==="/>
@@ -70,7 +42,7 @@
         </StellarConfigParser>
 
         <ItemGroup>
-            <!-- Assets -->
+            <!-- Assets – будут видны в обозревателе решений -->
             <Content Include="@(StellarAssets)"/>
             <EmbeddedResource Include="@(StellarEmbeddedAssets)"/>
 
@@ -82,6 +54,37 @@
         </ItemGroup>
     </Target>
 
+    <!-- Parsing .csproj file -->
+    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarParseCSProjectFile"
+               AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
+    <Target Name="StellarParseCsProject"
+            BeforeTargets="StellarParseConfigurations;CollectPackageReferences;ResolveProjectReferencesDesignTime2"
+            DependsOnTargets="StellarValidating">
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: CSProj parsing ==="/>
+
+        <StellarParseCSProjectFile
+                ProjectFile="$(MSBuildProjectFullPath)"
+                StellarPrecompiled="$(StellarPrecompiled)"
+                StellarEngineVersion="$(StellarEngineVersion)"
+                StellarOrchesterInstallationDir="$(StellarOrchesterInstallationDir)">
+            <Output TaskParameter="StellarDependenciesAsProject" ItemName="StellarDependenciesAsProject"/>
+            <Output TaskParameter="StellarDependenciesAsPackages" ItemName="StellarDependenciesAsPackages"/>
+        </StellarParseCSProjectFile>
+    </Target>
+
+    <!-- Applying dependency modules -->
+    <Target Name="StellarDependenciesApply"
+            BeforeTargets="Build;ResolveProjectReferencesDesignTime2;ResolvePackageDependenciesDesignTime"
+            DependsOnTargets="StellarParseCsProject">
+        <ItemGroup>
+            <ProjectReference Include="@(StellarDependenciesAsProject)"/>
+            <PackageReference Include="@(StellarDependenciesAsPackages)"/>
+        </ItemGroup>
+    </Target>
+
+    <!-- ========== BUILD-TIME ONLY ========== -->
+
+    <!-- Entry Point -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarEntryPointFind"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarFindEntryPoint"
@@ -96,6 +99,7 @@
         </StellarEntryPointFind>
     </Target>
 
+    <!-- Generating Runtime Configuration -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigGenerator"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarGenerateRuntimeConfig"
@@ -134,8 +138,7 @@
         </ItemGroup>
     </Target>
 
-    <!-- Building -->
-
+    <!-- Generation assembly info -->
     <Target Name="StellarGenerateAssemblyInfoAttributes"
             BeforeTargets="CoreCompile"
             Condition="'$(StellarSdkUsage)' != 'Tests'">
@@ -158,13 +161,14 @@ using System.Reflection%3B
         </ItemGroup>
     </Target>
 
+    <!-- Generation executable -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarExecutableGenerator"
                AssemblyFile="../lib/netstandard2.0/Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarGenerateExecutable"
             AfterTargets="Build"
             DependsOnTargets="StellarFindEntryPoint"
-            Condition="'$(StellarSdkUsage)' == 'Game'">
-        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Executable generation for Game ==="/>
+            Condition="'$(StellarSdkUsage)' == 'ExecutableModule'">
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Executable generation for ExecutableModule ==="/>
 
         <StellarExecutableGenerator
                 ProjectDirectory="$(MSBuildProjectDirectory)"

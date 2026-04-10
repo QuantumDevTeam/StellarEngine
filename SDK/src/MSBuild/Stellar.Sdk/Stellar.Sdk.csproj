@@ -9,13 +9,13 @@
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         
-        <Authors>QuantumDev</Authors>
         <Version>$(StellarSdkVersion)</Version>
         <AssemblyVersion>$(StellarSdkVersion)</AssemblyVersion>
 
         <IsPackable>true</IsPackable>
+        <Authors>QuantumDev</Authors>
         <PackageId>Stellar.Sdk</PackageId>
-        <Description>StellarEngine SDK</Description>
+        <Description>StellarEngine .NET SDK wrapper</Description>
         <PackageVersion>$(Version)</PackageVersion>
 
         <DevelopmentDependency>true</DevelopmentDependency>

@@ -1,7 +1,7 @@
 using Spectre.Console;
 using Spectre.Console.Cli;
 
-namespace Stellar.Tools.Commands.Project;
+namespace Stellar.CLI.Commands.Project;
 
 public sealed class NewProjectCommand : Command
 {

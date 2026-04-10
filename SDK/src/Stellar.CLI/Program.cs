@@ -1,8 +1,8 @@
 ﻿using Spectre.Console.Cli;
-using Stellar.Tools.Commands;
-using Stellar.Tools.Commands.Project;
-using Stellar.Tools.Commands.Sdk;
-using Stellar.Tools.Commands.Version;
+using Stellar.CLI.Commands;
+using Stellar.CLI.Commands.Project;
+using Stellar.CLI.Commands.Sdk;
+using Stellar.CLI.Commands.Version;
 
 var app = new CommandApp();
 
@@ -13,23 +13,26 @@ app.Configure(config =>
     config.AddCommand<InfoCommand>("info")
         .WithDescription("Show StellarEngine information");
 
-    config.AddBranch("version", sdk =>
+    config.AddBranch("version", version =>
     {
-        sdk.SetDescription("Systems versions");
+        version.SetDescription("Systems versions");
 
-        sdk.AddCommand<OrchesterVersionCommand>("orchester")
+        version.AddCommand<OrchesterVersionCommand>("orchester")
             .WithDescription("Tools Version");
 
-        sdk.AddCommand<ToolsVersionCommand>("tools")
-            .WithDescription("Tools Version");
-
-        sdk.AddCommand<SdkVersionCommand>("sdk")
-            .WithDescription("SDK Version");
-
-        sdk.AddCommand<KernelVersionCommand>("kernel")
+        version.AddCommand<KernelVersionCommand>("kernel")
             .WithDescription("Kernel Version");
 
-        sdk.AddCommand<EngineVersionCommand>("engine")
+        version.AddCommand<ToolsVersionCommand>("tools")
+            .WithDescription("Tools Version");
+
+        version.AddCommand<SdkVersionCommand>("sdk")
+            .WithDescription("SDK Version");
+
+        version.AddCommand<SdkVersionCommand>("cli")
+            .WithDescription("SDK Version");
+
+        version.AddCommand<EngineVersionCommand>("engine")
             .WithDescription("Engine Version");
     });
 
@@ -49,12 +52,9 @@ app.Configure(config =>
             .WithDescription("Show project information");
 
         project.AddCommand<NewProjectCommand>("new")
-            .WithAlias("n")
             .WithDescription("Create new project from template");
 
         project.AddCommand<GenerateProjectDocsCommand>("generate-docs")
-            .WithAlias("gendoc")
-            .WithData(typeof(GenerateProjectCommandData))
             .WithDescription("Show project information");
 
         project.AddBranch("template", template =>
@@ -62,7 +62,6 @@ app.Configure(config =>
             template.SetDescription("Project templates");
 
             template.AddCommand<ListTemplatesCommand>("list")
-                .WithAlias("l")
                 .WithDescription("List available project templates");
         });
     }).WithAlias("proj");

@@ -1,7 +1,8 @@
 using Spectre.Console;
 using Spectre.Console.Cli;
+using Stellar.Tools;
 
-namespace Stellar.Tools.Commands.Sdk;
+namespace Stellar.CLI.Commands.Sdk;
 
 public sealed class InstallSdkCommand : Command
 {

@@ -3,33 +3,25 @@
     <Import Project="..\..\..\Data\version.props"/>
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
-        
-        <Authors>QuantumDev</Authors>
+        <TargetFrameworks>netstandard2.0;net9.0</TargetFrameworks>
+
         <Version>$(StellarToolsVersion)</Version>
         <AssemblyVersion>$(Version)</AssemblyVersion>
 
         <IsPackable>true</IsPackable>
+        <Authors>QuantumDev</Authors>
         <PackageId>Stellar.Tools</PackageId>
-        <Description>StellarEngine development tools</Description>
+        <Description>StellarEngine base tooling module for SDK/CLI/StellarRuntimeModules</Description>
         <PackageVersion>$(Version)</PackageVersion>
-        
-        <PackAsTool>true</PackAsTool>
-        <ToolCommandName>stellar</ToolCommandName>
 
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <RestoreLockedMode>false</RestoreLockedMode>
+        <DisableImplicitFrameworkReferences>false</DisableImplicitFrameworkReferences>
 
         <InvariantGlobalization>true</InvariantGlobalization>
+
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Spectre.Console" Version="0.49.1"/>
-        <PackageReference Include="Spectre.Console.Cli" Version="0.49.1"/>
-        <PackageReference Include="XmlDocMarkdown.Core" Version="2.9.0" />
-    </ItemGroup>
-
+    
     <Target Name="GenerateStellarOrchesterAttribute" BeforeTargets="CoreCompile">
         <WriteLinesToFile
                 File="$(IntermediateOutputPath)Stellar.AssemblyInfo.g.cs"

@@ -4,7 +4,7 @@ using Spectre.Console;
 using Spectre.Console.Cli;
 using XmlDocMarkdown.Core;
 
-namespace Stellar.Tools.Commands.Project;
+namespace Stellar.CLI.Commands.Project;
 
 public class GenerateProjectCommandData : CommandSettings
 {

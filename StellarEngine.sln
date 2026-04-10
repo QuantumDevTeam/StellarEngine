@@ -12,21 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{205B6A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{029AC908-7378-4197-BF45-AD557B022B27}"
 	ProjectSection(SolutionItems) = preProject
+		SDK\build\Cli.package.bat = SDK\build\Cli.package.bat
 		SDK\build\Tools.package.bat = SDK\build\Tools.package.bat
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Native", "Native", "{0ABD5A08-6551-4C56-9171-6665F0B5D148}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1C440145-589E-46A4-A984-9D88FC666912}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{A66717E9-F1A5-42E7-B003-FAA5FB0AA397}"
-	ProjectSection(SolutionItems) = preProject
-		SDK\build\Sdk.package.bat = SDK\build\Sdk.package.bat
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sdk", "SDK\src\Build\Stellar.Sdk\Stellar.Sdk.csproj", "{C73C8485-235C-4D45-90E8-5135343295DE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sdk.Tasks", "SDK\src\Build\Stellar.Sdk.Tasks\Stellar.Sdk.Tasks.csproj", "{C4269D49-9AD0-4498-A1CF-FF69947A69CE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Graphic.API.DX12", "Engine\src\Native\Stellar.Native.Graphic.API.DX12\Stellar.Native.Graphic.API.DX12.vcxproj", "{28D8B381-C95B-45CF-ADBB-9026C590105F}"
 EndProject
@@ -61,16 +53,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Graphic.Kernel", "K
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Graphic.UI.Kernel", "Kernel\src\Stellar.Graphic.UI.Kernel\Stellar.Graphic.UI.Kernel.csproj", "{A8E0B639-72E6-41DD-ADA4-F582A85E0726}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Tools", "SDK\src\Stellar.Tools\Stellar.Tools.csproj", "{6F3E9245-C14B-491B-93CF-7D078E7089D7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CDE172FD-CD80-43F2-9846-A1757132B286}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\add_nuget_source.bat = scripts\add_nuget_source.bat
 		install.bat = install.bat
 		scripts\kernel.clean.bat = scripts\kernel.clean.bat
 		scripts\sdk.clean.bat = scripts\sdk.clean.bat
+		scripts\cli.clean.bat = scripts\cli.clean.bat
+		scripts\cli.install.bat = scripts\cli.install.bat
 		scripts\tools.clean.bat = scripts\tools.clean.bat
-		scripts\tools.install.bat = scripts\tools.install.bat
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Core", "Engine\src\Modules\Stellar.Core\Stellar.Core.csproj", "{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}"
@@ -107,8 +98,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{CA91C7F2
 		.config\dotnet-tools.json = .config\dotnet-tools.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.ProjectAnalyzer", "SDK\src\Stellar.ProjectAnalyzer\Stellar.ProjectAnalyzer.csproj", "{374DD906-9211-40E2-A0B9-6CF494C94DF8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{FBE4180F-6A7E-437E-BD97-CD604AD02D6E}"
 	ProjectSection(SolutionItems) = preProject
 		Kernel\Docs\Stellar.Kernel\Stellar.Kernel.md = Kernel\Docs\Stellar.Kernel\Stellar.Kernel.md
@@ -118,16 +107,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.EventSystem", "Engi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{E2146F47-3846-45E4-8789-3A720DE10242}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuild", "MSBuild", "{FD266584-5C25-419A-A624-AEA6351B01C3}"
+	ProjectSection(SolutionItems) = preProject
+		SDK\build\Sdk.package.bat = SDK\build\Sdk.package.bat
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sdk.Tasks", "SDK\src\MSBuild\Stellar.Sdk.Tasks\Stellar.Sdk.Tasks.csproj", "{52617E30-AF5A-43DC-8BE4-57FAD11DD6DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Sdk", "SDK\src\MSBuild\Stellar.Sdk\Stellar.Sdk.csproj", "{67315849-5BF9-486D-A669-717F1E80F562}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ryslin", "Ryslin", "{5623B0DA-B3B8-42DF-A672-1FA410D931BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.ProjectAnalyzer", "SDK\src\Ryslin\Stellar.ProjectAnalyzer\Stellar.ProjectAnalyzer.csproj", "{92B2D739-6C99-4922-A560-69C86BDBD55F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Tools", "SDK\src\Stellar.Tools\Stellar.Tools.csproj", "{8EF1C1FF-5497-4E10-ABAB-CD0712D4C1C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stellar.Cli", "SDK\src\Stellar.Cli\Stellar.Cli.csproj", "{AA8216C0-4D2D-4747-9233-48182FC17F1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C73C8485-235C-4D45-90E8-5135343295DE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C73C8485-235C-4D45-90E8-5135343295DE}.Release|x64.ActiveCfg = Release|Any CPU
-		{C4269D49-9AD0-4498-A1CF-FF69947A69CE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C4269D49-9AD0-4498-A1CF-FF69947A69CE}.Release|x64.ActiveCfg = Release|Any CPU
 		{28D8B381-C95B-45CF-ADBB-9026C590105F}.Debug|x64.ActiveCfg = Debug|x64
 		{28D8B381-C95B-45CF-ADBB-9026C590105F}.Release|x64.ActiveCfg = Release|x64
 		{97C823E1-833A-40D0-AAE8-8FE75A74E82C}.Debug|x64.ActiveCfg = Debug|x64
@@ -156,8 +158,6 @@ Global
 		{2398E8D4-71F6-4FA2-A3C8-FB46BB44C7F8}.Release|x64.ActiveCfg = Release|Any CPU
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726}.Release|x64.ActiveCfg = Release|Any CPU
-		{6F3E9245-C14B-491B-93CF-7D078E7089D7}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6F3E9245-C14B-491B-93CF-7D078E7089D7}.Release|x64.ActiveCfg = Release|Any CPU
 		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Debug|x64.ActiveCfg = Debug|x64
 		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Release|x64.ActiveCfg = Release|x64
 		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Debug|x64.Build.0 = Debug|x64
@@ -182,14 +182,32 @@ Global
 		{333CED75-BD3A-46CA-8E62-F92A6CD36F92}.Release|x64.ActiveCfg = Release|x64
 		{83818C65-7765-43BB-9049-5642E787DD2E}.Debug|x64.ActiveCfg = Debug|x64
 		{83818C65-7765-43BB-9049-5642E787DD2E}.Release|x64.ActiveCfg = Release|x64
-		{374DD906-9211-40E2-A0B9-6CF494C94DF8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{374DD906-9211-40E2-A0B9-6CF494C94DF8}.Release|x64.ActiveCfg = Release|Any CPU
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23}.Debug|x64.ActiveCfg = Debug|x64
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23}.Release|x64.ActiveCfg = Release|x64
 		{0315B569-A93B-40FD-9E51-42ACB0EBA805}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{0315B569-A93B-40FD-9E51-42ACB0EBA805}.Debug|x64.Build.0 = Debug|Any CPU
 		{0315B569-A93B-40FD-9E51-42ACB0EBA805}.Release|x64.ActiveCfg = Release|Any CPU
 		{0315B569-A93B-40FD-9E51-42ACB0EBA805}.Release|x64.Build.0 = Release|Any CPU
+		{52617E30-AF5A-43DC-8BE4-57FAD11DD6DB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{52617E30-AF5A-43DC-8BE4-57FAD11DD6DB}.Debug|x64.Build.0 = Debug|Any CPU
+		{52617E30-AF5A-43DC-8BE4-57FAD11DD6DB}.Release|x64.ActiveCfg = Release|Any CPU
+		{52617E30-AF5A-43DC-8BE4-57FAD11DD6DB}.Release|x64.Build.0 = Release|Any CPU
+		{67315849-5BF9-486D-A669-717F1E80F562}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{67315849-5BF9-486D-A669-717F1E80F562}.Debug|x64.Build.0 = Debug|Any CPU
+		{67315849-5BF9-486D-A669-717F1E80F562}.Release|x64.ActiveCfg = Release|Any CPU
+		{67315849-5BF9-486D-A669-717F1E80F562}.Release|x64.Build.0 = Release|Any CPU
+		{92B2D739-6C99-4922-A560-69C86BDBD55F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{92B2D739-6C99-4922-A560-69C86BDBD55F}.Debug|x64.Build.0 = Debug|Any CPU
+		{92B2D739-6C99-4922-A560-69C86BDBD55F}.Release|x64.ActiveCfg = Release|Any CPU
+		{92B2D739-6C99-4922-A560-69C86BDBD55F}.Release|x64.Build.0 = Release|Any CPU
+		{8EF1C1FF-5497-4E10-ABAB-CD0712D4C1C9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8EF1C1FF-5497-4E10-ABAB-CD0712D4C1C9}.Debug|x64.Build.0 = Debug|Any CPU
+		{8EF1C1FF-5497-4E10-ABAB-CD0712D4C1C9}.Release|x64.ActiveCfg = Release|Any CPU
+		{8EF1C1FF-5497-4E10-ABAB-CD0712D4C1C9}.Release|x64.Build.0 = Release|Any CPU
+		{AA8216C0-4D2D-4747-9233-48182FC17F1D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AA8216C0-4D2D-4747-9233-48182FC17F1D}.Debug|x64.Build.0 = Debug|Any CPU
+		{AA8216C0-4D2D-4747-9233-48182FC17F1D}.Release|x64.ActiveCfg = Release|Any CPU
+		{AA8216C0-4D2D-4747-9233-48182FC17F1D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,9 +215,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0ABD5A08-6551-4C56-9171-6665F0B5D148} = {205B6A0C-09B2-4AD7-BE9A-A7781CD59863}
 		{1C440145-589E-46A4-A984-9D88FC666912} = {205B6A0C-09B2-4AD7-BE9A-A7781CD59863}
-		{A66717E9-F1A5-42E7-B003-FAA5FB0AA397} = {029AC908-7378-4197-BF45-AD557B022B27}
-		{C73C8485-235C-4D45-90E8-5135343295DE} = {A66717E9-F1A5-42E7-B003-FAA5FB0AA397}
-		{C4269D49-9AD0-4498-A1CF-FF69947A69CE} = {A66717E9-F1A5-42E7-B003-FAA5FB0AA397}
 		{28D8B381-C95B-45CF-ADBB-9026C590105F} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{97C823E1-833A-40D0-AAE8-8FE75A74E82C} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{D50458ED-E6A7-4482-8CA2-C0D3EB147C58} = {205B6A0C-09B2-4AD7-BE9A-A7781CD59863}
@@ -214,7 +229,6 @@ Global
 		{EBC9C820-AB04-4B05-8609-542D9412D59B} = {E51C0F9F-920C-419C-849D-30C0BED86743}
 		{2398E8D4-71F6-4FA2-A3C8-FB46BB44C7F8} = {E51C0F9F-920C-419C-849D-30C0BED86743}
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726} = {E51C0F9F-920C-419C-849D-30C0BED86743}
-		{6F3E9245-C14B-491B-93CF-7D078E7089D7} = {029AC908-7378-4197-BF45-AD557B022B27}
 		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B} = {1C440145-589E-46A4-A984-9D88FC666912}
 		{45EB39FA-C001-4580-BB9C-0D65269E40D5} = {205B6A0C-09B2-4AD7-BE9A-A7781CD59863}
 		{C6E00B12-F70D-426E-B386-8724C7B2A20D} = {45EB39FA-C001-4580-BB9C-0D65269E40D5}
@@ -228,10 +242,16 @@ Global
 		{333CED75-BD3A-46CA-8E62-F92A6CD36F92} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{83818C65-7765-43BB-9049-5642E787DD2E} = {D50458ED-E6A7-4482-8CA2-C0D3EB147C58}
 		{DDCB307E-EB3D-4772-BF37-98269C9B7B23} = {1C440145-589E-46A4-A984-9D88FC666912}
-		{374DD906-9211-40E2-A0B9-6CF494C94DF8} = {029AC908-7378-4197-BF45-AD557B022B27}
 		{FBE4180F-6A7E-437E-BD97-CD604AD02D6E} = {E51C0F9F-920C-419C-849D-30C0BED86743}
 		{0315B569-A93B-40FD-9E51-42ACB0EBA805} = {1C440145-589E-46A4-A984-9D88FC666912}
 		{E2146F47-3846-45E4-8789-3A720DE10242} = {205B6A0C-09B2-4AD7-BE9A-A7781CD59863}
+		{FD266584-5C25-419A-A624-AEA6351B01C3} = {029AC908-7378-4197-BF45-AD557B022B27}
+		{52617E30-AF5A-43DC-8BE4-57FAD11DD6DB} = {FD266584-5C25-419A-A624-AEA6351B01C3}
+		{67315849-5BF9-486D-A669-717F1E80F562} = {FD266584-5C25-419A-A624-AEA6351B01C3}
+		{5623B0DA-B3B8-42DF-A672-1FA410D931BC} = {029AC908-7378-4197-BF45-AD557B022B27}
+		{92B2D739-6C99-4922-A560-69C86BDBD55F} = {5623B0DA-B3B8-42DF-A672-1FA410D931BC}
+		{8EF1C1FF-5497-4E10-ABAB-CD0712D4C1C9} = {029AC908-7378-4197-BF45-AD557B022B27}
+		{AA8216C0-4D2D-4747-9233-48182FC17F1D} = {029AC908-7378-4197-BF45-AD557B022B27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5E099CB-02E8-4D4A-9FA9-0EC5FE407C48}

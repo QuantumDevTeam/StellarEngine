@@ -1,7 +1,8 @@
 using Spectre.Console;
 using Spectre.Console.Cli;
+using Stellar.Tools;
 
-namespace Stellar.Tools.Commands;
+namespace Stellar.CLI.Commands;
 
 public sealed class InfoCommand : Command
 {

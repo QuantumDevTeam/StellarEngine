@@ -1,7 +1,8 @@
 using Spectre.Console;
 using Spectre.Console.Cli;
+using Stellar.Tools;
 
-namespace Stellar.Tools.Commands.Version;
+namespace Stellar.CLI.Commands.Version;
 
 public sealed class OrchesterVersionCommand : Command
 {
