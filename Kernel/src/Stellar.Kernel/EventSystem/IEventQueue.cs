@@ -1,6 +1,6 @@
 namespace Stellar.Kernel.EventSystem
 {
-    public interface IEventPool<TEvent>
+    public interface IEventQueue<TEvent>
         where TEvent : IEvent, allows ref struct
     {
         int EventCount { get; }

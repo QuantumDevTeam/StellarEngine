@@ -4,7 +4,7 @@
 
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj"/>
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Kernel/src/Stellar.Kernel/Stellar.Kernel.csproj"/>
