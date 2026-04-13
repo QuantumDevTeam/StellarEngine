@@ -7,8 +7,16 @@ using System.Reflection;
 
 namespace Stellar.Tools
 {
+    /// <summary>
+    /// Provide base Stellar features
+    /// </summary>
     public static class StellarEnvironment
     {
+        /// <summary>
+        /// Get Dotnet feature band
+        /// </summary>
+        /// <returns>version of dotnet</returns>
+        /// <exception cref="InvalidOperationException">if an operation in tools has been invalid</exception>
         public static string GetDotnetFeatureBand()
         {
             var psi = new ProcessStartInfo("dotnet", "--version")
@@ -28,19 +36,32 @@ namespace Stellar.Tools
             }
         }
 
+        /// <summary>
+        /// Current WorkingDirectory
+        /// </summary>
         public static string WorkingDirectory => Environment.CurrentDirectory;
 
+        /// <summary>
+        /// Gets global StellarOrchesterVersion
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">if StellarOrchesterVersion not found in assembly info</exception>
         public static string StellarOrchesterVersion => Assembly.GetExecutingAssembly()
             .GetCustomAttributes<AssemblyMetadataAttribute>()
             .FirstOrDefault(a => a.Key == "StellarOrchesterVersion"
             )?.Value ?? throw new KeyNotFoundException("StellarOrchesterVersion not found in AssemblyInfo");
 
+        /// <summary>
+        /// Gets StellarOrchesterSharedDir
+        /// </summary>
         public static string StellarOrchesterSharedDir => Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
             ".stellar",
             StellarOrchesterVersion
         );
 
+        /// <summary>
+        /// Gets StellarOrchesterInstallationDir
+        /// </summary>
         public static string StellarOrchesterInstallationDir => File.ReadAllText(Path.Combine(
             StellarOrchesterSharedDir,
             "installation_location.txt"
@@ -83,30 +104,50 @@ namespace Stellar.Tools
             }
         }
         
+        /// <summary>
+        /// Give version of Kernel
+        /// </summary>
+        /// <returns>Kernel Version</returns>
         public static string GetStellarKernelVersion()
         {
             var filePath = Path.Combine(StellarOrchesterSharedDir, ".stellar.desc.json");
             return GetJsonProperty(filePath, "KernelVersion");
         }
         
+        /// <summary>
+        /// Give version of Tools
+        /// </summary>
+        /// <returns>Tools Version</returns>
         public static string GetStellarToolsVersion()
         {
             var filePath = Path.Combine(StellarOrchesterSharedDir, ".stellar.desc.json");
             return GetJsonProperty(filePath, "ToolsVersion");
         }
 
+        /// <summary>
+        /// Give version of SDK
+        /// </summary>
+        /// <returns>SDK Version</returns>
         public static string GetStellarSdkVersion()
         {
             var filePath = Path.Combine(StellarOrchesterSharedDir, ".stellar.desc.json");
             return GetJsonProperty(filePath, "SdkVersion");
         }
 
+        /// <summary>
+        /// Give version of CLI
+        /// </summary>
+        /// <returns>CLI Version</returns>
         public static string GetStellarCliVersion()
         {
             var filePath = Path.Combine(StellarOrchesterSharedDir, ".stellar.desc.json");
             return GetJsonProperty(filePath, "CliVersion");
         }
 
+        /// <summary>
+        /// Give version of Engine Runtime Modules
+        /// </summary>
+        /// <returns>Engine Runtime Modules Version</returns>
         public static string GetStellarEngineVersion()
         {
             var filePath = Path.Combine(StellarOrchesterSharedDir, ".stellar.desc.json");

@@ -41,7 +41,7 @@
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Stellar.Engine/Stellar.Engine.csproj"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'ExecutableModule' and '$(StellarPrecompiled)' == 'true'">
-        <PackageReference Include="Stellar.Engine" Version="$(StellarEngineVersion)"/>
+        <PackageReference Include="Stellar.Engine" Version="[$(StellarEngineVersion)]"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - Module -->
@@ -52,8 +52,8 @@
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Kernel/src/Stellar.Kernel/Stellar.Kernel.csproj" PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'Module' and '$(StellarPrecompiled)' == 'true'">
-        <PackageReference Include="Stellar.Engine" Version="$(StellarEngineVersion)"/>
-        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
+        <PackageReference Include="Stellar.Engine" Version="[$(StellarEngineVersion)]"/>
+        <PackageReference Include="Stellar.Kernel" Version="[$(StellarKernelVersion)]" PrivateAssets="all"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - Engine Modules Base propertyes -->
@@ -72,8 +72,8 @@
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Engine/src/Modules/Stellar.Core/Stellar.Core.csproj" PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineModule' and '$(StellarPrecompiled)' == 'true'">
-        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
-        <PackageReference Include="Stellar.Core" Version="$(StellarEngineVersion)" PrivateAssets="all"/>
+        <PackageReference Include="Stellar.Kernel" Version="[$(StellarKernelVersion)]" PrivateAssets="all"/>
+        <PackageReference Include="Stellar.Core" Version="[$(StellarEngineVersion)]" PrivateAssets="all"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - EngineCoreModule -->
@@ -83,7 +83,7 @@
         <ProjectReference Include="$(StellarOrchesterInstallationDir)/Kernel/src/Stellar.Kernel/Stellar.Kernel.csproj" PrivateAssets="all"/>
     </ItemGroup>
     <ItemGroup Condition="'$(StellarSdkUsage)' == 'EngineCoreModule' and '$(StellarPrecompiled)' == 'true'">
-        <PackageReference Include="Stellar.Kernel" Version="$(StellarKernelVersion)" PrivateAssets="all"/>
+        <PackageReference Include="Stellar.Kernel" Version="[$(StellarKernelVersion)]" PrivateAssets="all"/>
     </ItemGroup>
 
     <!-- Package information -->
