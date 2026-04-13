@@ -25,8 +25,24 @@
         <Using Include="Moq"/>
     </ItemGroup>
 
+    <!--
+        Register the Stellar.Sdk.Analyzers assembly as a Roslyn analyzer.
+        The analyzer runs inside the IDE and the compiler — NOT as an MSBuild task.
+    -->
     <ItemGroup Condition="'$(StellarSdkUsage)' != 'Tests'">
-        <Analyzer Include="$(StellarOrchesterInstallationDir)/SDK/src/Stellar.ProjectAnalyzer/bin/Debug/netstandard2.0/Stellar.ProjectAnalyzer.dll"/>
+        <Analyzer Include="$(StellarOrchesterInstallationDir)/SDK/src/Roslyn/Stellar.ProjectAnalyzer/bin/Release/netstandard2.0/Stellar.ProjectAnalyzer.dll"
+                  Condition="Exists('$(StellarOrchesterInstallationDir)/SDK/src/Roslyn/Stellar.ProjectAnalyzer/bin/Release/netstandard2.0/Stellar.ProjectAnalyzer.dll')"/>
+    </ItemGroup>
+
+    <!--
+        Expose the .stellar.project file as an AdditionalFile so the Roslyn analyzer
+        can read it at design-time without going through MSBuild properties.
+        Uses the same $(StellarProjectConfigurationFile) property that StellarConfigParser already consumes.
+    -->
+    <ItemGroup Condition="'$(StellarSdkUsage)' != 'Tests'
+                      and '$(StellarProjectConfigurationFile)' != ''
+                      and Exists('$(StellarProjectConfigurationFile)')">
+        <AdditionalFiles Include="$(StellarProjectConfigurationFile)"/>
     </ItemGroup>
 
     <!-- StellarSdkUsage - ExecutableModule -->
