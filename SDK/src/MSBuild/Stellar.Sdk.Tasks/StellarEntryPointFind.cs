@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ReSharper disable UnusedAutoPropertyAccessor.Global
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,9 +20,8 @@ namespace Stellar.Sdk.Tasks
 
         [Output] public ITaskItem StellarEntryPoint { get; set; }
 
-        public override bool Execute()
-        {
-            try
+        public override bool Execute() =>
+            Extensions.TryExecute(Log, "Failed to find Entry point {0}", () =>
             {
                 if (CompileItems == null || CompileItems.Length == 0)
                 {
@@ -68,13 +69,7 @@ namespace Stellar.Sdk.Tasks
                         ? "The project does not have an entry point. Make sure you have a class with [StellarEntryPoint] attribute implementing IStellarEntryPoint interface."
                         : "The project should have only one entry point.");
                 return false;
-            }
-            catch (Exception ex)
-            {
-                Log.LogErrorFromException(ex);
-                return false;
-            }
-        }
+            });
 
         private string GetFullClassName(ClassDeclarationSyntax classDecl)
         {

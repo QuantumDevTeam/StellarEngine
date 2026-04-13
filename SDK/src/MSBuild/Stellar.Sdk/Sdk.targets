@@ -108,14 +108,13 @@
 
         <StellarConfigGenerator
                 IntermediateOutputPath="$(IntermediateOutputPath)"
-                StellarSdkUsage="$(StellarSdkUsage)"
                 StellarRuntimeConfigType="$(StellarRuntimeConfigType)"
 
-                Version="$(Version)"
-                StellarSdkVersion="$(StellarSdkVersion)"
-                StellarEngineVersion="$(StellarEngineVersion)"
-
                 StellarProjectName="$(StellarProjectName)"
+                CompanyName="$(CompanyName)"
+                Version="$(Version)"
+                StellarOrchesterVersion="$(StellarOrchesterVersion)"
+                StellarEngineVersion="$(StellarEngineVersion)"
                 StellarEntryPoint="@(StellarEntryPoint)"
 
                 StellarAssets="@(StellarAssets)"
@@ -123,9 +122,7 @@
 
                 StellarDefaultCulture="@(StellarDefaultCulture)"
                 StellarSupportedCultures="@(StellarSupportedCultures)"
-
-                StellarLocalizationIndexType="$(StellarLocalizationIndexType)"
-                StellarCultureIndexFilesList="@(StellarCultureIndexFilesList)">
+                StellarLocalizationIndexFiles="@(StellarLocalizationIndexFiles)">
             <Output TaskParameter="StellarRuntimeConfigFile" ItemName="StellarRuntimeConfigFile"/>
         </StellarConfigGenerator>
 
