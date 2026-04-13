@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -140,6 +141,9 @@ namespace Stellar.Sdk.Tasks
         public override bool Execute() =>
             Extensions.TryExecute(Log, "Error parsing Stellar configuration: {0}", () =>
             {
+                Debug.Assert(ProjectFile != null,
+                    "ProjectDirectory must be present");
+                
                 if (!File.Exists(ProjectFile))
                 {
                     Log.LogError($"Project file not found: {ProjectFile}");

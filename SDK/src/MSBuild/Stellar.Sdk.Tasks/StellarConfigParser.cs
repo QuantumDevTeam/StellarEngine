@@ -9,55 +9,32 @@ using GlobExpressions;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using Stellar.Tools.Configuration;
+using Stellar.Tools.Configuration.Project;
 
 namespace Stellar.Sdk.Tasks
 {
-    public class AssetConfig
-    {
-        public string[] Include { get; set; } = Array.Empty<string>();
-        public string[] Exclude { get; set; } = Array.Empty<string>();
-        public string[] Embedded { get; set; } = Array.Empty<string>();
-    }
-
-    public class LocalizationConfig
-    {
-        public string DefaultCulture { get; set; } = "en";
-        public string[] Cultures { get; set; } = Array.Empty<string>();
-        public string[] IndexFiles { get; set; } = Array.Empty<string>();
-    }
-
-    public class ProjectConfigObject
-    {
-        public AssetConfig Assets { get; set; }
-        public LocalizationConfig Localizations { get; set; }
-    }
-
-    public class StellarConfigFile
-    {
-        // представление .stellar.project[Project] поля
-        public ProjectConfigObject ProjectConfig { get; set; }
-
-        // представление .stellar.project[Runtime] поля
-        public Dictionary<string, JsonObjectContract> RuntimeConfig { get; set; }
-    }
-
     public class StellarConfigParser : Task
     {
-        // Входные параметры
+        // inputs
         [Required] public string ProjectDirectory { get; set; }
         [Required] public string StellarProjectName { get; set; }
         [Required] public string StellarProjectConfigurationFile { get; set; }
         [Required] public string StellarLocalizationIndexType { get; set; }
 
-        // Выходные параметры
+        // Engine components
+        [Output] public ITaskItem StellarEntryPoint { get; set; }
+
+        // assets component
         [Output] public ITaskItem[] Assets { get; set; }
         [Output] public ITaskItem[] EmbeddedAssets { get; set; }
 
+        // localization component
         [Output] public ITaskItem DefaultCulture { get; set; }
         [Output] public ITaskItem[] SupportedCultures { get; set; }
         [Output] public ITaskItem[] LocalizationIndexFiles { get; set; }
 
+        // Runtime components
         [Output] public ITaskItem[] RuntimeConfig { get; set; } // TODO: export runtime part of project file
 
         private string GetRelativePath(string fullPath, string basePath)
@@ -153,9 +130,17 @@ namespace Stellar.Sdk.Tasks
             return item;
         }
 
-        private bool ProcessAssets(ProjectConfigObject config) =>
+        private bool ProcessAssets(ProjectConfigurationObject config) =>
             Extensions.TryExecute(Log, "Error processing Stellar assets: {0}", () =>
             {
+                if (config.Assets?.Include == null ||
+                    config.Assets?.Embedded == null ||
+                    config.Assets?.Exclude == null)
+                {
+                    Log.LogMessage(MessageImportance.High, $"{StellarProjectName} project assets section skipped");
+                    return true;
+                }
+
                 // генерация встроенные ассетов
 
                 List<string> embeddedAssetFiles = GetFilesByPatterns(config.Assets.Embedded, config.Assets.Exclude);
@@ -184,9 +169,18 @@ namespace Stellar.Sdk.Tasks
                 return true;
             });
 
-        private bool ProcessLocalizations(ProjectConfigObject config) =>
+        private bool ProcessLocalizations(ProjectConfigurationObject config) =>
             Extensions.TryExecute(Log, "Error processing Stellar localizations: {0}", () =>
             {
+                if (config.Localizations?.DefaultCulture == null ||
+                    config.Localizations?.Cultures == null ||
+                    config.Localizations?.IndexFiles == null)
+                {
+                    Log.LogMessage(MessageImportance.High,
+                        $"{StellarProjectName} project localization section skipped");
+                    return true;
+                }
+
                 if (!config.Localizations.Cultures.Contains(config.Localizations.DefaultCulture))
                 {
                     Log.LogError(
@@ -215,11 +209,14 @@ namespace Stellar.Sdk.Tasks
         public override bool Execute() =>
             Extensions.TryExecute(Log, "Error Parsing Stellar project file: {0}", () =>
             {
-                Debug.Assert(ProjectDirectory != null, "ProjectDirectory must be present");
-                Debug.Assert(StellarProjectName != null, "StellarProjectName must be present");
+                Debug.Assert(ProjectDirectory != null,
+                    "ProjectDirectory must be present");
+                Debug.Assert(StellarProjectName != null,
+                    "StellarProjectName must be present");
                 Debug.Assert(StellarProjectConfigurationFile != null,
                     "StellarProjectConfigurationFile must be present");
-                Debug.Assert(StellarLocalizationIndexType != null, "StellarLocalizationIndexType must be present");
+                Debug.Assert(StellarLocalizationIndexType != null,
+                    "StellarLocalizationIndexType must be present");
 
                 var configFilePath = Path.Combine(ProjectDirectory, StellarProjectConfigurationFile);
 
@@ -234,7 +231,10 @@ namespace Stellar.Sdk.Tasks
                 }
 
                 var configJson = File.ReadAllText(configFilePath);
-                var config = JsonConvert.DeserializeObject<StellarConfigFile>(configJson).ProjectConfig;
+                var config = JsonConvert.DeserializeObject<StellarConfigurationFile>(configJson).ProjectConfig;
+
+                if (config == null) return true;
+                StellarEntryPoint = new TaskItem(config.StellarEntryPoint);
 
                 if (!ProcessAssets(config)) return false;
                 if (!ProcessLocalizations(config)) return false;

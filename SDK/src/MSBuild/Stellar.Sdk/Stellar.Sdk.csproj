@@ -37,6 +37,10 @@
     <ItemGroup>
         <!-- copying -->
         <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Stellar.Sdk.Tasks.dll"
-              Pack="true" PackagePath="build/Stellar.Sdk.Tasks.dll"/>
+              Pack="true" PackagePath="Sdk/Stellar.Sdk.Tasks.dll"/>
+        <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Stellar.Kernel.dll"
+              Pack="true" PackagePath="Sdk/Stellar.Kernel.dll"/>
+        <None Include="..\Stellar.Sdk.Tasks\bin\Release\netstandard2.0\Stellar.Tools.dll"
+              Pack="true" PackagePath="Sdk/Stellar.Tools.dll"/>
     </ItemGroup>
 </Project>

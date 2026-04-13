@@ -17,45 +17,10 @@
                  Importance="high"
                  Text="=== STELLAR SDK: $(StellarProjectName) is valid StellarProject ==="/>
     </Target>
-
-    <!-- Parsing configurations -->
-    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigParser"
-               AssemblyFile="../build/Stellar.Sdk.Tasks.dll"/>
-    <Target Name="StellarParseConfigurations"
-            BeforeTargets="Build;AssignTargetPaths;PrepareForBuild"
-            DependsOnTargets="StellarValidating"
-            Condition="'$(StellarSdkUsage)' != 'Tests'">
-        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Configuration parsing ==="/>
-
-        <StellarConfigParser
-                ProjectDirectory="$(MSBuildProjectDirectory)"
-                StellarProjectName="$(StellarProjectName)"
-                StellarProjectConfigurationFile="$(StellarProjectConfigurationFile)"
-                StellarLocalizationIndexType="$(StellarLocalizationIndexType)">
-            <Output TaskParameter="Assets" ItemName="StellarAssets"/>
-            <Output TaskParameter="EmbeddedAssets" ItemName="StellarEmbeddedAssets"/>
-
-            <Output TaskParameter="DefaultCulture" ItemName="StellarDefaultCulture"/>
-            <Output TaskParameter="SupportedCultures" ItemName="StellarSupportedCultures"/>
-            <Output TaskParameter="LocalizationIndexFiles" ItemName="StellarLocalizationIndexFiles"/>
-        </StellarConfigParser>
-
-        <ItemGroup>
-            <!-- Assets -->
-            <Content Include="@(StellarAssets)"/>
-            <EmbeddedResource Include="@(StellarEmbeddedAssets)"/>
-
-            <!-- Localization -->
-            <Content Include="@(StellarLocalizationIndexFiles)"
-                     Condition="'$(StellarLocalizationIndexType)' == 'External'"/>
-            <EmbeddedResource Include="@(StellarLocalizationIndexFiles)"
-                              Condition="'$(StellarLocalizationIndexType)' == 'Embedded'"/>
-        </ItemGroup>
-    </Target>
-
+    
     <!-- Parsing .csproj file -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarParseCSProjectFile"
-               AssemblyFile="../build/Stellar.Sdk.Tasks.dll"/>
+               AssemblyFile="Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarParseCsProject"
             BeforeTargets="Build;CollectPackageReferences;ResolveProjectReferencesDesignTime2"
             DependsOnTargets="StellarValidating">
@@ -81,26 +46,48 @@
         </ItemGroup>
     </Target>
 
-    <!-- ========== BUILD-TIME ONLY ========== -->
-
-    <!-- Entry Point -->
-    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarEntryPointFind"
-               AssemblyFile="../build/Stellar.Sdk.Tasks.dll"/>
-    <Target Name="StellarFindEntryPoint"
-            BeforeTargets="CoreCompile"
+    <!-- Parsing configurations -->
+    <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigParser"
+               AssemblyFile="Stellar.Sdk.Tasks.dll"/>
+    <Target Name="StellarParseConfigurations"
+            BeforeTargets="Build;AssignTargetPaths;PrepareForBuild"
+            DependsOnTargets="StellarValidating"
             Condition="'$(StellarSdkUsage)' != 'Tests'">
-        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Searching entry point ==="/>
+        <Message IsCritical="true" Importance="high" Text="=== STELLAR SDK: Configuration parsing ==="/>
 
-        <StellarEntryPointFind
-                CompileItems="@(Compile)"
-                ProjectDirectory="$(MSBuildProjectDirectory)">
+        <StellarConfigParser
+                ProjectDirectory="$(MSBuildProjectDirectory)"
+                StellarProjectName="$(StellarProjectName)"
+                StellarProjectConfigurationFile="$(StellarProjectConfigurationFile)"
+                StellarLocalizationIndexType="$(StellarLocalizationIndexType)">
             <Output TaskParameter="StellarEntryPoint" ItemName="StellarEntryPoint"/>
-        </StellarEntryPointFind>
+
+            <Output TaskParameter="Assets" ItemName="StellarAssets"/>
+            <Output TaskParameter="EmbeddedAssets" ItemName="StellarEmbeddedAssets"/>
+
+            <Output TaskParameter="DefaultCulture" ItemName="StellarDefaultCulture"/>
+            <Output TaskParameter="SupportedCultures" ItemName="StellarSupportedCultures"/>
+            <Output TaskParameter="LocalizationIndexFiles" ItemName="StellarLocalizationIndexFiles"/>
+        </StellarConfigParser>
+
+        <ItemGroup>
+            <!-- Assets -->
+            <Content Include="@(StellarAssets)"/>
+            <EmbeddedResource Include="@(StellarEmbeddedAssets)"/>
+
+            <!-- Localization -->
+            <Content Include="@(StellarLocalizationIndexFiles)"
+                     Condition="'$(StellarLocalizationIndexType)' == 'External'"/>
+            <EmbeddedResource Include="@(StellarLocalizationIndexFiles)"
+                              Condition="'$(StellarLocalizationIndexType)' == 'Embedded'"/>
+        </ItemGroup>
     </Target>
+
+    <!-- ========== BUILD-TIME ONLY ========== -->
 
     <!-- Generating Runtime Configuration -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarConfigGenerator"
-               AssemblyFile="../build/Stellar.Sdk.Tasks.dll"/>
+               AssemblyFile="Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarGenerateRuntimeConfig"
             BeforeTargets="Build"
             DependsOnTargets="StellarParseConfigurations;StellarFindEntryPoint">
@@ -159,7 +146,7 @@ using System.Reflection%3B
 
     <!-- Generation executable -->
     <UsingTask TaskName="Stellar.Sdk.Tasks.StellarExecutableGenerator"
-               AssemblyFile="../build/Stellar.Sdk.Tasks.dll"/>
+               AssemblyFile="Stellar.Sdk.Tasks.dll"/>
     <Target Name="StellarGenerateExecutable"
             AfterTargets="Build"
             DependsOnTargets="StellarFindEntryPoint"

@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <Import Project="..\..\..\..\Data\version.props"/>
-    
+
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        
+
         <Authors>QuantumDev</Authors>
         <Version>$(StellarSdkVersion)</Version>
         <AssemblyVersion>$(StellarSdkVersion)</AssemblyVersion>
@@ -15,8 +15,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- Kernel package -->
-        <PackageReference Include="Stellar.Kernel" Version="[$(StellarKernelVersion)]" PrivateAssets="all"/>
+        <PackageReference Include="Stellar.Kernel" Version="[$(StellarKernelVersion)]"
+                          PrivateAssets="all"/>
+        <PackageReference Include="Stellar.Tools" Version="[$(StellarToolsVersion)]"
+                          PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
