@@ -1,5 +1,6 @@
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 using System;
-using Newtonsoft.Json;
 
 namespace Stellar.ProjectAnalyzer.Configuration;
 
@@ -27,6 +28,88 @@ internal readonly struct ConfigReadResult
     public static ConfigReadResult Failure(string errorMessage) => new(errorMessage);
 }
 
+internal static class MinimalJson
+{
+    public static string? GetNestedString(string json, string parentKey, string childKey)
+    {
+        int parentIndex = json.IndexOf($"\"{parentKey}\"", StringComparison.Ordinal);
+        if (parentIndex < 0) return null;
+
+        int colonIndex = json.IndexOf(':', parentIndex);
+        if (colonIndex < 0) return null;
+
+        int objStart = json.IndexOf('{', colonIndex);
+        if (objStart < 0) return null;
+
+        int objEnd = FindMatchingBrace(json, objStart);
+        if (objEnd < 0) return null;
+
+        // теперь работаем только внутри Project { ... }
+        var span = json.Substring(objStart, objEnd - objStart + 1);
+
+        return GetString(span, childKey);
+    }
+
+    public static string? GetString(string json, string key)
+    {
+        int keyIndex = json.IndexOf($"\"{key}\"", StringComparison.Ordinal);
+        if (keyIndex < 0) return null;
+
+        int colonIndex = json.IndexOf(':', keyIndex);
+        if (colonIndex < 0) return null;
+
+        int startQuote = json.IndexOf('"', colonIndex + 1);
+        if (startQuote < 0) return null;
+
+        int endQuote = FindStringEnd(json, startQuote + 1);
+        if (endQuote < 0) return null;
+
+        return json.Substring(startQuote + 1, endQuote - startQuote - 1);
+    }
+
+    private static int FindMatchingBrace(string json, int start)
+    {
+        int depth = 0;
+
+        for (int i = start; i < json.Length; i++)
+        {
+            char c = json[i];
+
+            if (c == '{') depth++;
+            else if (c == '}')
+            {
+                depth--;
+                if (depth == 0)
+                    return i;
+            }
+            else if (c == '"')
+            {
+                i = FindStringEnd(json, i + 1);
+                if (i < 0) return -1;
+            }
+        }
+
+        return -1;
+    }
+
+    private static int FindStringEnd(string json, int start)
+    {
+        for (int i = start; i < json.Length; i++)
+        {
+            if (json[i] == '\\') // skip escaped char
+            {
+                i++;
+                continue;
+            }
+
+            if (json[i] == '"')
+                return i;
+        }
+
+        return -1;
+    }
+}
+
 internal static class StellarProjectConfigReader
 {
     public static ConfigReadResult TryRead(string json)
@@ -36,19 +119,26 @@ internal static class StellarProjectConfigReader
 
         try
         {
-            var file = JsonConvert.DeserializeObject<StellarAnalyzerConfigFile>(json);
+            var entryPoint = MinimalJson.GetNestedString(
+                json,
+                "Project",
+                "StellarEntryPoint");
 
-            return file is not null
-                ? ConfigReadResult.Success(file)
-                : ConfigReadResult.Failure("Deserialization returned null.");
-        }
-        catch (JsonException ex)
-        {
-            return ConfigReadResult.Failure($"JSON parse error: {ex.Message}");
+            var config = new StellarAnalyzerConfigFile
+            {
+                Project = entryPoint is not null
+                    ? new StellarAnalyzerProjectConfig
+                    {
+                        StellarEntryPoint = entryPoint
+                    }
+                    : null
+            };
+
+            return ConfigReadResult.Success(config);
         }
         catch (Exception ex)
         {
-            return ConfigReadResult.Failure($"Unexpected error: {ex.Message}");
+            return ConfigReadResult.Failure($"Parse error: {ex.Message}");
         }
     }
 }
