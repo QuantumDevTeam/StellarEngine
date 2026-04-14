@@ -1,5 +1,7 @@
 # StellarEngine — Versioning Policy
 
+- [README.md](./../README.md)
+
 ## 1. General Concept
 
 StellarEngine uses **intentional and minimalistic versioning**.
@@ -110,4 +112,5 @@ After `v1.0.0`:
 
 Also see:
 - [GitPolicy.md](GitPolicy.md)
-- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [CONTRIBUTING.md](./../CONTRIBUTING.md)
+- [README.md](./../README.md)

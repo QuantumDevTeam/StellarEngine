@@ -1,5 +1,7 @@
 # Contributing to StellarEngine
 
+- [README.md](README.md)
+
 Thank you for your interest in contributing to **StellarEngine**.
 
 StellarEngine is a long-term engine project developed with a strong focus on architectural research, modularity, and sustainability. Contributions are welcome, but contributors are expected to understand and respect the core design principles described below.

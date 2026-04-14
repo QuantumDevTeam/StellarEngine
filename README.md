@@ -1,5 +1,7 @@
 # StellarEngine
 
+![Logo](Data/Logo.ico)
+
 StellarEngine is a hypermodular game engine designed with a bottom-up architectural philosophy.
 
 The engine treats modules as first-class system components rather than rigidly separated layers (runtime, editor,
@@ -61,8 +63,15 @@ Detailed architectural structure will evolve as the engine matures.
 
 ## Documentation
 
-- [Architecture](Docs/Architecture.md)
+- [Architecture Overview](Docs/Architecture/Overview.md)
+- [Architecture Core](Docs/Architecture/Overview.md)
+- [Pipeline Overview](Docs/Architecture/Overview.md)
+
+
+- [Architecture Philosophy](Docs/Architecture.md)
 - [Design Philosophy](Docs/DesignPhilosophy.md)
+
+
 - [Contributing Guide](CONTRIBUTING.md)
 - [Git & Workflow Policy](Docs/GitPolicy.md)
 - [Versioning Strategy](Docs/Versioning.md)

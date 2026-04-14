@@ -4,6 +4,8 @@
 > It is intended to explain *how the system is structured* and *why it is structured this way*,
 > without going into low-level implementation details.
 
+- [README.md](./../README.md)
+
 ---
 
 ## 1. What StellarEngine Is
