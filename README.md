@@ -65,7 +65,7 @@ Detailed architectural structure will evolve as the engine matures.
 
 - [Architecture Overview](Docs/Architecture/Overview.md)
 - [Architecture Core](Docs/Architecture/Overview.md)
-- [Pipeline Overview](Docs/Architecture/Overview.md)
+- [Pipeline Overview](Docs/Architecture/Pipeline.md)
 
 
 - [Architecture Philosophy](Docs/Architecture.md)
