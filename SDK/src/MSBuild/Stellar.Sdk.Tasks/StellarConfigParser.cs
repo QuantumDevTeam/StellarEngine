@@ -23,14 +23,14 @@ namespace Stellar.Sdk.Tasks
         [Required] public string StellarLocalizationIndexType { get; set; }
 
         // Engine components
-        [Output] public ITaskItem StellarEntryPoint { get; set; }
+        [Output] public string StellarEntryPoint { get; set; }
 
         // assets component
         [Output] public ITaskItem[] Assets { get; set; }
         [Output] public ITaskItem[] EmbeddedAssets { get; set; }
 
         // localization component
-        [Output] public ITaskItem DefaultCulture { get; set; }
+        [Output] public string DefaultCulture { get; set; }
         [Output] public ITaskItem[] SupportedCultures { get; set; }
         [Output] public ITaskItem[] LocalizationIndexFiles { get; set; }
 
@@ -137,14 +137,15 @@ namespace Stellar.Sdk.Tasks
                     config.Assets?.Embedded == null ||
                     config.Assets?.Exclude == null)
                 {
-                    Log.LogMessage(MessageImportance.High, $"{StellarProjectName} project assets section skipped");
+                    Log.LogMessage(MessageImportance.High, $"{StellarProjectName} assets section skipped");
                     return true;
                 }
 
                 // генерация встроенные ассетов
 
                 List<string> embeddedAssetFiles = GetFilesByPatterns(config.Assets.Embedded, config.Assets.Exclude);
-                Log.LogMessage(MessageImportance.High, $" Found {embeddedAssetFiles.Count} embedded assets");
+                Log.LogMessage(MessageImportance.High,
+                    $"{StellarProjectName}: found {embeddedAssetFiles.Count} embedded assets");
 
                 EmbeddedAssets = embeddedAssetFiles
                     .Select(file => CreateAssetItem(file, isEmbedded: true))
@@ -160,7 +161,8 @@ namespace Stellar.Sdk.Tasks
                     .ToArray();
 
                 var externalAssetFiles = GetFilesByPatterns(config.Assets.Include, allExcludePatterns);
-                Log.LogMessage(MessageImportance.High, $" Found {externalAssetFiles.Count} external assets");
+                Log.LogMessage(MessageImportance.High,
+                    $"{StellarProjectName}: found {externalAssetFiles.Count} external assets");
 
                 Assets = externalAssetFiles
                     .Select(file => CreateAssetItem(file, isEmbedded: false))
@@ -177,7 +179,7 @@ namespace Stellar.Sdk.Tasks
                     config.Localizations?.IndexFiles == null)
                 {
                     Log.LogMessage(MessageImportance.High,
-                        $"{StellarProjectName} project localization section skipped");
+                        $"{StellarProjectName} localization section skipped");
                     return true;
                 }
 
@@ -191,9 +193,10 @@ namespace Stellar.Sdk.Tasks
                 }
 
                 var localizationFiles = GetFilesByPatterns(config.Localizations.IndexFiles, Array.Empty<string>());
-                Log.LogMessage(MessageImportance.High, $" Found {localizationFiles.Count} localization index files");
+                Log.LogMessage(MessageImportance.High,
+                    $"{StellarProjectName}: found {localizationFiles.Count} localization index files");
 
-                DefaultCulture = new TaskItem(config.Localizations.DefaultCulture);
+                DefaultCulture = config.Localizations.DefaultCulture;
 
                 SupportedCultures = config.Localizations.Cultures
                     .Select(c => new TaskItem(c))
@@ -209,15 +212,6 @@ namespace Stellar.Sdk.Tasks
         public override bool Execute() =>
             Extensions.TryExecute(Log, "Error Parsing Stellar project file: {0}", () =>
             {
-                Debug.Assert(ProjectDirectory != null,
-                    "ProjectDirectory must be present");
-                Debug.Assert(StellarProjectName != null,
-                    "StellarProjectName must be present");
-                Debug.Assert(StellarProjectConfigurationFile != null,
-                    "StellarProjectConfigurationFile must be present");
-                Debug.Assert(StellarLocalizationIndexType != null,
-                    "StellarLocalizationIndexType must be present");
-
                 var configFilePath = Path.Combine(ProjectDirectory, StellarProjectConfigurationFile);
 
                 Log.LogMessage(MessageImportance.High,
@@ -231,10 +225,12 @@ namespace Stellar.Sdk.Tasks
                 }
 
                 var configJson = File.ReadAllText(configFilePath);
-                var config = JsonConvert.DeserializeObject<StellarConfigurationFile>(configJson).ProjectConfig;
+                var config = JsonConvert.DeserializeObject<StellarConfigurationFile>(configJson).Project;
 
                 if (config == null) return true;
-                StellarEntryPoint = new TaskItem(config.StellarEntryPoint);
+
+                StellarEntryPoint = config.StellarEntryPoint;
+                Log.LogMessage(MessageImportance.High, $"EntryPoint: {config.StellarEntryPoint}");
 
                 if (!ProcessAssets(config)) return false;
                 if (!ProcessLocalizations(config)) return false;

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.Build.Framework;
@@ -28,18 +29,18 @@ namespace Stellar.Sdk.Tasks
         [Required] public string Version { get; set; }
         [Required] public string StellarOrchesterVersion { get; set; }
         [Required] public string StellarEngineVersion { get; set; }
-        [Required] public ITaskItem StellarEntryPoint { get; set; }
+        [Required] public string StellarEntryPoint { get; set; }
 
         // engine components
 
         // asset component
-        [Required] public ITaskItem[] Assets { get; set; }
-        [Required] public ITaskItem[] EmbeddedAssets { get; set; }
+        public ITaskItem[] Assets { get; set; }
+        public ITaskItem[] EmbeddedAssets { get; set; }
 
         // localization component
-        [Required] public ITaskItem DefaultCulture { get; set; }
-        [Required] public ITaskItem[] SupportedCultures { get; set; }
-        [Required] public ITaskItem[] LocalizationIndexFiles { get; set; }
+        public string DefaultCulture { get; set; }
+        public ITaskItem[] SupportedCultures { get; set; }
+        public ITaskItem[] LocalizationIndexFiles { get; set; }
 
         // output
 
@@ -54,8 +55,7 @@ namespace Stellar.Sdk.Tasks
                 Version = Version ?? "1.0.0",
                 StellarOrchesterVersion = StellarOrchesterVersion ?? "0.0.0",
                 StellarEngineVersion = StellarEngineVersion ?? "0.0.0",
-                EntryPoint = StellarEntryPoint?.ItemSpec
-                             ?? throw new Exception("Stellar Entry point is not present in generation"),
+                EntryPoint = StellarEntryPoint ?? "default",
                 BuildDate = DateTime.UtcNow.ToString("O")
             };
 
@@ -81,7 +81,7 @@ namespace Stellar.Sdk.Tasks
             });
             components.AddLast(new LocalizationComponent
             {
-                DefaultCulture = DefaultCulture?.ItemSpec,
+                DefaultCulture = DefaultCulture ?? "en",
 
                 SupportedCultures = SupportedCultures?
                     .Select(item => item.ItemSpec)
@@ -96,7 +96,7 @@ namespace Stellar.Sdk.Tasks
                     })
                     .ToArray() ?? Array.Empty<LocalizationIndexData>()
             });
-            
+
             // TODO: Add project runtime components
 
             config.Components = components.ToArray();

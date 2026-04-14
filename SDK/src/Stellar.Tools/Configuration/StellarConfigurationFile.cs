@@ -10,7 +10,7 @@ namespace Stellar.Tools.Configuration
         /// <summary>
         /// Represent .stellar.project[Project] field
         /// </summary>
-        public ProjectConfigurationObject ProjectConfig { get; set; }
+        public ProjectConfigurationObject Project { get; set; }
 
         // /// <summary>
         // /// Represent .stellar.project[Runtime] field
