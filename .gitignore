@@ -19,8 +19,10 @@
 *.xar
 
 ### CSQC Project
+# Upcoming files
+Data/UPCOMING/
 # roject installers path
-installers
+installers/
 # test files
 *_test_*.*
 dotnet-tools.json

@@ -1,14 +1,23 @@
-namespace Stellar.Kernel.EventSystem
+using Stellar.Kernel.Quantization;
+
+namespace Stellar.Kernel.EventSystem;
+
+public interface IEventQueueBase
+    : IQuantumObject
 {
-    public interface IEventQueue<TEvent>
-        where TEvent : IEvent, allows ref struct
-    {
-        int EventCount { get; }
-        bool IsEmpty { get; }
+    int EventCount { get; }
+    bool IsEmpty { get; }
 
-        void Enqueue(TEvent @event);
-        bool TryDequeue(out TEvent @event);
+    void SwapBuffers();
+    void DispatchTo(IEventHandler[] handlers);
 
-        void Clear();
-    }
+    void Clear();
+}
+
+public interface IEventQueue<TEvent>
+    : IRegistrableQuant, IEventQueueBase
+    where TEvent : struct, IEvent
+{
+    void Enqueue(TEvent @event);
+    bool TryDequeue(out TEvent @event);
 }

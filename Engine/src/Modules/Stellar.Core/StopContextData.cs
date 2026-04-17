@@ -1,28 +1,28 @@
 using System.Runtime.CompilerServices;
 using Stellar.Kernel.Data.Context;
-using Stellar.Kernel.Failures;
+using Stellar.Kernel.EntryPoint;
 using Stellar.Kernel.Quantization;
 
-namespace Stellar.Core.Failures;
+namespace Stellar.Core;
 
 /// <inheritdoc/>
 /// <param name="sender">A sender which create this context</param>
 /// <param name="data">A data for context, implements <see cref="IContextData"/></param>
-/// <param name="failure">A gotten failure</param>
-public readonly ref struct FailureContext(
+/// <param name="reason">A reason for module stoping</param>
+public readonly ref struct StopContext(
     IQuantumObject? sender,
-    IFailure failure,
-    IContextData? data = null)
-    : IFailureContext
+    StopReason reason,
+    IContextData? data = null
+) : IStopContext
 {
     /// <inheritdoc/>
     public IQuantumObject? Sender => sender;
-    
+
     /// <inheritdoc/>
     public IContextData? Data => data;
 
     /// <inheritdoc/>
-    public IFailure Failure => failure;
+    public StopReason Reason => reason;
 
     /// <summary>
     /// Represent typed data

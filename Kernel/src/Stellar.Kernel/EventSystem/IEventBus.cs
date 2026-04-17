@@ -1,62 +1,48 @@
+#nullable enable
+
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.EventSystem
 {
     public interface IEventBus
+        : IRegistrableQuant
     {
-#if NETSTANDARD2_0
-        /// <summary>
-        /// подписка на определённый тип
-        /// </summary>
-        /// <param name="handler">обработчик который подписывается</param>
-        /// <param name="eventType">тип события на который он подписывается, null если подписка на все типы</param>
-        /// <param name="handlerPriority">приоритет обработчика, <0 - движковые, >0 игровые обработчики</param>
-        void Subscribe(IEventHandler handler, IEventType eventType = null, int handlerPriority = 0);
-        /// <summary>
-        /// отписка от типа события
-        /// </summary>
-        /// <param name="handler">обработчик который отписывается</param>
-        /// <param name="eventType">тип события для отписки</param>
-        void Unsubscribe(IEventHandler handler, IEventType eventType = null);
-#else
-#nullable enable
         void Subscribe(IEventHandler handler, IEventType? eventType = null, int handlerPriority = 0);
         void Unsubscribe(IEventHandler handler, IEventType? eventType = null);
-#endif
 
-        // всё то-же самое но только для енумератов
+        void Subscribe(IEventHandler handler, ReadOnlySpan<IEventType> eventTypes, int handlerPriority = 0);
+        void Unsubscribe(IEventHandler handler, ReadOnlySpan<IEventType> eventTypes);
 
-        void Subscribe(IEventHandler handler, IEnumerable<IEventType> eventTypes, int handlerPriority = 0);
-        void Unsubscribe(IEventHandler handler, IEnumerable<IEventType> eventTypes);
+        void Emit<TContext, TEvent>(ref readonly TContext context)
+            where TEvent : struct, IEvent
+            where TContext : IEventContext<TEvent>, allows ref struct;
 
-        /// <summary>
-        /// немедленно испускает событие, важно в некоторых случаях
-        /// </summary>
-        /// <param name="event">событие которое бросается в обработчики</param>
-        void Emit<TEvent>(TEvent @event)
-            where TEvent : IEvent, allows ref struct;
-
-        Task EmitAsync<TEvent>(TEvent @event, CancellationToken cancellationToken = default)
-            where TEvent : IEvent, allows ref struct;
+        Task EmitAsync<TContext, TEvent>(ref readonly TContext context)
+            where TEvent : struct, IEvent
+            where TContext : IEventContext<TEvent>, allows ref struct;
 
         // то же самое но для енумератов
-        void Emit<TEvent>(IEnumerable<TEvent> events)
-            where TEvent : IEvent, allows ref struct;
+        void Emit<TContext, TEvent>(ref TContext context, ReadOnlySpan<TEvent> events)
+            where TEvent : struct, IEvent
+            where TContext : IEventContext<TEvent>, allows ref struct;
 
-        Task EmitAsync<TEvent>(IEnumerable<TEvent> events, CancellationToken cancellationToken = default)
-            where TEvent : IEvent, allows ref struct;
+        Task EmitAsync<TContext, TEvent>(ref TContext context, ReadOnlySpan<TEvent> events)
+            where TEvent : struct, IEvent
+            where TContext : IEventContext<TEvent>, allows ref struct;
 
         /// <summary>
         /// добавляет событие в пулл
         /// </summary>
         /// <param name="event"></param>
         void Enqueue<TEvent>(TEvent @event)
-            where TEvent : IEvent, allows ref struct;
+            where TEvent : struct, IEvent;
 
         void Enqueue<TEvent>(IEnumerable<TEvent> events)
-            where TEvent : IEvent, allows ref struct;
+            where TEvent : struct, IEvent;
 
         /// <summary>
         /// Обработка всего пула в момент когда геймлупа подойдёт к этому этапу

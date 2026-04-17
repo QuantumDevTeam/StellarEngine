@@ -1,10 +1,6 @@
-using Stellar.Kernel.Data.Context;
-using Stellar.Kernel.EntryPoint;
 using Stellar.Kernel.Failures;
 using Stellar.Kernel.Failures.Handlers;
 using Stellar.Core.Quantization;
-using Stellar.Core.Data.Context;
-using Stellar.Core.Data.Context.Defaults;
 using Stellar.Kernel.LoggingSystem;
 
 namespace Stellar.Core.Failures.Handlers;
@@ -22,7 +18,7 @@ public class FailureHandler()
         if (failure.Level.IsLoggable)
             Logger?.Log(LogLevel.Exception, failure.Message);
         if (failure.Level.IsStopExecute)
-            throw new NotImplementedException("implement S.R.I");
+            throw new NotImplementedException("implement S.R.M");
 
         // Stellar.Runtime.Entry.App.RequestStop(
         //     new Context<StopContextData>(

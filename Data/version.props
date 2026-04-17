@@ -1,11 +1,11 @@
 <Project>
     <PropertyGroup>
-        <StellarOrchesterVersion>0.5.0</StellarOrchesterVersion>
+        <StellarOrchesterVersion>0.6.0</StellarOrchesterVersion>
         <!-- Components -->
-        <StellarKernelVersion>0.5.0</StellarKernelVersion>
+        <StellarKernelVersion>0.6.0</StellarKernelVersion>
         <StellarToolsVersion>0.1.0</StellarToolsVersion>
         <StellarSdkVersion>0.2.0</StellarSdkVersion>
         <StellarCliVersion>0.1.0</StellarCliVersion>
-        <StellarEngineVersion>0.5.0</StellarEngineVersion>
+        <StellarEngineVersion>0.6.0</StellarEngineVersion>
     </PropertyGroup>
 </Project>

@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.Data.Context
@@ -37,14 +38,7 @@ namespace Stellar.Kernel.Data.Context
         /// Operation‑specific context data.
         /// </summary>
         /// <value>An <see cref="IContextData"/> instance or <c>null</c>.</value>
-        IContextData RawData { get; }
-        
-        /// <summary>
-        /// Gets the context data cast to the specified type.
-        /// </summary>
-        /// <typeparam name="T">The expected data type (must be a structure implementing <see cref="IContextData"/>).</typeparam>
-        /// <returns>The typed data, or <c>null</c> if the data is not of type <typeparamref name="T"/>.</returns>
-        T GetData<T>() where T : struct, IContextData;
+        IContextData Data { get; }
 #else
 #nullable enable
         /// <summary>
@@ -52,19 +46,12 @@ namespace Stellar.Kernel.Data.Context
         /// </summary>
         /// <value>The sender, or <c>null</c> if no explicit sender exists.</value>
         IQuantumObject? Sender { get; }
-        
+
         /// <summary>
         /// Operation‑specific context data.
         /// </summary>
         /// <value>An <see cref="IContextData"/> instance or <c>null</c>.</value>
-        IContextData? RawData { get; }
-        
-        /// <summary>
-        /// Gets the context data cast to the specified type.
-        /// </summary>
-        /// <typeparam name="T">The expected data type (must be a structure implementing <see cref="IContextData"/>).</typeparam>
-        /// <returns>The typed data, or <c>null</c> if the data is not of type <typeparamref name="T"/>.</returns>
-        T? GetData<T>() where T : struct, IContextData;
+        IContextData? Data { get; }
 #endif
     }
 }

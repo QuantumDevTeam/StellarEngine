@@ -2,13 +2,13 @@ using Stellar.Kernel.Data.Context;
 
 namespace Stellar.Kernel.EventSystem
 {
-    public interface IEventContext<out TEvent>
+    public interface IEventContext<TEvent>
         : IContext
-        where TEvent : IEvent, allows ref struct
+        where TEvent : struct, IEvent
     {
         /// <summary>
         /// событие в контексте
         /// </summary>
-        TEvent Event { get; }
+        TEvent Event { get; set; }
     }
 }
