@@ -133,7 +133,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{49C7B188-D
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
+		CLA.md = CLA.md
+		NOTICE = NOTICE
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{A4DCC5C1-D9FB-43B2-967B-8376CC0E69C3}"
+	ProjectSection(SolutionItems) = preProject
+		.github\pull_request_template.md = .github\pull_request_template.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{20036FB2-8C3D-4BAB-AF39-B562FF773E29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -264,6 +273,7 @@ Global
 		{B8350077-6828-4B0C-A52C-71680357BEA6} = {5623B0DA-B3B8-42DF-A672-1FA410D931BC}
 		{0B747072-3881-404E-AC31-E50E3823FB74} = {1C440145-589E-46A4-A984-9D88FC666912}
 		{49C7B188-DD94-4FD0-8FE3-009D52A29B86} = {CA91C7F2-216F-4477-93A3-35FDE065838D}
+		{20036FB2-8C3D-4BAB-AF39-B562FF773E29} = {A4DCC5C1-D9FB-43B2-967B-8376CC0E69C3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5E099CB-02E8-4D4A-9FA9-0EC5FE407C48}
