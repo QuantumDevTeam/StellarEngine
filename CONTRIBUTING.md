@@ -4,24 +4,30 @@
 
 Thank you for your interest in contributing to **StellarEngine**.
 
-StellarEngine is a long-term engine project developed with a strong focus on architectural research, modularity, and sustainability. Contributions are welcome, but contributors are expected to understand and respect the core design principles described below.
+StellarEngine is a long-term engine project developed with a strong 
+focus on architectural research, modularity, and sustainability. Contributions are welcome, but contributors are expected to understand and respect the core design principles described below.
 
 ---
 
 ## Core Philosophy
 
-StellarEngine is built around a **hypermodular, bottom-up architecture**.
+StellarEngine is built around a **hypermodular, bottom-up 
+architecture**.
 
-Modules are treated as first-class system components and are **not bound to a single fixed layer** such as runtime, editor, or tooling. A module may:
+Modules are treated as first-class system components and are **not 
+bound to a single fixed layer** such as runtime, editor, or tooling. 
+A module may:
 
 * Be reused across multiple contexts
 * Exist simultaneously in runtime and editor environments
 * Be embedded into standalone tools (installers, pipelines, debuggers)
 * Appear unused, experimental, or partially integrated
 
-This behavior is **intentional** and represents a core architectural principle of the engine.
+This behavior is **intentional** and represents a core architectural 
+principle of the engine.
 
-Contributors should not assume traditional engine boundaries. Attempts to "simplify" the system by enforcing rigid layer separation without discussion are discouraged.
+Contributors should not assume traditional engine boundaries. Attempts
+to "simplify" the system by enforcing rigid layer separation without discussion are discouraged.
 
 ---
 
@@ -33,7 +39,8 @@ StellarEngine is currently in active development.
 * Internal architecture may change
 * Breaking changes are expected
 
-By contributing, you acknowledge that the project is evolving and that some work may need to be revised or refactored in the future.
+By contributing, you acknowledge that the project is evolving and that
+some work may need to be revised or refactored in the future.
 
 ---
 
@@ -47,13 +54,15 @@ Contributions may include, but are not limited to:
 * Documentation
 * Prototypes and research implementations
 
-Not all contributions are expected to be production-ready. Research-oriented or exploratory work is acceptable when clearly marked and documented.
+Not all contributions are expected to be production-ready. 
+Research-oriented or exploratory work is acceptable when clearly marked and documented.
 
 ---
 
 ## Architectural Changes
 
-Significant architectural changes must be discussed before implementation.
+Significant architectural changes must be discussed before 
+implementation.
 
 If your contribution:
 
@@ -61,7 +70,8 @@ If your contribution:
 * Alters module interaction patterns
 * Redefines subsystem responsibilities
 
-please open an issue or discussion describing the motivation, design, and trade-offs.
+please open an issue or discussion describing the motivation, design,
+and trade-offs.
 
 ---
 
@@ -72,7 +82,8 @@ please open an issue or discussion describing the motivation, design, and trade-
 * Keep modules loosely coupled
 * Avoid unnecessary dependencies between modules
 
-Hypermodularity relies on explicit boundaries and well-defined interfaces.
+Hypermodularity relies on explicit boundaries and well-defined 
+interfaces.
 
 ---
 
@@ -80,26 +91,36 @@ Hypermodularity relies on explicit boundaries and well-defined interfaces.
 
 * Keep commits focused and atomic
 * Do not include version numbers in commit messages
-* Use descriptive commit messages (e.g. `[CSN] Add node graph evaluator module`)
+* Use descriptive commit messages (e.g. `[CSN] Add node graph 
+evaluator module`)
 * Versioning is handled exclusively via Git tags
 
-Refer to [GitPolicy.md](GitPolicy.md) and [Versioning.md](Versioning.md) for detailed workflow and versioning rules.
+Refer to [GitPolicy.md](GitPolicy.md) and [Versioning.md](Versioning.md) for detailed 
+workflow and versioning rules.
 
 ---
 
 ## Licensing and Contributions
 
-By contributing to StellarEngine, you agree that your contributions may be used as as part of the StellarEngine project developed by QuantumDev team under its current and future licensing models.
+By submitting contributions, you agree to the terms described
+in [CLA.md](CLA.md).
 
-At the current stage, the project is distributed under the MIT License. Licensing terms may evolve as the project approaches production readiness.
+Contributions are provided "as is", without warranty of any kind,
+express or implied.
+
+Do not submit code, assets, or content that you do not have the legal
+right to contribute.
+
 
 ---
 
 ## Final Notes
 
-StellarEngine values thoughtful engineering, architectural discussion, and long-term thinking.
+StellarEngine values thoughtful engineering, architectural discussion,
+and long-term thinking.
 
-If you are unsure about a contribution, open a discussion first. Collaboration and communication are preferred over silent assumptions.
+If you are unsure about a contribution, open a discussion first. 
+Collaboration and communication are preferred over silent assumptions.
 
 ### Welcome aboard.
 
