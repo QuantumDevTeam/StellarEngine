@@ -4,7 +4,7 @@ using Stellar.Kernel;
 using File = Stellar.FileSystem.File;
 using FileStream = Stellar.FileSystem.FileStream;
 
-namespace Stellar.LoggingSystem;
+namespace Stellar.Logging;
 
 public class LoggerFile(
     Location location,

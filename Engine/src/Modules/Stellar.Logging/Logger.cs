@@ -3,9 +3,9 @@ using System.Globalization;
 using Stellar.Core.Data.Registry;
 using Stellar.Core.Quantization;
 using Stellar.Kernel;
-using Stellar.LoggingSystem.Format;
+using Stellar.Logging.Format;
 
-namespace Stellar.LoggingSystem;
+namespace Stellar.Logging;
 
 /// <summary>
 /// Default StellarEngine Logger

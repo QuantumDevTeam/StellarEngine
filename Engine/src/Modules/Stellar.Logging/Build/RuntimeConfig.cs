@@ -1,5 +1,5 @@
 using Stellar.Kernel.Configuration;
 
-namespace Stellar.LoggingSystem.Build;
+namespace Stellar.Logging.Build;
 
 public partial class RuntimeConfig : RuntimeConfiguration;

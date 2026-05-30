@@ -25,4 +25,7 @@
         <Compile Remove="EventSystem\**\*.cs"/>
         <Compile Remove="TaskSystem\**\*.cs"/>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Label\" />
+    </ItemGroup>
 </Project>
