@@ -77,33 +77,25 @@ size_t ConcurrentUnorderedMap<TKey, TValue>::size() const
 }
 
 template <HashableKey TKey, typename TValue>
-std::vector<TKey> ConcurrentUnorderedMap<TKey, TValue>::Keys() const
+std::generator<const TKey&> ConcurrentUnorderedMap<TKey, TValue>::Keys() const
 {
-    std::vector<TKey> result;
     for (auto& seg : Segments)
     {
         std::shared_lock lock(seg->mutex);
-        for (auto& [key, _] : seg->data)
-        {
-            result.push_back(key);
-        }
+        for (auto& [k, v] : seg->data)
+            co_yield k;
     }
-    return result;
 }
 
 template <HashableKey TKey, typename TValue>
-std::vector<TValue> ConcurrentUnorderedMap<TKey, TValue>::Values() const
+std::generator<const TValue&> ConcurrentUnorderedMap<TKey, TValue>::Values() const
 {
-    std::vector<TValue> result;
     for (auto& seg : Segments)
     {
         std::shared_lock lock(seg->mutex);
-        for (auto& [_, value] : seg->data)
-        {
-            result.push_back(value);
-        }
+        for (auto& [k, v] : seg->data)
+            co_yield v;
     }
-    return result;
 }
 
 template <HashableKey TKey, typename TValue>

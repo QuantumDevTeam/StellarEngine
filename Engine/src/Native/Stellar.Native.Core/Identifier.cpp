@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Identifier.h"
 
+#include <format>
+
 namespace Stellar::Native::Core
 {
     Identifier Identifier::FromNativeGUID(const GUID& guid)
@@ -58,16 +60,10 @@ namespace Stellar::Native::Core
 
     std::string Identifier::ToString() const noexcept
     {
-        GUID native = ToNativeGUID();
-        LPOLESTR str = nullptr;
-        // TODO:: HRESULT checking
-        if (SUCCEEDED(::StringFromCLSID(native, &str)))
-        {
-            std::wstring ws(str);
-            CoTaskMemFree(str);
-            return "Identifier#" + std::string(ws.begin(), ws.end());
-        }
-        return {};
+        auto& d = data;
+        return std::format(
+            "{:02X}{:02X}{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}{:02X}{:02X}{:02X}{:02X}",
+            d[0], d[1], d[2], d[3], d[4], d[5], d[6], d[7], d[8], d[9], d[10], d[11], d[12], d[13], d[14], d[15]);
     }
 
     uint64_t Identifier::GetHashCode() const noexcept

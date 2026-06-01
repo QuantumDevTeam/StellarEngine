@@ -28,7 +28,7 @@ namespace Stellar::Native::Core::Data::Registry
         return _identifiers.size();
     }
 
-    std::vector<Identifier> IdentifierRegistry::Identifiers() const
+    std::generator<const Identifier&> IdentifierRegistry::Identifiers() const
     {
         return _identifiers.Keys();
     }

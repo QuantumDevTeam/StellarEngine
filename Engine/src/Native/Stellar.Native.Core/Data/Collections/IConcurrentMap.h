@@ -6,6 +6,7 @@ STELLAR_CLANG_IGNORE("-Wpadded")
 
 #include <vector>
 #include <concepts>
+#include <generator>
 
 
 namespace Stellar::Native::Core::Data::Collections
@@ -28,8 +29,8 @@ namespace Stellar::Native::Core::Data::Collections
         { constMember.Contains(key) } -> std::same_as<bool>;
         { constMember.size() } -> std::same_as<size_t>;
 
-        { constMember.Keys() } -> std::same_as<std::vector<TKey>>;
-        { constMember.Values() } -> std::same_as<std::vector<TValue>>;
+        { constMember.Keys() } -> std::same_as<std::generator<const TKey&>>;
+        { constMember.Values() } -> std::same_as<std::generator<const TValue&>>;
 
         { member.Clear() } -> std::same_as<void>;
     };
@@ -46,8 +47,8 @@ namespace Stellar::Native::Core::Data::Collections
         [[nodiscard]] virtual bool Contains(const TKey& key) const = 0;
         [[nodiscard]] virtual size_t size() const = 0;
 
-        [[nodiscard]] virtual std::vector<TKey> Keys() const = 0;
-        [[nodiscard]] virtual std::vector<TValue> Values() const = 0;
+        [[nodiscard]] virtual std::generator<const TKey&> Keys() const = 0;
+        [[nodiscard]] virtual std::generator<const TValue&> Values() const = 0;
 
         virtual void Clear() = 0;
     };

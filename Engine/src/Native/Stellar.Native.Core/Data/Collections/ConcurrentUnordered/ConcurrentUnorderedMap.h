@@ -46,8 +46,8 @@ namespace Stellar::Native::Core::Data::Collections
         [[nodiscard]] bool Contains(const TKey& key) const final;
         [[nodiscard]] size_t size() const final;
 
-        [[nodiscard]] std::vector<TKey> Keys() const final;
-        [[nodiscard]] std::vector<TValue> Values() const final;
+        [[nodiscard]] std::generator<const TKey&> Keys() const final;
+        [[nodiscard]] std::generator<const TValue&> Values() const final;
 
         void Clear() final;
     };

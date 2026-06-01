@@ -54,8 +54,8 @@ namespace Stellar::Native::Core::Data::Collections
         [[nodiscard]] bool Contains(const TKey& key, bool immediate = false) const;
         [[nodiscard]] size_t size(bool immediate = false) const;
         
-        [[nodiscard]] std::vector<TKey> Keys(bool immediate = false) const;
-        [[nodiscard]] std::vector<TValue> Values(bool immediate = false) const;
+        [[nodiscard]] std::generator<const TKey&> Keys(bool immediate = false) const;
+        [[nodiscard]] std::generator<const TValue&> Values(bool immediate = false) const;
         
         void SwapBuffers();
 
@@ -66,8 +66,8 @@ namespace Stellar::Native::Core::Data::Collections
         [[nodiscard]] bool Contains(const TKey& key) const final;
         [[nodiscard]] size_t size() const final;
 
-        [[nodiscard]] std::vector<TKey> Keys() const final;
-        [[nodiscard]] std::vector<TValue> Values() const final;
+        [[nodiscard]] std::generator<const TKey&> Keys() const final;
+        [[nodiscard]] std::generator<const TValue&> Values() const final;
 
         void Clear() final;
     };

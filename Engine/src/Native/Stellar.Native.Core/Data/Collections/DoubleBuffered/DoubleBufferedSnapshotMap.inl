@@ -79,47 +79,39 @@ size_t DoubleBufferedSnapshotMap<TKey, TValue>::size(bool immediate) const
 }
 
 template <HashableKey TKey, typename TValue>
-std::vector<TKey> DoubleBufferedSnapshotMap<TKey, TValue>::Keys(bool immediate) const
+std::generator<const TKey&> DoubleBufferedSnapshotMap<TKey, TValue>::Keys(bool immediate) const
 {
     auto snapshot = GetSnapshot();
-    std::vector<TKey> result;
+    std::vector<TKey> hotItems;
     if (immediate)
     {
         std::lock_guard hotLock(_hotMutex);
-        result.reserve(snapshot->map.size() + _hotItems.size());
+        hotItems.reserve(_hotItems.size());
         for (const auto& [key, _] : _hotItems)
-            result.push_back(key);
+            hotItems.push_back(key);
     }
-    else
-    {
-        result.reserve(snapshot->map.size());
-    }
+    for (const auto& key : hotItems)
+        co_yield key;
     for (const auto& [key, _] : snapshot->map)
-        result.push_back(key);
-    return result;
+        co_yield key;
 }
 
 template <HashableKey TKey, typename TValue>
-std::vector<TValue> DoubleBufferedSnapshotMap<TKey, TValue>::Values(bool immediate) const
+std::generator<const TValue&> DoubleBufferedSnapshotMap<TKey, TValue>::Values(bool immediate) const
 {
     auto snapshot = GetSnapshot();
-    std::vector<TValue> result;
+    std::vector<TValue> hotItems;
     if (immediate)
     {
         std::lock_guard hotLock(_hotMutex);
-        result.reserve(snapshot->map.size() + _hotItems.size());
-        for (const auto& [_, value] : snapshot->map)
-            result.push_back(value);
+        hotItems.reserve(_hotItems.size());
         for (const auto& [_, value] : _hotItems)
-            result.push_back(value.value());
+            hotItems.push_back(value);
     }
-    else
-    {
-        result.reserve(snapshot->map.size());
-        for (const auto& [_, value] : snapshot->map)
-            result.push_back(value);
-    }
-    return result;
+    for (const auto& value : hotItems)
+        co_yield value;
+    for (const auto& [_, value] : snapshot->map)
+        co_yield value;
 }
 
 template <HashableKey TKey, typename TValue>
@@ -177,13 +169,13 @@ size_t DoubleBufferedSnapshotMap<TKey, TValue>::size() const
 }
 
 template <HashableKey TKey, typename TValue>
-std::vector<TKey> DoubleBufferedSnapshotMap<TKey, TValue>::Keys() const
+std::generator<const TKey&> DoubleBufferedSnapshotMap<TKey, TValue>::Keys() const
 {
     return Keys(false);
 }
 
 template <HashableKey TKey, typename TValue>
-std::vector<TValue> DoubleBufferedSnapshotMap<TKey, TValue>::Values() const
+std::generator<const TValue&> DoubleBufferedSnapshotMap<TKey, TValue>::Values() const
 {
     return Values(false);
 }

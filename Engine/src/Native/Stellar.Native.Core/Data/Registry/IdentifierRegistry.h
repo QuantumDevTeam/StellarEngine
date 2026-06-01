@@ -23,6 +23,6 @@ namespace Stellar::Native::Core::Data::Registry
         [[nodiscard]] bool Contains(const Identifier& key) const;
         [[nodiscard]] size_t size() const;
 
-        [[nodiscard]] std::vector<Identifier> Identifiers() const;
+        [[nodiscard]] std::generator<const Identifier&> Identifiers() const;
     };
 }

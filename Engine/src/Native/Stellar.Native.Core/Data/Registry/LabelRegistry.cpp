@@ -63,12 +63,12 @@ namespace Stellar::Native::Core::Data::Registry
         return _byId.size();
     }
 
-    std::vector<Identifier> LabelRegistry::Identifiers() const
+    std::generator<const Identifier&> LabelRegistry::Identifiers() const
     {
         return _byId.Keys();
     }
 
-    std::vector<Label> LabelRegistry::Values() const
+    std::generator<const Label&> LabelRegistry::Values() const
     {
         return _byId.Values();
     }
