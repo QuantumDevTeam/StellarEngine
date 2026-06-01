@@ -164,6 +164,8 @@
         <ClInclude Include="Data\Registry\IdentifierRegistry.h" />
         <ClInclude Include="Data\Registry\LabelRegistry.h" />
         <ClInclude Include="Extensions.h" />
+        <ClInclude Include="Failures\FailureLevel.h" />
+        <ClInclude Include="Failures\NativeException.h" />
         <ClInclude Include="Identifier.h" />
         <ClInclude Include="Label.h" />
         <ClInclude Include="pch.h">

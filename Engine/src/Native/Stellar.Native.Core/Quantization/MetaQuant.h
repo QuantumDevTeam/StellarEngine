@@ -10,13 +10,18 @@ namespace Stellar::Native::Core::Quantization
 {
     class MetaQuant : public IMetaQuant
     {
+        STELLAR_GENERATE_QUANT(MetaQuant)
+
+    private:
         Identifier _uid;
 
     public:
-        explicit MetaQuant(Identifier uid) : _uid(uid)
+        explicit MetaQuant(Identifier uid) : IMetaQuant(), _uid(uid)
         {
         }
 
-        [[nodiscard]] const Identifier& GetUID() const override { return _uid; }
+        STELLAR_INLINE_UID(_uid)
     };
 }
+
+STELLAR_GENERATE_DEFAULTS(Stellar::Native::Core::Quantization, MetaQuant)

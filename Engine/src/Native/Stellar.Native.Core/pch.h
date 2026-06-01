@@ -7,7 +7,8 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 
-#pragma warning(disable: 4068)
+#pragma warning(disable: 4068) // unknown pragma (for clang)
+#pragma warning(disable: 4003) // unspecified attribute in macros
 
 // most used lib's
 #include <windows.h>
@@ -20,6 +21,7 @@
 #include <span>
 #include <optional>
 
+// custom dirrectives
 #include "Extensions.h"
 
 #endif

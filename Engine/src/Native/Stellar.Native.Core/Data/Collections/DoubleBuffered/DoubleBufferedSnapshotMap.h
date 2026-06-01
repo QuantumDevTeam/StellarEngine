@@ -36,11 +36,11 @@ namespace Stellar::Native::Core::Data::Collections
         std::unordered_map<TKey, std::optional<TValue>> _hotItems;
 
     public:
-        DoubleBufferedSnapshotMap()
-            : _currentSnapshot(std::make_shared<DataSnapshot>()),
-              _writeBuffer(std::make_shared<DataSnapshot>())
-        {
-        }
+        DoubleBufferedSnapshotMap();
+        STELLAR_DECONSTRUCT(DoubleBufferedSnapshotMap);
+        STELLAR_DEFAULT_COPY_OPERATORS(DoubleBufferedSnapshotMap);
+        
+        STELLAR_CLASS_NAME_DEF(DoubleBufferedSnapshotMap);
         
         [[nodiscard]] std::shared_ptr<const DataSnapshot> GetSnapshot() const
         {

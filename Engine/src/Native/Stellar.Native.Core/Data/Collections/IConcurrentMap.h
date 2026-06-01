@@ -2,8 +2,7 @@
 // Copyright (c) 2026 QuantumDevTeam
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpadded"
+STELLAR_CLANG_IGNORE("-Wpadded")
 
 #include <vector>
 #include <concepts>
@@ -38,8 +37,7 @@ namespace Stellar::Native::Core::Data::Collections
     template <HashableKey TKey, typename TValue>
     class IConcurrentMap
     {
-    public:
-        STELLAR_PREPARE_INTERFACE_FULL(IConcurrentMap);
+        STELLAR_GENERATE_INTERFACE(IConcurrentMap);
         
         virtual bool TryAdd(const TKey& key, const TValue& value) = 0;
         [[nodiscard]] virtual std::optional<TValue> TryGet(const TKey& key) const = 0;
@@ -55,4 +53,4 @@ namespace Stellar::Native::Core::Data::Collections
     };
 }
 
-#pragma clang diagnostic pop
+STELLAR_CLANG_IGNORE_END()

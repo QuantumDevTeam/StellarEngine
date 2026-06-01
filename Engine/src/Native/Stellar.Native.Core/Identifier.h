@@ -5,20 +5,21 @@
 
 #include <charconv>
 
+#include "Failures/NativeException.h"
+
 
 namespace Stellar::Native::Core
 {
     struct Identifier final
     {
+        STELLAR_GENERATE_BODY(Identifier, constexpr)
+        
     private:
-        [[nodiscard]] static Identifier FromNativeGUID(const GUID& guid); // TODO: multiple instances
+        [[nodiscard]] static Identifier FromNativeGUID(const GUID& guid);
         [[nodiscard]] GUID ToNativeGUID() const;
 
     public:
         std::array<uint8_t, 16> data{};
-
-        // null
-        constexpr Identifier() = default;
 
         // from data
         explicit constexpr Identifier(const std::array<uint8_t, 16>& bytes)
@@ -41,7 +42,7 @@ namespace Stellar::Native::Core
             if (r1.ec != std::errc{} || r2.ec != std::errc{} ||
                 r3.ec != std::errc{} || r4.ec != std::errc{} || r5.ec != std::errc{})
             {
-                throw std::exception("Invalid GUID format string");
+                throw Failures::NativeException("Invalid GUID format string");
             }
 
             data[0] = p1 >> 24 & 0xFF;
@@ -74,7 +75,6 @@ namespace Stellar::Native::Core
 
         // gets new random identifier
         [[nodiscard]] static Identifier Create();
-
         // create new identifier from gotten string
         [[nodiscard]] static Identifier FromString(std::string_view str);
         // create new identifier from gotten bytes, presents in array
@@ -85,14 +85,10 @@ namespace Stellar::Native::Core
         // check identifier on null UID
         [[nodiscard]] bool IsNull() const noexcept;
 
-        STELLAR_DEFINE_CS_METHODS();
-
-        auto operator<=>(const Identifier&) const noexcept = default;
+        STELLAR_DEFAULTS(Identifier);
     };
 
     inline constexpr Identifier NullIdentifier = {};
-
-    STELLAR_DEFINE_TO_STRING(Identifier);
 }
 
-STELLAR_DEFINE_HASHER(Stellar::Native::Core::Identifier);
+STELLAR_GENERATE_DEFAULTS(Stellar::Native::Core, Identifier)

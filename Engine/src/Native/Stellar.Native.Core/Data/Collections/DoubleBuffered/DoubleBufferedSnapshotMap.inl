@@ -1,6 +1,13 @@
 #pragma once
 
 template <HashableKey TKey, typename TValue>
+DoubleBufferedSnapshotMap<TKey, TValue>::DoubleBufferedSnapshotMap()
+    : _currentSnapshot(std::make_shared<DataSnapshot>()),
+      _writeBuffer(std::make_shared<DataSnapshot>())
+{
+}
+
+template <HashableKey TKey, typename TValue>
 bool DoubleBufferedSnapshotMap<TKey, TValue>::TryAdd(const TKey& key, const TValue& value, bool immediate) const
 {
     if (immediate)

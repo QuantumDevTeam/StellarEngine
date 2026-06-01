@@ -10,15 +10,12 @@ namespace Stellar::Native::Core::Data::Registry
 {
     class IdentifierRegistry
     {
+        STELLAR_GENERATE_SINGLETON(IdentifierRegistry)
+
+    private:
         Collections::ConcurrentUnorderedIdentifierMap<Identifier> _identifiers{64};
 
     public:
-        static IdentifierRegistry& Instance()
-        {
-            static IdentifierRegistry instance;
-            return instance;
-        }
-
         bool Register(const Identifier& id);
         std::optional<Identifier> Get(const Identifier& id) const;
         bool Unregister(const Identifier& id, Identifier& outValue);

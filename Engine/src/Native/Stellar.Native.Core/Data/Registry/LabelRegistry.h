@@ -16,6 +16,9 @@ namespace Stellar::Native::Core::Data::Registry
 {
     class LabelRegistry
     {
+        STELLAR_GENERATE_SINGLETON(LabelRegistry)
+
+    private:
         Collections::ConcurrentUnorderedIdentifierMap<Label> _byId{64};
         Collections::ConcurrentUnorderedMap<std::string_view, Identifier> _byName{};
 

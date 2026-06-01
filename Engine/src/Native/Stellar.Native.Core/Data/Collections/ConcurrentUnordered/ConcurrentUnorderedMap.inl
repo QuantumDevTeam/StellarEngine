@@ -1,6 +1,18 @@
 #pragma once
 
 template <HashableKey TKey, typename TValue>
+std::size_t ConcurrentUnorderedMap<TKey, TValue>::Segment::size() const
+{
+    return data.size();
+}
+
+template <HashableKey TKey, typename TValue>
+std::size_t ConcurrentUnorderedMap<TKey, TValue>::GetSegmentIndex(const TKey& key) const noexcept
+{
+    return std::hash<TKey>{}(key) % Segments.size();
+}
+
+template <HashableKey TKey, typename TValue>
 ConcurrentUnorderedMap<TKey, TValue>::ConcurrentUnorderedMap(size_t numSegments)
 {
     size_t segmentCount = std::max<size_t>(1, numSegments);
