@@ -7,6 +7,9 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 
+#pragma warning(disable: 4068)
+
+// most used lib's
 #include <windows.h>
 #include <combaseapi.h>
 #include <cstdint>
@@ -15,5 +18,8 @@
 #include <string_view>
 #include <compare>
 #include <span>
+#include <optional>
+
+#include "Extensions.h"
 
 #endif

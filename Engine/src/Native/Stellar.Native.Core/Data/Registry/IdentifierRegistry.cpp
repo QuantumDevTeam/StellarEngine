@@ -1,37 +1,35 @@
 #include "pch.h"
 #include "IdentifierRegistry.h"
 
-#include "../../Identifier.h"
-
 namespace Stellar::Native::Core::Data::Registry
 {
     bool IdentifierRegistry::Register(const Identifier& id)
     {
-        std::lock_guard lock(_writeMutex);
-        auto oldData = _data.load(std::memory_order_acquire);
-        auto newData = std::make_shared<Data>(*oldData);
-        auto [it, inserted] = newData->map.try_emplace(id, id);
-        if (!inserted) return false;
-        _data.store(newData, std::memory_order_release);
-        return true;
+        return _identifiers.TryAdd(id, id);
     }
 
     std::optional<Identifier> IdentifierRegistry::Get(const Identifier& id) const
     {
-        auto data = _data.load(std::memory_order_acquire);
-        auto it = data->map.find(id);
-        if (it != data->map.end())
-            return it->second;
-        return std::nullopt;
+        return _identifiers.TryGet(id);
     }
 
-    bool IdentifierRegistry::Unregister(const Identifier& id)
+    bool IdentifierRegistry::Unregister(const Identifier& id, Identifier& outValue)
     {
-        std::lock_guard lock(_writeMutex);
-        auto oldData = _data.load(std::memory_order_acquire);
-        auto newData = std::make_shared<Data>(*oldData);
-        if (newData->map.erase(id) == 0) return false;
-        _data.store(newData, std::memory_order_release);
-        return true;
+        return _identifiers.TryRemove(id, outValue);
+    }
+
+    bool IdentifierRegistry::Contains(const Identifier& key) const
+    {
+        return _identifiers.Contains(key);
+    }
+
+    size_t IdentifierRegistry::size() const
+    {
+        return _identifiers.size();
+    }
+
+    std::vector<Identifier> IdentifierRegistry::Identifiers() const
+    {
+        return _identifiers.Keys();
     }
 }

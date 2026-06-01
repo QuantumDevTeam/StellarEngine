@@ -7,4 +7,34 @@ namespace Stellar::Native::Core
     {
         return {name, Identifier::Create()};
     }
+
+    Label Label::CreateBound(std::string_view name, const Identifier& id_)
+    {
+        return {name, id_};
+    }
+
+    bool Label::IsValid() const noexcept
+    {
+        return !Name.empty();
+    }
+
+    bool Label::IsBound() const noexcept
+    {
+        return !UID.IsNull();
+    }
+
+    bool Label::IsBound(const Identifier& id) const noexcept
+    {
+        return UID == id;
+    }
+
+    std::string Label::ToString() const noexcept
+    {
+        return "Label#" + std::string(Name);
+    }
+
+    uint64_t Label::GetHashCode() const noexcept
+    {
+        return UID.GetHashCode();
+    }
 }

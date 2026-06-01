@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "LabelRegistry.h"
 
-#include "../../Identifier.h"
 #include "../../Label.h"
 
 namespace Stellar::Native::Core::Data::Registry
@@ -9,75 +8,68 @@ namespace Stellar::Native::Core::Data::Registry
     bool LabelRegistry::Register(const Label& label)
     {
         if (!label.IsBound()) return false;
-        std::lock_guard lock(_writeMutex);
-        auto oldData = _data.load(std::memory_order_acquire);
-        if (oldData->byName.contains(label.Name))
+        if (_byName.Contains(label.Name)) return false;
+        if (!_byId.TryAdd(label.UID, label)) return false;
+        if (!_byName.TryAdd(label.Name, label.UID))
+        {
+            Label dummy;
+            _byId.TryRemove(label.UID, dummy);
             return false;
-        auto newData = std::make_shared<Data>(*oldData);
-        newData->byId.emplace(label.UID, label);
-        newData->byName.emplace(label.Name, label.UID);
-        _data.store(newData, std::memory_order_release);
+        }
         return true;
     }
 
     std::optional<Label> LabelRegistry::Get(const Identifier& id) const
     {
-        auto data = _data.load(std::memory_order_acquire);
-        auto it = data->byId.find(id);
-        if (it != data->byId.end())
-            return it->second;
-        return std::nullopt;
+        return _byId.TryGet(id);
     }
 
     std::optional<Label> LabelRegistry::Get(std::string_view name) const
     {
-        auto data = _data.load(std::memory_order_acquire);
-        auto itName = data->byName.find(name);
-        if (itName == data->byName.end())
-            return std::nullopt;
-        auto itId = data->byId.find(itName->second);
-        if (itId != data->byId.end())
-            return itId->second;
-        return std::nullopt;
+        auto idOpt = _byName.TryGet(name);
+        if (!idOpt) return std::nullopt;
+        return _byId.TryGet(*idOpt);
     }
 
-    bool LabelRegistry::Unregister(const Identifier& id)
+    bool LabelRegistry::Unregister(const Identifier& id, Label& label)
     {
-        std::lock_guard lock(_writeMutex);
-        auto oldData = _data.load(std::memory_order_acquire);
-        auto itId = oldData->byId.find(id);
-        if (itId == oldData->byId.end())
-            return false;
-        auto newData = std::make_shared<Data>(*oldData);
-        std::string name = itId->second.Name;
-        newData->byId.erase(id);
-        newData->byName.erase(name);
-        _data.store(newData, std::memory_order_release);
-        return true;
+        if (!_byId.Contains(id)) return false;
+        if (_byId.TryRemove(id, label))
+        {
+            Identifier dummyId;
+            return _byName.TryRemove(label.Name, dummyId);
+        }
+        return false;
     }
 
-    bool LabelRegistry::Unregister(std::string_view name)
+    bool LabelRegistry::Unregister(std::string_view name, Label& label)
     {
-        std::lock_guard lock(_writeMutex);
-        auto oldData = _data.load(std::memory_order_acquire);
-        auto itName = oldData->byName.find(name);
-        if (itName == oldData->byName.end())
-            return false;
-        auto newData = std::make_shared<Data>(*oldData);
-        Identifier id = itName->second;
-        newData->byName.erase(name);
-        newData->byId.erase(id);
-        _data.store(newData, std::memory_order_release);
-        return true;
+        if (!_byName.Contains(name)) return false;
+        Identifier dummyId;
+        if (_byName.TryRemove(name, dummyId))
+        {
+            return _byId.TryRemove(dummyId, label);
+        }
+        return false;
     }
 
-    std::vector<Identifier> LabelRegistry::GetAllIdentifiers() const
+    bool LabelRegistry::Contains(const Identifier& key) const
     {
-        auto data = _data.load(std::memory_order_acquire);
-        std::vector<Identifier> result;
-        result.reserve(data->byId.size());
-        for (auto& [id, _] : data->byId)
-            result.push_back(id);
-        return result;
+        return _byId.Contains(key);
+    }
+
+    size_t LabelRegistry::size() const
+    {
+        return _byId.size();
+    }
+
+    std::vector<Identifier> LabelRegistry::Identifiers() const
+    {
+        return _byId.Keys();
+    }
+
+    std::vector<Label> LabelRegistry::Values() const
+    {
+        return _byId.Values();
     }
 }

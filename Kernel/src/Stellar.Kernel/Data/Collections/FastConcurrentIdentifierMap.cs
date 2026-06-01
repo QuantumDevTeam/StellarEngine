@@ -47,7 +47,9 @@ namespace Stellar.Kernel.Data.Collections
     /// </code>
     /// </para>
     /// </remarks>
-    public sealed class FastConcurrentIdentifierMap<T>(IEnumerable<KeyValuePair<IIdentifier, T>>? data = null)
+    public sealed class FastConcurrentIdentifierMap<T>(
+IEnumerable<KeyValuePair<IIdentifier, T>>? data = null
+)
         : IEnumerable<T>
     {
         private readonly Dictionary<IIdentifier, T> _dict = new(data ?? []);

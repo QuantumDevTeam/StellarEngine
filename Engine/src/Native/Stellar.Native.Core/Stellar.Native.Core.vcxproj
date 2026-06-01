@@ -155,12 +155,21 @@
     
     <!-- Source Code - HEADER FILES -->
     <ItemGroup>
+        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedIdentifierMap.h" />
+        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedMap.h" />
+        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedMap.inl" />
+        <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.h" />
+        <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.inl" />
+        <ClInclude Include="Data\Collections\IConcurrentMap.h" />
         <ClInclude Include="Data\Registry\IdentifierRegistry.h" />
         <ClInclude Include="Data\Registry\LabelRegistry.h" />
+        <ClInclude Include="Extensions.h" />
         <ClInclude Include="Identifier.h" />
         <ClInclude Include="Label.h" />
         <ClInclude Include="pch.h">
         </ClInclude>
+        <ClInclude Include="Quantization\IMetaQuant.h" />
+        <ClInclude Include="Quantization\MetaQuant.h" />
     </ItemGroup>
     <!-- Source Code - SOURCE FILES -->
     <ItemGroup>
@@ -172,9 +181,6 @@
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
         </ClCompile>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Data\Collections\" />
     </ItemGroup>
     
     <!-- Other -->

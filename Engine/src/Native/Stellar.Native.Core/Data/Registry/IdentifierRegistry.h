@@ -3,32 +3,14 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include <memory>
-#include <atomic>
-#include <mutex>
-#include <optional>
-#include <unordered_map>
+#include "../Collections/ConcurrentUnordered/ConcurrentUnorderedIdentifierMap.h"
 
-namespace Stellar::Native::Core
-{
-    struct Identifier;
-}
 
 namespace Stellar::Native::Core::Data::Registry
 {
     class IdentifierRegistry
     {
-        struct Data
-        {
-            std::unordered_map<Identifier, Identifier> map;
-        };
-
-        std::atomic<std::shared_ptr<const Data>> _data;
-        std::mutex _writeMutex;
-
-        IdentifierRegistry() : _data(std::make_shared<Data>()) // NOLINT(modernize-use-equals-default)
-        {
-        }
+        Collections::ConcurrentUnorderedIdentifierMap<Identifier> _identifiers{64};
 
     public:
         static IdentifierRegistry& Instance()
@@ -39,6 +21,11 @@ namespace Stellar::Native::Core::Data::Registry
 
         bool Register(const Identifier& id);
         std::optional<Identifier> Get(const Identifier& id) const;
-        bool Unregister(const Identifier& id);
+        bool Unregister(const Identifier& id, Identifier& outValue);
+
+        [[nodiscard]] bool Contains(const Identifier& key) const;
+        [[nodiscard]] size_t size() const;
+
+        [[nodiscard]] std::vector<Identifier> Identifiers() const;
     };
 }

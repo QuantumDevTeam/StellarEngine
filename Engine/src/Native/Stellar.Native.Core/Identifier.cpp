@@ -20,9 +20,10 @@ namespace Stellar::Native::Core
     Identifier Identifier::Create()
     {
         GUID guid;
-        if (FAILED(::CoCreateGuid(&guid))) // TODO:: HRESULT checking
+        // TODO:: HRESULT checking
+        if (FAILED(::CoCreateGuid(&guid)))
         {
-            return Identifier{};
+            return NullIdentifier;
         }
         return FromNativeGUID(guid);
     }
@@ -30,9 +31,10 @@ namespace Stellar::Native::Core
     Identifier Identifier::FromString(std::string_view str)
     {
         GUID guid;
+        // TODO:: HRESULT checking
         if (FAILED(::CLSIDFromString(std::wstring(str.begin(), str.end()).c_str(), &guid)))
         {
-            return Null();
+            return NullIdentifier;
         }
         return FromNativeGUID(guid);
     }
@@ -49,27 +51,28 @@ namespace Stellar::Native::Core
         return Identifier(arr);
     }
 
-    bool Identifier::IsNull() const
+    bool Identifier::IsNull() const noexcept
     {
-        return data.data() == nullptr;
+        return data == std::array<uint8_t, 16>();
     }
 
-    std::string Identifier::ToString() const
+    std::string Identifier::ToString() const noexcept
     {
         GUID native = ToNativeGUID();
         LPOLESTR str = nullptr;
-        if (SUCCEEDED(::StringFromCLSID(native, &str))) // TODO:: HRESULT checking
+        // TODO:: HRESULT checking
+        if (SUCCEEDED(::StringFromCLSID(native, &str)))
         {
             std::wstring ws(str);
             CoTaskMemFree(str);
-            return {ws.begin(), ws.end()};
+            return "Identifier#" + std::string(ws.begin(), ws.end());
         }
         return {};
     }
 
-    std::size_t Identifier::Hash::operator()(const Identifier& id) const noexcept
+    uint64_t Identifier::GetHashCode() const noexcept
     {
-        const uint64_t* p = reinterpret_cast<const uint64_t*>(id.data.data());
+        const uint64_t* p = reinterpret_cast<const uint64_t*>(data.data());
         return p[0] ^ p[1] + 0x9e3779b9 + (p[0] << 6) + (p[0] >> 2);
     }
 }
