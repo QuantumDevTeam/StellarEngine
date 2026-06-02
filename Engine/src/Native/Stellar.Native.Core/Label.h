@@ -10,11 +10,11 @@ namespace Stellar::Native::Core
 {
     struct Label final
     {
-        STELLAR_GENERATE_BODY(Label, constexpr)
+        STELLAR_GENERATE_BODY_PARTIAL(Label, constexpr,, noexcept)
 
         std::string_view Name{};
         Identifier UID{};
-        
+
         // from name
         constexpr explicit Label(std::string_view name)
             : Name(name), UID(NullIdentifier)

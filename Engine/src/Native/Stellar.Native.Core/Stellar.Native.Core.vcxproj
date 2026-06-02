@@ -77,6 +77,7 @@
                 CPPDYNAMICLIBRARYTEMPLATE_EXPORTS;
                 _WINDOWS;
                 _USRDLL;
+                IS_UNORDERED_DataContainer;
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
@@ -155,12 +156,13 @@
     
     <!-- Source Code - HEADER FILES -->
     <ItemGroup>
-        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedIdentifierMap.h" />
+        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentFlatMap.h" />
+        <ClInclude Include="Data\Collections\DataContainer.h" />
         <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedMap.h" />
-        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedMap.inl" />
+        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentMap.inl" />
         <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.h" />
         <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.inl" />
-        <ClInclude Include="Data\Collections\IConcurrentMap.h" />
+        <ClInclude Include="Data\Collections\ICollection.h" />
         <ClInclude Include="Data\Registry\IdentifierRegistry.h" />
         <ClInclude Include="Data\Registry\LabelRegistry.h" />
         <ClInclude Include="Extensions.h" />

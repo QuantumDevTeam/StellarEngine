@@ -10,7 +10,7 @@ namespace Stellar::Native::Core::Quantization
 {
     class MetaQuant : public IMetaQuant
     {
-        STELLAR_GENERATE_QUANT(MetaQuant)
+        STELLAR_GENERATE_QUANT(MetaQuant, IMetaQuant)
 
     private:
         Identifier _uid;

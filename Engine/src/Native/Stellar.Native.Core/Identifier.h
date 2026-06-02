@@ -12,7 +12,7 @@ namespace Stellar::Native::Core
 {
     struct Identifier final
     {
-        STELLAR_GENERATE_BODY(Identifier, constexpr)
+        STELLAR_GENERATE_BODY_PARTIAL(Identifier, constexpr,, noexcept)
         
     private:
         [[nodiscard]] static Identifier FromNativeGUID(const GUID& guid);

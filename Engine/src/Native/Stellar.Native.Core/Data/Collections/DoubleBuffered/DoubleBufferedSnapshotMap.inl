@@ -1,13 +1,13 @@
 #pragma once
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 DoubleBufferedSnapshotMap<TKey, TValue>::DoubleBufferedSnapshotMap()
     : _currentSnapshot(std::make_shared<DataSnapshot>()),
       _writeBuffer(std::make_shared<DataSnapshot>())
 {
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 bool DoubleBufferedSnapshotMap<TKey, TValue>::TryAdd(const TKey& key, const TValue& value, bool immediate) const
 {
     if (immediate)
@@ -20,7 +20,7 @@ bool DoubleBufferedSnapshotMap<TKey, TValue>::TryAdd(const TKey& key, const TVal
     return true;
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 std::optional<TValue> DoubleBufferedSnapshotMap<TKey, TValue>::TryGet(const TKey& key, bool immediate) const
 {
     if (immediate)
@@ -37,7 +37,7 @@ std::optional<TValue> DoubleBufferedSnapshotMap<TKey, TValue>::TryGet(const TKey
     return std::nullopt;
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 bool DoubleBufferedSnapshotMap<TKey, TValue>::TryRemove(const TKey& key, TValue& outValue, bool immediate) const
 {
     std::unique_lock lock(_writeMutex);
@@ -53,7 +53,7 @@ bool DoubleBufferedSnapshotMap<TKey, TValue>::TryRemove(const TKey& key, TValue&
     return true;
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 bool DoubleBufferedSnapshotMap<TKey, TValue>::Contains(const TKey& key, bool immediate) const
 {
     if (immediate)
@@ -65,7 +65,7 @@ bool DoubleBufferedSnapshotMap<TKey, TValue>::Contains(const TKey& key, bool imm
     return snapshot->map.contains(key);
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 size_t DoubleBufferedSnapshotMap<TKey, TValue>::size(bool immediate) const
 {
     auto snapshot = GetSnapshot();
@@ -78,7 +78,7 @@ size_t DoubleBufferedSnapshotMap<TKey, TValue>::size(bool immediate) const
     return size;
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 std::generator<const TKey&> DoubleBufferedSnapshotMap<TKey, TValue>::Keys(bool immediate) const
 {
     auto snapshot = GetSnapshot();
@@ -96,7 +96,7 @@ std::generator<const TKey&> DoubleBufferedSnapshotMap<TKey, TValue>::Keys(bool i
         co_yield key;
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 std::generator<const TValue&> DoubleBufferedSnapshotMap<TKey, TValue>::Values(bool immediate) const
 {
     auto snapshot = GetSnapshot();
@@ -114,7 +114,7 @@ std::generator<const TValue&> DoubleBufferedSnapshotMap<TKey, TValue>::Values(bo
         co_yield value;
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 void DoubleBufferedSnapshotMap<TKey, TValue>::SwapBuffers()
 {
     std::unique_lock lock(_writeMutex);
@@ -138,49 +138,49 @@ void DoubleBufferedSnapshotMap<TKey, TValue>::SwapBuffers()
     _writeBuffer = std::make_shared<DataSnapshot>();
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 bool DoubleBufferedSnapshotMap<TKey, TValue>::TryAdd(const TKey& key, const TValue& value)
 {
     return TryAdd(key, value, false);
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 std::optional<TValue> DoubleBufferedSnapshotMap<TKey, TValue>::TryGet(const TKey& key) const
 {
     return TryGet(key, false);
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 bool DoubleBufferedSnapshotMap<TKey, TValue>::TryRemove(const TKey& key, TValue& outValue)
 {
     return TryRemove(key, outValue, false);
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 bool DoubleBufferedSnapshotMap<TKey, TValue>::Contains(const TKey& key) const
 {
     return Contains(key, false);
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 size_t DoubleBufferedSnapshotMap<TKey, TValue>::size() const
 {
     return size(false);
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 std::generator<const TKey&> DoubleBufferedSnapshotMap<TKey, TValue>::Keys() const
 {
     return Keys(false);
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 std::generator<const TValue&> DoubleBufferedSnapshotMap<TKey, TValue>::Values() const
 {
     return Values(false);
 }
 
-template <HashableKey TKey, typename TValue>
+template <CHashableKey TKey, typename TValue>
 void DoubleBufferedSnapshotMap<TKey, TValue>::Clear()
 {
     {

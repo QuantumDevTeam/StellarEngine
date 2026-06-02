@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include "../IConcurrentMap.h"
+#include "../ICollection.h"
 
 #include <atomic>
 #include <shared_mutex>
@@ -12,8 +12,8 @@
 
 namespace Stellar::Native::Core::Data::Collections
 {
-    template <HashableKey TKey, typename TValue>
-    struct DoubleBufferedSnapshotMap : IConcurrentMap<TKey, TValue>
+    template <CHashableKey TKey, typename TValue>
+    struct DoubleBufferedSnapshotMap : ICollection<TKey, TValue>
     {
     protected:
         // data type

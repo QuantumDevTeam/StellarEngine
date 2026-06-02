@@ -3,8 +3,7 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include "../Collections/ConcurrentUnordered/ConcurrentUnorderedIdentifierMap.h"
-
+#include "../Collections/ConcurrentUnordered/ConcurrentUnorderedMap.h"
 
 namespace Stellar::Native::Core::Data::Registry
 {

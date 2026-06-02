@@ -6,7 +6,7 @@
 #include "../ICollection.h"
 
 #include <shared_mutex>
-#include <unordered_map>
+#include <flat_map>
 
 namespace Stellar::Native::Core
 {
@@ -18,14 +18,14 @@ namespace Stellar::Native::Core::Data::Collections
     inline constexpr size_t DefaultNumSegments = 16;
 
     template <CHashableKey TKey, typename TValue>
-    struct ConcurrentUnorderedMap : ICollection<TKey, TValue>
+    struct ConcurrentFlatMap : ICollection<TKey, TValue>
     {
     protected:
         // data type
         struct Segment
         {
             mutable std::shared_mutex mutex;
-            std::unordered_map<TKey, TValue> data;
+            std::flat_map<TKey, TValue> data;
 
             [[nodiscard]] std::size_t size() const;
         };
@@ -37,11 +37,11 @@ namespace Stellar::Native::Core::Data::Collections
         [[nodiscard]] std::size_t GetSegmentIndex(const TKey& key) const noexcept;
 
     public:
-        explicit ConcurrentUnorderedMap(size_t numSegments = DefaultNumSegments);
-        STELLAR_DECONSTRUCT(ConcurrentUnorderedMap, override);
-        STELLAR_DEFAULT_COPY_OPERATORS(ConcurrentUnorderedMap);
+        explicit ConcurrentFlatMap(size_t numSegments = DefaultNumSegments);
+        STELLAR_DECONSTRUCT(ConcurrentFlatMap, override);
+        STELLAR_DEFAULT_COPY_OPERATORS(ConcurrentFlatMap);
 
-        STELLAR_CLASS_NAME_DEF(ConcurrentUnorderedMap);
+        STELLAR_CLASS_NAME_DEF(ConcurrentFlatMap);
 
         bool TryAdd(const TKey& key, const TValue& value) override;
         [[nodiscard]] std::optional<TValue> TryGet(const TKey& key) const final;
@@ -62,10 +62,10 @@ namespace Stellar::Native::Core::Data::Collections
         void Clear() final;
     };
 
-#define IS_UNORDERED
+#define IS_FLAT
 #include "ConcurrentMap.inl"
-#undef IS_UNORDERED
-    
+#undef IS_FLAT
+
     template <typename TValue>
-    using ConcurrentUnorderedIdentifierMap = ConcurrentUnorderedMap<Identifier, TValue>;
+    using ConcurrentFlatIdentifierMap = ConcurrentFlatMap<Identifier, TValue>;
 }

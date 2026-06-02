@@ -11,7 +11,7 @@ namespace Stellar::Native::Core::Failures
 {
     struct NativeException : std::exception
     {
-        STELLAR_GENERATE_BODY(NativeException, constexpr)
+        STELLAR_GENERATE_BODY_PARTIAL(NativeException, constexpr,, noexcept)
         
         std::string Message;
         std::exception InnerException;
