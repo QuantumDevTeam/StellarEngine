@@ -1,23 +1,28 @@
+using System.Collections.Generic;
+using Stellar.Kernel.Data.Collections;
+using Stellar.Kernel.Label;
 using Stellar.Kernel.Quantization;
 
 namespace Stellar.Kernel.EventSystem;
 
+// TODO: ADD DOCS (IMPORTANT)
 public interface IEventQueueBase
-    : IQuantumObject
+    : IRegistrableQuant
 {
-    int EventCount { get; }
+    int Count { get; }
     bool IsEmpty { get; }
 
-    void SwapBuffers();
-    void DispatchTo(IEventHandler[] handlers);
+    void Prepare();
+    void DispatchTo(IEnumerable<IEventHandler> handlers);
 
     void Clear();
 }
 
+// TODO: ADD DOCS (IMPORTANT)
 public interface IEventQueue<TEvent>
-    : IRegistrableQuant, IEventQueueBase
+    : IQueueBase<TEvent>, IEventQueueBase, ILabeled
     where TEvent : struct, IEvent
 {
-    void Enqueue(TEvent @event);
-    bool TryDequeue(out TEvent @event);
+    new void Enqueue(TEvent @event);
+    new bool TryDequeue(out TEvent @event);
 }

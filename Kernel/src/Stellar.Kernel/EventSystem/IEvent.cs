@@ -1,32 +1,29 @@
 using System;
-using Stellar.Kernel.Quantization;
+using Stellar.Kernel.Data.Context;
 
 namespace Stellar.Kernel.EventSystem;
 
+// TODO: ADD DOCS (IMPORTANT)
 public interface IEvent
-    : IQuantumObject 
+    : IContextData
 {
     /// <summary>
-    /// тип события
+    /// Event type
     /// </summary>
     IEventType EventType { get; }
         
     /// <summary>
-    /// время создания
+    /// tyme of event creation
     /// </summary>
     DateTime TimeStamp { get; }
         
     /// <summary>
-    /// одноразовое ли событие
+    /// mark event as reusable
     /// </summary>
     bool CanBeReused { get; }
 
     /// <summary>
-    /// Проверка на то выпускать ли событие сейчас, нужно переименовать
+    /// Property getter that called during processing and tills the bus the event needs to be passed to handler 
     /// </summary>
-    /// <returns>выбрасывать ли при следующей обработке</returns>
     bool ShouldProcessNow { get; }
-        
-    // 2 последних могут быть полезны для части функционала, например для цикличеких событий,
-    // в пример - анимация AFK. Один говорит не удалять из пула а второй говорит когда выбразывать это событие
 }

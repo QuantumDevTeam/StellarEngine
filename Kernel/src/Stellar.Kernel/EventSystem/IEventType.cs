@@ -2,6 +2,7 @@ using Stellar.Kernel.Label;
 
 namespace Stellar.Kernel.EventSystem;
 
+// TODO: ADD DOCS (IMPORTANT)
 public interface IEventType
     : ILabel
 {

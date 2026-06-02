@@ -1,14 +1,15 @@
+#nullable enable
+
 using Stellar.Kernel.Data.Context;
+using Stellar.Kernel.Label;
 
 namespace Stellar.Kernel.EventSystem;
 
 // TODO: ADD DOCS (IMPORTANT)
-public interface IEventContext<TEvent>
+public interface IEventPostContext<TEvent>
     : IContext
     where TEvent : struct, IEvent
 {
-    /// <summary>
-    /// событие в контексте
-    /// </summary>
+    ILabel? QueueToPost { get; set; }
     TEvent Event { get; set; }
 }
