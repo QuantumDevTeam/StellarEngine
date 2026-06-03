@@ -13,15 +13,15 @@ namespace Stellar::Native::EventSystem
         STELLAR_GENERATE_BODY(EventType, IMetaQuant)
 
     private:
-        Core::Label Label = Core::UnnamedUnboundLabel;
+        Core::Label _label = Core::UnnamedUnboundLabel;
 
     public:
-        constexpr EventType(const Core::Label& label);
+        explicit constexpr EventType(const Core::Label& label);
 
-        STELLAR_INLINE_UID(override { return Label.UID; })
-        STELLAR_INLINE_LABEL({ return Label; })
+        ConstexprGetter(Core::Identifier, UID) override { return _label.GetUID(); }
+        ConstexprGetter(Core::Label, Label) { return _label; }
 
-        STELLAR_DEFAULTS(EventType,, override)
+        STELLAR_OVERRIDE_DEFAULTS(EventType)
     };
 }
 

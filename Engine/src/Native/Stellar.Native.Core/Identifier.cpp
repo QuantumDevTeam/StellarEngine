@@ -6,14 +6,14 @@ namespace Stellar::Native::Core
     Identifier Identifier::FromNativeGUID(const GUID& guid)
     {
         Identifier id;
-        std::copy_n(reinterpret_cast<const uint8_t*>(&guid), sizeof(GUID), id.data.begin());
+        std::copy_n(reinterpret_cast<const uint8_t*>(&guid), sizeof(GUID), id._data.begin());
         return id;
     }
 
     GUID Identifier::ToNativeGUID() const
     {
         GUID guid;
-        std::copy_n(data.data(), sizeof(GUID), reinterpret_cast<uint8_t*>(&guid));
+        std::copy_n(_data.data(), sizeof(GUID), reinterpret_cast<uint8_t*>(&guid));
         return guid;
     }
 
@@ -39,26 +39,26 @@ namespace Stellar::Native::Core
         return FromNativeGUID(guid);
     }
 
-    constexpr Identifier Identifier::FromBytes(const std::array<uint8_t, 16>& bytes)
+    constexpr Identifier Identifier::FromBytes(const IdentifierDataFormat& bytes)
     {
         return Identifier(bytes);
     }
 
     constexpr Identifier Identifier::FromBytes(std::span<const uint8_t, 16> bytes)
     {
-        std::array<uint8_t, 16> arr;
+        IdentifierDataFormat arr;
         std::copy_n(bytes.data(), 16, arr.begin());
         return Identifier(arr);
     }
 
     bool Identifier::IsNull() const noexcept
     {
-        return data == std::array<uint8_t, 16>();
+        return _data == IdentifierDataFormat();
     }
 
     std::string Identifier::ToString() const noexcept
     {
-        auto& d = data;
+        auto& d = _data;
         return std::format(
             "{}"
             "#GUID({:02X}{:02X}{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}{:02X}{:02X}{:02X}{:02X})",
@@ -72,7 +72,7 @@ namespace Stellar::Native::Core
 
     uint64_t Identifier::GetHashCode() const noexcept
     {
-        const uint64_t* p = reinterpret_cast<const uint64_t*>(data.data());
+        const uint64_t* p = reinterpret_cast<const uint64_t*>(_data.data());
         return p[0] ^ p[1] + 0x9e3779b9 + (p[0] << 6) + (p[0] >> 2);
     }
 }

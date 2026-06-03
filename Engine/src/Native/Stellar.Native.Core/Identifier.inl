@@ -1,7 +1,7 @@
 #pragma once
 
-constexpr Identifier::Identifier(const std::array<uint8_t, 16>& bytes)
-    : data(bytes)
+constexpr Identifier::Identifier(const IdentifierDataFormat& bytes)
+    : _data(bytes)
 {
 }
 
@@ -22,26 +22,26 @@ constexpr Identifier::Identifier(std::string_view str)
         throw Failures::NativeException("Invalid GUID format string");
     }
 
-    data[0] = p1 >> 24 & 0xFF;
-    data[1] = p1 >> 16 & 0xFF;
-    data[2] = p1 >> 8 & 0xFF;
-    data[3] = p1 & 0xFF;
-    data[4] = p2 >> 8 & 0xFF;
-    data[5] = p2 & 0xFF;
-    data[6] = p3 >> 8 & 0xFF;
-    data[7] = p3 & 0xFF;
-    data[8] = p4 >> 8 & 0xFF;
-    data[9] = p4 & 0xFF;
-    data[10] = p5 >> 40 & 0xFF;
-    data[11] = p5 >> 32 & 0xFF;
-    data[12] = p5 >> 24 & 0xFF;
-    data[13] = p5 >> 16 & 0xFF;
-    data[14] = p5 >> 8 & 0xFF;
-    data[15] = p5 & 0xFF;
+    _data[0] = p1 >> 24 & 0xFF;
+    _data[1] = p1 >> 16 & 0xFF;
+    _data[2] = p1 >> 8 & 0xFF;
+    _data[3] = p1 & 0xFF;
+    _data[4] = p2 >> 8 & 0xFF;
+    _data[5] = p2 & 0xFF;
+    _data[6] = p3 >> 8 & 0xFF;
+    _data[7] = p3 & 0xFF;
+    _data[8] = p4 >> 8 & 0xFF;
+    _data[9] = p4 & 0xFF;
+    _data[10] = p5 >> 40 & 0xFF;
+    _data[11] = p5 >> 32 & 0xFF;
+    _data[12] = p5 >> 24 & 0xFF;
+    _data[13] = p5 >> 16 & 0xFF;
+    _data[14] = p5 >> 8 & 0xFF;
+    _data[15] = p5 & 0xFF;
 }
 
 constexpr Identifier::Identifier(uint64_t high, uint64_t low)
 {
-    std::copy_n(reinterpret_cast<const uint8_t*>(&high), 8, data.begin());
-    std::copy_n(reinterpret_cast<const uint8_t*>(&low), 8, data.begin() + 8);
+    std::copy_n(reinterpret_cast<const uint8_t*>(&high), 8, _data.begin());
+    std::copy_n(reinterpret_cast<const uint8_t*>(&low), 8, _data.begin() + 8);
 }

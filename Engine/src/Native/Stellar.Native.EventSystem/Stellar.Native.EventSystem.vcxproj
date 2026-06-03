@@ -24,22 +24,21 @@
     <!-- compile configuration -->
     <PropertyGroup>
         <PreferredToolArchitecture>x64</PreferredToolArchitecture>
-        <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Configuration)\</OutDir>
+        <OutDir>$(SolutionDir)Engine\bin\$(ProjectName)\$(Configuration)\</OutDir>
         <IntDir>$(Configuration)\</IntDir>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <ConfigurationType>StaticLibrary</ConfigurationType>
         <UseDebugLibraries>true</UseDebugLibraries>
         <PlatformToolset>v145</PlatformToolset>
         <CharacterSet>Unicode</CharacterSet>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <ConfigurationType>StaticLibrary</ConfigurationType>
         <UseDebugLibraries>false</UseDebugLibraries>
         <PlatformToolset>v145</PlatformToolset>
         <CharacterSet>Unicode</CharacterSet>
         <WholeProgramOptimization>true</WholeProgramOptimization>
-        <MSVCPreviewEnabled>true</MSVCPreviewEnabled>
     </PropertyGroup>
 
     <!-- Extensions -->
@@ -80,7 +79,7 @@
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
-                ../Stellar.Native.Core/;
+                ../Stellar.Native.Core;
                 %(AdditionalIncludeDirectories)
             </AdditionalIncludeDirectories>
             <!-- Optimizations -->
@@ -91,11 +90,12 @@
             <!-- Other -->
             <SDLCheck>true</SDLCheck>
             <ConformanceMode>true</ConformanceMode>
+            <!-- Future -->
+            <!-- <BuildStlModules>true</BuildStlModules> -->
         </ClCompile>
         <Link>
             <!-- Dep's -->
             <AdditionalDependencies>
-                $(SolutionDir)bin\Stellar.Native.Core\$(Configuration)\;
                 %(AdditionalDependencies)
             </AdditionalDependencies>
             <AdditionalLibraryDirectories>
@@ -125,7 +125,7 @@
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
-                ../Stellar.Native.Core/;
+                ../Stellar.Native.Core;
                 %(AdditionalIncludeDirectories)
             </AdditionalIncludeDirectories>
             <!-- Optimizations -->
@@ -138,11 +138,12 @@
             <!-- Other -->
             <SDLCheck>true</SDLCheck>
             <ConformanceMode>true</ConformanceMode>
+            <!-- Future -->
+            <!-- <BuildStlModules>true</BuildStlModules> -->
         </ClCompile>
         <Link>
             <!-- Dep's -->
             <AdditionalDependencies>
-                $(SolutionDir)bin\Stellar.Native.Core\$(Configuration)\;
                 %(AdditionalDependencies)
             </AdditionalDependencies>
             <AdditionalLibraryDirectories>
@@ -158,22 +159,31 @@
 
     <!-- Source Code - HEADER FILES -->
     <ItemGroup>
-        <ClInclude Include="Event.h" />
-        <ClInclude Include="EventQueue.h" />
-        <ClInclude Include="EventType.h" />
-        <ClInclude Include="Extensions.h" />
+        <ClInclude Include="Event.h"/>
+        <ClInclude Include="EventQueue.h"/>
+        <ClInclude Include="EventType.h"/>
+        <ClInclude Include="include\Stellar.Native.EventSystem\Extensions.h"/>
         <ClInclude Include="pch.h">
         </ClInclude>
     </ItemGroup>
     <!-- Source Code - SOURCE FILES -->
     <ItemGroup>
-        <ClCompile Include="Event.cpp" />
-        <ClCompile Include="EventQueue.cpp" />
-        <ClCompile Include="EventType.cpp" />
+        <ClCompile Include="Event.cpp"/>
+        <ClCompile Include="EventQueue.cpp"/>
+        <ClCompile Include="EventType.cpp"/>
+        <!-- Future -->
+        <!-- <ClCompile Include="module\EventSystem.ixx"/> -->
         <ClCompile Include="pch.cpp">
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
         </ClCompile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Stellar.Native.Core\Stellar.Native.Core.vcxproj">
+            <Project>{094d70eb-ba0b-45f7-86d8-f7e79660b578}</Project>
+            <Name>Stellar.Native.Core</Name>
+        </ProjectReference>
     </ItemGroup>
 
     <!-- Other -->

@@ -24,22 +24,21 @@
     <!-- compile configuration -->
     <PropertyGroup>
         <PreferredToolArchitecture>x64</PreferredToolArchitecture>
-        <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Configuration)\</OutDir>
+        <OutDir>$(SolutionDir)Engine\bin\$(ProjectName)\$(Configuration)\</OutDir>
         <IntDir>$(Configuration)\</IntDir>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <ConfigurationType>StaticLibrary</ConfigurationType>
         <UseDebugLibraries>true</UseDebugLibraries>
         <PlatformToolset>v145</PlatformToolset>
         <CharacterSet>Unicode</CharacterSet>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-        <ConfigurationType>DynamicLibrary</ConfigurationType>
+        <ConfigurationType>StaticLibrary</ConfigurationType>
         <UseDebugLibraries>false</UseDebugLibraries>
         <PlatformToolset>v145</PlatformToolset>
         <CharacterSet>Unicode</CharacterSet>
         <WholeProgramOptimization>true</WholeProgramOptimization>
-        <MSVCPreviewEnabled>true</MSVCPreviewEnabled>
     </PropertyGroup>
 
     <!-- Extensions -->
@@ -49,14 +48,10 @@
     <ImportGroup Label="Shared">
     </ImportGroup>
     <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
-                Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
-                Label="LocalAppDataPlatform"/>
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
     </ImportGroup>
     <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
-                Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
-                Label="LocalAppDataPlatform"/>
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
     </ImportGroup>
     <PropertyGroup Label="UserMacros"/>
 
@@ -91,6 +86,8 @@
             <!-- Other -->
             <SDLCheck>true</SDLCheck>
             <ConformanceMode>true</ConformanceMode>
+            <!-- Future -->
+            <!-- <BuildStlModules>true</BuildStlModules> -->
         </ClCompile>
         <Link>
             <!-- Dep's -->
@@ -137,6 +134,8 @@
             <!-- Other -->
             <SDLCheck>true</SDLCheck>
             <ConformanceMode>true</ConformanceMode>
+            <!-- Future -->
+            <!-- <BuildStlModules>true</BuildStlModules> -->
         </ClCompile>
         <Link>
             <!-- Dep's -->
@@ -165,11 +164,11 @@
         <ClInclude Include="Data\Collections\ICollection.h"/>
         <ClInclude Include="Data\Registry\IdentifierRegistry.h"/>
         <ClInclude Include="Data\Registry\LabelRegistry.h"/>
-        <ClInclude Include="Extensions.h"/>
         <ClInclude Include="Failures\FailureLevel.h"/>
         <ClInclude Include="Failures\NativeException.h"/>
         <ClInclude Include="Identifier.h"/>
-        <ClInclude Include="Identifier.inl" />
+        <ClInclude Include="Identifier.inl"/>
+        <ClInclude Include="include\Stellar.Native.Core\Extensions.h"/>
         <ClInclude Include="Label.h"/>
         <ClInclude Include="pch.h">
         </ClInclude>
@@ -182,6 +181,12 @@
         <ClCompile Include="Data\Registry\LabelRegistry.cpp"/>
         <ClCompile Include="Identifier.cpp"/>
         <ClCompile Include="Label.cpp"/>
+        <!-- Future -->
+        <!-- <ClCompile Include="module\Core.ixx"/> -->
+        <!-- <ClCompile Include="module\Data\Collections\Collections.ixx"/> -->
+        <!-- <ClCompile Include="module\Data\Registry\Registry.ixx"/> -->
+        <!-- <ClCompile Include="module\Failures\Failures.ixx"/> -->
+        <!-- <ClCompile Include="module\Quantization\Quantization.ixx"/> -->
         <ClCompile Include="pch.cpp">
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

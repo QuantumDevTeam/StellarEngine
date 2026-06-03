@@ -11,8 +11,6 @@
 
 namespace Stellar::Native::Core::Data::Collections
 {
-    inline constexpr size_t DefaultNumSegments = 16;
-
     template <CHashableKey TKey, typename TValue>
     struct ConcurrentFlatMap : ICollection<TKey, TValue>
     {

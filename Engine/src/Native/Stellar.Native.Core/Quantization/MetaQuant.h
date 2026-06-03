@@ -9,6 +9,7 @@ namespace Stellar::Native::Core::Quantization
 {
     class MetaQuant : public IMetaQuant
     {
+        using Type = MetaQuant; // TODO: macro
         STELLAR_GENERATE_QUANT(MetaQuant, IMetaQuant)
 
     private:
@@ -20,9 +21,9 @@ namespace Stellar::Native::Core::Quantization
         {
         }
 
-        STELLAR_INLINE_UID(override { return _uid; })
+        PropertyGetter(Identifier, UID) override { return _uid; }
 
-        STELLAR_INLINE_DEFAULTS(MetaQuant,, override)
+        STELLAR_OVERRIDE_DEFAULTS(Type)
     };
 }
 

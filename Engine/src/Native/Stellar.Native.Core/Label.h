@@ -11,20 +11,25 @@ namespace Stellar::Native::Core
     {
         STELLAR_GENERATE_BODY_PARTIAL(Label, constexpr,, noexcept)
 
-        std::string_view Name{};
-        Identifier UID{};
+    private:
+        Identifier _uid{};
+        std::string_view _name{};
 
+    public:
         // from name
-        constexpr explicit Label(std::string_view name)
-            : Name(name), UID(NullIdentifier)
+        explicit constexpr Label(std::string_view name)
+            : _name(name), _uid(NullIdentifier)
         {
         }
 
-        // null name and id
-        constexpr Label(std::string_view name, Identifier id)
-            : Name(name), UID(id)
+        // from name and id
+        explicit constexpr Label(std::string_view name, Identifier id)
+            : _name(name), _uid(id)
         {
         }
+
+        ConstexprGetter(Identifier, UID) { return _uid; }
+        ConstexprGetter(std::string_view, Name) { return _name; }
 
         // null label
         [[nodiscard]] static constexpr Label Null() { return {}; }

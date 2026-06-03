@@ -8,18 +8,18 @@ namespace Stellar::Native::EventSystem
     {
     }
 
-    uint64_t Event::GetHashCode() const noexcept
+    constexpr uint64_t Event::GetHashCode() const noexcept
     {
         return _uid.GetHashCode();
     }
 
-    std::string Event::ToString() const noexcept
+    constexpr std::string Event::ToString() const noexcept
     {
         return std::format(
             "{}<{}>"
             "#Label({})"
             "#Timestamp({})",
-            StaticClassName(), _type.GetLabel().Name, 
-            _type.GetLabel(), _timestamp);
+            StaticClassName(), _type.GetLabel().GetName(), 
+            _type.GetLabel().ToString(), _timestamp);
     }
 }

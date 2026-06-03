@@ -42,17 +42,20 @@ namespace Stellar::Native::Core::Data::Collections
 
         STELLAR_CLASS_NAME_DEF(DoubleBufferedSnapshotMap);
 
-        [[nodiscard]] std::shared_ptr<const DataSnapshot> GetSnapshot() const;
+        [[nodiscard]] std::shared_ptr<const DataSnapshot> GetSnapshot() const
+        {
+            return _currentSnapshot.load(std::memory_order_acquire);
+        }
 
-        bool TryAdd(const TKey& key, const TValue& value, bool immediate = false) const;
-        [[nodiscard]] std::optional<TValue> TryGet(const TKey& key, bool immediate = false) const;
-        [[nodiscard]] bool TryRemove(const TKey& key, TValue& outValue, bool immediate = false) const;
+        bool TryAdd(const TKey& key, const TValue& value, bool immediate);
+        [[nodiscard]] std::optional<TValue> TryGet(const TKey& key, bool immediate) const;
+        [[nodiscard]] bool TryRemove(const TKey& key, TValue& outValue, bool immediate);
 
-        [[nodiscard]] bool Contains(const TKey& key, bool immediate = false) const;
-        [[nodiscard]] size_t size(bool immediate = false) const;
+        [[nodiscard]] bool Contains(const TKey& key, bool immediate) const;
+        [[nodiscard]] size_t size(bool immediate) const;
 
-        [[nodiscard]] std::generator<const TKey&> Keys(bool immediate = false) const;
-        [[nodiscard]] std::generator<const TValue&> Values(bool immediate = false) const;
+        [[nodiscard]] std::generator<const TKey&> Keys(bool immediate) const;
+        [[nodiscard]] std::generator<const TValue&> Values(bool immediate) const;
 
         void SwapBuffers();
 
@@ -70,4 +73,7 @@ namespace Stellar::Native::Core::Data::Collections
     };
 
 #include "DoubleBufferedSnapshotMap.inl"
+
+    template <typename TValue>
+    using DoubleBufferedSnapshotIdentifierMap = DoubleBufferedSnapshotMap<Identifier, TValue>;
 }

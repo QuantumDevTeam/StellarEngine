@@ -1,3 +1,6 @@
+// StellarEngine
+// Copyright (c) 2026 QuantumDevTeam
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
 // pragma
@@ -24,6 +27,9 @@ void Set##Name(const Type& value)
 
 #define PropertyGetter(Type, Name)\
 [[nodiscard]] const Type& Get##Name() const
+
+#define ConstexprGetter(Type, Name)\
+[[nodiscard]] constexpr const Type& Get##Name() const
 
 #define STELLAR_CONSTRUCT(Type)\
 Type() = default
@@ -66,17 +72,17 @@ STELLAR_CLASS_NAME_DEF(Type, , modifier , secondModifier)\
 [[nodiscard]] modifier STELLAR_HASHCODE() secondModifier;\
 STELLAR_SPACESHIP(Type);
 
+#define STELLAR_OVERRIDE_DEFAULTS(Type)\
+STELLAR_DEFAULTS(Type,, override)
+
 #define STELLAR_INLINE_DEFAULTS(Type, modifier, secondModifier)\
 STELLAR_CLASS_NAME_DEF(Type, , modifier , secondModifier)\
 [[nodiscard]] modifier STELLAR_TO_STRING() secondModifier { return std::format("{}#UID({})", Type::StaticClassName(), to_string(GetUID())); }\
 [[nodiscard]] modifier STELLAR_HASHCODE() secondModifier { return GetUID().GetHashCode(); }\
 STELLAR_SPACESHIP(Type);
 
-#define STELLAR_INLINE_UID(id)\
-[[nodiscard]] constexpr const Stellar::Native::Core::Identifier& GetUID() const id
-
-#define STELLAR_INLINE_LABEL(lbl)\
-[[nodiscard]] constexpr const Stellar::Native::Core::Label& GetLabel() const lbl
+#define STELLAR_OVERRIDE_INLINED_DEFAULTS(Type)\
+STELLAR_INLINE_DEFAULTS(Type,, override)
 
 #define STELLAR_GENERATE_BODY_PARTIAL(Type, modifier, secondModifier, thirdModifier)\
     modifier STELLAR_CONSTRUCTION(Type, secondModifier, thirdModifier);\

@@ -8,22 +8,15 @@ DoubleBufferedSnapshotMap<TKey, TValue>::DoubleBufferedSnapshotMap()
 }
 
 template <CHashableKey TKey, typename TValue>
-std::shared_ptr<const DoubleBufferedSnapshotMap<TKey, TValue>::DataSnapshot>
-DoubleBufferedSnapshotMap<TKey, TValue>::GetSnapshot() const
-{
-    return _currentSnapshot.load(std::memory_order_acquire);
-}
-
-template <CHashableKey TKey, typename TValue>
-bool DoubleBufferedSnapshotMap<TKey, TValue>::TryAdd(const TKey& key, const TValue& value, bool immediate) const
+bool DoubleBufferedSnapshotMap<TKey, TValue>::TryAdd(const TKey& key, const TValue& value, bool immediate)
 {
     if (immediate)
     {
         std::lock_guard hotLock(_hotMutex);
-        _hotItems[key] = value;
+        _hotItems.insert_or_assign(key, value);
     }
     std::unique_lock lock(_writeMutex);
-    _writeBuffer->map[key] = value;
+    _writeBuffer->map.insert_or_assign(key, value);
     return true;
 }
 
@@ -45,7 +38,7 @@ std::optional<TValue> DoubleBufferedSnapshotMap<TKey, TValue>::TryGet(const TKey
 }
 
 template <CHashableKey TKey, typename TValue>
-bool DoubleBufferedSnapshotMap<TKey, TValue>::TryRemove(const TKey& key, TValue& outValue, bool immediate) const
+bool DoubleBufferedSnapshotMap<TKey, TValue>::TryRemove(const TKey& key, TValue& outValue, bool immediate)
 {
     std::unique_lock lock(_writeMutex);
     auto it = _writeBuffer->map.find(key);
@@ -55,7 +48,7 @@ bool DoubleBufferedSnapshotMap<TKey, TValue>::TryRemove(const TKey& key, TValue&
     if (immediate)
     {
         std::lock_guard hotLock(_hotMutex);
-        _hotItems.insert[key] = std::nullopt;
+        _hotItems.insert_or_assign(key, std::nullopt);
     }
     return true;
 }
@@ -113,7 +106,7 @@ std::generator<const TValue&> DoubleBufferedSnapshotMap<TKey, TValue>::Values(bo
         std::lock_guard hotLock(_hotMutex);
         hotItems.reserve(_hotItems.size());
         for (const auto& [_, value] : _hotItems)
-            hotItems.push_back(value);
+            hotItems.emplace_back(value.value());
     }
     for (const auto& value : hotItems)
         co_yield value;
@@ -135,7 +128,8 @@ void DoubleBufferedSnapshotMap<TKey, TValue>::SwapBuffers()
             }
             else
             {
-                _writeBuffer->map[key] = value;
+                _writeBuffer->map.insert_or_assign(key, value.value());
+                
             }
         }
     }

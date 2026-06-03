@@ -14,7 +14,16 @@ namespace Stellar::Native::Core::Quantization
 
         [[nodiscard]] virtual const Identifier& GetUID() const = 0;
 
-        STELLAR_INLINE_DEFAULTS(IMetaQuant, virtual)
+        static const char* StaticClassName() { return "Native.""IMetaQuant"; }
+        virtual const char* GetClassNameW() const { return StaticClassName(); }
+
+        [[nodiscard]] virtual std::string ToString() const noexcept
+        {
+            return std::format("{}#UID({})", IMetaQuant::StaticClassName(), to_string(GetUID()));
+        }
+
+        [[nodiscard]] virtual uint64_t GetHashCode() const noexcept { return GetUID().GetHashCode(); }
+        auto operator<=>(const IMetaQuant&) const noexcept = default;
     };
 }
 

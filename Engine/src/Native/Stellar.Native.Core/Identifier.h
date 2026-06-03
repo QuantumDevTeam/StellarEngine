@@ -13,20 +13,23 @@ namespace Stellar::Native::Core
         STELLAR_GENERATE_BODY_PARTIAL(Identifier, constexpr,, noexcept)
 
     private:
+        using IdentifierDataFormat = std::array<uint8_t, 16>;
+        IdentifierDataFormat _data{};
+
         [[nodiscard]] static Identifier FromNativeGUID(const GUID& guid);
         [[nodiscard]] GUID ToNativeGUID() const;
 
     public:
-        std::array<uint8_t, 16> data{};
-
         // from data
-        explicit constexpr Identifier(const std::array<uint8_t, 16>& bytes);
+        explicit constexpr Identifier(const IdentifierDataFormat& bytes);
 
         // from string
         explicit constexpr Identifier(std::string_view str);
 
         // little-endian
         explicit constexpr Identifier(uint64_t high, uint64_t low);
+
+        PropertyGetter(IdentifierDataFormat, Data) { return _data; }
 
         // null identifier
         [[nodiscard]] static constexpr Identifier Null() { return {}; }
@@ -36,7 +39,7 @@ namespace Stellar::Native::Core
         // create new identifier from gotten string
         [[nodiscard]] static Identifier FromString(std::string_view str);
         // create new identifier from gotten bytes, presents in array
-        [[nodiscard]] static constexpr Identifier FromBytes(const std::array<uint8_t, 16>& bytes);
+        [[nodiscard]] static constexpr Identifier FromBytes(const IdentifierDataFormat& bytes);
         // create new identifier from gotten bytes, presents in span
         [[nodiscard]] static constexpr Identifier FromBytes(std::span<const uint8_t, 16> bytes);
 

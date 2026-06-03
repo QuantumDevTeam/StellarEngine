@@ -22,7 +22,7 @@
 #include <span>
 #include <optional>
 
-// custom dirrectives
-#include "Extensions.h"
+// custom directives
+#include "include/Stellar.Native.Core/Extensions.h"
 
 #endif

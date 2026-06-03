@@ -8,12 +8,12 @@ namespace Stellar::Native::Core::Data::Registry
     bool LabelRegistry::Register(const Label& label)
     {
         if (!label.IsBound()) return false;
-        if (_byName.Contains(label.Name)) return false;
-        if (!_byId.TryAdd(label.UID, label)) return false;
-        if (!_byName.TryAdd(label.Name, label.UID))
+        if (_byName.Contains(label.GetName())) return false;
+        if (!_byId.TryAdd(label.GetUID(), label)) return false;
+        if (!_byName.TryAdd(label.GetName(), label.GetUID()))
         {
             Label dummy;
-            _byId.TryRemove(label.UID, dummy);
+            _byId.TryRemove(label.GetUID(), dummy);
             return false;
         }
         return true;
@@ -37,7 +37,7 @@ namespace Stellar::Native::Core::Data::Registry
         if (_byId.TryRemove(id, label))
         {
             Identifier dummyId;
-            return _byName.TryRemove(label.Name, dummyId);
+            return _byName.TryRemove(label.GetName(), dummyId);
         }
         return false;
     }

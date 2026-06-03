@@ -4,13 +4,13 @@
 namespace Stellar::Native::EventSystem
 {
     constexpr EventType::EventType(const Core::Label& label)
-        : Label(label)
+        : _label(label)
     {
     }
 
     uint64_t EventType::GetHashCode() const noexcept
     {
-        return Label.GetHashCode();
+        return _label.GetHashCode();
     }
 
     std::string EventType::ToString() const noexcept
@@ -18,7 +18,7 @@ namespace Stellar::Native::EventSystem
         return std::format(
             "{}<{}>"
             "#Label({})",
-            StaticClassName(), Label.Name, 
-            Label.ToString());
+            StaticClassName(), std::string(_label.GetName()), 
+            _label.ToString());
     }
 }

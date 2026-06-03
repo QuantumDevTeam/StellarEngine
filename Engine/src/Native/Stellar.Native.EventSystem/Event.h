@@ -18,10 +18,12 @@ namespace Stellar::Native::EventSystem
 
     public:
         constexpr Event(const EventType& type, uint64_t timestamp);
-        
-        STELLAR_INLINE_UID(override { return _uid; })
 
-        STELLAR_DEFAULTS(Event,, override)
+        ConstexprGetter(Core::Identifier, UID) override { return _uid; }
+        ConstexprGetter(EventType, EventType) { return _type; }
+        ConstexprGetter(uint64_t, Timestamp) { return _timestamp; }
+
+        STELLAR_DEFAULTS(Event, constexpr, override)
     };
 }
 
