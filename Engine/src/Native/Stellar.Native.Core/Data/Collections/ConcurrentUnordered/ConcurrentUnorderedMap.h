@@ -3,15 +3,11 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
+#include "../../../Identifier.h"
 #include "../ICollection.h"
 
 #include <shared_mutex>
 #include <unordered_map>
-
-namespace Stellar::Native::Core
-{
-    struct Identifier;
-}
 
 namespace Stellar::Native::Core::Data::Collections
 {

@@ -1,5 +1,4 @@
 #pragma once
-#include "../ICollection.h"
 
 #ifdef IS_FLAT
 #define MAP ConcurrentFlatMap

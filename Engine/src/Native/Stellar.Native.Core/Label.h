@@ -5,7 +5,6 @@
 
 #include "Identifier.h"
 
-
 namespace Stellar::Native::Core
 {
     struct Label final

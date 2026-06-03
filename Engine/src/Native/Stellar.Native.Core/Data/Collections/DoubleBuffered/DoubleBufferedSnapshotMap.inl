@@ -8,6 +8,13 @@ DoubleBufferedSnapshotMap<TKey, TValue>::DoubleBufferedSnapshotMap()
 }
 
 template <CHashableKey TKey, typename TValue>
+std::shared_ptr<const DoubleBufferedSnapshotMap<TKey, TValue>::DataSnapshot>
+DoubleBufferedSnapshotMap<TKey, TValue>::GetSnapshot() const
+{
+    return _currentSnapshot.load(std::memory_order_acquire);
+}
+
+template <CHashableKey TKey, typename TValue>
 bool DoubleBufferedSnapshotMap<TKey, TValue>::TryAdd(const TKey& key, const TValue& value, bool immediate) const
 {
     if (immediate)

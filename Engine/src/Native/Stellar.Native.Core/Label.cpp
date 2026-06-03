@@ -30,7 +30,12 @@ namespace Stellar::Native::Core
 
     std::string Label::ToString() const noexcept
     {
-        return "Label#" + std::string(Name);
+        return std::format(
+            "{}"
+            "#UID({})"
+            "#Name({})",
+            StaticClassName(),
+            UID.ToString(), Name);
     }
 
     uint64_t Label::GetHashCode() const noexcept

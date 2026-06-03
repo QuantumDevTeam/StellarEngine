@@ -5,7 +5,6 @@
 
 #include "IMetaQuant.h"
 
-
 namespace Stellar::Native::Core::Quantization
 {
     class MetaQuant : public IMetaQuant
@@ -16,11 +15,14 @@ namespace Stellar::Native::Core::Quantization
         Identifier _uid;
 
     public:
-        explicit MetaQuant(Identifier uid) : IMetaQuant(), _uid(uid)
+        explicit MetaQuant(Identifier uid)
+            : Base(), _uid(uid)
         {
         }
 
-        STELLAR_INLINE_UID(_uid)
+        STELLAR_INLINE_UID(override { return _uid; })
+
+        STELLAR_INLINE_DEFAULTS(MetaQuant,, override)
     };
 }
 

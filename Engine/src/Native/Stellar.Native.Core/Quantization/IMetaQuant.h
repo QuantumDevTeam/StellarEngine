@@ -6,9 +6,6 @@ STELLAR_CLANG_IGNORE("-Wpadded")
 
 #include "../Identifier.h"
 
-#include <memory>
-
-
 namespace Stellar::Native::Core::Quantization
 {
     class IMetaQuant
@@ -17,7 +14,7 @@ namespace Stellar::Native::Core::Quantization
 
         [[nodiscard]] virtual const Identifier& GetUID() const = 0;
 
-        STELLAR_INLINE_DEFAULTS(IMetaQuant, virtual);
+        STELLAR_INLINE_DEFAULTS(IMetaQuant, virtual)
     };
 }
 

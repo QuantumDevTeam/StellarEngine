@@ -19,6 +19,12 @@ STELLAR_CLANG_IGNORE_ADD(which)
 
 // class and struct members
 
+#define PropertySetter(Type, Name)\
+void Set##Name(const Type& value)
+
+#define PropertyGetter(Type, Name)\
+[[nodiscard]] const Type& Get##Name() const
+
 #define STELLAR_CONSTRUCT(Type)\
 Type() = default
 
@@ -55,26 +61,27 @@ uint64_t GetHashCode() const noexcept
 auto operator<=>(const Type&) const noexcept = default
 
 #define STELLAR_DEFAULTS(Type, modifier, secondModifier)\
+STELLAR_CLASS_NAME_DEF(Type, , modifier , secondModifier)\
 [[nodiscard]] modifier STELLAR_TO_STRING() secondModifier;\
 [[nodiscard]] modifier STELLAR_HASHCODE() secondModifier;\
-[[nodiscard]] STELLAR_SPACESHIP(Type)
+STELLAR_SPACESHIP(Type);
 
 #define STELLAR_INLINE_DEFAULTS(Type, modifier, secondModifier)\
-[[nodiscard]] modifier STELLAR_TO_STRING() secondModifier { return std::string(std::string(StaticClassName()) + "#" + to_string(GetUID())); }\
+STELLAR_CLASS_NAME_DEF(Type, , modifier , secondModifier)\
+[[nodiscard]] modifier STELLAR_TO_STRING() secondModifier { return std::format("{}#UID({})", Type::StaticClassName(), to_string(GetUID())); }\
 [[nodiscard]] modifier STELLAR_HASHCODE() secondModifier { return GetUID().GetHashCode(); }\
-[[nodiscard]] STELLAR_SPACESHIP(Type);
+STELLAR_SPACESHIP(Type);
 
 #define STELLAR_INLINE_UID(id)\
-[[nodiscard]] const Stellar::Native::Core::Identifier& GetUID() const override { return id; }
+[[nodiscard]] constexpr const Stellar::Native::Core::Identifier& GetUID() const id
 
-#define STELLAR_INLINE_UID_SIMPLE(id)\
-[[nodiscard]] const Stellar::Native::Core::Identifier& GetUID() const { return id; }
+#define STELLAR_INLINE_LABEL(lbl)\
+[[nodiscard]] constexpr const Stellar::Native::Core::Label& GetLabel() const lbl
 
 #define STELLAR_GENERATE_BODY_PARTIAL(Type, modifier, secondModifier, thirdModifier)\
     modifier STELLAR_CONSTRUCTION(Type, secondModifier, thirdModifier);\
 public:\
-    STELLAR_DEFAULT_COPY_OPERATORS(Type);\
-    STELLAR_CLASS_NAME_DEF(Type, modifier, secondModifier, thirdModifier)
+    STELLAR_DEFAULT_COPY_OPERATORS(Type);
 
 #define STELLAR_GENERATE_BODY_FLAGGED(Type, BaseType, modifier, secondModifier, thirdModifier)\
 using Base = BaseType;\

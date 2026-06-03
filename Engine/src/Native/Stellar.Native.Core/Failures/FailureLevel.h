@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-
 namespace Stellar::Native::Core::Failures
 {
     struct FailureLevel

@@ -20,7 +20,7 @@
         <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     </PropertyGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
-    
+
     <!-- compile configuration -->
     <PropertyGroup>
         <PreferredToolArchitecture>x64</PreferredToolArchitecture>
@@ -41,7 +41,7 @@
         <WholeProgramOptimization>true</WholeProgramOptimization>
         <MSVCPreviewEnabled>true</MSVCPreviewEnabled>
     </PropertyGroup>
-    
+
     <!-- Extensions -->
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
     <ImportGroup Label="ExtensionSettings">
@@ -49,17 +49,17 @@
     <ImportGroup Label="Shared">
     </ImportGroup>
     <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" 
-                Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" 
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+                Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
                 Label="LocalAppDataPlatform"/>
     </ImportGroup>
     <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" 
-                Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" 
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+                Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
                 Label="LocalAppDataPlatform"/>
     </ImportGroup>
     <PropertyGroup Label="UserMacros"/>
-    
+
     <!-- DEBUG compiler configuration settings -->
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
         <LinkIncremental>true</LinkIncremental>
@@ -101,8 +101,8 @@
                 %(AdditionalLibraryDirectories)
             </AdditionalLibraryDirectories>
             <!-- Other -->
-            <GenerateDebugInformation>true</GenerateDebugInformation>
             <SubSystem>Windows</SubSystem>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
         </Link>
     </ItemDefinitionGroup>
     <!-- RELEASE compiler configuration settings -->
@@ -153,40 +153,41 @@
             <OptimizeReferences>true</OptimizeReferences>
         </Link>
     </ItemDefinitionGroup>
-    
+
     <!-- Source Code - HEADER FILES -->
     <ItemGroup>
-        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentFlatMap.h" />
-        <ClInclude Include="Data\Collections\DataContainer.h" />
-        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedMap.h" />
-        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentMap.inl" />
-        <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.h" />
-        <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.inl" />
-        <ClInclude Include="Data\Collections\ICollection.h" />
-        <ClInclude Include="Data\Registry\IdentifierRegistry.h" />
-        <ClInclude Include="Data\Registry\LabelRegistry.h" />
-        <ClInclude Include="Extensions.h" />
-        <ClInclude Include="Failures\FailureLevel.h" />
-        <ClInclude Include="Failures\NativeException.h" />
-        <ClInclude Include="Identifier.h" />
-        <ClInclude Include="Label.h" />
+        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentFlatMap.h"/>
+        <ClInclude Include="Data\Collections\DataContainer.h"/>
+        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedMap.h"/>
+        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentMap.inl"/>
+        <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.h"/>
+        <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.inl"/>
+        <ClInclude Include="Data\Collections\ICollection.h"/>
+        <ClInclude Include="Data\Registry\IdentifierRegistry.h"/>
+        <ClInclude Include="Data\Registry\LabelRegistry.h"/>
+        <ClInclude Include="Extensions.h"/>
+        <ClInclude Include="Failures\FailureLevel.h"/>
+        <ClInclude Include="Failures\NativeException.h"/>
+        <ClInclude Include="Identifier.h"/>
+        <ClInclude Include="Identifier.inl" />
+        <ClInclude Include="Label.h"/>
         <ClInclude Include="pch.h">
         </ClInclude>
-        <ClInclude Include="Quantization\IMetaQuant.h" />
-        <ClInclude Include="Quantization\MetaQuant.h" />
+        <ClInclude Include="Quantization\IMetaQuant.h"/>
+        <ClInclude Include="Quantization\MetaQuant.h"/>
     </ItemGroup>
     <!-- Source Code - SOURCE FILES -->
     <ItemGroup>
-        <ClCompile Include="Data\Registry\IdentifierRegistry.cpp" />
-        <ClCompile Include="Data\Registry\LabelRegistry.cpp" />
-        <ClCompile Include="Identifier.cpp" />
-        <ClCompile Include="Label.cpp" />
+        <ClCompile Include="Data\Registry\IdentifierRegistry.cpp"/>
+        <ClCompile Include="Data\Registry\LabelRegistry.cpp"/>
+        <ClCompile Include="Identifier.cpp"/>
+        <ClCompile Include="Label.cpp"/>
         <ClCompile Include="pch.cpp">
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
         </ClCompile>
     </ItemGroup>
-    
+
     <!-- Other -->
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">
