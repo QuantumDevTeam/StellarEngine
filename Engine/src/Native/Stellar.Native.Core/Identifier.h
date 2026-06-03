@@ -47,6 +47,8 @@ namespace Stellar::Native::Core
         [[nodiscard]] bool IsNull() const noexcept;
 
         STELLAR_DEFAULTS(Identifier);
+        
+        bool operator<(const Identifier& other) const { return GetHashCode() < other.GetHashCode(); }
     };
 
 #include "Identifier.inl"

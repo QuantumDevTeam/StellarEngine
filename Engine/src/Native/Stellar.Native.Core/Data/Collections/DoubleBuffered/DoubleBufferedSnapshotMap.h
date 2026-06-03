@@ -15,13 +15,14 @@ namespace Stellar::Native::Core::Data::Collections
     template <CHashableKey TKey, typename TValue>
     struct DoubleBufferedSnapshotMap : ICollection<TKey, TValue>
     {
-    protected:
         // data type
         struct DataSnapshot
         {
             std::unordered_map<TKey, TValue> map;
             uint64_t version = 0;
         };
+        
+    protected:
 
         // stored data
         std::atomic<std::shared_ptr<const DataSnapshot>> _currentSnapshot;
@@ -56,8 +57,9 @@ namespace Stellar::Native::Core::Data::Collections
 
         [[nodiscard]] std::generator<const TKey&> Keys(bool immediate) const;
         [[nodiscard]] std::generator<const TValue&> Values(bool immediate) const;
-
-        void SwapBuffers();
+        
+        [[nodiscard]] std::shared_ptr<const DataSnapshot> GetCurrentSnapshot();
+        std::shared_ptr<const DataSnapshot> TakeSnapshot();
 
         bool TryAdd(const TKey& key, const TValue& value) final;
         [[nodiscard]] std::optional<TValue> TryGet(const TKey& key) const final;

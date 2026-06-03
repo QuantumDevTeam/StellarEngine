@@ -10,13 +10,15 @@
 
 namespace Stellar::Native::EventSystem
 {
+    using EventQueueDataType = Core::Data::Collections::DoubleBufferedSnapshotIdentifierMap<Event>;
+    
     class EventQueue : Core::Quantization::IMetaQuant
     {
         STELLAR_GENERATE_BODY(EventQueue, IMetaQuant)
 
     private:
         Core::Label _label = Core::UnnamedUnboundLabel;
-        Core::Data::Collections::DoubleBufferedSnapshotIdentifierMap<Event> _events{};
+        EventQueueDataType _events{};
 
     public:
         explicit EventQueue(const Core::Label& label);
@@ -24,9 +26,9 @@ namespace Stellar::Native::EventSystem
 
         PropertyGetter(Core::Identifier, UID) override { return _label.GetUID(); }
         PropertyGetter(Core::Label) { return _label; }
-
+        
         void Enqueue(const Event& event);
-        std::vector<Event> DequeueAll() const;
+        std::shared_ptr<const EventQueueDataType::DataSnapshot> DequeueAll();
 
         [[nodiscard]] bool Contains(const Core::Identifier& key) const;
         [[nodiscard]] size_t size() const;

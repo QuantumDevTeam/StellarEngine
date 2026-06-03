@@ -9,7 +9,7 @@ namespace Stellar::Native::EventSystem
     }
 
     EventQueue::EventQueue(std::string_view name)
-        : _label(Core::Label(name))
+        : _label(Core::Label::CreateBound(name))
     {
     }
 
@@ -18,14 +18,9 @@ namespace Stellar::Native::EventSystem
         _events.TryAdd(event.GetUID(), event);
     }
 
-    std::vector<Event> EventQueue::DequeueAll() const
+    std::shared_ptr<const EventQueueDataType::DataSnapshot> EventQueue::DequeueAll()
     {
-        std::vector<Event> result;
-        for (auto& event : _events.Values())
-        {
-            result.emplace_back(std::move(event));
-        }
-        return result;
+        return _events.TakeSnapshot();
     }
 
     bool EventQueue::Contains(const Core::Identifier& key) const
@@ -53,7 +48,7 @@ namespace Stellar::Native::EventSystem
         return std::format(
             "{}<{}>"
             "#Label({})",
-            StaticClassName(), std::string(_label.GetName()), 
+            StaticClassName(), std::string(_label.GetName()),
             _label.ToString());
     }
 }

@@ -87,8 +87,11 @@ std::generator<const TKey&> DoubleBufferedSnapshotMap<TKey, TValue>::Keys(bool i
     {
         std::lock_guard hotLock(_hotMutex);
         hotItems.reserve(_hotItems.size());
-        for (const auto& [key, _] : _hotItems)
-            hotItems.push_back(key);
+        for (const auto& [key, value] : _hotItems)
+        {
+            if (value.has_value())
+                hotItems.push_back(key);
+        }
     }
     for (const auto& key : hotItems)
         co_yield key;
@@ -105,8 +108,11 @@ std::generator<const TValue&> DoubleBufferedSnapshotMap<TKey, TValue>::Values(bo
     {
         std::lock_guard hotLock(_hotMutex);
         hotItems.reserve(_hotItems.size());
-        for (const auto& [_, value] : _hotItems)
-            hotItems.emplace_back(value.value());
+        for (const auto& [key, value] : _hotItems)
+        {
+            if (value.has_value())
+                hotItems.push_back(value.value());
+        }
     }
     for (const auto& value : hotItems)
         co_yield value;
@@ -115,28 +121,66 @@ std::generator<const TValue&> DoubleBufferedSnapshotMap<TKey, TValue>::Values(bo
 }
 
 template <CHashableKey TKey, typename TValue>
-void DoubleBufferedSnapshotMap<TKey, TValue>::SwapBuffers()
+// ReSharper disable once CppRedundantTypenameKeyword
+std::shared_ptr<const typename DoubleBufferedSnapshotMap<TKey, TValue>::DataSnapshot>
+DoubleBufferedSnapshotMap<TKey, TValue>::GetCurrentSnapshot()
 {
-    std::unique_lock lock(_writeMutex);
+    auto snapshot = GetSnapshot();
     {
-        std::lock_guard hotLock(_hotMutex);
-        for (const auto& [key, value] : _hotItems)
+        std::unique_lock lock(_writeMutex);
         {
-            if (value == std::nullopt)
+            std::lock_guard hotLock(_hotMutex);
+            for (const auto& [key, value] : _hotItems)
             {
-                _writeBuffer->map.erase(key);
+                if (value == std::nullopt)
+                {
+                    snapshot->map.erase(key);
+                    _writeBuffer->map.erase(key);
+                }
+                else
+                {
+                    snapshot->map.insert_or_assign(key, value.value());
+                    _writeBuffer->map.insert_or_assign(key, value.value());
+                }
             }
-            else
-            {
-                _writeBuffer->map.insert_or_assign(key, value.value());
-                
-            }
+            _hotItems.clear();
         }
+        auto newSnapshot = std::make_shared<DataSnapshot>(std::move(*snapshot));
+        _currentSnapshot.store(newSnapshot, std::memory_order_release);
     }
-    auto newSnapshot = std::make_shared<DataSnapshot>(std::move(*_writeBuffer));
-    newSnapshot->version = _currentSnapshot.load(std::memory_order_relaxed)->version + 1;
-    _currentSnapshot.store(newSnapshot, std::memory_order_release);
-    _writeBuffer = std::make_shared<DataSnapshot>();
+    return snapshot;
+}
+
+template <CHashableKey TKey, typename TValue>
+// ReSharper disable once CppRedundantTypenameKeyword
+std::shared_ptr<const typename DoubleBufferedSnapshotMap<TKey, TValue>::DataSnapshot>
+DoubleBufferedSnapshotMap<TKey, TValue>::TakeSnapshot()
+{
+    {
+        std::unique_lock lock(_writeMutex);
+        {
+            std::lock_guard hotLock(_hotMutex);
+            for (const auto& [key, value] : _hotItems)
+            {
+                if (value == std::nullopt)
+                {
+                    _writeBuffer->map.erase(key);
+                }
+                else
+                {
+                    _writeBuffer->map.insert_or_assign(key, value.value());
+                }
+            }
+            _hotItems.clear();
+        }
+
+        auto newSnapshot = std::make_shared<DataSnapshot>(std::move(*_writeBuffer));
+        newSnapshot->version = _currentSnapshot.load(std::memory_order_relaxed)->version + 1;
+        _currentSnapshot.store(newSnapshot, std::memory_order_release);
+        _writeBuffer = std::make_shared<DataSnapshot>();
+    }
+
+    return GetSnapshot();
 }
 
 template <CHashableKey TKey, typename TValue>
@@ -190,5 +234,5 @@ void DoubleBufferedSnapshotMap<TKey, TValue>::Clear()
     }
     std::unique_lock lock(_writeMutex);
     _writeBuffer->map.clear();
-    SwapBuffers();
+    TakeSnapshot();
 }

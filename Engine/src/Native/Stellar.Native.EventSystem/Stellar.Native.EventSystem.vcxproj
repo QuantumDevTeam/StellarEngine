@@ -160,6 +160,7 @@
     <!-- Source Code - HEADER FILES -->
     <ItemGroup>
         <ClInclude Include="Event.h"/>
+        <ClInclude Include="EventBus.h" />
         <ClInclude Include="EventQueue.h"/>
         <ClInclude Include="EventType.h"/>
         <ClInclude Include="include\Stellar.Native.EventSystem\Extensions.h"/>
@@ -169,6 +170,7 @@
     <!-- Source Code - SOURCE FILES -->
     <ItemGroup>
         <ClCompile Include="Event.cpp"/>
+        <ClCompile Include="EventBus.cpp" />
         <ClCompile Include="EventQueue.cpp"/>
         <ClCompile Include="EventType.cpp"/>
         <!-- Future -->

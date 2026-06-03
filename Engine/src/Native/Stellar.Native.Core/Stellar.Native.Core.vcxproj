@@ -155,10 +155,11 @@
 
     <!-- Source Code - HEADER FILES -->
     <ItemGroup>
-        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentFlatMap.h"/>
+        <ClInclude Include="Data\Collections\ConcurrentMap\ConcurrentFlatMap.h" />
+        <ClInclude Include="Data\Collections\ConcurrentMap\ConcurrentMap.inl" />
         <ClInclude Include="Data\Collections\DataContainer.h"/>
-        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentUnorderedMap.h"/>
-        <ClInclude Include="Data\Collections\ConcurrentUnordered\ConcurrentMap.inl"/>
+        <ClInclude Include="Data\Collections\ConcurrentMap\ConcurrentUnorderedMap.h" />
+        <ClInclude Include="Data\Collections\DataContainerType.h" />
         <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.h"/>
         <ClInclude Include="Data\Collections\DoubleBuffered\DoubleBufferedSnapshotMap.inl"/>
         <ClInclude Include="Data\Collections\ICollection.h"/>

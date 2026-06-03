@@ -152,6 +152,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Core", "Engi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.TimeSystem", "Engine\src\Native\Stellar.Native.TimeSystem\Stellar.Native.TimeSystem.vcxproj", "{731F0418-D89B-4B02-88CC-7F8288903904}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Native", "Native", "{E7EC00F9-BF31-4B8F-AB70-D2E85F85B46A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Core.Test", "Engine\tests\Native\Stellar.Native.Core.Test\Stellar.Native.Core.Test.vcxproj", "{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -246,6 +250,10 @@ Global
 		{731F0418-D89B-4B02-88CC-7F8288903904}.Debug|x64.Build.0 = Debug|x64
 		{731F0418-D89B-4B02-88CC-7F8288903904}.Release|x64.ActiveCfg = Release|x64
 		{731F0418-D89B-4B02-88CC-7F8288903904}.Release|x64.Build.0 = Release|x64
+		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}.Debug|x64.ActiveCfg = Debug|x64
+		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}.Debug|x64.Build.0 = Debug|x64
+		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}.Release|x64.ActiveCfg = Release|x64
+		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -296,6 +304,8 @@ Global
 		{67ED4192-5846-4BB4-A941-8D07E5E61572} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{094D70EB-BA0B-45F7-86D8-F7E79660B578} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{731F0418-D89B-4B02-88CC-7F8288903904} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
+		{E7EC00F9-BF31-4B8F-AB70-D2E85F85B46A} = {45EB39FA-C001-4580-BB9C-0D65269E40D5}
+		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696} = {E7EC00F9-BF31-4B8F-AB70-D2E85F85B46A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5E099CB-02E8-4D4A-9FA9-0EC5FE407C48}

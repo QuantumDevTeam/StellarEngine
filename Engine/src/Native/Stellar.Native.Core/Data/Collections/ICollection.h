@@ -84,6 +84,8 @@ namespace Stellar::Native::Core::Data::Collections
 
         virtual void Clear() = 0;
     };
+    
+    inline constexpr size_t DefaultNumSegments = 16;
 }
 
 STELLAR_CLANG_IGNORE_END()

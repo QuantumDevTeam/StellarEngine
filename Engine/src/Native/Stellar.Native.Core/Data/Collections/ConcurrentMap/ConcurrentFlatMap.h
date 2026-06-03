@@ -12,6 +12,7 @@
 namespace Stellar::Native::Core::Data::Collections
 {
     template <CHashableKey TKey, typename TValue>
+    [[deprecated("FlatMap has a critical problems. Use UnorderedMap instead")]]
     struct ConcurrentFlatMap : ICollection<TKey, TValue>
     {
     protected:

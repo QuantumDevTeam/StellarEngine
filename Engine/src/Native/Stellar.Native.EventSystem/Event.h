@@ -17,6 +17,8 @@ namespace Stellar::Native::EventSystem
         uint64_t _timestamp;
 
     public:
+        void* Data = nullptr;
+        
         constexpr Event(const EventType& type, uint64_t timestamp);
 
         ConstexprGetter(Core::Identifier, UID) override { return _uid; }
