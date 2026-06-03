@@ -3,17 +3,17 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include "ConcurrentMap/ConcurrentUnorderedMap.h"
-
-namespace Stellar::Native::Core::Data::Collections
-{
 #ifdef IS_UNORDERED_DataContainer
+#include "ConcurrentMap/ConcurrentUnorderedMap.h"
 #define DataContainerMAP ConcurrentUnorderedIdentifierMap
 #endif
 #ifdef IS_FLAT_DataContainer
+#include "ConcurrentMap/ConcurrentFlatMap.h"
 #define DataContainerMAP ConcurrentFlatIdentifierMap
 #endif
 
+namespace Stellar::Native::Core::Data::Collections
+{
     // TODO: IMetaQuant implementation + DataContainerType
     
     template <typename TValue>

@@ -25,7 +25,7 @@ namespace Stellar::Native::EventSystem
         ConstexprGetter(EventType, EventType) { return _type; }
         ConstexprGetter(uint64_t, Timestamp) { return _timestamp; }
 
-        STELLAR_DEFAULTS(Event, constexpr, override)
+        STELLAR_OVERRIDE_DEFAULTS(Event)
     };
 }
 

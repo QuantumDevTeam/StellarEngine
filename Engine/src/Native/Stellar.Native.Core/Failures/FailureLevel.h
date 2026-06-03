@@ -18,4 +18,4 @@ namespace Stellar::Native::Core::Failures
     inline constexpr FailureLevel Warning{true, true, false, false, false};
     inline constexpr FailureLevel Error{true, true, true, true, false};
     inline constexpr FailureLevel Critical{};
-};
+}

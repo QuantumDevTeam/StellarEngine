@@ -10,15 +10,15 @@
 
 namespace Stellar::Native::EventSystem
 {
-    using EventQueueDataType = Core::Data::Collections::DoubleBufferedSnapshotIdentifierMap<Event>;
-    
     class EventQueue : Core::Quantization::IMetaQuant
     {
         STELLAR_GENERATE_BODY(EventQueue, IMetaQuant)
 
     private:
+        using EventQueueDataType = Core::Data::Collections::DoubleBufferedSnapshotIdentifierMap<Event>;
+
         Core::Label _label = Core::UnnamedUnboundLabel;
-        EventQueueDataType _events{};
+        EventQueueDataType _events{}; // TODO:  NOLINT(clang-diagnostic-unused-private-field) WTF?!
 
     public:
         explicit EventQueue(const Core::Label& label);
@@ -26,13 +26,13 @@ namespace Stellar::Native::EventSystem
 
         PropertyGetter(Core::Identifier, UID) override { return _label.GetUID(); }
         PropertyGetter(Core::Label) { return _label; }
-        
+
         void Enqueue(const Event& event);
         std::shared_ptr<const EventQueueDataType::DataSnapshot> DequeueAll();
 
         [[nodiscard]] bool Contains(const Core::Identifier& key) const;
         [[nodiscard]] size_t size() const;
-        
+
         void Clear();
 
         STELLAR_OVERRIDE_DEFAULTS(EventQueue)

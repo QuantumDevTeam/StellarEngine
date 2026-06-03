@@ -26,10 +26,7 @@ namespace Stellar::Native::EventSystem
         {
         }
 
-        bool operator<(const Handler& other) const
-        {
-            return Priority > other.Priority;
-        }
+        bool operator<(const Handler& other) const { return Priority > other.Priority; }
     };
 
     class EventBus : Core::Quantization::IMetaQuant
@@ -39,8 +36,9 @@ namespace Stellar::Native::EventSystem
     private:
         Core::Identifier _uid;
 
-        Core::Data::Collections::ConcurrentUnorderedIdentifierMap<std::vector<Handler>> _subscriptions; // TODO: To FlatMap
-        Core::Data::Collections::ConcurrentUnorderedIdentifierMap<EventQueue*> _queues; // TODO: To FlatMap
+        // TODO: To FlatMaps
+        Core::Data::Collections::ConcurrentUnorderedIdentifierMap<std::vector<Handler>> _subscriptions;
+        Core::Data::Collections::ConcurrentUnorderedIdentifierMap<EventQueue*> _queues;
 
     public:
         explicit EventBus(Core::Identifier uid);

@@ -46,7 +46,7 @@ namespace Stellar::Native::Core
         // check identifier on null UID
         [[nodiscard]] bool IsNull() const noexcept;
 
-        STELLAR_DEFAULTS(Identifier);
+        STELLAR_DEFAULTS(Identifier)
         
         bool operator<(const Identifier& other) const { return GetHashCode() < other.GetHashCode(); }
     };

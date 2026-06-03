@@ -26,10 +26,10 @@ STELLAR_CLANG_IGNORE_ADD(which)
 void Set##Name(const Type& value)
 
 #define PropertyGetter(Type, Name)\
-[[nodiscard]] const Type& Get##Name() const
+[[nodiscard]] const Type& Get##Name() const noexcept 
 
 #define ConstexprGetter(Type, Name)\
-[[nodiscard]] constexpr const Type& Get##Name() const
+[[nodiscard]] constexpr const Type& Get##Name() const noexcept 
 
 #define STELLAR_CONSTRUCT(Type)\
 Type() = default
@@ -73,7 +73,7 @@ STELLAR_CLASS_NAME_DEF(Type, , modifier , secondModifier)\
 STELLAR_SPACESHIP(Type);
 
 #define STELLAR_OVERRIDE_DEFAULTS(Type)\
-STELLAR_DEFAULTS(Type,, override)
+STELLAR_DEFAULTS(Type, constexpr, override)
 
 #define STELLAR_INLINE_DEFAULTS(Type, modifier, secondModifier)\
 STELLAR_CLASS_NAME_DEF(Type, , modifier , secondModifier)\
