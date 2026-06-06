@@ -24,7 +24,11 @@
 #include <optional>
 #include <mutex>
 
+// lib specific lib's
+#include <chrono>
+
 // custom directives
 #include "include/Stellar.Native.Core/Extensions.h"
+#include "include/Stellar.Native.TimingSystem/Extensions.h"
 
 #endif

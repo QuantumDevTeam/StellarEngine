@@ -15,12 +15,14 @@
 #include <combaseapi.h>
 #include <cstdint>
 #include <array>
+#include <vector>
 #include <string>
 #include <string_view>
 #include <format>
 #include <compare>
 #include <span>
 #include <optional>
+#include <mutex>
 
 // custom directives
 #include "include/Stellar.Native.Core/Extensions.h"

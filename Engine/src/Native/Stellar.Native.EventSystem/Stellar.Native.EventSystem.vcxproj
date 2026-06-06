@@ -106,6 +106,7 @@
             <GenerateDebugInformation>true</GenerateDebugInformation>
         </Link>
     </ItemDefinitionGroup>
+    <!-- RELEASE compiler configuration settings -->
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
         <LinkIncremental>false</LinkIncremental>
     </PropertyGroup>

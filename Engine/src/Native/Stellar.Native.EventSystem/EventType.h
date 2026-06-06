@@ -8,7 +8,7 @@
 
 namespace Stellar::Native::EventSystem
 {
-    struct EventType : Core::Quantization::IMetaQuant
+    struct EventType final : Core::Quantization::IMetaQuant
     {
         STELLAR_GENERATE_BODY(EventType, IMetaQuant)
 

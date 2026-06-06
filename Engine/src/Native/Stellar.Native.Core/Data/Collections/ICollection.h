@@ -4,7 +4,6 @@
 #pragma once
 STELLAR_CLANG_IGNORE("-Wpadded")
 
-#include <vector>
 #include <concepts>
 #include <generator>
 #include <functional>
