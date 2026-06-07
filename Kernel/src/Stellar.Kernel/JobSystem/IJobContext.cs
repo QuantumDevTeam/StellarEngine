@@ -1,26 +1,26 @@
 using System.Threading;
 using Stellar.Kernel.Data.Context;
 
-namespace Stellar.Kernel.TaskSystem;
+namespace Stellar.Kernel.JobSystem;
 
 /// <summary>
-/// Provides execution context for an <see cref="ITask"/>, including task‑specific data,
+/// Provides execution context for an <see cref="IJob"/>, including task‑specific data,
 /// cancellation support, and access to the task instance itself.
 /// </summary>
 /// <remarks>
 /// <para>This interface extends <see cref="IContext"/> to reuse the general data context mechanism of the Stellar kernel.
-/// Each scheduled task receives its own context instance when <see cref="ITask.Execute"/> is called.</para>
+/// Each scheduled task receives its own context instance when <see cref="IJob.Execute"/> is called.</para>
 /// <para>The cancellation token can be triggered by the scheduler (e.g., when the engine shuts down)
 /// to allow long‑running tasks to abort gracefully.</para>
 /// </remarks>
-public interface ITaskContext
+public interface IJobContext
     : IContext
 {
     /// <summary>
     /// Gets the task instance that is being executed.
     /// </summary>
-    /// <value>The original <see cref="ITask"/> object.</value>
-    ITask Task { get; }
+    /// <value>The original <see cref="IJob"/> object.</value>
+    IJob Task { get; }
   
     /// <summary>
     /// Gets a cancellation token that signals when the task execution should be aborted.

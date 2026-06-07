@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Stellar.Kernel.Quantization;
 
-namespace Stellar.Kernel.TaskSystem;
+namespace Stellar.Kernel.JobSystem;
 
 /// <summary>
-/// Provides advanced scheduling capabilities for <see cref="ITask"/> instances,
+/// Provides advanced scheduling capabilities for <see cref="IJob"/> instances,
 /// including priority handling, dependency resolution, and asynchronous execution.
 /// </summary>
 /// <remarks>
 /// <para>The scheduler is responsible for ordering task execution based on priorities and dependencies.
-/// It can be paused, resumed, and reset. The scheduler works on top of a <see cref="ITaskQueue"/>
+/// It can be paused, resumed, and reset. The scheduler works on top of a <see cref="IJobQueue"/>
 /// (usually owned by an <see cref="IThreadPool"/>).</para>
 /// <para>This interface inherits <see cref="IQuantumObject"/> and <see cref="IDisposable"/>.</para>
 /// </remarks>
-public interface ITaskScheduler
+public interface IJobScheduler
     : IQuantumObject, IDisposable
 {
     /// <summary>
@@ -35,9 +35,9 @@ public interface ITaskScheduler
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="task"/> is <c>null</c>.</exception>
     /// <remarks>
     /// The task will be placed into the internal queue and processed according to its
-    /// <see cref="ITask.Priority"/> and <see cref="ITask.Dependencies"/>.
+    /// <see cref="IJob.Priority"/> and <see cref="IJob.Dependencies"/>.
     /// </remarks>
-    void Schedule(ITask task);
+    void Schedule(IJob task);
 
     /// <summary>
     /// Schedules a collection of tasks for execution.
@@ -48,7 +48,7 @@ public interface ITaskScheduler
     /// All tasks are added to the queue. Dependencies between tasks are resolved automatically
     /// by the scheduler. Tasks with higher priority are executed first.
     /// </remarks>
-    void Schedule(IEnumerable<ITask> tasks);
+    void Schedule(IEnumerable<IJob> tasks);
 
     /// <summary>
     /// Starts the scheduler and begins processing tasks synchronously.
@@ -120,11 +120,11 @@ public interface ITaskScheduler
     /// <c>true</c> to mark the task as important (higher priority effect),
     /// <c>false</c> to treat it as normal.
     /// </param>
-    /// <returns>The updated <see cref="ITask"/> instance, or <c>null</c> if the task was not found.</returns>
+    /// <returns>The updated <see cref="IJob"/> instance, or <c>null</c> if the task was not found.</returns>
     /// <remarks>
     /// Important tasks are always executed before normal tasks, regardless of their base priority.
     /// This method can be called even after the task has been scheduled.
     /// </remarks>
     [Obsolete("Bad practice, just use high priority for tasks")]
-    ITask SetImportant(IIdentifier taskIdentifier, bool important);
+    IJob SetImportant(IIdentifier taskIdentifier, bool important);
 }

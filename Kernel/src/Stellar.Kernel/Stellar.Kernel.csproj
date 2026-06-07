@@ -23,6 +23,6 @@
     <!-- Systems used only in runtime in net9.0-->
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
         <Compile Remove="EventSystem\**\*.cs"/>
-        <Compile Remove="TaskSystem\**\*.cs"/>
+        <Compile Remove="JobSystem\**\*.cs"/>
     </ItemGroup>
 </Project>

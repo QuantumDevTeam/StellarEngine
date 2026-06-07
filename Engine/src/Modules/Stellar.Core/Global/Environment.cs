@@ -7,7 +7,7 @@ using Stellar.Kernel.Failures;
 using Stellar.Kernel.FileSystem.Provider;
 using Stellar.Kernel.LoggingSystem;
 using Stellar.Kernel.Quantization;
-using Stellar.Kernel.TaskSystem;
+using Stellar.Kernel.JobSystem;
 
 namespace Stellar.Core.Global;
 
@@ -16,7 +16,7 @@ public static class Engine
     // TODO: initialize all from constructor
 
     public static IFailureDispatcher FailureDispatcher { get; internal set; }
-    public static ITaskScheduler TaskScheduler { get; internal set; }
+    public static IJobScheduler TaskScheduler { get; internal set; }
     public static IFileProviderFactory FileProviderFactory { get; internal set; }
     public static ILogger Logger { get; internal set; }
 

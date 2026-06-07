@@ -1,10 +1,10 @@
 using System;
 using Stellar.Kernel.Quantization;
 
-namespace Stellar.Kernel.TaskSystem;
+namespace Stellar.Kernel.JobSystem;
 
 /// <summary>
-/// Represents a thread‑safe queue of <see cref="ITask"/> instances awaiting execution.
+/// Represents a thread‑safe queue of <see cref="IJob"/> instances awaiting execution.
 /// </summary>
 /// <remarks>
 /// <para>The queue is typically used by an <see cref="IThreadPool"/> to store tasks that are ready to be processed.
@@ -12,7 +12,7 @@ namespace Stellar.Kernel.TaskSystem;
 /// <para>This interface inherits <see cref="IQuantumObject"/> for integration with the Stellar quantization system
 /// and <see cref="IDisposable"/> to release internal resources when the queue is no longer needed.</para>
 /// </remarks>
-public interface ITaskQueue
+public interface IJobQueue
     : IQuantumObject, IDisposable
 {
     /// <summary>
@@ -34,9 +34,9 @@ public interface ITaskQueue
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="task"/> is <c>null</c>.</exception>
     /// <remarks>
     /// The method does not start execution of the task; it only places it into the queue.
-    /// The actual execution is managed by an <see cref="ITaskScheduler"/> or a thread pool worker.
+    /// The actual execution is managed by an <see cref="IJobScheduler"/> or a thread pool worker.
     /// </remarks>
-    void Enqueue(ITask task);
+    void Enqueue(IJob task);
 
     /// <summary>
     /// Attempts to remove and return the task at the beginning of the queue.
@@ -49,7 +49,7 @@ public interface ITaskQueue
     /// This method is non‑blocking. If the queue is empty, it returns <c>false</c> immediately
     /// and sets <paramref name="task"/> to <c>null</c>.
     /// </remarks>
-    bool TryDequeue(out ITask task);
+    bool TryDequeue(out IJob task);
 
     /// <summary>
     /// Removes all tasks from the queue.

@@ -1,14 +1,14 @@
 using System;
 using Stellar.Kernel.Quantization;
 
-namespace Stellar.Kernel.TaskSystem;
+namespace Stellar.Kernel.JobSystem;
 
 /// <summary>
 /// Manages a fixed‑size pool of worker threads that execute tasks from a shared queue.
 /// </summary>
 /// <remarks>
 /// <para>The thread pool is created during engine initialization and lives for the entire application lifetime.
-/// It owns an <see cref="ITaskQueue"/> that holds pending tasks. Worker threads constantly dequeue and execute
+/// It owns an <see cref="IJobQueue"/> that holds pending tasks. Worker threads constantly dequeue and execute
 /// tasks until the pool is stopped.</para>
 /// <para>This interface inherits <see cref="IQuantumObject"/> and <see cref="IDisposable"/> to allow proper cleanup
 /// of thread resources.</para>
@@ -19,12 +19,12 @@ public interface IThreadPool
     /// <summary>
     /// Gets the task queue that stores pending work items.
     /// </summary>
-    /// <value>The <see cref="ITaskQueue"/> instance used by the pool.</value>
+    /// <value>The <see cref="IJobQueue"/> instance used by the pool.</value>
     /// <remarks>
     /// External components can enqueue tasks directly into this queue.
     /// The pool’s threads will automatically dequeue and execute them.
     /// </remarks>
-    ITaskQueue TaskQueue { get; }
+    IJobQueue JobQueue { get; }
 
     /// <summary>
     /// Gets the current number of threads in the pool.
@@ -39,8 +39,8 @@ public interface IThreadPool
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="threadCount"/> is less than or equal to zero.</exception>
     /// <remarks>
     /// If the pool is already running, this method stops workers it first (waiting for pending tasks by default)
-    /// and then restarts with the new thread count. Each thread begins executing <see cref="ITask"/> instances
-    /// from <see cref="TaskQueue"/>.
+    /// and then restarts with the new thread count. Each thread begins executing <see cref="IJob"/> instances
+    /// from <see cref="JobQueue"/>.
     /// </remarks>
     void Start(int threadCount);
 

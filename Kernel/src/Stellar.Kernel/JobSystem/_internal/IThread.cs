@@ -1,6 +1,6 @@
 using Stellar.Kernel.Quantization;
 
-namespace Stellar.Kernel.TaskSystem;
+namespace Stellar.Kernel.JobSystem;
 
 /// <summary>
 /// Represents a wrapper around a system thread used as a simple multitasking worker in the Engine.
@@ -8,7 +8,7 @@ namespace Stellar.Kernel.TaskSystem;
 /// <remarks>
 /// <para>The <see cref="IThread"/> abstraction allows the engine to manage raw threads uniformly.
 /// Each thread is typically associated with an <see cref="IThreadPool"/> and continuously executes tasks
-/// from a shared <see cref="ITaskQueue"/>.</para>
+/// from a shared <see cref="IJobQueue"/>.</para>
 /// <para>This interface inherits <see cref="IQuantumObject"/> to integrate with the Stellar quantization system.</para>
 /// </remarks>
 public interface IThread

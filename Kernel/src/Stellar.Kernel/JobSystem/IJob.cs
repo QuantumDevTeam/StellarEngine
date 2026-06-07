@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Stellar.Kernel.Quantization;
 
-namespace Stellar.Kernel.TaskSystem;
+namespace Stellar.Kernel.JobSystem;
 
 /// <summary>
-/// Represents a unit of work that can be scheduled and executed by the <see cref="ITaskScheduler"/>.
+/// Represents a unit of work that can be scheduled and executed by the <see cref="IJobScheduler"/>.
 /// </summary>
 /// <remarks>
 /// <para>Tasks have a priority value and a list of dependencies. The scheduler ensures that a task
@@ -12,7 +12,7 @@ namespace Stellar.Kernel.TaskSystem;
 /// <para>This interface inherits <see cref="IIdentifiableQuantumObject"/> to provide a unique identifier
 /// for each task, which is used for dependency tracking and lookups.</para>
 /// </remarks>
-public interface ITask
+public interface IJob
     : IIdentifiableQuantumObject
 {
     /// <summary>
@@ -47,5 +47,5 @@ public interface ITask
     /// <para>The <paramref name="context"/> allows the task to read/write shared data, check for cancellation,
     /// and interact with the engine’s data context.</para>
     /// </remarks>
-    void Execute(ITaskContext context);
+    void Execute(IJobContext context);
 }
