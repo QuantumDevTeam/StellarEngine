@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include "Quantization/IMetaQuant.h"
+#include "../Stellar.Native.Core/Quantization/IMetaQuant.h"
 
 namespace Stellar::Native::TimeSystem
 {
@@ -38,7 +38,7 @@ namespace Stellar::Native::TimeSystem
         uint32_t TPS = 60;
         float Speed = 1.0f;
 
-        Clock(uint32_t tps = 60);
+        Clock(uint32_t tps = -1);
         ~Clock() override;
 
         STELLAR_DEFAULT_COPY_OPERATORS(Clock);

@@ -4,9 +4,9 @@
 #pragma once
 
 #include "Event.h"
-#include "Label.h"
-#include "Quantization/IMetaQuant.h"
-#include "Data/Collections/DoubleBuffered/DoubleBufferedSnapshotMap.h"
+#include "../Stellar.Native.Core/Label.h"
+#include "../Stellar.Native.Core/Quantization/IMetaQuant.h"
+#include "../Stellar.Native.Core/Data/Collections/DoubleBuffered/DoubleBufferedSnapshotMap.h"
 
 namespace Stellar::Native::EventSystem
 {

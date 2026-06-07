@@ -28,7 +28,7 @@
 #include <chrono>
 
 // custom directives
-#include "include/Stellar.Native.Core/Extensions.h"
-#include "include/Stellar.Native.TimingSystem/Extensions.h"
+#include "../Stellar.Native.Core/Extensions.h"
+#include "Extensions.h"
 
 #endif

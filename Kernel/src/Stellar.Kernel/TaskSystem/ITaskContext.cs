@@ -21,7 +21,7 @@ public interface ITaskContext
     /// </summary>
     /// <value>The original <see cref="ITask"/> object.</value>
     ITask Task { get; }
-
+  
     /// <summary>
     /// Gets a cancellation token that signals when the task execution should be aborted.
     /// </summary>

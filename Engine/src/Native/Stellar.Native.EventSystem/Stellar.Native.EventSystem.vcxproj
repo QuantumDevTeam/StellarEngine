@@ -79,7 +79,6 @@
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
-                ../Stellar.Native.Core;
                 %(AdditionalIncludeDirectories)
             </AdditionalIncludeDirectories>
             <!-- Optimizations -->
@@ -126,7 +125,6 @@
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
-                ../Stellar.Native.Core;
                 %(AdditionalIncludeDirectories)
             </AdditionalIncludeDirectories>
             <!-- Optimizations -->
@@ -164,7 +162,7 @@
         <ClInclude Include="EventBus.h" />
         <ClInclude Include="EventQueue.h"/>
         <ClInclude Include="EventType.h"/>
-        <ClInclude Include="include\Stellar.Native.EventSystem\Extensions.h"/>
+        <ClInclude Include="Extensions.h" />
         <ClInclude Include="pch.h">
         </ClInclude>
     </ItemGroup>

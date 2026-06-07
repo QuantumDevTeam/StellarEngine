@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include "Label.h"
-#include "Quantization/IMetaQuant.h"
+#include "../Stellar.Native.Core/Label.h"
+#include "../Stellar.Native.Core/Quantization/IMetaQuant.h"
 
 namespace Stellar::Native::EventSystem
 {

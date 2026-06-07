@@ -87,12 +87,12 @@ namespace Stellar::Native::TimeSystem
         _lastTick = now;
     }
 
-    uint64_t Clock::GetHashCode() const noexcept
+    constexpr uint64_t Clock::GetHashCode() const noexcept
     {
         return _uid.GetHashCode();
     }
 
-    std::string Clock::ToString() const noexcept
+    constexpr std::string Clock::ToString() const noexcept
     {
         return std::format(
             "{}"

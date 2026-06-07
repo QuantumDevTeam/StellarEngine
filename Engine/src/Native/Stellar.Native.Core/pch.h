@@ -25,6 +25,6 @@
 #include <mutex>
 
 // custom directives
-#include "include/Stellar.Native.Core/Extensions.h"
+#include "Extensions.h"
 
 #endif

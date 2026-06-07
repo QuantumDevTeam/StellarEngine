@@ -8,7 +8,7 @@ STELLAR_CLANG_IGNORE("-Wpadded")
 
 #include "Event.h"
 #include "EventQueue.h"
-#include "Data/Collections/ConcurrentMap/ConcurrentUnorderedMap.h"
+#include "../Stellar.Native.Core/Data/Collections/ConcurrentMap/ConcurrentUnorderedMap.h"
 
 namespace Stellar::Native::EventSystem
 {

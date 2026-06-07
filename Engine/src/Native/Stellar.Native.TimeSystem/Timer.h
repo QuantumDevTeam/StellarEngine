@@ -5,7 +5,7 @@
 
 #include <functional>
 
-#include "Quantization/IMetaQuant.h"
+#include "../Stellar.Native.Core/Quantization/IMetaQuant.h"
 
 namespace Stellar::Native::TimeSystem
 {

@@ -13,7 +13,7 @@
     </ItemGroup>
     <!-- Global Propertyes -->
     <PropertyGroup Label="Globals">
-        <VCProjectVersion>15.0</VCProjectVersion>
+        <VCProjectVersion>17.0</VCProjectVersion>
         <ProjectGuid>{731F0418-D89B-4B02-88CC-7F8288903904}</ProjectGuid>
         <Keyword>Win32Proj</Keyword>
         <RootNamespace>Stellar.Native.TimeSystem</RootNamespace>
@@ -80,7 +80,6 @@
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
-                ../Stellar.Native.Core;
                 %(AdditionalIncludeDirectories)
             </AdditionalIncludeDirectories>
             <!-- Optimizations -->
@@ -128,7 +127,6 @@
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
-                ../Stellar.Native.Core;
                 %(AdditionalIncludeDirectories)
             </AdditionalIncludeDirectories>
             <!-- Optimizations -->
@@ -162,22 +160,21 @@
 
     <!-- Source Code - HEADER FILES -->
     <ItemGroup>
-        <ClInclude Include="Clock.h" />
-        <ClInclude Include="include\Stellar.Native.TimingSystem\Extensions.h" />
+        <ClInclude Include="Extensions.h" />
+        <ClInclude Include="TimerManager.h"/>
+        <ClInclude Include="Timer.h"/>
+        <ClInclude Include="Clock.h"/>
         <ClInclude Include="pch.h">
         </ClInclude>
-        <ClInclude Include="Timer.h" />
-        <ClInclude Include="TimerManager.h" />
     </ItemGroup>
     <!-- Source Code - SOURCE FILES -->
     <ItemGroup>
-        <!-- Future -->
-        <ClCompile Include="Clock.cpp" />
+        <ClCompile Include="TimerManager.cpp"/>
+        <ClCompile Include="Clock.cpp"/>
         <ClCompile Include="pch.cpp">
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
             <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
         </ClCompile>
-        <ClCompile Include="TimerManager.cpp" />
     </ItemGroup>
 
     <ItemGroup>
