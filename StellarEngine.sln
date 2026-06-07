@@ -56,11 +56,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CDE172FD-CD80-43F2-9846-A1757132B286}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\add_nuget_source.bat = scripts\add_nuget_source.bat
+		scripts\cli.clean.bat = scripts\cli.clean.bat
+		scripts\cli.install.bat = scripts\cli.install.bat
 		install.bat = install.bat
 		scripts\kernel.clean.bat = scripts\kernel.clean.bat
 		scripts\sdk.clean.bat = scripts\sdk.clean.bat
-		scripts\cli.clean.bat = scripts\cli.clean.bat
-		scripts\cli.install.bat = scripts\cli.install.bat
 		scripts\tools.clean.bat = scripts\tools.clean.bat
 	EndProjectSection
 EndProject
@@ -93,9 +93,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{CA91C7F2-216F-4477-93A3-35FDE065838D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		.config\dotnet-tools.json = .config\dotnet-tools.json
 		global.json = global.json
 		NuGet.config = NuGet.config
-		.config\dotnet-tools.json = .config\dotnet-tools.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{FBE4180F-6A7E-437E-BD97-CD604AD02D6E}"
@@ -127,14 +127,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{49C7B188-DD94-4FD0-8FE3-009D52A29B86}"
 	ProjectSection(SolutionItems) = preProject
 		Docs\Architecture.md = Docs\Architecture.md
+		CLA.md = CLA.md
+		CONTRIBUTING.md = CONTRIBUTING.md
 		Docs\DesignPhilosophy.md = Docs\DesignPhilosophy.md
 		Docs\GitPolicy.md = Docs\GitPolicy.md
-		Docs\Versioning.md = Docs\Versioning.md
-		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
-		README.md = README.md
-		CLA.md = CLA.md
 		NOTICE = NOTICE
+		README.md = README.md
+		Docs\Versioning.md = Docs\Versioning.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{A4DCC5C1-D9FB-43B2-967B-8376CC0E69C3}"
@@ -155,6 +155,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Native", "Native", "{E7EC00F9-BF31-4B8F-AB70-D2E85F85B46A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Native.Core.Test", "Engine\tests\Native\Stellar.Native.Core.Test\Stellar.Native.Core.Test.vcxproj", "{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.Core.Wrapper.CLI", "Engine\src\NativeInterop\Stellar.Core.Wrapper.CLI\Stellar.Core.Wrapper.CLI.vcxproj", "{9A816E53-E354-11F4-C6CC-FA831ED87F6B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.EventSystem.Wrapper.CLI", "Engine\src\NativeInterop\Stellar.EventSystem.Wrapper.CLI\Stellar.EventSystem.Wrapper.CLI.vcxproj", "{B29EE0BD-8D68-D9BF-5AD0-F30D2EAD7BB0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.TimeSystem.Wrapper.CLI", "Engine\src\NativeInterop\Stellar.TimeSystem.Wrapper.CLI\Stellar.TimeSystem.Wrapper.CLI.vcxproj", "{74C6023B-0A0E-47D5-7BAE-6F12E86A07EE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stellar.JobSystem.Wrapper.CLI", "Engine\src\NativeInterop\Stellar.JobSystem.Wrapper.CLI\Stellar.JobSystem.Wrapper.CLI.vcxproj", "{EA61CDEE-A249-E554-B8BC-3765C07EF7DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,12 +199,12 @@ Global
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{A8E0B639-72E6-41DD-ADA4-F582A85E0726}.Release|x64.ActiveCfg = Release|Any CPU
 		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Debug|x64.ActiveCfg = Debug|x64
-		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Release|x64.ActiveCfg = Release|x64
 		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Debug|x64.Build.0 = Debug|x64
+		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Release|x64.ActiveCfg = Release|x64
 		{4FA881F9-5917-4BB6-BA93-9DB1FA1C860B}.Release|x64.Build.0 = Release|x64
 		{2D86286A-F993-4ECD-A520-0C02270B8EF6}.Debug|x64.ActiveCfg = Debug|x64
-		{2D86286A-F993-4ECD-A520-0C02270B8EF6}.Release|x64.ActiveCfg = Release|x64
 		{2D86286A-F993-4ECD-A520-0C02270B8EF6}.Debug|x64.Build.0 = Debug|x64
+		{2D86286A-F993-4ECD-A520-0C02270B8EF6}.Release|x64.ActiveCfg = Release|x64
 		{2D86286A-F993-4ECD-A520-0C02270B8EF6}.Release|x64.Build.0 = Release|x64
 		{0E2243E2-30A5-4996-A841-5C0F12A09FC8}.Debug|x64.ActiveCfg = Debug|x64
 		{0E2243E2-30A5-4996-A841-5C0F12A09FC8}.Release|x64.ActiveCfg = Release|x64
@@ -236,12 +244,12 @@ Global
 		{B8350077-6828-4B0C-A52C-71680357BEA6}.Debug|x64.Build.0 = Debug|Any CPU
 		{B8350077-6828-4B0C-A52C-71680357BEA6}.Release|x64.ActiveCfg = Release|Any CPU
 		{B8350077-6828-4B0C-A52C-71680357BEA6}.Release|x64.Build.0 = Release|Any CPU
+		{0B747072-3881-404E-AC31-E50E3823FB74}.Debug|x64.ActiveCfg = Debug|x64
+		{0B747072-3881-404E-AC31-E50E3823FB74}.Release|x64.ActiveCfg = Release|x64
 		{314124F9-9734-4FBE-BA35-2A46B7C55B6F}.Debug|x64.ActiveCfg = Debug|x64
 		{314124F9-9734-4FBE-BA35-2A46B7C55B6F}.Release|x64.ActiveCfg = Release|x64
 		{67ED4192-5846-4BB4-A941-8D07E5E61572}.Debug|x64.ActiveCfg = Debug|x64
 		{67ED4192-5846-4BB4-A941-8D07E5E61572}.Release|x64.ActiveCfg = Release|x64
-		{0B747072-3881-404E-AC31-E50E3823FB74}.Debug|x64.ActiveCfg = Debug|x64
-		{0B747072-3881-404E-AC31-E50E3823FB74}.Release|x64.ActiveCfg = Release|x64
 		{094D70EB-BA0B-45F7-86D8-F7E79660B578}.Debug|x64.ActiveCfg = Debug|x64
 		{094D70EB-BA0B-45F7-86D8-F7E79660B578}.Debug|x64.Build.0 = Debug|x64
 		{094D70EB-BA0B-45F7-86D8-F7E79660B578}.Release|x64.ActiveCfg = Release|x64
@@ -254,6 +262,22 @@ Global
 		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}.Debug|x64.Build.0 = Debug|x64
 		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}.Release|x64.ActiveCfg = Release|x64
 		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696}.Release|x64.Build.0 = Release|x64
+		{9A816E53-E354-11F4-C6CC-FA831ED87F6B}.Debug|x64.ActiveCfg = Debug|x64
+		{9A816E53-E354-11F4-C6CC-FA831ED87F6B}.Debug|x64.Build.0 = Debug|x64
+		{9A816E53-E354-11F4-C6CC-FA831ED87F6B}.Release|x64.ActiveCfg = Release|x64
+		{9A816E53-E354-11F4-C6CC-FA831ED87F6B}.Release|x64.Build.0 = Release|x64
+		{B29EE0BD-8D68-D9BF-5AD0-F30D2EAD7BB0}.Debug|x64.ActiveCfg = Debug|x64
+		{B29EE0BD-8D68-D9BF-5AD0-F30D2EAD7BB0}.Debug|x64.Build.0 = Debug|x64
+		{B29EE0BD-8D68-D9BF-5AD0-F30D2EAD7BB0}.Release|x64.ActiveCfg = Release|x64
+		{B29EE0BD-8D68-D9BF-5AD0-F30D2EAD7BB0}.Release|x64.Build.0 = Release|x64
+		{74C6023B-0A0E-47D5-7BAE-6F12E86A07EE}.Debug|x64.ActiveCfg = Debug|x64
+		{74C6023B-0A0E-47D5-7BAE-6F12E86A07EE}.Debug|x64.Build.0 = Debug|x64
+		{74C6023B-0A0E-47D5-7BAE-6F12E86A07EE}.Release|x64.ActiveCfg = Release|x64
+		{74C6023B-0A0E-47D5-7BAE-6F12E86A07EE}.Release|x64.Build.0 = Release|x64
+		{EA61CDEE-A249-E554-B8BC-3765C07EF7DA}.Debug|x64.ActiveCfg = Debug|x64
+		{EA61CDEE-A249-E554-B8BC-3765C07EF7DA}.Debug|x64.Build.0 = Debug|x64
+		{EA61CDEE-A249-E554-B8BC-3765C07EF7DA}.Release|x64.ActiveCfg = Release|x64
+		{EA61CDEE-A249-E554-B8BC-3765C07EF7DA}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -306,6 +330,10 @@ Global
 		{731F0418-D89B-4B02-88CC-7F8288903904} = {0ABD5A08-6551-4C56-9171-6665F0B5D148}
 		{E7EC00F9-BF31-4B8F-AB70-D2E85F85B46A} = {45EB39FA-C001-4580-BB9C-0D65269E40D5}
 		{DBF8ABFD-16F5-47D5-83DF-5CD13BCA7696} = {E7EC00F9-BF31-4B8F-AB70-D2E85F85B46A}
+		{9A816E53-E354-11F4-C6CC-FA831ED87F6B} = {D50458ED-E6A7-4482-8CA2-C0D3EB147C58}
+		{B29EE0BD-8D68-D9BF-5AD0-F30D2EAD7BB0} = {D50458ED-E6A7-4482-8CA2-C0D3EB147C58}
+		{74C6023B-0A0E-47D5-7BAE-6F12E86A07EE} = {D50458ED-E6A7-4482-8CA2-C0D3EB147C58}
+		{EA61CDEE-A249-E554-B8BC-3765C07EF7DA} = {D50458ED-E6A7-4482-8CA2-C0D3EB147C58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5E099CB-02E8-4D4A-9FA9-0EC5FE407C48}
