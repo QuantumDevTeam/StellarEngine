@@ -6,11 +6,15 @@
 #include <functional>
 #include <shared_mutex>
 
+#include "../../../Identifier.h"
+
 namespace Stellar::Native::Core::Data::Collections
 {
     template <typename T>
     class ConcurrentVector
     {
+        Identifier _uid = Identifier::Create();
+
         mutable std::shared_mutex _mutex;
         std::vector<T> _data{};
 
@@ -25,5 +29,7 @@ namespace Stellar::Native::Core::Data::Collections
         size_t size() const;
 
         void Clear();
+
+        STELLAR_DEFAULTS(ConcurrentVector);
     };
 }

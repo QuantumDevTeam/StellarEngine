@@ -157,6 +157,7 @@
     <ItemGroup>
         <ClInclude Include="Data\Collections\ConcurrentMap\ConcurrentFlatMap.h" />
         <ClInclude Include="Data\Collections\ConcurrentMap\ConcurrentMap.inl" />
+        <ClInclude Include="Data\Collections\ConcurrentQueue\ConcurrentPriorityQueue.h" />
         <ClInclude Include="Data\Collections\ConcurrentVector\ConcurrentVector.h" />
         <ClInclude Include="Data\Collections\DataContainer.h"/>
         <ClInclude Include="Data\Collections\ConcurrentMap\ConcurrentUnorderedMap.h" />
@@ -179,6 +180,7 @@
     </ItemGroup>
     <!-- Source Code - SOURCE FILES -->
     <ItemGroup>
+        <ClCompile Include="Data\Collections\ConcurrentQueue\ConcurrentPriorityQueue.cpp" />
         <ClCompile Include="Data\Collections\ConcurrentVector\ConcurrentVector.cpp" />
         <ClCompile Include="Data\Registry\IdentifierRegistry.cpp"/>
         <ClCompile Include="Data\Registry\LabelRegistry.cpp"/>

@@ -22,7 +22,7 @@ namespace Stellar::Native::JobSystem
 {
     struct Job
     {
-        STELLAR_GENERATE_BODY_PARTIAL(Job)
+        STELLAR_GENERATE_BODY_PARTIAL(Job, explicit)
 
         Core::Identifier UID;
         float Priority;
@@ -39,11 +39,18 @@ namespace Stellar::Native::JobSystem
         {
         }
 
+        STELLAR_CLASS_NAME_DEF(Job)
+
+        [[nodiscard]] STELLAR_TO_STRING() { return std::format("{}#UID({})", StaticClassName(), UID.ToString()); }
+        [[nodiscard]] STELLAR_HASHCODE() { return UID.GetHashCode(); }
+
         bool operator<(const Job& other) const
         {
             return Priority > other.Priority;
         }
     };
 }
+
+STELLAR_GENERATE_DEFAULTS(Stellar::Native::JobSystem, Job)
 
 STELLAR_CLANG_IGNORE_END()

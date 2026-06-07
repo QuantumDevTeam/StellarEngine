@@ -51,4 +51,21 @@ namespace Stellar::Native::Core::Data::Collections
         std::unique_lock lock(_mutex);
         _data.clear();
     }
+
+    template <typename T>
+    uint64_t ConcurrentVector<T>::GetHashCode() const noexcept
+    {
+        return _uid.GetHashCode();
+    }
+
+    template <typename T>
+    std::string ConcurrentVector<T>::ToString() const noexcept
+    {
+        return std::format(
+            "{}"
+            "#UID({})",
+            StaticClassName(),
+            _uid.ToString()
+        );
+    }
 }

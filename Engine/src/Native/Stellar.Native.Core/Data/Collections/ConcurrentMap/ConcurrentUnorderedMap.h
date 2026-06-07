@@ -3,11 +3,11 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include "../../../Identifier.h"
-#include "../ICollection.h"
-
 #include <shared_mutex>
 #include <unordered_map>
+
+#include "../../../Identifier.h"
+#include "../ICollection.h"
 
 namespace Stellar::Native::Core::Data::Collections
 {
@@ -35,8 +35,6 @@ namespace Stellar::Native::Core::Data::Collections
         STELLAR_DECONSTRUCT(ConcurrentUnorderedMap, override);
         STELLAR_DEFAULT_COPY_OPERATORS(ConcurrentUnorderedMap);
 
-        STELLAR_CLASS_NAME_DEF(ConcurrentUnorderedMap);
-
         bool TryAdd(const TKey& key, const TValue& value) override;
         [[nodiscard]] std::optional<TValue> TryGet(const TKey& key) const final;
         bool TryRemove(const TKey& key, TValue& outValue) override;
@@ -54,12 +52,14 @@ namespace Stellar::Native::Core::Data::Collections
         std::generator<std::pair<TKey, TValue>> ForEachPredicateRemove(Pred pred);
 
         void Clear() final;
+
+        STELLAR_DEFAULTS(ConcurrentUnorderedMap);
     };
 
 #define IS_UNORDERED
 #include "ConcurrentMap.inl"
 #undef IS_UNORDERED
-    
+
     template <typename TValue>
     using ConcurrentUnorderedIdentifierMap = ConcurrentUnorderedMap<Identifier, TValue>;
 }
