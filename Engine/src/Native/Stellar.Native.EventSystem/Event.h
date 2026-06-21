@@ -7,9 +7,11 @@
 
 namespace Stellar::Native::EventSystem
 {
-    struct Event : Core::Quantization::IMetaQuant
+    struct Event
     {
-        STELLAR_GENERATE_BODY(Event, IMetaQuant)
+        constexpr Event() = default;
+        ~Event() noexcept = default;
+        STELLAR_DEFAULT_COPY_OPERATORS(Event);
 
     private:
         Core::Identifier _uid;
@@ -18,7 +20,7 @@ namespace Stellar::Native::EventSystem
 
     public:
         void* Data = nullptr;
-        
+
         constexpr Event(const EventType& type, uint64_t timestamp);
 
         ConstexprGetter(Core::Identifier, UID) override { return _uid; }

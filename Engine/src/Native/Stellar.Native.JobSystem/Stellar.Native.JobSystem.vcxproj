@@ -26,6 +26,7 @@
         <PreferredToolArchitecture>x64</PreferredToolArchitecture>
         <OutDir>$(SolutionDir)Engine\bin\$(ProjectName)\$(Configuration)\</OutDir>
         <IntDir>$(Configuration)\</IntDir>
+        <EngineNativeRoot>$(MSBuildThisFileDirectory)..\</EngineNativeRoot>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
         <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -80,6 +81,7 @@
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
+                $(EngineNativeRoot)Stellar.Native.Core;
                 %(AdditionalIncludeDirectories)
             </AdditionalIncludeDirectories>
             <!-- Optimizations -->
@@ -127,6 +129,7 @@
                 %(PreprocessorDefinitions)
             </PreprocessorDefinitions>
             <AdditionalIncludeDirectories>
+                $(EngineNativeRoot)Stellar.Native.Core;
                 %(AdditionalIncludeDirectories)
             </AdditionalIncludeDirectories>
             <!-- Optimizations -->
@@ -160,10 +163,9 @@
 
     <!-- Source Code - HEADER FILES -->
     <ItemGroup>
-        <ClInclude Include="Extensions.h" />
-        <ClInclude Include="JobQueue.h" />
-        <ClInclude Include="Job.h" />
-        <ClInclude Include="JobContext.h" />
+        <ClInclude Include="JobQueue.h"/>
+        <ClInclude Include="Job.h"/>
+        <ClInclude Include="JobContext.h"/>
         <ClInclude Include="pch.h">
         </ClInclude>
     </ItemGroup>
@@ -179,6 +181,9 @@
         <ProjectReference Include="..\Stellar.Native.Core\Stellar.Native.Core.vcxproj">
             <Project>{094d70eb-ba0b-45f7-86d8-f7e79660b578}</Project>
             <Name>Stellar.Native.Core</Name>
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+            <LinkLibraryDependencies>true</LinkLibraryDependencies>
         </ProjectReference>
     </ItemGroup>
 

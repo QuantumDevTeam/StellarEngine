@@ -9,27 +9,26 @@ namespace Stellar::Native::Core
 {
     struct Label final
     {
-        STELLAR_GENERATE_BODY_PARTIAL(Label, constexpr,, noexcept)
+        constexpr Label() noexcept = default;
+        ~Label() noexcept = default;
+        STELLAR_DEFAULT_COPY_OPERATORS(Label);
 
     private:
-        Identifier _uid{};
-        std::string_view _name{};
+        Identifier _uid = Identifier::Null();
+
+        std::string_view _name = {};
 
     public:
         // from name
-        explicit constexpr Label(std::string_view name)
-            : _name(name), _uid(NullIdentifier)
-        {
-        }
+        explicit constexpr Label(std::string_view name);
 
         // from name and id
-        explicit constexpr Label(std::string_view name, Identifier id)
-            : _name(name), _uid(id)
-        {
-        }
+        explicit constexpr Label(std::string_view name, Identifier id);
 
-        ConstexprGetter(Identifier, UID) { return _uid; }
-        ConstexprGetter(std::string_view, Name) { return _name; }
+        STELLAR_CLASS_NAME_DEF(Label)
+
+        ConstexprGetter(const Identifier&, UID) { return _uid; }
+        ConstexprGetter(const std::string_view&, Name) { return _name; }
 
         // null label
         [[nodiscard]] static constexpr Label Null() { return {}; }
@@ -48,12 +47,19 @@ namespace Stellar::Native::Core
         // checking the binding to a certain identifier
         [[nodiscard]] bool IsBound(const Identifier& id) const noexcept;
 
-        STELLAR_DEFAULTS(Label);
+        [[nodiscard]] STELLAR_TO_STRING();
+        [[nodiscard]] STELLAR_HASHCODE();
+
+        STELLAR_SPACESHIP(Label);
     };
+    
+#include "Label.inl"
 
-    inline constexpr Label NullLabel = Label::Null();
+    constexpr Label NullLabel;
 
-    inline constexpr Label UnnamedUnboundLabel = Label::UnnamedUnbound();
+    constexpr Label UnnamedUnboundLabel;
+
+    STELLAR_GENERATE_TO_STRING(Label)
 }
 
-STELLAR_GENERATE_DEFAULTS(Stellar::Native::Core, Label);
+STELLAR_GENERATE_HASHER(Stellar::Native::Core::Label)

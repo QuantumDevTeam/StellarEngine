@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Failures/NativeException.h"
+
 constexpr Identifier::Identifier(const IdentifierDataFormat& bytes)
     : _data(bytes)
 {
@@ -19,7 +21,7 @@ constexpr Identifier::Identifier(std::string_view str)
     if (r1.ec != std::errc{} || r2.ec != std::errc{} ||
         r3.ec != std::errc{} || r4.ec != std::errc{} || r5.ec != std::errc{})
     {
-        throw Failures::NativeException("Invalid GUID format string");
+        throw Stellar::Native::Core::Failures::NativeException("Invalid GUID format string");
     }
 
     _data[0] = p1 >> 24 & 0xFF;

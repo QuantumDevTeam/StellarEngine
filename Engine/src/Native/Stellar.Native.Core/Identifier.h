@@ -3,17 +3,17 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-// ReSharper disable once CppUnusedIncludeDirective
-#include "Failures/NativeException.h"
-
 namespace Stellar::Native::Core
 {
     struct Identifier final
     {
-        STELLAR_GENERATE_BODY_PARTIAL(Identifier, constexpr,, noexcept)
+        using IdentifierDataFormat = std::array<uint8_t, 16>;
+
+        constexpr Identifier() noexcept = default;
+        ~Identifier() noexcept = default;
+        STELLAR_DEFAULT_COPY_OPERATORS(Identifier);
 
     private:
-        using IdentifierDataFormat = std::array<uint8_t, 16>;
         IdentifierDataFormat _data{};
 
         [[nodiscard]] static Identifier FromNativeGUID(const GUID& guid);
@@ -29,7 +29,9 @@ namespace Stellar::Native::Core
         // little-endian
         explicit constexpr Identifier(uint64_t high, uint64_t low);
 
-        PropertyGetter(IdentifierDataFormat, Data) { return _data; }
+        STELLAR_CLASS_NAME_DEF(Identifier)
+
+        PropertyGetter(const IdentifierDataFormat&, Data) { return _data; }
 
         // null identifier
         [[nodiscard]] static constexpr Identifier Null() { return {}; }
@@ -46,14 +48,17 @@ namespace Stellar::Native::Core
         // check identifier on null UID
         [[nodiscard]] bool IsNull() const noexcept;
 
-        STELLAR_DEFAULTS(Identifier)
-        
-        bool operator<(const Identifier& other) const { return GetHashCode() < other.GetHashCode(); }
+        [[nodiscard]] STELLAR_TO_STRING();
+        [[nodiscard]] STELLAR_HASHCODE();
+
+        STELLAR_SPACESHIP(Identifier);
     };
 
 #include "Identifier.inl"
 
-    inline constexpr Identifier NullIdentifier = {};
+    inline constexpr Identifier NullIdentifier;
+
+    STELLAR_GENERATE_TO_STRING(Identifier)
 }
 
-STELLAR_GENERATE_DEFAULTS(Stellar::Native::Core, Identifier)
+STELLAR_GENERATE_HASHER(Stellar::Native::Core::Identifier)

@@ -10,29 +10,31 @@ namespace Stellar::Native::Core::Failures
 {
     struct NativeException : std::exception
     {
-        STELLAR_GENERATE_BODY_PARTIAL(NativeException, constexpr,, noexcept)
+        NativeException() noexcept = default;
+        ~NativeException() noexcept override = default;
+        STELLAR_DEFAULT_COPY_OPERATORS(NativeException);
 
     private:
-        std::string _message;
-        std::exception _innerException;
+        std::string_view _message = "Unknown exception";
+        std::exception _innerException = {};
         FailureLevel _failureLevel = Critical;
 
     public:
-        explicit NativeException(std::string msg)
-            : _message(std::move(msg))
+        explicit NativeException(const std::string_view& msg, const FailureLevel failureLevel = Critical)
+            : _message(std::move(msg)), _failureLevel(failureLevel)
         {
         }
 
         explicit NativeException(const std::exception& e)
-            : _message(e.what()), _innerException(e)
+            : _message(std::move(e.what())), _innerException(std::move(e))
         {
         }
 
         STELLAR_CLASS_NAME_DEF(NativeException)
 
-        PropertyGetter(std::string, Message) { return _message; }
-        PropertyGetter(std::exception, InnerException) { return _innerException; }
-        PropertyGetter(FailureLevel, FailureLevel) { return _failureLevel; }
+        PropertyGetter(const std::string_view&, Message) { return _message; }
+        PropertyGetter(const std::exception&, InnerException) { return _innerException; }
+        PropertyGetter(const FailureLevel&, FailureLevel) { return _failureLevel; }
 
         // C# ToString
         STELLAR_TO_STRING()
@@ -41,8 +43,11 @@ namespace Stellar::Native::Core::Failures
                 "{}"
                 "#Message(\"{}\")",
                 StaticClassName(),
-                _message);
+                _message
+            );
         }
+
+        STELLAR_SPACESHIP(NativeException);
     };
 
     STELLAR_GENERATE_TO_STRING(NativeException);

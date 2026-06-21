@@ -3,12 +3,12 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include "../Stellar.Native.Core/Label.h"
-#include "../Stellar.Native.Core/Quantization/IMetaQuant.h"
+#include "Label.h"
+#include "Quantization/IMetaQuant.h"
 
 namespace Stellar::Native::EventSystem
 {
-    struct EventType final : Core::Quantization::IMetaQuant
+    struct EventType final
     {
         STELLAR_GENERATE_BODY(EventType, IMetaQuant)
 

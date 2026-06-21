@@ -173,6 +173,7 @@
         <ClInclude Include="Identifier.h"/>
         <ClInclude Include="Identifier.inl"/>
         <ClInclude Include="Label.h"/>
+        <ClInclude Include="Label.inl" />
         <ClInclude Include="pch.h">
         </ClInclude>
         <ClInclude Include="Quantization\IMetaQuant.h"/>

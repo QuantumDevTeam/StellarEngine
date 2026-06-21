@@ -23,13 +23,13 @@ STELLAR_CLANG_IGNORE_ADD(which)
 // class and struct members
 
 #define PropertySetter(Type, Name)\
-void Set##Name(const Type& value)
+void Set##Name(Type value) noexcept
 
 #define PropertyGetter(Type, Name)\
-[[nodiscard]] const Type& Get##Name() const noexcept 
+[[nodiscard]] Type Get##Name() const noexcept
 
 #define ConstexprGetter(Type, Name)\
-[[nodiscard]] constexpr const Type& Get##Name() const noexcept 
+[[nodiscard]] constexpr Type Get##Name() const noexcept
 
 #define STELLAR_CONSTRUCT(Type)\
 Type() = default
@@ -58,10 +58,10 @@ Type& operator=(Type&&) = delete
     modifier secondModifier const char* GetClassName() const thirdModifyer { return StaticClassName(); }
 
 #define STELLAR_TO_STRING()\
-std::string ToString() const noexcept
+[[nodiscard]] std::string ToString() const noexcept
 
 #define STELLAR_HASHCODE()\
-uint64_t GetHashCode() const noexcept
+[[nodiscard]] uint64_t GetHashCode() const noexcept
 
 #define STELLAR_SPACESHIP(Type)\
 auto operator<=>(const Type&) const noexcept = default
