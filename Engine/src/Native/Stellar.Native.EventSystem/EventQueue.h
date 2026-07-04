@@ -5,14 +5,14 @@
 
 #include "Event.h"
 #include "../Stellar.Native.Core/Label.h"
-#include "../Stellar.Native.Core/Quantization/IMetaQuant.h"
+#include "../Stellar.Native.Core/Quantization/MetaQuant.h"
 #include "../Stellar.Native.Core/Data/Collections/DoubleBuffered/DoubleBufferedSnapshotMap.h"
 
 namespace Stellar::Native::EventSystem
 {
-    class EventQueue : Core::Quantization::IMetaQuant
+    class EventQueue : Core::Quantization::MetaQuant
     {
-        STELLAR_GENERATE_BODY(EventQueue, IMetaQuant)
+        STELLAR_GENERATE_BODY(EventQueue, MetaQuant)
 
     private:
         using EventQueueDataType = Core::Data::Collections::DoubleBufferedSnapshotIdentifierMap<Event>;

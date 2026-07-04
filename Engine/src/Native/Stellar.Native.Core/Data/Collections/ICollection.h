@@ -4,6 +4,7 @@
 #pragma once
 STELLAR_CLANG_IGNORE("-Wpadded")
 
+#include <optional>
 #include <concepts>
 #include <generator>
 #include <functional>
@@ -69,7 +70,19 @@ namespace Stellar::Native::Core::Data::Collections
     template <CHashableKey TKey, typename TValue>
     class ICollection
     {
-        STELLAR_GENERATE_INTERFACE(ICollection);
+    public:
+        // construction
+        ICollection() noexcept = default;
+        virtual ~ICollection() noexcept = default;
+
+        // copy
+        ICollection(const ICollection&) = default;
+        ICollection(ICollection&&) noexcept = default;
+        ICollection& operator=(const ICollection&) = default;
+        ICollection& operator=(ICollection&&) noexcept = default;
+        
+        // spaceship
+        auto operator<=>(const ICollection&) const noexcept = default;
 
         virtual bool TryAdd(const TKey& key, const TValue& value) = 0;
         [[nodiscard]] virtual std::optional<TValue> TryGet(const TKey& key) const = 0;

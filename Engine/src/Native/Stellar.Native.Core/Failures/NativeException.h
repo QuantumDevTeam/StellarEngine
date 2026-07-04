@@ -4,23 +4,29 @@
 #pragma once
 STELLAR_CLANG_IGNORE("-Wpadded")
 
+#include "_Mixins/Stringable.h"
 #include "FailureLevel.h"
 
 namespace Stellar::Native::Core::Failures
 {
-    struct NativeException : std::exception
+    struct NativeException final : std::exception, Stringable<NativeException>
     {
         NativeException() noexcept = default;
         ~NativeException() noexcept override = default;
-        STELLAR_DEFAULT_COPY_OPERATORS(NativeException);
+
+        // copy
+        NativeException(const NativeException&) = default;
+        NativeException(NativeException&&) noexcept = default;
+        NativeException& operator=(const NativeException&) = default;
+        NativeException& operator=(NativeException&&) noexcept = default;
 
     private:
         std::string_view _message = "Unknown exception";
         std::exception _innerException = {};
-        FailureLevel _failureLevel = Critical;
+        FailureLevel _failureLevel = FailureLevel::Critical;
 
     public:
-        explicit NativeException(const std::string_view& msg, const FailureLevel failureLevel = Critical)
+        explicit NativeException(const std::string_view& msg, const FailureLevel failureLevel = FailureLevel::Critical)
             : _message(std::move(msg)), _failureLevel(failureLevel)
         {
         }
@@ -30,27 +36,19 @@ namespace Stellar::Native::Core::Failures
         {
         }
 
-        STELLAR_CLASS_NAME_DEF(NativeException)
+        const std::string_view& GetMessage() const { return _message; }
+        const std::exception& GetInnerException() const { return _innerException; }
+        const FailureLevel& GetFailureLevel() const { return _failureLevel; }
 
-        PropertyGetter(const std::string_view&, Message) { return _message; }
-        PropertyGetter(const std::exception&, InnerException) { return _innerException; }
-        PropertyGetter(const FailureLevel&, FailureLevel) { return _failureLevel; }
-
-        // C# ToString
-        STELLAR_TO_STRING()
+        [[nodiscard]] std::string ToStringImpl() const noexcept override
         {
             return std::format(
-                "{}"
+                "NativeException"
                 "#Message(\"{}\")",
-                StaticClassName(),
                 _message
             );
         }
-
-        STELLAR_SPACESHIP(NativeException);
     };
-
-    STELLAR_GENERATE_TO_STRING(NativeException);
 }
 
 STELLAR_CLANG_IGNORE_END()

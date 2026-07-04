@@ -29,9 +29,9 @@ namespace Stellar::Native::EventSystem
         bool operator<(const Handler& other) const { return Priority > other.Priority; }
     };
 
-    class EventBus : Core::Quantization::IMetaQuant
+    class EventBus : Core::Quantization::MetaQuant
     {
-        STELLAR_GENERATE_BODY(EventBus, IMetaQuant)
+        STELLAR_GENERATE_BODY(EventBus, MetaQuant)
 
     private:
         Core::Identifier _uid;

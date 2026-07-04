@@ -27,19 +27,4 @@ namespace Stellar::Native::Core
     {
         return _uid == id;
     }
-
-    std::string Label::ToString() const noexcept
-    {
-        return std::format(
-            "{}"
-            "#UID({})"
-            "#Name({})",
-            StaticClassName(),
-            _uid.ToString(), _name);
-    }
-
-    uint64_t Label::GetHashCode() const noexcept
-    {
-        return _uid.GetHashCode();
-    }
 }

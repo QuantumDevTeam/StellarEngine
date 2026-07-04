@@ -60,9 +60,8 @@ namespace Stellar::Native::Core
     {
         auto& d = _data;
         return std::format(
-            "{}"
+            "Identifier"
             "#GUID({:02X}{:02X}{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}-{:02X}{:02X}{:02X}{:02X}{:02X}{:02X})",
-            StaticClassName(), 
             d[0], d[1], d[2], d[3], 
             d[4], d[5], 
             d[6], d[7], 

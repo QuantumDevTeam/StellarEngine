@@ -11,18 +11,22 @@
 #pragma warning(disable: 4003) // unspecified attribute in macros
 
 // most used lib's
-#include <windows.h>
-#include <combaseapi.h>
 #include <cstdint>
+#include <span>
 #include <array>
 #include <vector>
 #include <string>
 #include <string_view>
 #include <format>
-#include <compare>
-#include <span>
-#include <optional>
-#include <mutex>
+#include <combaseapi.h>
+
+// platform
+#ifdef _WINDOWS
+#include <windows.h>
+#endif
+
+// additional
+// no
 
 // custom directives
 #include "Extensions.h"

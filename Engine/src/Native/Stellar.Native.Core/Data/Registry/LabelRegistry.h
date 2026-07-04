@@ -3,6 +3,8 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
+#include <optional>
+
 #include "../Collections/ConcurrentMap/ConcurrentUnorderedMap.h"
 #include "../Collections/DoubleBuffered/DoubleBufferedSnapshotMap.h"
 
@@ -13,10 +15,29 @@ namespace Stellar::Native::Core
 
 namespace Stellar::Native::Core::Data::Registry
 {
-    class LabelRegistry
+    class LabelRegistry final
     {
-        STELLAR_GENERATE_SINGLETON(LabelRegistry)
+    public:
+        // construction
+        constexpr LabelRegistry() noexcept = default;
+        ~LabelRegistry() noexcept = default;
 
+        // copy
+        LabelRegistry(const LabelRegistry&) = default;
+        LabelRegistry(LabelRegistry&&) noexcept = default;
+        LabelRegistry& operator=(const LabelRegistry&) = default;
+        LabelRegistry& operator=(LabelRegistry&&) noexcept = default;
+
+        // spaceship
+        auto operator<=>(const LabelRegistry&) const noexcept = default;
+
+        // singleton
+        static LabelRegistry& GetInstance()
+        {
+            static LabelRegistry instance;
+            return instance;
+        }
+        
     private:
         Collections::ConcurrentUnorderedIdentifierMap<Label> _byId{64};
         Collections::ConcurrentUnorderedMap<std::string_view, Identifier> _byName{};

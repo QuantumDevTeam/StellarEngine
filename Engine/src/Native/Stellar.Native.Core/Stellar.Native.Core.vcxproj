@@ -176,8 +176,9 @@
         <ClInclude Include="Label.inl" />
         <ClInclude Include="pch.h">
         </ClInclude>
-        <ClInclude Include="Quantization\IMetaQuant.h"/>
-        <ClInclude Include="Quantization\MetaQuant.h"/>
+        <ClInclude Include="_Mixins\Hashable.h" />
+        <ClInclude Include="_Mixins\Identifiable.h" />
+        <ClInclude Include="_Mixins\Stringable.h" />
     </ItemGroup>
     <!-- Source Code - SOURCE FILES -->
     <ItemGroup>

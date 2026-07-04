@@ -5,17 +5,11 @@
 
 namespace Stellar::Native::Core::Failures
 {
-    struct FailureLevel
+    enum class FailureLevel : uint8_t
     {
-        bool IsEnabled = true;
-        bool IsLoggable = true;
-        bool IsStopExecute = true;
-        bool IsCritical = true;
-        bool ShouldTerminate = true;
+        NonCritical = 0b00001,
+        Warning = 0b00011,
+        Error = 0b00111,
+        Critical = 0b01111
     };
-
-    inline constexpr FailureLevel NonCritical{true, false, false, false, false};
-    inline constexpr FailureLevel Warning{true, true, false, false, false};
-    inline constexpr FailureLevel Error{true, true, true, true, false};
-    inline constexpr FailureLevel Critical{};
 }

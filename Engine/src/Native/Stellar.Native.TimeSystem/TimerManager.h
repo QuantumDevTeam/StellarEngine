@@ -11,7 +11,7 @@
 
 namespace Stellar::Native::TimeSystem
 {
-    class TimerManager final : Core::Quantization::IMetaQuant
+    class TimerManager final : Core::Quantization::MetaQuant
     {
         Core::Identifier _uid;
         Clock* _clock;

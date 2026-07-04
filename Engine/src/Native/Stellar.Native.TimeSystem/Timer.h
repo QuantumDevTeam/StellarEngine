@@ -5,7 +5,7 @@
 
 #include <functional>
 
-#include "../Stellar.Native.Core/Quantization/IMetaQuant.h"
+#include "../Stellar.Native.Core/Quantization/MetaQuant.h"
 
 namespace Stellar::Native::TimeSystem
 {
@@ -27,9 +27,9 @@ namespace Stellar::Native::TimeSystem
         }
     }
 
-    struct Timer final : Core::Quantization::IMetaQuant
+    struct Timer final : Core::Quantization::MetaQuant
     {
-        STELLAR_GENERATE_BODY(Timer, IMetaQuant)
+        STELLAR_GENERATE_BODY(Timer, MetaQuant)
 
     private:
         Core::Identifier _uid;

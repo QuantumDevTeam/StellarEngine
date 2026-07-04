@@ -3,20 +3,36 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
+#include "_Mixins/Hashable.h"
+#include "_Mixins/Stringable.h"
+
 namespace Stellar::Native::Core
 {
-    struct Identifier final
+    struct Identifier final : Stringable<Identifier>, Hashable<Identifier>
     {
+        // data type
         using IdentifierDataFormat = std::array<uint8_t, 16>;
 
+        // construction
         constexpr Identifier() noexcept = default;
         ~Identifier() noexcept = default;
-        STELLAR_DEFAULT_COPY_OPERATORS(Identifier);
+
+        // copy
+        Identifier(const Identifier&) = default;
+        Identifier(Identifier&&) noexcept = default;
+        Identifier& operator=(const Identifier&) = default;
+        Identifier& operator=(Identifier&&) noexcept = default;
+
+        // spaceship
+        auto operator<=>(const Identifier&) const noexcept = default;
 
     private:
+        // data - binary
         IdentifierDataFormat _data{};
 
+        // helpfully method for creating Identifier from GUID
         [[nodiscard]] static Identifier FromNativeGUID(const GUID& guid);
+        // helpfully method for getting GUID from identifier
         [[nodiscard]] GUID ToNativeGUID() const;
 
     public:
@@ -29,9 +45,8 @@ namespace Stellar::Native::Core
         // little-endian
         explicit constexpr Identifier(uint64_t high, uint64_t low);
 
-        STELLAR_CLASS_NAME_DEF(Identifier)
-
-        PropertyGetter(const IdentifierDataFormat&, Data) { return _data; }
+        // just data getter
+        [[nodiscard]] const IdentifierDataFormat& GetData() const { return _data; }
 
         // null identifier
         [[nodiscard]] static constexpr Identifier Null() { return {}; }
@@ -48,17 +63,12 @@ namespace Stellar::Native::Core
         // check identifier on null UID
         [[nodiscard]] bool IsNull() const noexcept;
 
-        [[nodiscard]] STELLAR_TO_STRING();
-        [[nodiscard]] STELLAR_HASHCODE();
-
-        STELLAR_SPACESHIP(Identifier);
+        // managed operations
+        [[nodiscard]] std::string ToString() const noexcept override;
+        [[nodiscard]] uint64_t GetHashCode() const noexcept override;
     };
 
 #include "Identifier.inl"
 
-    inline constexpr Identifier NullIdentifier;
-
-    STELLAR_GENERATE_TO_STRING(Identifier)
+    inline constexpr Identifier NullIdentifier = Identifier::Null();
 }
-
-STELLAR_GENERATE_HASHER(Stellar::Native::Core::Identifier)

@@ -4,7 +4,7 @@
 #pragma once
 
 #include "Label.h"
-#include "Quantization/IMetaQuant.h"
+#include "Quantization/MetaQuant.h"
 
 namespace Stellar::Native::EventSystem
 {

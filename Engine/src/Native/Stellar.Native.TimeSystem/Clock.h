@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 #pragma once
 
-#include "../Stellar.Native.Core/Quantization/IMetaQuant.h"
+#include "../Stellar.Native.Core/Quantization/MetaQuant.h"
 
 namespace Stellar::Native::TimeSystem
 {
@@ -13,7 +13,7 @@ namespace Stellar::Native::TimeSystem
     using Duration = std::chrono::duration<double, std::milli>;
     using TimePoint = std::chrono::steady_clock::time_point;
 
-    class Clock final : Core::Quantization::IMetaQuant
+    class Clock final : Core::Quantization::MetaQuant
     {
         Core::Identifier _uid;
         bool _isRunning = false;
